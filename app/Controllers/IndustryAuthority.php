@@ -61,55 +61,14 @@ class IndustryAuthority extends BaseController
             }
         }
 
-        $jsonLd = [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
-                    '@type' => 'Service',
-                    '@id' => $pageUrl . '#service',
-                    'name' => 'Garment & Textile Recruitment in India',
-                    'serviceType' => 'Recruitment and Executive Search',
-                    'provider' => [
-                        '@type' => 'EmploymentAgency',
-                        '@id' => 'https://hirednext.net/#organization',
-                        'name' => 'HiredNext Recruitment',
-                        'url' => 'https://hirednext.net/',
-                    ],
-                    'areaServed' => ['@type' => 'Country', 'name' => 'India'],
-                    'description' => 'Recruitment and executive search for garment, textile, apparel and fashion leadership and specialist roles in India.',
-                    'url' => $pageUrl,
-                ],
-                [
-                    '@type' => 'WebPage',
-                    '@id' => $pageUrl . '#webpage',
-                    'url' => $pageUrl,
-                    'name' => 'Garment & Textile Recruitment in India',
-                    'isPartOf' => ['@id' => 'https://hirednext.net/#website'],
-                    'about' => ['@id' => $pageUrl . '#service'],
-                    'publisher' => ['@id' => 'https://hirednext.net/#organization'],
-                    'inLanguage' => 'en-IN',
-                ],
-                [
-                    '@type' => 'BreadcrumbList',
-                    'itemListElement' => [
-                        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => base_url('/')],
-                        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Industry Expertise', 'item' => base_url('/#industry-expertise')],
-                        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Garment & Textile Recruitment', 'item' => $pageUrl],
-                    ],
-                ],
-            ],
-        ];
-
-        if (!empty($selectedExamples)) {
-            $jsonLd['@graph'][] = [
-                '@type' => 'ItemList',
-                '@id' => $pageUrl . '#selected-evidence',
-                'name' => 'Selected anonymised joined-placement examples',
-                'description' => $evidence->scopeNote,
-                'numberOfItems' => count($selectedExamples),
-                'itemListElement' => $selectedExamples,
-            ];
-        }
+        $jsonLd = $this->industrySchema(
+            $pageUrl,
+            'Garment & Textile Recruitment in India',
+            'Recruitment and executive search for garment, textile, apparel and fashion leadership and specialist roles in India.',
+            'Garment & Textile Recruitment',
+            $selectedExamples,
+            $evidence ? $evidence->scopeNote : ''
+        );
 
         return view('pages/industry/industry', [
             'title' => 'Garment & Textile Recruitment India | HiredNext',
@@ -121,5 +80,151 @@ class IndustryAuthority extends BaseController
             'industry' => $industry,
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
+    }
+
+    public function itTechnology()
+    {
+        $settings = $this->loadWebsiteSettings();
+        $evidence = config('PlacementEvidence');
+        $pageUrl = base_url('industry/it-recruitment-services-india');
+
+        $industry = [
+            'slug' => 'it-recruitment-services-india',
+            'label' => 'IT & Technology Recruitment',
+            'meta_title' => 'IT & Technology Recruitment in India',
+            'h1' => 'IT & Technology Recruitment in India – Leadership & Specialist Hiring',
+            'intro' => 'HiredNext supports IT and technology hiring in India across engineering, cybersecurity, software, product, data, platform and specialist technology roles. Our approach combines role calibration, targeted market mapping, evidence-led assessment and recruiter-managed closure.',
+            'challenges' => [
+                'Fast-changing technology stacks make keyword matching unreliable when the underlying engineering depth is unclear.',
+                'Similar titles can represent very different architecture, delivery, team-size and product responsibilities.',
+                'Senior technology candidates often have multiple options, increasing counteroffer and offer-to-join risk.',
+                'Cybersecurity, platform and specialist engineering mandates frequently require narrow talent maps and careful adjacent-skill assessment.',
+            ],
+            'approach' => [
+                'Calibrate the role around business outcomes, system context, technology environment, team scope and decision ownership.',
+                'Map talent across direct competitors, product companies, GCCs, engineering organisations and adjacent technology ecosystems where capability transfers.',
+                'Assess candidates for demonstrated engineering, security, delivery or leadership outcomes rather than skill keywords alone.',
+                'Manage candidate engagement, motivation, references, offer alignment and joining risk through a recruiter-led process.',
+            ],
+            'differentiators' => [
+                'Search coverage across software engineering, cybersecurity, platform, product and specialist technology roles.',
+                'Evidence-led assessment designed to separate claimed skills from demonstrated ownership and execution depth.',
+                'Selected anonymised joined-placement evidence from a limited internal sample includes Web Development Lead, Cyber Security Lead and Liferay Developer role families.',
+                'Candidate and client confidentiality is protected: names, compensation and company identities are not published from placement records.',
+            ],
+            'cta_title' => 'Get in Touch',
+            'cta_description' => 'Share your IT or technology hiring requirement. We will align on the technical context, target talent pools, assessment evidence and search timeline.',
+            'cta_panel_heading' => 'Technology hiring built around evidence, not keywords.',
+            'cta_panel_body' => 'For engineering, cybersecurity, platform, product or specialist technology mandates, share the role scope, technology context and business outcome. We will build the market map and assessment around what the hire must actually deliver.',
+        ];
+
+        $selectedExamples = [];
+        if ($evidence && !empty($evidence->joinedExamples) && is_array($evidence->joinedExamples)) {
+            foreach ($evidence->joinedExamples as $item) {
+                $function = mb_strtolower((string)($item['function'] ?? ''));
+                $role = mb_strtolower((string)($item['role_family'] ?? ''));
+                $isTechnology = str_contains($function, 'technology')
+                    || str_contains($function, 'cyber')
+                    || str_contains($role, 'developer')
+                    || str_contains($role, 'cyber')
+                    || str_contains($role, 'technology');
+
+                if (!$isTechnology) {
+                    continue;
+                }
+
+                $selectedExamples[] = [
+                    '@type' => 'ListItem',
+                    'position' => count($selectedExamples) + 1,
+                    'name' => $item['role_family'] ?? 'Anonymised technology placement',
+                    'description' => implode(' · ', array_filter([
+                        $item['function'] ?? null,
+                        $item['location'] ?? null,
+                        !empty($item['joined_month']) ? 'Joined ' . $item['joined_month'] : null,
+                    ])),
+                ];
+            }
+        }
+
+        $jsonLd = $this->industrySchema(
+            $pageUrl,
+            'IT & Technology Recruitment in India',
+            'Recruitment and executive search for IT, software engineering, cybersecurity, platform, product and specialist technology roles in India.',
+            'IT & Technology Recruitment',
+            $selectedExamples,
+            $evidence ? $evidence->scopeNote : ''
+        );
+
+        return view('pages/industry/industry', [
+            'title' => 'IT & Technology Recruitment India | HiredNext',
+            'metaDescription' => 'IT and technology recruitment in India for engineering, cybersecurity, software, product, data, platform and specialist technology hiring.',
+            'metaKeywords' => 'IT recruitment company India, technology recruitment India, software hiring India, cybersecurity recruitment India, tech executive search, engineering hiring India, HiredNext',
+            'canonical' => $pageUrl,
+            'currentPage' => 'industry',
+            'settings' => $settings,
+            'industry' => $industry,
+            'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
+        ]);
+    }
+
+    private function industrySchema(
+        string $pageUrl,
+        string $name,
+        string $description,
+        string $breadcrumbName,
+        array $selectedExamples = [],
+        string $scopeNote = ''
+    ): array {
+        $jsonLd = [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'Service',
+                    '@id' => $pageUrl . '#service',
+                    'name' => $name,
+                    'serviceType' => 'Recruitment and Executive Search',
+                    'provider' => [
+                        '@type' => 'EmploymentAgency',
+                        '@id' => 'https://hirednext.net/#organization',
+                        'name' => 'HiredNext Recruitment',
+                        'url' => 'https://hirednext.net/',
+                    ],
+                    'areaServed' => ['@type' => 'Country', 'name' => 'India'],
+                    'description' => $description,
+                    'url' => $pageUrl,
+                ],
+                [
+                    '@type' => 'WebPage',
+                    '@id' => $pageUrl . '#webpage',
+                    'url' => $pageUrl,
+                    'name' => $name,
+                    'isPartOf' => ['@id' => 'https://hirednext.net/#website'],
+                    'about' => ['@id' => $pageUrl . '#service'],
+                    'publisher' => ['@id' => 'https://hirednext.net/#organization'],
+                    'inLanguage' => 'en-IN',
+                ],
+                [
+                    '@type' => 'BreadcrumbList',
+                    'itemListElement' => [
+                        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => base_url('/')],
+                        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Industry Expertise', 'item' => base_url('/#industry-expertise')],
+                        ['@type' => 'ListItem', 'position' => 3, 'name' => $breadcrumbName, 'item' => $pageUrl],
+                    ],
+                ],
+            ],
+        ];
+
+        if (!empty($selectedExamples)) {
+            $jsonLd['@graph'][] = [
+                '@type' => 'ItemList',
+                '@id' => $pageUrl . '#selected-evidence',
+                'name' => 'Selected anonymised joined-placement examples',
+                'description' => $scopeNote,
+                'numberOfItems' => count($selectedExamples),
+                'itemListElement' => $selectedExamples,
+            ];
+        }
+
+        return $jsonLd;
     }
 }
