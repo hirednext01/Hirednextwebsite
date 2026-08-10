@@ -6,6 +6,26 @@ use App\Controllers\BaseController;
 
 class CvPayment extends BaseController
 {
+    public function qr()
+    {
+        $qrFile = FCPATH . 'theme/assets/hirednext-paytm-qr.jpg';
+
+        if (!is_file($qrFile) || !is_readable($qrFile)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $qrBytes = file_get_contents($qrFile);
+        if ($qrBytes === false || $qrBytes === '') {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return $this->response
+            ->setHeader('Content-Type', 'image/jpeg')
+            ->setHeader('Cache-Control', 'private, no-store, no-cache, must-revalidate, max-age=0')
+            ->setHeader('Pragma', 'no-cache')
+            ->setBody($qrBytes);
+    }
+
     public function checkout($leadId = null)
     {
         $db = \Config\Database::connect();
