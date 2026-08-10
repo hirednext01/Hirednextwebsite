@@ -134,26 +134,51 @@
     </div>
 </section>
 
-<section class="py-20 bg-gray-50">
+<section class="py-14 md:py-16 bg-[#f4f6f8]">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
-        <div class="grid lg:grid-cols-12 gap-10 items-center bg-white border border-gray-100 rounded-[2rem] p-7 md:p-10 shadow-sm">
-            <div class="lg:col-span-4">
-                <div class="rounded-[1.5rem] overflow-hidden max-w-[320px] mx-auto">
-                    <img src="<?= base_url('theme/about.png') ?>" alt="Taru Shikha, Founder of HiredNext" class="w-full h-auto" loading="lazy">
+        <div class="relative overflow-hidden rounded-[2.25rem] bg-primary border border-primary/10 shadow-2xl shadow-primary/10">
+            <div class="absolute -top-24 -right-20 w-72 h-72 rounded-full bg-accent/10 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-28 left-1/3 w-80 h-80 rounded-full bg-gold/10 blur-3xl pointer-events-none"></div>
+
+            <div class="relative grid lg:grid-cols-[0.82fr_1.18fr] items-stretch">
+                <div class="p-5 md:p-7 lg:p-8">
+                    <div class="relative h-full min-h-[360px] md:min-h-[440px] rounded-[1.65rem] overflow-hidden ring-1 ring-white/10 bg-white/5">
+                        <img src="<?= base_url('theme/about.png') ?>" alt="Taru Shikha, Founder of HiredNext" class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy">
+                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-primary/80 to-transparent"></div>
+                        <div class="absolute left-5 bottom-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-primary/70 backdrop-blur-md px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-white">
+                            Founder · HiredNext
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="lg:col-span-8">
-                <div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-3">Founder perspective</div>
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-5">Recruitment is still a judgement business.</h2>
-                <p class="text-lg text-gray-600 leading-relaxed mb-5">“Technology should help us see more clearly and move faster. It should not replace the responsibility a recruiter has when recommending one person over another.”</p>
-                <div class="font-bold text-primary">Taru Shikha</div>
-                <div class="text-sm text-gray-500 mb-5">Founder, HiredNext</div>
-                <div class="flex flex-wrap gap-3">
-                    <a href="<?= base_url('about/taru-shikha') ?>" class="inline-flex px-5 py-2.5 rounded-full bg-primary text-white font-bold text-sm">Founder profile</a>
-                    <?php if ($mediaAuthority): ?>
-                        <a href="<?= esc($mediaAuthority->founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex px-5 py-2.5 rounded-full border border-gray-300 text-primary font-bold text-sm">Taru on LinkedIn ↗</a>
-                        <a href="<?= esc($mediaAuthority->companyLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex px-5 py-2.5 rounded-full border border-gray-300 text-primary font-bold text-sm">HiredNext on LinkedIn ↗</a>
-                    <?php endif; ?>
+
+                <div class="relative flex flex-col justify-center p-8 md:p-12 lg:p-14 xl:p-16">
+                    <div class="flex items-center gap-3 mb-5">
+                        <span class="h-px w-10 bg-gold"></span>
+                        <span class="text-gold text-[11px] font-black uppercase tracking-[0.3em]">Founder perspective</span>
+                    </div>
+
+                    <h2 class="text-3xl md:text-4xl lg:text-[2.75rem] font-serif font-bold text-white leading-[1.08] mb-6">Recruitment is still a judgement business.</h2>
+                    <p class="text-lg md:text-xl text-white/72 leading-relaxed mb-7 max-w-3xl">“Technology should help us see more clearly and move faster. It should not replace the responsibility a recruiter has when recommending one person over another.”</p>
+
+                    <div class="flex items-end justify-between gap-6 flex-wrap border-b border-white/10 pb-6 mb-6">
+                        <div>
+                            <div class="text-lg font-extrabold text-white">Taru Shikha</div>
+                            <div class="text-sm text-white/55 mt-1">Founder, HiredNext Recruitment</div>
+                        </div>
+                        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.18em] font-bold text-white/45">
+                            <span>Executive Search</span>
+                            <span>Recruitment Intelligence</span>
+                            <span>Human-led · AI-assisted</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                        <a href="<?= base_url('about/taru-shikha') ?>" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-accent text-white font-extrabold text-sm shadow-lg shadow-accent/10 hover:-translate-y-0.5 transition-transform">Founder profile</a>
+                        <?php if ($mediaAuthority): ?>
+                            <a href="<?= esc($mediaAuthority->founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-white/20 bg-white/5 text-white font-bold text-sm hover:bg-white/10 transition-colors">Taru on LinkedIn ↗</a>
+                            <a href="<?= esc($mediaAuthority->companyLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-white/20 bg-white/5 text-white font-bold text-sm hover:bg-white/10 transition-colors">HiredNext on LinkedIn ↗</a>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
