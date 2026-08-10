@@ -50,6 +50,7 @@ class Authority extends BaseController
                     '@id' => 'https://hirednext.net/#organization',
                     'name' => 'HiredNext Recruitment',
                     'url' => 'https://hirednext.net/',
+                    'sameAs' => [$media->companyLinkedIn],
                 ],
                 'knowsAbout' => [
                     'Executive search',
@@ -72,6 +73,7 @@ class Authority extends BaseController
             'settings' => $settings,
             'coverage' => $coverage,
             'founderLinkedIn' => $media->founderLinkedIn,
+            'companyLinkedIn' => $media->companyLinkedIn,
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
     }
@@ -261,6 +263,7 @@ class Authority extends BaseController
                 'publisher' => [
                     'name' => 'HiredNext Recruitment',
                     'url' => base_url('/'),
+                    'same_as' => [$media->companyLinkedIn],
                 ],
                 'founder' => [
                     'name' => $media->founderName,
