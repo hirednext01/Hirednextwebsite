@@ -87,4 +87,121 @@ class ReputationAuthority extends BaseController
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
     }
+
+    public function share()
+    {
+        return view('pages/testimonial-share', [
+            'title' => 'Share Your HiredNext Story | Candidate Testimonial',
+            'metaDescription' => 'Share how HiredNext supported your job search, hiring journey or career progress. Candidate stories are reviewed before publication.',
+            'canonical' => base_url('testimonials/share'),
+            'currentPage' => 'testimonials',
+            'settings' => $this->loadWebsiteSettings(),
+        ]);
+    }
+
+    public function submit()
+    {
+        $name = trim((string)$this->request->getPost('name'));
+        $email = trim((string)$this->request->getPost('email'));
+        $phone = trim((string)$this->request->getPost('phone'));
+        $currentRole = trim((string)$this->request->getPost('current_role'));
+        $helpReceived = trim((string)$this->request->getPost('help_received'));
+        $story = trim((string)$this->request->getPost('story'));
+        $linkedinUrl = trim((string)$this->request->getPost('linkedin_url'));
+        $futureSupport = trim((string)$this->request->getPost('future_support'));
+        $consent = $this->request->getPost('publish_consent') === '1';
+
+        $errors = [];
+        if (mb_strlen($name) < 2) {
+            $errors[] = 'Please enter your name.';
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'Please enter a valid email address.';
+        }
+        if ($helpReceived === '') {
+            $errors[] = 'Please tell us how HiredNext helped you.';
+        }
+        if (mb_strlen($story) < 30) {
+            $errors[] = 'Please share a little more about your journey (at least 30 characters).';
+        }
+        if (!in_array($futureSupport, ['yes', 'maybe', 'no'], true)) {
+            $errors[] = 'Please tell us whether you would like HiredNext support in future.';
+        }
+        if (!$consent) {
+            $errors[] = 'Please confirm that HiredNext may review and publish your testimonial.';
+        }
+        if ($linkedinUrl !== '') {
+            $validUrl = filter_var($linkedinUrl, FILTER_VALIDATE_URL);
+            $scheme = strtolower((string)parse_url($linkedinUrl, PHP_URL_SCHEME));
+            if (!$validUrl || !in_array($scheme, ['http', 'https'], true)) {
+                $errors[] = 'Please enter a valid LinkedIn or public proof URL.';
+            }
+        }
+
+        if ($errors) {
+            return redirect()->back()->withInput()->with('errors', $errors);
+        }
+
+        $db = \Config\Database::connect();
+        if (!$db->tableExists('reviews')) {
+            return redirect()->back()->withInput()->with('errors', ['Testimonial submissions are temporarily unavailable.']);
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $data = [
+            'client_name' => $name,
+            'name' => $name,
+            'comment' => $story,
+            'rating' => 0,
+            'project_type' => 'Candidate Journey',
+            'location' => $currentRole ?: null,
+            'proof_type' => 'Candidate Story',
+            'source_label' => $linkedinUrl !== '' ? 'LinkedIn / public profile' : null,
+            'source_url' => $linkedinUrl ?: null,
+            'submitter_email' => $email,
+            'submitter_phone' => $phone ?: null,
+            'help_received' => $helpReceived,
+            'future_support' => $futureSupport,
+            'publish_consent' => 1,
+            'submitted_via' => 'candidate_testimonial_form',
+            'status' => 'pending',
+            'sort_order' => 0,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ];
+
+        try {
+            $db->table('reviews')->insert($data);
+            $submissionId = $db->insertID();
+        } catch (\Throwable $e) {
+            log_message('error', 'Candidate testimonial submission failed: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('errors', ['We could not save your testimonial right now. Please try again shortly.']);
+        }
+
+        try {
+            $emailService = \Config\Services::email();
+            $emailService->setTo('tarushikha@hirednext.info');
+            $emailService->setSubject('New candidate testimonial submission #' . $submissionId);
+            $emailService->setMessage(
+                "A new candidate testimonial is awaiting review.\n\n" .
+                "Name: {$name}\n" .
+                "Email: {$email}\n" .
+                "Phone: {$phone}\n" .
+                "Current role: {$currentRole}\n" .
+                "How HiredNext helped: {$helpReceived}\n" .
+                "Future support: {$futureSupport}\n" .
+                "LinkedIn/public proof: {$linkedinUrl}\n\n" .
+                "Story:\n{$story}\n\n" .
+                "Status: pending review\n"
+            );
+            if (!$emailService->send()) {
+                log_message('error', 'Candidate testimonial notification email failed for submission #' . $submissionId);
+            }
+        } catch (\Throwable $e) {
+            log_message('error', 'Candidate testimonial email error: ' . $e->getMessage());
+        }
+
+        return redirect()->to('/testimonials/share?submitted=1')
+            ->with('success', 'Thank you. Your story has been received and will be reviewed before anything is published.');
+    }
 }
