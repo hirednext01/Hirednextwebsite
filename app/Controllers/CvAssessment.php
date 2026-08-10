@@ -20,10 +20,6 @@ class CvAssessment extends BaseController
         }
 
         $plan = (string) $this->request->getPost('assessment_plan');
-        $paymentReference = trim((string) $this->request->getPost('payment_reference'));
-        if ($plan === 'priority_599' && $paymentReference === '') {
-            return redirect()->back()->withInput()->with('errors', ['payment_reference' => 'Please enter the UPI transaction/reference number after paying ₹599.']);
-        }
 
         $resume = $this->request->getFile('resume');
         if (!$resume || !$resume->isValid() || $resume->hasMoved()) {
@@ -55,8 +51,8 @@ class CvAssessment extends BaseController
             'message' => trim((string) $this->request->getPost('message')) ?: null,
             'resume_path' => 'writable/uploads/cv-assessments/' . $storedName,
             'amount' => $plan === 'priority_599' ? 599 : 0,
-            'payment_status' => $plan === 'free' ? 'not_required' : 'pending_verification',
-            'payment_id' => $plan === 'priority_599' ? $paymentReference : null,
+            'payment_status' => $plan === 'free' ? 'not_required' : 'awaiting_payment',
+            'payment_id' => null,
             'status' => 'new',
             'created_at' => $now,
             'updated_at' => $now,
@@ -65,7 +61,7 @@ class CvAssessment extends BaseController
         $leadId = $db->insertID();
 
         $subject = $plan === 'priority_599'
-            ? 'New ₹599 Priority CV Assessment Lead #' . $leadId . ' — payment verification needed'
+            ? 'New ₹599 Priority CV Assessment Lead #' . $leadId . ' — awaiting payment'
             : 'New Free CV Assessment Lead #' . $leadId;
 
         $email = \Config\Services::email();
@@ -78,7 +74,6 @@ class CvAssessment extends BaseController
             "Phone: {$lead['phone']}\n" .
             "Service: " . ($plan === 'priority_599' ? '₹599 Priority / 12 hours' : 'Free / 7–10 days') . "\n" .
             "Job: " . ($lead['job_title'] ?: 'Not specified') . "\n" .
-            "UPI reference: " . ($paymentReference ?: 'Not required') . "\n" .
             "Payment status: {$lead['payment_status']}\n" .
             "Lead ID: {$leadId}\n\n" .
             "Message:\n" . ($lead['message'] ?: '—')
@@ -89,9 +84,9 @@ class CvAssessment extends BaseController
         }
 
         if ($plan === 'priority_599') {
-            return redirect()->to('/cv-assessment?payment=verification_pending')->with('success', 'Your priority CV assessment request is saved. We will verify your ₹599 UPI payment and begin the 12-hour assessment after verification.');
+            return redirect()->to('/cv-payment/' . $leadId);
         }
 
-        return redirect()->to('/cv-assessment?submitted=1')->with('success', 'Your CV assessment request has been received. We will email you after review.');
+        return redirect()->to('/services/cv-assessment?submitted=1')->with('success', 'Your CV assessment request has been received. We will email you after review.');
     }
 }
