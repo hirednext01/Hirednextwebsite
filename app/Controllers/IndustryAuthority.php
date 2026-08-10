@@ -61,25 +61,19 @@ class IndustryAuthority extends BaseController
             }
         }
 
-        $jsonLd = $this->industrySchema(
+        return $this->renderIndustryAuthority(
+            $settings,
+            $industry,
             $pageUrl,
             'Garment & Textile Recruitment in India',
             'Recruitment and executive search for garment, textile, apparel and fashion leadership and specialist roles in India.',
             'Garment & Textile Recruitment',
+            'Garment & Textile Recruitment India | HiredNext',
+            'Garment, textile, apparel and fashion recruitment in India for leadership and specialist roles across design, merchandising, product, finance and commercial functions.',
+            'garment recruitment India, textile recruitment agency India, apparel recruitment India, fashion recruitment firm, garment executive search, textile leadership hiring',
             $selectedExamples,
             $evidence ? $evidence->scopeNote : ''
         );
-
-        return view('pages/industry/industry', [
-            'title' => 'Garment & Textile Recruitment India | HiredNext',
-            'metaDescription' => 'Garment, textile, apparel and fashion recruitment in India for leadership and specialist roles across design, merchandising, product, finance and commercial functions.',
-            'metaKeywords' => 'garment recruitment India, textile recruitment agency India, apparel recruitment India, fashion recruitment firm, garment executive search, textile leadership hiring',
-            'canonical' => $pageUrl,
-            'currentPage' => 'industry',
-            'settings' => $settings,
-            'industry' => $industry,
-            'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
-        ]);
     }
 
     public function itTechnology()
@@ -146,19 +140,235 @@ class IndustryAuthority extends BaseController
             }
         }
 
-        $jsonLd = $this->industrySchema(
+        return $this->renderIndustryAuthority(
+            $settings,
+            $industry,
             $pageUrl,
             'IT & Technology Recruitment in India',
             'Recruitment and executive search for IT, software engineering, cybersecurity, platform, product and specialist technology roles in India.',
             'IT & Technology Recruitment',
+            'IT & Technology Recruitment India | HiredNext',
+            'IT and technology recruitment in India for engineering, cybersecurity, software, product, data, platform and specialist technology hiring.',
+            'IT recruitment company India, technology recruitment India, software hiring India, cybersecurity recruitment India, tech executive search, engineering hiring India, HiredNext',
             $selectedExamples,
             $evidence ? $evidence->scopeNote : ''
         );
+    }
+
+    public function bfsiNbfc()
+    {
+        $settings = $this->loadWebsiteSettings();
+        $pageUrl = base_url('industry/bfsi-leadership-hiring');
+        $industry = [
+            'slug' => 'bfsi-leadership-hiring',
+            'label' => 'BFSI & NBFC Recruitment',
+            'meta_title' => 'BFSI & NBFC Recruitment in India',
+            'h1' => 'BFSI & NBFC Recruitment in India – Leadership & Specialist Hiring',
+            'intro' => 'HiredNext supports recruitment for banking, NBFC, fintech, insurance and financial-services mandates in India. The search approach is designed around role-specific evidence, regulated operating context, governance expectations and recruiter-led candidate engagement.',
+            'challenges' => [
+                'Regulated functions require careful separation of title, actual decision authority and demonstrated governance discipline.',
+                'Credit, risk, collections, underwriting, finance, compliance and distribution roles can vary substantially by product and portfolio context.',
+                'Digital, analytics and transformation mandates often require candidates who can bridge technology, commercial outcomes and regulatory constraints.',
+                'Senior candidates may have material notice periods, counteroffers and confidentiality concerns that require active closure management.',
+            ],
+            'approach' => [
+                'Define the mandate around growth, risk, governance, product, portfolio and stakeholder outcomes before mapping the market.',
+                'Map candidates across banks, NBFCs, fintechs, insurers and relevant adjacent financial-services ecosystems.',
+                'Assess evidence of decision quality, portfolio ownership, governance, leadership scope and execution under regulatory visibility.',
+                'Manage referencing, motivation, offer alignment and joining risk through a controlled recruiter-led process.',
+            ],
+            'differentiators' => [
+                'Mandate calibration separates regulatory must-haves from transferable commercial and leadership capability.',
+                'Search can cover leadership and specialist roles across finance, risk, credit, collections, compliance, operations, digital and commercial functions.',
+                'Market mapping is designed around comparable operating complexity rather than company name alone.',
+                'No placement-history claims are made on this page unless supported by verified HiredNext evidence.',
+            ],
+            'cta_title' => 'Get in Touch',
+            'cta_description' => 'Share your BFSI or NBFC requirement, including product, regulatory context and role outcomes. We will align on the market map and assessment approach.',
+            'cta_panel_heading' => 'Financial-services hiring with governance and execution context.',
+            'cta_panel_body' => 'For leadership or specialist mandates across banking, NBFC, fintech and insurance, share the role scope and business context. We will define the relevant talent pools and evidence required before search begins.',
+        ];
+
+        return $this->renderIndustryAuthority(
+            $settings,
+            $industry,
+            $pageUrl,
+            'BFSI & NBFC Recruitment in India',
+            'Recruitment and executive search for banking, NBFC, fintech, insurance and financial-services leadership and specialist roles in India.',
+            'BFSI & NBFC Recruitment',
+            'BFSI & NBFC Recruitment India | HiredNext',
+            'BFSI and NBFC recruitment in India for leadership and specialist roles across risk, credit, finance, collections, compliance, digital and commercial functions.',
+            'BFSI recruitment India, NBFC recruitment company India, banking executive search, fintech recruitment India, insurance recruitment, financial services hiring India'
+        );
+    }
+
+    public function pharmaLifeSciences()
+    {
+        $settings = $this->loadWebsiteSettings();
+        $pageUrl = base_url('industry/pharma-life-sciences-recruitment-india');
+        $industry = [
+            'slug' => 'pharma-life-sciences-recruitment-india',
+            'label' => 'Pharma & Life Sciences Recruitment',
+            'meta_title' => 'Pharma & Life Sciences Recruitment in India',
+            'h1' => 'Pharma & Life Sciences Recruitment in India – Leadership & Specialist Hiring',
+            'intro' => 'HiredNext is expanding its specialist search capability for pharmaceutical and life-sciences hiring in India, with a role-calibrated approach for leadership and specialist mandates across commercial, quality, regulatory, medical, manufacturing, supply chain and enabling functions.',
+            'challenges' => [
+                'Technical and regulated roles require precise alignment on qualification, domain exposure, product context and compliance responsibility.',
+                'Commercial, medical, regulatory, quality and manufacturing talent pools have different evidence requirements and cannot be screened through one generic framework.',
+                'Similar titles may represent very different exposure to formulations, APIs, devices, therapy areas, markets or plant environments.',
+                'Senior hiring often requires confidential engagement with passive candidates and careful validation of functional ownership.',
+            ],
+            'approach' => [
+                'Calibrate the mandate around technical or commercial scope, regulatory environment, product context, team size and measurable outcomes.',
+                'Map talent across pharmaceutical, biotech, medical-device, CRO/CDMO and adjacent life-sciences ecosystems where relevant.',
+                'Assess role-specific evidence across quality, regulatory, medical, manufacturing, R&D, supply chain, finance, HR or commercial leadership.',
+                'Use structured recruiter conversations to test ownership, motivation, mobility and joining risk before shortlist recommendation.',
+            ],
+            'differentiators' => [
+                'The search model is designed to separate mandatory technical/regulatory credentials from capabilities that can transfer across adjacent life-sciences environments.',
+                'HiredNext can build specialist talent maps around the actual operating problem instead of relying on broad industry keywords.',
+                'Leadership and enabling-function mandates can be assessed for both domain context and transferable execution capability.',
+                'This is an expansion vertical; HiredNext will add placement evidence only when verified data is available.',
+            ],
+            'cta_title' => 'Get in Touch',
+            'cta_description' => 'Share your pharma or life-sciences hiring requirement. We will align on domain constraints, target talent pools and assessment evidence.',
+            'cta_panel_heading' => 'Specialist search for regulated and high-skill life-sciences roles.',
+            'cta_panel_body' => 'For technical, commercial or leadership hiring across pharma and life sciences, share the product, regulatory and operating context. We will define the search map around the capabilities that genuinely matter.',
+        ];
+
+        return $this->renderIndustryAuthority(
+            $settings,
+            $industry,
+            $pageUrl,
+            'Pharma & Life Sciences Recruitment in India',
+            'Recruitment and executive search for pharmaceutical, biotech, medical-device and life-sciences leadership and specialist roles in India.',
+            'Pharma & Life Sciences Recruitment',
+            'Pharma & Life Sciences Recruitment India | HiredNext',
+            'Pharma and life-sciences recruitment in India for leadership and specialist roles across quality, regulatory, medical, manufacturing, supply chain and commercial functions.',
+            'pharma recruitment India, life sciences recruitment India, pharmaceutical executive search, pharma hiring company India, regulatory affairs recruitment, quality pharma recruitment'
+        );
+    }
+
+    public function globalCapabilityCentres()
+    {
+        $settings = $this->loadWebsiteSettings();
+        $pageUrl = base_url('industry/global-capability-centres-hiring-india');
+        $industry = [
+            'slug' => 'global-capability-centres-hiring-india',
+            'label' => 'Global Capability Centre Hiring',
+            'meta_title' => 'Global Capability Centre Hiring in India',
+            'h1' => 'Global Capability Centre Hiring in India – Leadership & Specialist Search',
+            'intro' => 'HiredNext supports hiring for Global Capability Centres in India across technology, engineering, cybersecurity, data, finance, HR, operations and functional leadership. The approach focuses on global stakeholder alignment, India talent-market mapping and evidence of operating at the required scale.',
+            'challenges' => [
+                'GCC roles often combine India execution responsibility with global stakeholders, requiring more than strong local functional experience.',
+                'Build, scale and transformation phases need different leadership profiles and different levels of change-management capability.',
+                'Technology and specialist talent markets overlap with product companies, services firms, captives and startups, creating intense competition for proven talent.',
+                'Location strategy, hybrid expectations, global time zones and talent mobility can materially affect candidate availability.',
+            ],
+            'approach' => [
+                'Define whether the mandate is a build, scale, transformation or steady-state role and calibrate leadership outcomes accordingly.',
+                'Map talent across GCCs, product organisations, engineering centres, services firms and adjacent sectors with comparable global operating complexity.',
+                'Assess functional depth together with global stakeholder management, governance, team scale and cross-border execution evidence.',
+                'Manage candidate engagement and closure with explicit attention to scope clarity, location, reporting lines and global decision rights.',
+            ],
+            'differentiators' => [
+                'HiredNext can connect its IT/technology search capability with broader GCC functional hiring requirements.',
+                'Search design distinguishes genuine global operating exposure from titles that imply it without equivalent decision scope.',
+                'Market mapping can include adjacent talent pools when the mandate benefits from product, engineering or transformation capability.',
+                'This expansion page does not claim GCC placement volumes until verified HiredNext evidence is available.',
+            ],
+            'cta_title' => 'Get in Touch',
+            'cta_description' => 'Share your GCC build, scale or leadership mandate in India. We will align on talent pools, global context and search evidence.',
+            'cta_panel_heading' => 'Build and scale Global Capability Centre talent in India.',
+            'cta_panel_body' => 'For GCC leadership and specialist hiring across technology and business functions, share the centre stage, role scope, global stakeholders and location strategy. We will build the search map around that operating context.',
+        ];
+
+        return $this->renderIndustryAuthority(
+            $settings,
+            $industry,
+            $pageUrl,
+            'Global Capability Centre Hiring in India',
+            'Recruitment and executive search for Global Capability Centre leadership and specialist roles across technology and business functions in India.',
+            'Global Capability Centre Hiring',
+            'GCC Hiring India | Global Capability Centres | HiredNext',
+            'Global Capability Centre hiring in India for technology, engineering, cybersecurity, data, finance, HR, operations and leadership roles.',
+            'GCC hiring India, global capability centre recruitment, global capability center hiring India, GCC executive search, captive centre recruitment India, GCC leadership hiring'
+        );
+    }
+
+    public function semiconductors()
+    {
+        $settings = $this->loadWebsiteSettings();
+        $pageUrl = base_url('industry/semiconductor-recruitment-india');
+        $industry = [
+            'slug' => 'semiconductor-recruitment-india',
+            'label' => 'Semiconductor Recruitment',
+            'meta_title' => 'Semiconductor Recruitment in India',
+            'h1' => 'Semiconductor Recruitment in India – Engineering & Leadership Hiring',
+            'intro' => 'HiredNext is expanding specialist recruitment capability for semiconductor and advanced-electronics hiring in India, with search coverage designed around engineering depth, product lifecycle, domain specialisation and leadership scope.',
+            'challenges' => [
+                'Semiconductor talent pools are highly specialised, and broad electronics or software keywords do not reliably indicate relevant depth.',
+                'Design, verification, validation, embedded, firmware, product, process, manufacturing and program roles require different technical evidence.',
+                'Experienced candidates may be concentrated in a limited set of engineering hubs and employers, increasing competition and mobility constraints.',
+                'Leadership mandates require both technical credibility and the ability to scale engineering teams, programs and cross-functional execution.',
+            ],
+            'approach' => [
+                'Calibrate the role around semiconductor domain, product lifecycle stage, technical stack, team scope and measurable delivery outcomes.',
+                'Map talent across semiconductor companies, design centres, embedded/product organisations, electronics firms and adjacent engineering ecosystems where skills transfer.',
+                'Use evidence-led screening to distinguish surface-level keyword matches from genuine design, verification, product or program ownership.',
+                'For leadership roles, assess technical judgement together with team scale, cross-functional execution and stakeholder management.',
+            ],
+            'differentiators' => [
+                'The search model builds on HiredNext technology and engineering recruitment capability while applying narrower semiconductor role calibration.',
+                'Adjacent-skill mapping can widen talent pools without weakening critical technical requirements.',
+                'Recruiter-led assessment focuses on what the candidate personally designed, delivered, validated or led.',
+                'This is an expansion vertical; no semiconductor placement-history claims are made until verified evidence is available.',
+            ],
+            'cta_title' => 'Get in Touch',
+            'cta_description' => 'Share your semiconductor or advanced-electronics hiring requirement. We will align on domain depth, target talent pools and assessment evidence.',
+            'cta_panel_heading' => 'Specialist engineering search for semiconductor talent.',
+            'cta_panel_body' => 'For design, verification, embedded, firmware, product, program or engineering leadership mandates, share the technical scope and business outcome. We will define the search map around the actual engineering evidence required.',
+        ];
+
+        return $this->renderIndustryAuthority(
+            $settings,
+            $industry,
+            $pageUrl,
+            'Semiconductor Recruitment in India',
+            'Recruitment and executive search for semiconductor, embedded, firmware, chip-design, verification, product and engineering leadership roles in India.',
+            'Semiconductor Recruitment',
+            'Semiconductor Recruitment India | HiredNext',
+            'Semiconductor recruitment in India for chip design, verification, embedded, firmware, product, program and engineering leadership roles.',
+            'semiconductor recruitment India, semiconductor hiring company India, chip design recruitment, VLSI recruitment India, embedded hiring India, semiconductor executive search'
+        );
+    }
+
+    private function renderIndustryAuthority(
+        array $settings,
+        array $industry,
+        string $pageUrl,
+        string $schemaName,
+        string $schemaDescription,
+        string $breadcrumbName,
+        string $title,
+        string $metaDescription,
+        string $metaKeywords,
+        array $selectedExamples = [],
+        string $scopeNote = ''
+    ) {
+        $jsonLd = $this->industrySchema(
+            $pageUrl,
+            $schemaName,
+            $schemaDescription,
+            $breadcrumbName,
+            $selectedExamples,
+            $scopeNote
+        );
 
         return view('pages/industry/industry', [
-            'title' => 'IT & Technology Recruitment India | HiredNext',
-            'metaDescription' => 'IT and technology recruitment in India for engineering, cybersecurity, software, product, data, platform and specialist technology hiring.',
-            'metaKeywords' => 'IT recruitment company India, technology recruitment India, software hiring India, cybersecurity recruitment India, tech executive search, engineering hiring India, HiredNext',
+            'title' => $title,
+            'metaDescription' => $metaDescription,
+            'metaKeywords' => $metaKeywords,
             'canonical' => $pageUrl,
             'currentPage' => 'industry',
             'settings' => $settings,
