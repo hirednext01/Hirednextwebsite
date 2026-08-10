@@ -50,6 +50,14 @@ class AddReviewProofFields extends Migration
         if ($columns) {
             $this->forge->addColumn('reviews', $columns);
         }
+
+        // Home historically rendered `name`, while the reviews table stored
+        // `client_name`. Backfill the additive display field without changing
+        // or deleting any existing testimonial data.
+        $fieldsAfter = array_flip($this->db->getFieldNames('reviews'));
+        if (isset($fieldsAfter['name']) && isset($fieldsAfter['client_name'])) {
+            $this->db->query("UPDATE reviews SET name = client_name WHERE (name IS NULL OR name = '') AND client_name IS NOT NULL AND client_name != ''");
+        }
     }
 
     public function down()
