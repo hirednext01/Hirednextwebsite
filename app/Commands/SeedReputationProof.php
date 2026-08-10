@@ -64,7 +64,9 @@ class SeedReputationProof extends BaseCommand
                 'location' => 'Public ' . $sourceLabel,
                 'source_label' => $sourceLabel,
                 'source_url' => $sourceUrl,
-                'status' => 'active',
+                // Keep source-backed recommendations separate from rated reviews
+                // so the approved Home testimonial cards never imply fake stars.
+                'status' => 'external',
                 'sort_order' => (int)($item['sort_order'] ?? -50),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
