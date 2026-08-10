@@ -10,8 +10,21 @@ class SeedDecisionAuthorityBlogs extends BaseCommand
 {
     protected $group = 'SEO';
     protected $name = 'blog:seed-decision-authority';
-    protected $description = 'Publish or refresh HiredNext high-intent employer decision blogs by slug.';
+    protected $description = 'Publish missing HiredNext decision blogs and correct only fallback images without overwriting existing content.';
     protected $usage = 'blog:seed-decision-authority [--dry-run]';
+
+    /**
+     * Each decision-authority article has its own featured visual.
+     * Existing articles with a custom image are always preserved.
+     */
+    private array $featuredImages = [
+        'best-executive-search-firm-india-how-to-choose' => 'https://hirednext.net/theme/assets/executive.jpeg',
+        'executive-search-vs-recruitment-agency-india' => 'https://hirednext.net/theme/assets/rpo.jpeg',
+        'how-to-hire-cxo-india-executive-search' => 'https://hirednext.net/theme/assets/avron.jpeg',
+        'how-to-fill-hard-to-hire-roles-india' => 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=82&w=1400',
+        'how-to-evaluate-recruitment-agency-credibility-india' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=82&w=1400',
+        'specialist-recruitment-vs-rpo-vs-executive-search' => 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=82&w=1400',
+    ];
 
     public function run(array $params)
     {
@@ -31,17 +44,58 @@ class SeedDecisionAuthorityBlogs extends BaseCommand
 
         $optimizer = new BlogSearchOptimizer();
         $created = 0;
-        $updated = 0;
+        $imageCorrected = 0;
+        $preserved = 0;
         $skipped = 0;
 
         foreach ($config->posts as $post) {
             $slug = trim((string)($post['slug'] ?? ''));
             $title = trim((string)($post['title'] ?? ''));
             $content = trim((string)($post['content'] ?? ''));
+            $featuredImage = $this->featuredImages[$slug] ?? '';
 
-            if ($slug === '' || $title === '' || $content === '') {
-                CLI::write('Skipped invalid configured post: ' . ($title ?: $slug ?: 'untitled'), 'red');
+            if ($slug === '' || $title === '' || $content === '' || $featuredImage === '') {
+                CLI::write('Skipped invalid configured post/image: ' . ($title ?: $slug ?: 'untitled'), 'red');
                 $skipped++;
+                continue;
+            }
+
+            $existing = $db->table('blog_posts')
+                ->select('id, title, slug, featured_image')
+                ->where('slug', $slug)
+                ->get()
+                ->getRowArray();
+
+            // Existing decision articles are content-locked here. We never rewrite
+            // their title, content, metadata, category, author or publication date.
+            if ($existing) {
+                $currentImage = trim((string)($existing['featured_image'] ?? ''));
+
+                if (!$this->isFallbackImage($currentImage)) {
+                    CLI::write(($dryRun ? '[DRY RUN] Would preserve existing article: ' : 'Existing article preserved: ') . $existing['title'], 'yellow');
+                    $preserved++;
+                    continue;
+                }
+
+                if ($dryRun) {
+                    CLI::write('[DRY RUN] Would correct featured image only: ' . $existing['title'], 'yellow');
+                    $imageCorrected++;
+                    continue;
+                }
+
+                $ok = $db->table('blog_posts')
+                    ->where('id', $existing['id'])
+                    ->update(['featured_image' => $featuredImage]);
+
+                if (!$ok) {
+                    CLI::write('Failed to correct featured image: ' . $existing['title'], 'red');
+                    $skipped++;
+                    continue;
+                }
+
+                $imageCorrected++;
+                CLI::write('Existing article preserved; featured image corrected: ' . $existing['title'], 'green');
+                $this->notifyIndexNow(base_url('blog/' . $slug));
                 continue;
             }
 
@@ -50,7 +104,7 @@ class SeedDecisionAuthorityBlogs extends BaseCommand
                 'slug' => $slug,
                 'content' => $content,
                 'excerpt' => trim((string)($post['excerpt'] ?? '')),
-                'featured_image' => trim((string)($post['featured_image'] ?? '')) ?: 'https://hirednext.net/theme/assets/home.jpeg',
+                'featured_image' => $featuredImage,
                 'category' => trim((string)($post['category'] ?? 'Recruitment Strategy')) ?: 'Recruitment Strategy',
                 'tags' => trim((string)($post['tags'] ?? '')),
                 'author_name' => trim((string)($post['author_name'] ?? 'Taru Shikha')) ?: 'Taru Shikha',
@@ -64,57 +118,52 @@ class SeedDecisionAuthorityBlogs extends BaseCommand
             $payload = array_merge($base, $optimized, [
                 'status' => 'published',
                 'sort_order' => 0,
+                'published_at' => $now,
+                'created_at' => $now,
                 'updated_at' => $now,
             ]);
 
-            $existing = $db->table('blog_posts')
-                ->select('id, title, slug, status, published_at')
-                ->where('slug', $slug)
-                ->get()
-                ->getRowArray();
-
             if ($dryRun) {
-                CLI::write('[DRY RUN] ' . ($existing ? 'Would refresh: ' : 'Would publish: ') . $title, 'yellow');
-                $existing ? $updated++ : $created++;
+                CLI::write('[DRY RUN] Would publish new article: ' . $title, 'green');
+                $created++;
                 continue;
             }
 
-            if ($existing) {
-                if (empty($existing['published_at'])) {
-                    $payload['published_at'] = $now;
-                }
-                $ok = $db->table('blog_posts')->where('id', $existing['id'])->update($payload);
-                if (!$ok) {
-                    CLI::write('Failed to refresh: ' . $title, 'red');
-                    $skipped++;
-                    continue;
-                }
-                $updated++;
-                CLI::write('Refreshed: ' . $title, 'green');
-            } else {
-                $payload['published_at'] = $now;
-                $payload['created_at'] = $now;
-                $ok = $db->table('blog_posts')->insert($payload);
-                if (!$ok) {
-                    CLI::write('Failed to publish: ' . $title, 'red');
-                    $skipped++;
-                    continue;
-                }
-                $created++;
-                CLI::write('Published: ' . $title, 'green');
+            $ok = $db->table('blog_posts')->insert($payload);
+            if (!$ok) {
+                CLI::write('Failed to publish: ' . $title, 'red');
+                $skipped++;
+                continue;
             }
 
+            $created++;
+            CLI::write('Published new article: ' . $title, 'green');
             $this->notifyIndexNow(base_url('blog/' . $slug));
         }
 
         CLI::newLine();
         CLI::write('Decision authority posts configured: ' . count($config->posts), 'yellow');
-        CLI::write(($dryRun ? 'Would publish: ' : 'Published: ') . $created, 'green');
-        CLI::write(($dryRun ? 'Would refresh: ' : 'Refreshed: ') . $updated, 'green');
+        CLI::write(($dryRun ? 'Would publish new: ' : 'Published new: ') . $created, 'green');
+        CLI::write(($dryRun ? 'Would correct images only: ' : 'Images corrected only: ') . $imageCorrected, 'green');
+        CLI::write('Existing articles preserved without content changes: ' . $preserved, 'yellow');
         CLI::write('Skipped/failed: ' . $skipped, $skipped ? 'red' : 'yellow');
         if ($dryRun) {
             CLI::write('Dry run only. Database was not changed.', 'yellow');
         }
+    }
+
+    private function isFallbackImage(string $image): bool
+    {
+        if ($image === '') {
+            return true;
+        }
+
+        $path = parse_url($image, PHP_URL_PATH);
+        if (!is_string($path) || $path === '') {
+            $path = $image;
+        }
+
+        return strtolower(basename($path)) === 'home.jpeg';
     }
 
     private function notifyIndexNow(string $url): void
