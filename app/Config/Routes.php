@@ -11,6 +11,7 @@ $routes->get('/', 'Home::index');
 $routes->get('about', 'Home::about');
 $routes->get('services', 'Home::services');
 $routes->get('services/(:any)', 'Home::serviceDetail/$1');
+$routes->get('cv-assessment', 'CandidateServices::cvAssessment');
 $routes->get('industry/(:any)', 'Home::industry/$1');
 $routes->get('regions/(:any)', 'Home::region/$1');
 $routes->get('blog', 'Home::blog');
@@ -25,7 +26,7 @@ $routes->post('contact/submit', 'Home::submitContact');
 $routes->get('test', 'Test::index');
 
 // API Routes for React Admin Panel
-$routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
+$routes->group('api', ['namespace' => 'App\\Controllers\\Api'], function ($routes) {
 
     // CORS preflight OPTIONS routes
     $routes->options('(:any)', function () {
