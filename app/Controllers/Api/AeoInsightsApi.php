@@ -2,6 +2,8 @@
 
 namespace App\Controllers\Api;
 
+use CodeIgniter\HTTP\ResponseInterface;
+
 class AeoInsightsApi extends BaseApiController
 {
     private function payload(): array
@@ -10,8 +12,16 @@ class AeoInsightsApi extends BaseApiController
         return is_array($data) ? $data : $this->request->getPost();
     }
 
+    private function authorize()
+    {
+        return $this->requireRole(['admin', 'manager', 'editor']);
+    }
+
     public function index()
     {
+        $user = $this->authorize();
+        if ($user instanceof ResponseInterface) return $user;
+
         $db = \Config\Database::connect();
         $rows = $db->table('aeo_insights')->orderBy('created_at', 'DESC')->get()->getResultArray();
         return $this->successResponse($rows, 'AEO insights retrieved successfully');
@@ -19,6 +29,9 @@ class AeoInsightsApi extends BaseApiController
 
     public function show($id = null)
     {
+        $user = $this->authorize();
+        if ($user instanceof ResponseInterface) return $user;
+
         $db = \Config\Database::connect();
         $row = $db->table('aeo_insights')->where('id', $id)->get()->getRowArray();
         if (!$row) return $this->errorResponse('AEO insight not found', 404);
@@ -27,6 +40,9 @@ class AeoInsightsApi extends BaseApiController
 
     public function create()
     {
+        $user = $this->authorize();
+        if ($user instanceof ResponseInterface) return $user;
+
         $data = $this->payload();
         foreach (['title', 'content'] as $field) {
             if (empty(trim((string) ($data[$field] ?? '')))) return $this->errorResponse($field . ' is required', 422);
@@ -38,14 +54,22 @@ class AeoInsightsApi extends BaseApiController
         $now = date('Y-m-d H:i:s');
 
         $insert = [
-            'title' => trim($data['title']), 'slug' => $slug, 'question' => trim((string) ($data['question'] ?? '')) ?: null,
-            'excerpt' => trim((string) ($data['excerpt'] ?? '')) ?: null, 'content' => $data['content'],
-            'industry' => trim((string) ($data['industry'] ?? '')) ?: null, 'location' => trim((string) ($data['location'] ?? '')) ?: null,
-            'role' => trim((string) ($data['role'] ?? '')) ?: null, 'author' => trim((string) ($data['author'] ?? '')) ?: null,
-            'meta_title' => trim((string) ($data['meta_title'] ?? '')) ?: null, 'meta_description' => trim((string) ($data['meta_description'] ?? '')) ?: null,
+            'title' => trim((string) $data['title']),
+            'slug' => $slug,
+            'question' => trim((string) ($data['question'] ?? '')) ?: null,
+            'excerpt' => trim((string) ($data['excerpt'] ?? '')) ?: null,
+            'content' => (string) $data['content'],
+            'industry' => trim((string) ($data['industry'] ?? '')) ?: null,
+            'location' => trim((string) ($data['location'] ?? '')) ?: null,
+            'role' => trim((string) ($data['role'] ?? '')) ?: null,
+            'author' => trim((string) ($data['author'] ?? '')) ?: null,
+            'meta_title' => trim((string) ($data['meta_title'] ?? '')) ?: null,
+            'meta_description' => trim((string) ($data['meta_description'] ?? '')) ?: null,
             'faq_json' => isset($data['faq']) ? json_encode($data['faq'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : null,
-            'status' => $status, 'published_at' => $status === 'published' ? ($data['published_at'] ?? $now) : null,
-            'created_at' => $now, 'updated_at' => $now,
+            'status' => $status,
+            'published_at' => $status === 'published' ? ($data['published_at'] ?? $now) : null,
+            'created_at' => $now,
+            'updated_at' => $now,
         ];
 
         $db = \Config\Database::connect();
@@ -57,6 +81,9 @@ class AeoInsightsApi extends BaseApiController
 
     public function update($id = null)
     {
+        $user = $this->authorize();
+        if ($user instanceof ResponseInterface) return $user;
+
         $data = $this->payload();
         $db = \Config\Database::connect();
         $existing = $db->table('aeo_insights')->where('id', $id)->get()->getRowArray();
@@ -78,6 +105,9 @@ class AeoInsightsApi extends BaseApiController
 
     public function delete($id = null)
     {
+        $user = $this->authorize();
+        if ($user instanceof ResponseInterface) return $user;
+
         $db = \Config\Database::connect();
         if (!$db->table('aeo_insights')->where('id', $id)->countAllResults()) return $this->errorResponse('AEO insight not found', 404);
         $db->table('aeo_insights')->where('id', $id)->delete();
