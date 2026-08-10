@@ -28,6 +28,8 @@ $routes->get('hiring-intelligence', 'DiscoveryAuthority::hiringIntelligence');
 $routes->get('authority/hiring-intelligence.json', 'DiscoveryAuthority::hiringIntelligenceJson');
 $routes->get('authority/actions.json', 'DiscoveryAuthority::actionsJson');
 $routes->get('authority/facts.json', 'DiscoveryAuthority::factsJson');
+$routes->get('authority/recommendation-evidence.json', 'DecisionGuides::recommendationEvidenceJson');
+$routes->get('guides/(:segment)', 'DecisionGuides::show/$1');
 $routes->get('insights', 'Aeo::index');
 $routes->get('insights/(:any)', 'Aeo::show/$1');
 
