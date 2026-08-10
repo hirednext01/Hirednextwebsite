@@ -18,6 +18,8 @@ class CreateCvAssessmentLeads extends Migration
             'job_title' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'message' => ['type' => 'TEXT', 'null' => true],
             'resume_path' => ['type' => 'VARCHAR', 'constraint' => 500, 'null' => true],
+            'amount' => ['type' => 'INT', 'constraint' => 11, 'default' => 0],
+            'razorpay_order_id' => ['type' => 'VARCHAR', 'constraint' => 120, 'null' => true],
             'payment_status' => ['type' => 'VARCHAR', 'constraint' => 30, 'default' => 'not_required'],
             'payment_id' => ['type' => 'VARCHAR', 'constraint' => 120, 'null' => true],
             'status' => ['type' => 'VARCHAR', 'constraint' => 30, 'default' => 'new'],
@@ -27,6 +29,7 @@ class CreateCvAssessmentLeads extends Migration
         $this->forge->addKey('id', true);
         $this->forge->addKey('email');
         $this->forge->addKey('status');
+        $this->forge->addKey('razorpay_order_id');
         $this->forge->createTable('cv_assessment_leads', true);
     }
 
