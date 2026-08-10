@@ -86,25 +86,54 @@ const BLOG_DATA = <?= json_encode($blogData, JSON_HEX_TAG | JSON_HEX_AMP | JSON_
         const filterContainer = document.getElementById('filterContainer');
         const paginationContainer = document.getElementById('pagination');
 
-        // Extract unique categories
+        const normaliseCategory = (value) => {
+            const category = String(value ?? '').trim();
+            return category || 'General';
+        };
+
+        const escapeHtml = (value) => String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+        BLOG_DATA.forEach(post => {
+            post.category = normaliseCategory(post.category);
+        });
+
+        // Extract unique categories from the actual published posts.
         const categories = ['All', ...new Set(BLOG_DATA.map(post => post.category))];
 
         function renderFilters() {
-            filterContainer.innerHTML = categories.map(cat => `
-                <button onclick="setFilter('${cat}')" 
+            filterContainer.innerHTML = categories.map((cat, index) => `
+                <button type="button" data-filter-index="${index}"
                         class="px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all duration-300
                         ${currentFilter === cat ? 'bg-primary text-white shadow-xl' : 'text-primary/50 hover:bg-gray-50 hover:text-primary'}">
-                    ${cat}
+                    ${escapeHtml(cat)}
                 </button>
             `).join('');
+
+            filterContainer.querySelectorAll('[data-filter-index]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const index = Number(button.dataset.filterIndex);
+                    if (Number.isInteger(index) && categories[index] !== undefined) {
+                        setFilter(categories[index]);
+                    }
+                });
+            });
         }
 
         function renderBlogs() {
             const filteredData = currentFilter === 'All'
                 ? BLOG_DATA
-                : BLOG_DATA.filter(post => post.category === currentFilter);
+                : BLOG_DATA.filter(post => normaliseCategory(post.category) === currentFilter);
 
             const totalPages = Math.ceil(filteredData.length / postsPerPage);
+            if (totalPages > 0 && currentPage > totalPages) {
+                currentPage = totalPages;
+            }
+
             const start = (currentPage - 1) * postsPerPage;
             const end = start + postsPerPage;
             const paginatedData = filteredData.slice(start, end);
@@ -115,7 +144,7 @@ const BLOG_DATA = <?= json_encode($blogData, JSON_HEX_TAG | JSON_HEX_AMP | JSON_
                         <img src="${post.image}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 group-hover:grayscale-0" />
                         <div class="absolute top-6 left-6 z-20">
                             <span class="px-4 py-1.5 bg-white shadow-sm text-primary text-[10px] font-black rounded-lg uppercase tracking-widest border border-gray-100">
-                                ${post.category}
+                                ${escapeHtml(post.category)}
                             </span>
                         </div>
                     </a>
@@ -128,16 +157,16 @@ const BLOG_DATA = <?= json_encode($blogData, JSON_HEX_TAG | JSON_HEX_AMP | JSON_
                             </span>
                             <span class="flex items-center">
                                 <i data-lucide="clock" class="w-3 h-3 mr-2 text-gray-300"></i>
-                                ${post.readTime}
+                                ${escapeHtml(post.readTime)}
                             </span>
                         </div>
 
                         <h2 class="text-2xl font-black text-primary mb-6 group-hover:text-accent transition-colors font-serif leading-tight">
-                            ${post.title}
+                            ${escapeHtml(post.title)}
                         </h2>
 
                         <p class="text-gray-500 text-sm mb-10 leading-relaxed line-clamp-3">
-                            ${post.excerpt}
+                            ${escapeHtml(post.excerpt)}
                         </p>
 
                         <a href="${post.link}" class="mt-auto pt-8 border-t border-gray-50 group/btn">
@@ -151,8 +180,16 @@ const BLOG_DATA = <?= json_encode($blogData, JSON_HEX_TAG | JSON_HEX_AMP | JSON_
             `).join('');
 
             renderPagination(totalPages);
-            lucide.createIcons();
-            observeElements(); // Re-trigger scroll reveal
+
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+
+            if (typeof observeElements === 'function') {
+                observeElements();
+            } else {
+                blogGrid.querySelectorAll('.reveal').forEach(element => element.classList.add('revealed'));
+            }
         }
 
         function renderPagination(totalPages) {
@@ -196,7 +233,10 @@ const BLOG_DATA = <?= json_encode($blogData, JSON_HEX_TAG | JSON_HEX_AMP | JSON_
         }
 
         function setFilter(cat) {
-            currentFilter = cat;
+            currentFilter = normaliseCategory(cat);
+            if (cat === 'All') {
+                currentFilter = 'All';
+            }
             currentPage = 1;
             renderFilters();
             renderBlogs();
