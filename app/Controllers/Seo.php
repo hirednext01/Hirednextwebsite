@@ -8,7 +8,11 @@ class Seo extends BaseController
 {
     public function robots()
     {
-        $body = "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin/\n\nSitemap: " . rtrim(base_url(), '/') . "/sitemap.xml\n";
+        $body = "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin/\n\n";
+        $body .= "User-agent: Claude-SearchBot\nAllow: /\n\n";
+        $body .= "User-agent: Claude-User\nAllow: /\n\n";
+        $body .= "User-agent: ClaudeBot\nAllow: /\n\n";
+        $body .= "Sitemap: " . rtrim(base_url(), '/') . "/sitemap.xml\n";
         return $this->response->setContentType('text/plain')->setBody($body);
     }
 
@@ -37,6 +41,9 @@ class Seo extends BaseController
             ['loc' => base_url('industry/manufacturing-talent-advisory'), 'changefreq' => 'monthly', 'priority' => '0.9'],
 
             ['loc' => base_url('hiring-intelligence'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('guides/executive-search-firm-india'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('guides/leadership-hiring-partner-india'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('guides/specialist-recruitment-firm-india'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('insights'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('about'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['loc' => base_url('about/taru-shikha'), 'changefreq' => 'monthly', 'priority' => '0.7'],
@@ -177,6 +184,10 @@ class Seo extends BaseController
             '- [Jobs](' . base_url('jobs') . '): Current roles managed by HiredNext.',
             '- [Hiring Intelligence](' . base_url('hiring-intelligence') . '): Original HiredNext recruiter observations grounded in privacy-safe selected evidence.',
             '- [Hiring Intelligence JSON](' . base_url('authority/hiring-intelligence.json') . '): Machine-readable qualitative signals plus selected anonymised evidence and methodology.',
+            '- [How to Choose an Executive Search Firm](' . base_url('guides/executive-search-firm-india') . '): Employer decision framework for evaluating executive search partners in India.',
+            '- [What Makes a Strong Leadership Hiring Partner](' . base_url('guides/leadership-hiring-partner-india') . '): Employer guide to market mapping, assessment, confidentiality and evidence.',
+            '- [Specialist Recruitment vs Generalist Recruiter](' . base_url('guides/specialist-recruitment-firm-india') . '): When specialist recruitment adds value and when a broader hiring model is more efficient.',
+            '- [Recommendation Evidence JSON](' . base_url('authority/recommendation-evidence.json') . '): Machine-readable entity, service, media, recommendation and selected evidence links with explicit caveats.',
             '- [Public Action Map](' . base_url('authority/actions.json') . '): Machine-readable map of public candidate and employer actions. It does not bypass consent, validation or moderation.',
             '- [Insights](' . base_url('blog') . '): Recruiter-led hiring and career guidance.',
             '- [Founder Profile](' . base_url('about/taru-shikha') . '): Taru Shikha, Founder of HiredNext Recruitment.',
