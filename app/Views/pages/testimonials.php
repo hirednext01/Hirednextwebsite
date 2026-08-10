@@ -3,42 +3,85 @@
 <?php
 $calendlyUrl = 'https://calendly.com/tarushikha-hirednext/30min';
 $items = $testimonials ?? [];
+$publishedCount = count($items);
 ?>
 
-<header class="bg-primary text-white pt-28 pb-12 relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-[360px] h-[360px] bg-accent/12 rounded-full blur-[110px] -mr-28 -mt-28"></div>
+<style>
+    .testimonial-luxe-card {
+        box-shadow: 0 18px 55px rgba(12, 52, 102, 0.07);
+    }
+    .testimonial-luxe-card:hover {
+        box-shadow: 0 28px 70px rgba(12, 52, 102, 0.12);
+    }
+    .testimonial-quote-mark {
+        font-family: 'DM Serif Display', serif;
+        line-height: .65;
+    }
+</style>
+
+<header class="relative overflow-hidden bg-[#071f3d] text-white pt-28 pb-14 md:pb-16">
+    <div class="absolute inset-0 opacity-40" style="background: radial-gradient(circle at 80% 10%, rgba(255,78,22,.20), transparent 34%), radial-gradient(circle at 5% 90%, rgba(212,175,55,.14), transparent 32%);"></div>
+    <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
+
     <div class="max-w-[1180px] mx-auto px-6 relative z-10">
-        <div class="max-w-4xl">
-            <div class="text-gold text-[11px] font-black uppercase tracking-[0.28em] mb-3">Testimonials & Recommendations</div>
-            <h1 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-4">What people say about HiredNext</h1>
-            <p class="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl">Public LinkedIn recommendations, employer endorsements and candidate feedback — with source links wherever public proof is available.</p>
+        <div class="grid lg:grid-cols-12 gap-10 items-end">
+            <div class="lg:col-span-8">
+                <div class="inline-flex items-center gap-3 text-gold text-[10px] font-black uppercase tracking-[0.34em] mb-5">
+                    <span class="w-8 h-px bg-gold/70"></span>
+                    Reputation, in their words
+                </div>
+                <h1 class="text-4xl md:text-6xl font-serif font-bold leading-[1.03] max-w-4xl mb-5">
+                    Senior voices.<br><span class="text-white/65">Real recruitment experiences.</span>
+                </h1>
+                <p class="text-base md:text-lg text-white/65 leading-relaxed max-w-3xl">
+                    Recommendations from hiring leaders, clients and professionals who have worked with HiredNext — with public source links wherever independent proof is available.
+                </p>
+            </div>
+
+            <div class="lg:col-span-4 lg:pl-8">
+                <div class="border-l border-white/15 pl-6 py-1">
+                    <div class="text-[10px] uppercase tracking-[0.28em] text-white/45 font-black mb-2">Published proof</div>
+                    <div class="flex items-end gap-3 mb-3">
+                        <span class="text-4xl font-serif text-white"><?= esc((string)$publishedCount) ?></span>
+                        <span class="text-sm text-white/55 pb-1">stories & recommendations</span>
+                    </div>
+                    <p class="text-xs text-white/45 leading-relaxed">Public recommendations remain linked to their original source. Candidate-submitted stories are clearly identified.</p>
+                </div>
+            </div>
         </div>
     </div>
 </header>
 
-<section class="bg-white border-b border-gray-100">
-    <div class="max-w-[1180px] mx-auto px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-            <div class="text-[10px] uppercase tracking-[0.22em] text-accent font-black mb-1">Your story matters</div>
-            <p class="text-sm md:text-base text-gray-600">Did HiredNext help you get hired or move your career forward? Tell us about the journey.</p>
+<section class="bg-[#f7f5f0] border-b border-[#e8e3d9]">
+    <div class="max-w-[1180px] mx-auto px-6 py-6 md:py-7 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+        <div class="flex items-start gap-4 max-w-3xl">
+            <div class="mt-1 w-9 h-9 rounded-full border border-[#d9d1c3] bg-white flex items-center justify-center text-accent font-serif text-xl shrink-0">“</div>
+            <div>
+                <div class="text-[10px] uppercase tracking-[0.24em] text-primary/55 font-black mb-1">Your experience belongs here too</div>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed">If HiredNext helped with a role, a career move or a difficult hiring mandate, share the journey. Every submission is reviewed before publication.</p>
+            </div>
         </div>
-        <a href="<?= base_url('testimonials/share') ?>" class="shrink-0 inline-flex justify-center px-6 py-3 rounded-xl bg-primary text-white font-extrabold text-sm hover:bg-accent transition">Leave a testimonial →</a>
+        <a href="<?= base_url('testimonials/share') ?>" class="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-extrabold text-sm hover:bg-accent transition-colors duration-300">
+            Share your story <span aria-hidden="true">↗</span>
+        </a>
     </div>
 </section>
 
-<section class="py-12 md:py-16 bg-gray-50">
+<section class="py-14 md:py-20 bg-[#fbfaf7]">
     <div class="max-w-[1180px] mx-auto px-6">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-            <div class="max-w-3xl">
-                <div class="text-accent text-[10px] font-black uppercase tracking-[0.25em] mb-2">Recruitment reputation</div>
-                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">Evidence from people, partners and professionals</h2>
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-10 md:mb-14 items-end">
+            <div class="lg:col-span-8">
+                <div class="text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-3">Source-linked reputation</div>
+                <h2 class="text-3xl md:text-5xl font-serif font-bold text-primary leading-tight">Proof should feel personal.<br><span class="text-primary/45">And remain verifiable.</span></h2>
             </div>
-            <p class="text-sm text-gray-500 max-w-md">Public recommendations link to their source. Directly submitted testimonials are clearly identified as HiredNext submissions.</p>
+            <div class="lg:col-span-4">
+                <p class="text-sm text-gray-500 leading-relaxed">We do not turn candidate submissions into third-party reviews. Public-source recommendations are labeled separately from stories submitted directly to HiredNext.</p>
+            </div>
         </div>
 
-        <div id="testimonialGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div id="testimonialGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             <?php if (!empty($items)): ?>
-                <?php foreach ($items as $item): ?>
+                <?php foreach ($items as $index => $item): ?>
                     <?php
                     $rating = (int)($item['rating'] ?? 0);
                     $proofType = $item['proof_type'] ?? $item['industry'] ?? $item['category'] ?? $item['project_type'] ?? 'Recruitment Feedback';
@@ -53,53 +96,94 @@ $items = $testimonials ?? [];
                     $submittedVia = trim((string)($item['submitted_via'] ?? ''));
                     $helpReceived = trim((string)($item['help_received'] ?? ''));
                     $isCandidateSubmission = $submittedVia === 'candidate_testimonial_form';
+                    $isDark = $index === 0;
                     ?>
-                    <article class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                        <div class="flex flex-wrap items-center gap-2 mb-4">
-                            <span class="px-3 py-1 rounded-full bg-primary/5 text-[10px] uppercase tracking-[0.14em] font-black text-primary"><?= esc($proofType) ?></span>
-                            <?php if ($sourceUrl !== ''): ?>
-                                <span class="px-3 py-1 rounded-full bg-green-50 text-[10px] uppercase tracking-[0.14em] font-black text-green-700">Public source</span>
-                            <?php elseif ($isCandidateSubmission): ?>
-                                <span class="px-3 py-1 rounded-full bg-gray-100 text-[10px] uppercase tracking-[0.14em] font-black text-gray-500">Submitted to HiredNext</span>
-                            <?php elseif ($rating > 0): ?>
-                                <span class="text-accent text-xs" aria-label="<?= esc((string)$rating) ?> out of 5 rating"><?php for ($i = 1; $i <= 5; $i++): ?><?= $i <= $rating ? '★' : '☆' ?><?php endfor; ?></span>
-                            <?php endif; ?>
-                        </div>
 
-                        <?php if ($headline !== $proofType): ?><h3 class="text-lg font-bold text-primary mb-3"><?= esc($headline) ?></h3><?php endif; ?>
-                        <?php if ($helpReceived !== ''): ?><div class="text-xs font-bold text-accent mb-3"><?= esc($helpReceived) ?></div><?php endif; ?>
-                        <p class="text-[15px] text-gray-600 leading-relaxed mb-6">“<?= esc($quote) ?>”</p>
+                    <article class="testimonial-luxe-card group relative overflow-hidden rounded-[1.75rem] border <?= $isDark ? 'bg-[#0a2b53] border-[#0a2b53] text-white' : 'bg-white border-[#ece7dd] text-primary' ?> p-7 md:p-9 transition-all duration-500 hover:-translate-y-1">
+                        <?php if ($isDark): ?>
+                            <div class="absolute -top-24 -right-20 w-64 h-64 rounded-full bg-accent/10 blur-3xl"></div>
+                        <?php endif; ?>
 
-                        <div class="mt-auto pt-5 border-t border-gray-100">
-                            <div class="font-extrabold text-primary text-sm"><?= esc($name) ?></div>
-                            <?php if ($role !== '' || $company !== ''): ?>
-                                <div class="text-xs text-gray-500 mt-1 leading-relaxed">
-                                    <?= esc($role) ?><?= $role !== '' && $company !== '' ? ' · ' : '' ?><?= esc($company) ?>
+                        <div class="relative z-10 h-full flex flex-col">
+                            <div class="flex items-start justify-between gap-5 mb-8">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="px-3 py-1.5 rounded-full border <?= $isDark ? 'border-white/15 bg-white/5 text-white/65' : 'border-primary/10 bg-primary/[0.035] text-primary/65' ?> text-[9px] uppercase tracking-[0.18em] font-black"><?= esc($proofType) ?></span>
+
+                                    <?php if ($sourceUrl !== ''): ?>
+                                        <span class="px-3 py-1.5 rounded-full border <?= $isDark ? 'border-gold/25 bg-gold/10 text-gold' : 'border-[#e8dcc0] bg-[#fbf6e9] text-[#8b6d24]' ?> text-[9px] uppercase tracking-[0.18em] font-black">Source verified</span>
+                                    <?php elseif ($isCandidateSubmission): ?>
+                                        <span class="px-3 py-1.5 rounded-full border <?= $isDark ? 'border-white/10 bg-white/5 text-white/50' : 'border-gray-200 bg-gray-50 text-gray-500' ?> text-[9px] uppercase tracking-[0.18em] font-black">Candidate submitted</span>
+                                    <?php elseif ($rating > 0): ?>
+                                        <span class="text-gold text-xs" aria-label="<?= esc((string)$rating) ?> out of 5 rating"><?php for ($i = 1; $i <= 5; $i++): ?><?= $i <= $rating ? '★' : '☆' ?><?php endfor; ?></span>
+                                    <?php endif; ?>
                                 </div>
+
+                                <div class="testimonial-quote-mark text-6xl md:text-7xl <?= $isDark ? 'text-gold/65' : 'text-accent/30' ?> select-none" aria-hidden="true">“</div>
+                            </div>
+
+                            <?php if ($headline !== $proofType): ?>
+                                <h3 class="text-lg md:text-xl font-serif font-bold <?= $isDark ? 'text-white' : 'text-primary' ?> mb-3"><?= esc($headline) ?></h3>
                             <?php endif; ?>
 
-                            <div class="mt-4 flex flex-wrap gap-3">
-                                <?php if ($sourceUrl !== ''): ?>
-                                    <a href="<?= esc($sourceUrl) ?>" target="_blank" rel="noopener noreferrer external" class="text-xs font-extrabold text-accent">View <?= esc($sourceLabel ?: 'public source') ?> →</a>
-                                <?php elseif ($isCandidateSubmission && $linkedinUrl !== ''): ?>
-                                    <a href="<?= esc($linkedinUrl) ?>" target="_blank" rel="noopener noreferrer external" class="text-xs font-extrabold text-primary">LinkedIn profile →</a>
-                                <?php endif; ?>
+                            <?php if ($helpReceived !== ''): ?>
+                                <div class="text-[10px] font-black uppercase tracking-[0.2em] <?= $isDark ? 'text-gold' : 'text-accent' ?> mb-4"><?= esc($helpReceived) ?></div>
+                            <?php endif; ?>
+
+                            <blockquote class="text-[16px] md:text-[17px] <?= $isDark ? 'text-white/78' : 'text-gray-600' ?> leading-[1.8] mb-8">
+                                <?= esc($quote) ?>
+                            </blockquote>
+
+                            <div class="mt-auto pt-6 border-t <?= $isDark ? 'border-white/12' : 'border-[#ece7dd]' ?> flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
+                                <div>
+                                    <div class="font-extrabold <?= $isDark ? 'text-white' : 'text-primary' ?> text-base"><?= esc($name) ?></div>
+                                    <?php if ($role !== ''): ?>
+                                        <div class="text-sm <?= $isDark ? 'text-white/60' : 'text-gray-500' ?> mt-1 leading-relaxed font-medium"><?= esc($role) ?></div>
+                                    <?php endif; ?>
+                                    <?php if ($company !== ''): ?>
+                                        <div class="text-xs <?= $isDark ? 'text-white/40' : 'text-gray-400' ?> mt-1 uppercase tracking-[0.12em]"><?= esc($company) ?></div>
+                                    <?php endif; ?>
+                                </div>
+
+                                <div class="shrink-0">
+                                    <?php if ($sourceUrl !== ''): ?>
+                                        <a href="<?= esc($sourceUrl) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex items-center gap-2 text-xs font-extrabold <?= $isDark ? 'text-gold hover:text-white' : 'text-accent hover:text-primary' ?> transition-colors" aria-label="View public source for <?= esc($name) ?>">
+                                            View <?= esc($sourceLabel ?: 'public source') ?> <span aria-hidden="true">↗</span>
+                                        </a>
+                                    <?php elseif ($isCandidateSubmission && $linkedinUrl !== ''): ?>
+                                        <a href="<?= esc($linkedinUrl) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex items-center gap-2 text-xs font-extrabold <?= $isDark ? 'text-white/70 hover:text-white' : 'text-primary hover:text-accent' ?> transition-colors" aria-label="View LinkedIn profile for <?= esc($name) ?>">
+                                            LinkedIn profile <span aria-hidden="true">↗</span>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </article>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="md:col-span-2 xl:col-span-3 bg-white border border-gray-200 rounded-2xl p-10 text-center text-gray-500">Testimonials will appear here once available.</div>
+                <div class="lg:col-span-2 bg-white border border-[#ece7dd] rounded-[1.75rem] p-12 text-center">
+                    <div class="font-serif text-3xl text-primary mb-3">Stories are being curated.</div>
+                    <p class="text-gray-500">Published recommendations and candidate stories will appear here once reviewed.</p>
+                </div>
             <?php endif; ?>
         </div>
     </div>
 </section>
 
-<section class="py-14 text-center bg-white border-t border-gray-100">
-    <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Hiring a critical role?</h2>
-        <p class="text-gray-500 mb-7">Speak directly with HiredNext about executive search, leadership hiring or a difficult specialist mandate in India.</p>
-        <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-8 py-4 bg-primary text-white rounded-xl font-extrabold hover:bg-accent transition">Book a 30-Min Call →</a>
+<section class="relative overflow-hidden py-16 md:py-20 bg-[#071f3d] text-white">
+    <div class="absolute -right-24 -bottom-32 w-96 h-96 rounded-full bg-accent/10 blur-[110px]"></div>
+    <div class="max-w-[1180px] mx-auto px-6 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div class="lg:col-span-8">
+                <div class="text-gold text-[10px] font-black uppercase tracking-[0.3em] mb-3">A critical hire deserves senior attention</div>
+                <h2 class="text-3xl md:text-5xl font-serif font-bold leading-tight mb-4">Need a search partner who will challenge the brief, not just send CVs?</h2>
+                <p class="text-white/60 max-w-3xl leading-relaxed">Speak directly with HiredNext about executive search, leadership hiring or a difficult specialist mandate in India.</p>
+            </div>
+            <div class="lg:col-span-4 lg:text-right">
+                <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 px-7 py-4 rounded-full bg-accent text-white font-extrabold hover:bg-white hover:text-primary transition-colors duration-300">
+                    Book a 30-Min Call <span aria-hidden="true">↗</span>
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 
