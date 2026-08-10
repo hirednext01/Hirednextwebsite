@@ -75,13 +75,16 @@ class Home extends BaseController
             ]
         ];
         $data = [
-            'title' => 'HiredNext | Shaping Careers, Powering Organizations',
+            'title' => 'Executive Search & Leadership Recruitment India | HiredNext',
+            'metaDescription' => 'HiredNext helps companies hire CXOs, functional heads and hard-to-find senior talent through confidential executive search, market mapping and structured assessment across India.',
+            'canonical' => base_url('/'),
             'currentPage' => 'home',
             'settings' => $settings,
             'testimonials' => $this->loadActiveReviews(),
             'jobs' => $jobModel->getOpenJobs(),
             'press_media_items' => $this->loadActivePressMedia(),
-            'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+            'faq' => $faq,
+            'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ];
 
         return view('pages/home', $data);
@@ -115,6 +118,7 @@ class Home extends BaseController
 
     public function serviceDetail($slug)
     {
+        $settings = $this->loadWebsiteSettings();
         $serviceViews = [
             'executive-search' => 'pages/services/service-executive-search',
             'permanent-hiring' => 'pages/services/service-permanent-hiring',
@@ -126,10 +130,97 @@ class Home extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        $data = [
-            'title' => 'Services | HiredNext - Shaping Careers, Powering Organizations',
-            'currentPage' => 'services',
+        $serviceMeta = [
+            'executive-search' => [
+                'title' => 'Executive Search Firm in India | Leadership Hiring | HiredNext',
+                'description' => 'Confidential executive search in India for CXO, business and functional leadership roles. HiredNext combines market mapping, direct outreach and evidence-led assessment.',
+            ],
+            'permanent-hiring' => [
+                'title' => 'Permanent Recruitment for Mid-Senior Roles | HiredNext',
+                'description' => 'Industry-aligned permanent recruitment for mid-senior and specialist roles across India, with structured screening and clear candidate assessment.',
+            ],
+            'rpo' => [
+                'title' => 'Recruitment Process Outsourcing (RPO) India | HiredNext',
+                'description' => 'Flexible recruitment process outsourcing for growing teams that need dedicated sourcing, screening and hiring coordination.',
+            ],
+            'avron' => [
+                'title' => 'HiredNext Avron | Career Services for Professionals',
+                'description' => 'Practical career support for professionals, including CV assessment and recruiter-led guidance from HiredNext.',
+            ],
         ];
+
+        $data = [
+            'title' => $serviceMeta[$slug]['title'],
+            'metaDescription' => $serviceMeta[$slug]['description'],
+            'canonical' => base_url('services/' . $slug),
+            'currentPage' => 'services',
+            'settings' => $settings,
+        ];
+
+        if ($slug === 'executive-search') {
+            $faq = [
+                [
+                    'q' => 'What is executive search?',
+                    'a' => 'Executive search is a targeted recruitment process for senior, confidential or business-critical roles. It combines market mapping, direct candidate outreach, structured assessment and support through selection and joining.',
+                ],
+                [
+                    'q' => 'Which leadership roles does HiredNext recruit for?',
+                    'a' => 'HiredNext supports CXO, business head, country and regional leadership, functional head, plant and operations leadership, technology, finance, people and commercial appointments.',
+                ],
+                [
+                    'q' => 'Can HiredNext manage a confidential replacement search?',
+                    'a' => 'Yes. Confidential searches are handled through controlled outreach, limited disclosure and a clear communication protocol agreed with the hiring stakeholders.',
+                ],
+                [
+                    'q' => 'How are executive candidates assessed?',
+                    'a' => 'Assessment is calibrated to the mandate and covers relevant achievements, scale handled, decision-making, leadership context, motivations and fit with the organisation’s immediate priorities.',
+                ],
+            ];
+
+            $jsonLd = [
+                '@context' => 'https://schema.org',
+                '@graph' => [
+                    [
+                        '@type' => 'Service',
+                        '@id' => base_url('services/executive-search') . '#service',
+                        'name' => 'Executive Search and Leadership Hiring',
+                        'serviceType' => 'Executive Search',
+                        'provider' => [
+                            '@type' => 'EmploymentAgency',
+                            '@id' => 'https://hirednext.net/#organization',
+                            'name' => 'HiredNext Recruitment',
+                            'url' => 'https://hirednext.net/',
+                        ],
+                        'areaServed' => [
+                            '@type' => 'Country',
+                            'name' => 'India',
+                        ],
+                        'description' => $serviceMeta[$slug]['description'],
+                    ],
+                    [
+                        '@type' => 'BreadcrumbList',
+                        'itemListElement' => [
+                            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => base_url('/')],
+                            ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => base_url('services')],
+                            ['@type' => 'ListItem', 'position' => 3, 'name' => 'Executive Search', 'item' => base_url('services/executive-search')],
+                        ],
+                    ],
+                    [
+                        '@type' => 'FAQPage',
+                        'mainEntity' => array_map(function ($item) {
+                            return [
+                                '@type' => 'Question',
+                                'name' => $item['q'],
+                                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $item['a']],
+                            ];
+                        }, $faq),
+                    ],
+                ],
+            ];
+
+            $data['faq'] = $faq;
+            $data['jsonLd'] = json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        }
 
         return view($serviceViews[$slug], $data);
     }
@@ -253,12 +344,56 @@ class Home extends BaseController
     public function blog()
     {
         $settings = $this->loadWebsiteSettings();
+        $posts = $this->loadPublishedBlogPosts();
+        $blogUrl = base_url('blog');
+        $itemList = [];
+
+        foreach ($posts as $index => $post) {
+            $itemList[] = [
+                '@type' => 'ListItem',
+                'position' => $index + 1,
+                'url' => base_url('blog/' . ($post['slug'] ?? '')),
+                'name' => $post['title'] ?? 'HiredNext insight',
+            ];
+        }
+
+        $jsonLd = [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'CollectionPage',
+                    '@id' => $blogUrl . '#collection',
+                    'url' => $blogUrl,
+                    'name' => 'Recruitment and Leadership Hiring Insights',
+                    'description' => 'Recruiter-led guidance on executive search, leadership hiring, talent assessment and workforce decisions in India.',
+                    'inLanguage' => 'en-IN',
+                    'isPartOf' => ['@id' => 'https://hirednext.net/#website'],
+                    'publisher' => ['@id' => 'https://hirednext.net/#organization'],
+                    'mainEntity' => [
+                        '@type' => 'ItemList',
+                        'numberOfItems' => count($itemList),
+                        'itemListElement' => $itemList,
+                    ],
+                ],
+                [
+                    '@type' => 'BreadcrumbList',
+                    'itemListElement' => [
+                        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => base_url('/')],
+                        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Insights', 'item' => $blogUrl],
+                    ],
+                ],
+            ],
+        ];
 
         $data = [
-            'title' => 'Insights & Blog | HiredNext - Shaping Careers, Powering Organizations',
+            'title' => 'Recruitment & Leadership Hiring Insights India | HiredNext',
+            'metaDescription' => 'Practical insights from HiredNext recruiters on executive search, leadership hiring, candidate assessment and talent strategy for employers and professionals in India.',
+            'metaKeywords' => 'executive search insights India, leadership hiring, recruitment strategy, talent acquisition, candidate assessment',
+            'canonical' => $blogUrl,
             'currentPage' => 'blog',
             'settings' => $settings,
-            'blog_posts' => $this->loadPublishedBlogPosts(),
+            'blog_posts' => $posts,
+            'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ];
 
         return view('pages/blog', $data);
@@ -291,12 +426,133 @@ class Home extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
 
+        $document = $this->prepareBlogDocument($post['content'] ?? '');
+        $postTitle = trim((string)($post['title'] ?? 'HiredNext insight'));
+        $metaTitle = trim((string)($post['meta_title'] ?? '')) ?: $postTitle;
+        if (stripos($metaTitle, 'HiredNext') === false) {
+            $metaTitle .= ' | HiredNext';
+        }
+
+        $excerpt = $this->normaliseText($post['excerpt'] ?? '');
+        if ($excerpt === '') {
+            $excerpt = $this->truncateText($document['plainText'], 165);
+        }
+        $metaDescription = $this->normaliseText($post['meta_description'] ?? '');
+        if ($metaDescription === '') {
+            $metaDescription = $this->truncateText($excerpt ?: $document['plainText'], 165);
+        }
+
+        $postUrl = base_url('blog/' . $post['slug']);
+        $postImage = trim((string)($post['featured_image'] ?? ''));
+        if ($postImage === '') {
+            $postImage = base_url('theme/assets/home.jpeg');
+        } elseif (!preg_match('#^https?://#i', $postImage)) {
+            $postImage = base_url(ltrim($postImage, '/'));
+        }
+
+        $author = trim((string)($post['author_name'] ?? '')) ?: 'HiredNext Editorial';
+        if ($author === 'Metron Team') {
+            $author = 'HiredNext Editorial';
+        }
+        $category = trim((string)($post['category'] ?? '')) ?: 'Recruitment';
+        $tags = array_values(array_unique(array_filter(array_map('trim', explode(',', (string)($post['tags'] ?? ''))))));
+        $keywordText = trim((string)($post['meta_keywords'] ?? '')) ?: implode(', ', $tags);
+        $publishedAt = $this->formatSchemaDate($post['published_at'] ?? $post['created_at'] ?? null);
+        $modifiedAt = $this->formatSchemaDate($post['updated_at'] ?? $post['published_at'] ?? $post['created_at'] ?? null);
+        $authorSchema = stripos($author, 'HiredNext') !== false
+            ? ['@type' => 'Organization', '@id' => 'https://hirednext.net/#organization', 'name' => $author]
+            : ['@type' => 'Person', 'name' => $author, 'affiliation' => ['@id' => 'https://hirednext.net/#organization']];
+
+        $articleSchema = [
+            '@type' => 'BlogPosting',
+            '@id' => $postUrl . '#article',
+            'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $postUrl],
+            'url' => $postUrl,
+            'headline' => $postTitle,
+            'description' => $metaDescription,
+            'image' => ['@type' => 'ImageObject', 'url' => $postImage],
+            'datePublished' => $publishedAt,
+            'dateModified' => $modifiedAt,
+            'author' => $authorSchema,
+            'publisher' => [
+                '@type' => 'Organization',
+                '@id' => 'https://hirednext.net/#organization',
+                'name' => 'HiredNext Recruitment',
+                'url' => 'https://hirednext.net/',
+                'logo' => ['@type' => 'ImageObject', 'url' => base_url('theme/assets/logo.jpeg')],
+            ],
+            'articleSection' => $category,
+            'keywords' => $tags ?: [$category, 'HiredNext Recruitment'],
+            'wordCount' => $document['wordCount'],
+            'timeRequired' => 'PT' . $document['readMinutes'] . 'M',
+            'inLanguage' => 'en-IN',
+            'isPartOf' => ['@id' => base_url('blog') . '#collection'],
+            'about' => array_map(static function ($tag) {
+                return ['@type' => 'Thing', 'name' => $tag];
+            }, $tags ?: [$category]),
+            'speakable' => [
+                '@type' => 'SpeakableSpecification',
+                'cssSelector' => ['.article-title', '.answer-first', '.article-content h2'],
+            ],
+        ];
+
+        if ($publishedAt === null) {
+            unset($articleSchema['datePublished']);
+        }
+        if ($modifiedAt === null) {
+            unset($articleSchema['dateModified']);
+        }
+
+        $schemaGraph = [
+            $articleSchema,
+            [
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => base_url('/')],
+                    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Insights', 'item' => base_url('blog')],
+                    ['@type' => 'ListItem', 'position' => 3, 'name' => $postTitle, 'item' => $postUrl],
+                ],
+            ],
+        ];
+
+        if (!empty($document['faq'])) {
+            $schemaGraph[] = [
+                '@type' => 'FAQPage',
+                'mainEntity' => array_map(static function ($item) {
+                    return [
+                        '@type' => 'Question',
+                        'name' => $item['question'],
+                        'acceptedAnswer' => ['@type' => 'Answer', 'text' => $item['answer']],
+                    ];
+                }, $document['faq']),
+            ];
+        }
+
         $data = [
-            'title' => ($post['meta_title'] ?? $post['title'] ?? 'Blog') . ' | ' . ($settings['site_name'] ?? 'HiredNext'),
+            'title' => $metaTitle,
+            'metaDescription' => $metaDescription,
+            'metaKeywords' => $keywordText,
+            'canonical' => $postUrl,
+            'ogImage' => $postImage,
+            'ogType' => 'article',
+            'publishedTime' => $publishedAt,
+            'modifiedTime' => $modifiedAt,
+            'articleAuthor' => $author,
+            'articleSection' => $category,
+            'articleTags' => $tags,
             'currentPage' => 'blog',
             'settings' => $settings,
             'post' => $post,
+            'post_excerpt' => $excerpt,
+            'post_image' => $postImage,
+            'post_author' => $author,
+            'post_content' => $document['html'],
+            'post_toc' => $document['toc'],
+            'post_faq' => $document['faq'],
+            'post_word_count' => $document['wordCount'],
+            'post_read_minutes' => $document['readMinutes'],
             'related_posts' => $this->loadRelatedBlogPosts($post['category'] ?? null, $post['id'] ?? null),
+            'jsonLd' => json_encode(['@context' => 'https://schema.org', '@graph' => $schemaGraph], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ];
 
         return view('pages/blog-details/blog-single', $data);
@@ -816,6 +1072,103 @@ class Home extends BaseController
             ->orderBy('created_at', 'DESC')
             ->get()
             ->getResultArray();
+    }
+
+    private function prepareBlogDocument($content)
+    {
+        $html = html_entity_decode((string)$content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $html = preg_replace('/<h1[^>]*>.*?<\/h1>/si', '', $html, 1);
+        $toc = [];
+        $usedIds = [];
+
+        $html = preg_replace_callback('/<h([23])([^>]*)>(.*?)<\/h\1>/is', function ($matches) use (&$toc, &$usedIds) {
+            $level = (int)$matches[1];
+            $attributes = $matches[2];
+            $innerHtml = $matches[3];
+            $heading = $this->normaliseText($innerHtml);
+            if ($heading === '') {
+                return $matches[0];
+            }
+
+            if (preg_match('/\sid=(["\'])(.*?)\1/i', $attributes, $idMatch)) {
+                $id = $idMatch[2];
+            } else {
+                $baseId = $this->headingSlug($heading);
+                $id = $baseId;
+                $suffix = 2;
+                while (isset($usedIds[$id])) {
+                    $id = $baseId . '-' . $suffix;
+                    $suffix++;
+                }
+                $attributes .= ' id="' . esc($id, 'attr') . '"';
+            }
+
+            $usedIds[$id] = true;
+            $toc[] = ['level' => $level, 'id' => $id, 'text' => $heading];
+            return '<h' . $level . $attributes . '>' . $innerHtml . '</h' . $level . '>';
+        }, $html);
+
+        $faq = [];
+        if (preg_match_all('/<h([23])[^>]*>(.*?)<\/h\1>\s*<p[^>]*>(.*?)<\/p>/is', $html, $questionMatches, PREG_SET_ORDER)) {
+            foreach ($questionMatches as $match) {
+                $question = $this->normaliseText($match[2]);
+                $answer = $this->normaliseText($match[3]);
+                if ($question !== '' && substr($question, -1) === '?' && $answer !== '') {
+                    $faq[] = ['question' => $question, 'answer' => $answer];
+                }
+            }
+        }
+
+        $plainText = $this->normaliseText($html);
+        $wordCount = $plainText === '' ? 0 : str_word_count($plainText);
+
+        return [
+            'html' => $html,
+            'plainText' => $plainText,
+            'toc' => $toc,
+            'faq' => $faq,
+            'wordCount' => $wordCount,
+            'readMinutes' => max(1, (int)ceil($wordCount / 220)),
+        ];
+    }
+
+    private function normaliseText($value)
+    {
+        $text = html_entity_decode(strip_tags((string)$value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        return trim((string)preg_replace('/\s+/u', ' ', $text));
+    }
+
+    private function truncateText($value, $limit)
+    {
+        $text = $this->normaliseText($value);
+        if (strlen($text) <= $limit) {
+            return $text;
+        }
+
+        $truncated = substr($text, 0, $limit + 1);
+        $lastSpace = strrpos($truncated, ' ');
+        if ($lastSpace !== false) {
+            $truncated = substr($truncated, 0, $lastSpace);
+        }
+
+        return rtrim($truncated, " \t\n\r\0\x0B,.;:-") . '…';
+    }
+
+    private function headingSlug($heading)
+    {
+        $slug = strtolower($this->normaliseText($heading));
+        $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
+        $slug = trim((string)$slug, '-');
+        return $slug !== '' ? $slug : 'section';
+    }
+
+    private function formatSchemaDate($value)
+    {
+        if (empty($value) || strtotime((string)$value) === false) {
+            return null;
+        }
+
+        return date(DATE_ATOM, strtotime((string)$value));
     }
 
     private function loadBlogPostBySlug($slug)

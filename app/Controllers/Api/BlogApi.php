@@ -76,18 +76,26 @@ class BlogApi extends BaseApiController
                 $slug = $slug . '-' . time();
             }
 
+            $excerpt = trim((string)($data['excerpt'] ?? ''));
+            if ($excerpt === '') {
+                $excerpt = $this->generateExcerpt($data['content']);
+            }
+            $category = trim((string)($data['category'] ?? '')) ?: 'Recruitment';
+            $tags = trim((string)($data['tags'] ?? ''));
+            $author = trim((string)($data['author_name'] ?? '')) ?: 'HiredNext Editorial';
+
             $insertData = [
                 'title' => $data['title'],
                 'slug' => $slug,
                 'content' => $data['content'],
-                'excerpt' => $data['excerpt'] ?? $this->generateExcerpt($data['content']),
+                'excerpt' => $excerpt,
                 'featured_image' => $data['featured_image'] ?? '',
-                'category' => $data['category'] ?? 'General',
-                'tags' => $data['tags'] ?? '',
-                'author_name' => $data['author_name'] ?? 'Metron Team',
-                'meta_title' => $data['meta_title'] ?? null,
-                'meta_description' => $data['meta_description'] ?? null,
-                'meta_keywords' => $data['meta_keywords'] ?? null,
+                'category' => $category,
+                'tags' => $tags,
+                'author_name' => $author,
+                'meta_title' => trim((string)($data['meta_title'] ?? '')) ?: $data['title'],
+                'meta_description' => trim((string)($data['meta_description'] ?? '')) ?: $excerpt,
+                'meta_keywords' => trim((string)($data['meta_keywords'] ?? '')) ?: ($tags ?: $category),
                 'status' => $data['status'] ?? 'draft',
                 'sort_order' => $data['sort_order'] ?? 0,
                 'published_at' => ($data['status'] ?? 'draft') === 'published' ? date('Y-m-d H:i:s') : null,
@@ -152,18 +160,26 @@ class BlogApi extends BaseApiController
                 $slug = $slug . '-' . time();
             }
 
+            $excerpt = trim((string)($data['excerpt'] ?? ''));
+            if ($excerpt === '') {
+                $excerpt = $this->generateExcerpt($data['content']);
+            }
+            $category = trim((string)($data['category'] ?? '')) ?: 'Recruitment';
+            $tags = trim((string)($data['tags'] ?? ''));
+            $author = trim((string)($data['author_name'] ?? '')) ?: 'HiredNext Editorial';
+
             $updateData = [
                 'title' => $data['title'],
                 'slug' => $slug,
                 'content' => $data['content'],
-                'excerpt' => $data['excerpt'] ?? $this->generateExcerpt($data['content']),
+                'excerpt' => $excerpt,
                 'featured_image' => $data['featured_image'] ?? '',
-                'category' => $data['category'] ?? 'General',
-                'tags' => $data['tags'] ?? '',
-                'author_name' => $data['author_name'] ?? 'Metron Team',
-                'meta_title' => $data['meta_title'] ?? null,
-                'meta_description' => $data['meta_description'] ?? null,
-                'meta_keywords' => $data['meta_keywords'] ?? null,
+                'category' => $category,
+                'tags' => $tags,
+                'author_name' => $author,
+                'meta_title' => trim((string)($data['meta_title'] ?? '')) ?: $data['title'],
+                'meta_description' => trim((string)($data['meta_description'] ?? '')) ?: $excerpt,
+                'meta_keywords' => trim((string)($data['meta_keywords'] ?? '')) ?: ($tags ?: $category),
                 'status' => $data['status'] ?? 'draft',
                 'sort_order' => $data['sort_order'] ?? 0,
                 'updated_at' => date('Y-m-d H:i:s')
@@ -237,7 +253,8 @@ class BlogApi extends BaseApiController
     private function generateExcerpt($content, $length = 150)
     {
         // Strip HTML tags and generate excerpt
-        $text = strip_tags($content);
+        $text = html_entity_decode(strip_tags($content), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $text = trim((string)preg_replace('/\s+/u', ' ', $text));
         if (strlen($text) <= $length) {
             return $text;
         }

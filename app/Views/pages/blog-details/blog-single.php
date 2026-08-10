@@ -1,143 +1,163 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <?php
-$postTitle = $post['title'] ?? 'Blog Post';
-$postCategory = $post['category'] ?? 'Recruitment';
-$postTags = $post['tags'] ?? 'Insights';
-$postAuthor = $post['author_name'] ?? 'HiredNext Editorial';
-$postDate = !empty($post['published_at']) ? date('F j, Y', strtotime($post['published_at'])) : date('F j, Y');
-$postReadTime = $post['read_time'] ?? $post['reading_time'] ?? '5 Min Read';
-$postImage = $post['featured_image'] ?? $post['image'] ?? 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1200';
-$postExcerpt = $post['excerpt'] ?? '';
-if (!$postExcerpt && !empty($post['content'])) {
-    $postExcerpt = substr(strip_tags($post['content']), 0, 180) . '...';
-}
-$postExcerpt = trim(preg_replace('/\s+/', ' ', strip_tags($postExcerpt)));
-$postContentRaw = $post['content'] ?? '';
-$postContent = html_entity_decode($postContentRaw, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-$postContent = preg_replace('/<h1[^>]*>.*?<\/h1>/si', '', $postContent, 1);
-$tagList = array_values(array_filter(array_map('trim', explode(',', (string)$postTags))));
-$tagDisplay = !empty($tagList) ? array_slice($tagList, 0, 4) : ['Insights'];
+$postTitle = trim((string)($post['title'] ?? 'HiredNext insight'));
+$postCategory = trim((string)($post['category'] ?? '')) ?: 'Recruitment';
+$postAuthor = $post_author ?? (trim((string)($post['author_name'] ?? '')) ?: 'HiredNext Editorial');
+$postImage = $post_image ?? (trim((string)($post['featured_image'] ?? '')) ?: base_url('theme/assets/home.jpeg'));
+$postExcerpt = trim((string)($post_excerpt ?? $post['excerpt'] ?? ''));
+$postContent = $post_content ?? html_entity_decode((string)($post['content'] ?? ''), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+$postToc = $post_toc ?? [];
+$postReadMinutes = max(1, (int)($post_read_minutes ?? 5));
+$publishedValue = $post['published_at'] ?? $post['created_at'] ?? null;
+$updatedValue = $post['updated_at'] ?? $publishedValue;
+$publishedLabel = !empty($publishedValue) && strtotime((string)$publishedValue) !== false ? date('F j, Y', strtotime((string)$publishedValue)) : null;
+$publishedIso = !empty($publishedValue) && strtotime((string)$publishedValue) !== false ? date(DATE_ATOM, strtotime((string)$publishedValue)) : null;
+$updatedLabel = !empty($updatedValue) && strtotime((string)$updatedValue) !== false ? date('F j, Y', strtotime((string)$updatedValue)) : null;
+$updatedIso = !empty($updatedValue) && strtotime((string)$updatedValue) !== false ? date(DATE_ATOM, strtotime((string)$updatedValue)) : null;
+$tagList = array_values(array_unique(array_filter(array_map('trim', explode(',', (string)($post['tags'] ?? ''))))));
 ?>
-<!-- ================= HERO ================= -->
-    <header class="article-hero">
-        <div class="article-hero-inner">
-            <div class="article-kicker">
-                <span class="article-pill"><?= esc($postCategory) ?></span>
-                <?php foreach ($tagDisplay as $tag): ?>
-                    <span class="article-tag"><?= esc($tag) ?></span>
-                <?php endforeach; ?>
-            </div>
 
-            <h1 class="article-title"><?= esc($postTitle) ?></h1>
+<header class="article-hero article-hero-editorial">
+    <div class="article-hero-inner">
+        <nav class="article-breadcrumb" aria-label="Breadcrumb">
+            <a href="<?= base_url('/') ?>">Home</a>
+            <span aria-hidden="true">/</span>
+            <a href="<?= base_url('blog') ?>">Insights</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page"><?= esc($postCategory) ?></span>
+        </nav>
 
-            <div class="article-meta">
-                <span class="article-meta-item"><?= esc($postAuthor) ?></span>
-                <span class="article-meta-dot">•</span>
-                <span class="article-meta-item"><?= esc($postDate) ?></span>
-                <span class="article-meta-dot">•</span>
-                <span class="article-meta-item"><?= esc($postReadTime) ?></span>
-            </div>
-        </div>
-    </header>
-
-    <!-- ================= ARTICLE CONTENT ================= -->
-    <main class="article-body">
-        <!-- Floating Back Button -->
-        <div class="max-w-[1440px] mx-auto px-6 mb-10 relative z-20">
-            <a href="<?= base_url('blog') ?>"
-                class="inline-flex items-center text-xs font-black uppercase tracking-[0.2em] text-gray-400 hover:text-accent transition-all group">
-                <div
-                    class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center mr-4 group-hover:bg-accent group-hover:text-white transition-colors">
-                    <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
-                </div>
-                Return to Insights
-            </a>
+        <div class="article-kicker">
+            <span class="article-pill"><?= esc($postCategory) ?></span>
+            <?php foreach (array_slice($tagList, 0, 3) as $tag): ?>
+                <span class="article-tag"><?= esc($tag) ?></span>
+            <?php endforeach; ?>
         </div>
 
-        <!-- Main Content -->
-        <article class="article-shell">
-            <!-- Featured Image -->
-            <div class="article-feature">
-                <img src="<?= esc($postImage) ?>" alt="<?= esc($postTitle) ?>">
-            </div>
+        <h1 class="article-title"><?= esc($postTitle) ?></h1>
 
-            <!-- Excerpt -->
-            <?php if (!empty($postExcerpt)): ?>
-                <p class="article-excerpt">
-                    <?= esc($postExcerpt) ?>
-                </p>
+        <div class="article-meta">
+            <span class="article-meta-item">By <?= esc($postAuthor) ?></span>
+            <?php if ($publishedLabel): ?>
+                <span class="article-meta-dot">•</span>
+                <time class="article-meta-item" datetime="<?= esc($publishedIso, 'attr') ?>">Published <?= esc($publishedLabel) ?></time>
             <?php endif; ?>
+            <span class="article-meta-dot">•</span>
+            <span class="article-meta-item"><?= esc($postReadMinutes) ?> min read</span>
+        </div>
+    </div>
+</header>
 
-            <!-- Body -->
+<div class="article-body article-body-editorial">
+    <div class="article-return-row">
+        <a href="<?= base_url('blog') ?>">
+            <span aria-hidden="true">←</span> All HiredNext insights
+        </a>
+        <?php if ($updatedLabel): ?>
+            <time datetime="<?= esc($updatedIso, 'attr') ?>">Last updated <?= esc($updatedLabel) ?></time>
+        <?php endif; ?>
+    </div>
+
+    <article class="article-editorial-shell">
+        <figure class="article-feature">
+            <img src="<?= esc($postImage) ?>" alt="<?= esc($postTitle) ?>" width="1200" height="675" fetchpriority="high">
+        </figure>
+
+        <?php if ($postExcerpt !== ''): ?>
+            <section class="answer-first" aria-labelledby="short-answer-heading">
+                <span>The short answer</span>
+                <h2 id="short-answer-heading">What you need to know</h2>
+                <p><?= esc($postExcerpt) ?></p>
+            </section>
+        <?php endif; ?>
+
+        <div class="article-reading-grid">
+            <aside class="article-context-panel" aria-label="Article navigation and context">
+                <?php if (count($postToc) >= 2): ?>
+                    <nav class="article-toc" aria-labelledby="contents-heading">
+                        <h2 id="contents-heading">In this insight</h2>
+                        <ol>
+                            <?php foreach ($postToc as $item): ?>
+                                <li class="toc-level-<?= esc($item['level'], 'attr') ?>">
+                                    <a href="#<?= esc($item['id'], 'attr') ?>"><?= esc($item['text']) ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ol>
+                    </nav>
+                <?php endif; ?>
+
+                <div class="article-author-note">
+                    <span>Practitioner perspective</span>
+                    <h2>About HiredNext Insights</h2>
+                    <p>Our articles turn recruiter-led search experience into direct, usable guidance for employers and professionals. External facts and statistics should be linked to their original sources within the article.</p>
+                    <a href="<?= base_url('about') ?>">About HiredNext</a>
+                </div>
+            </aside>
+
             <div class="article-content">
                 <?= $postContent ?>
-            </div>
 
-        </article>
-
-    </main>
-
-    <!-- ================= RELATED INSIGHTS ================= -->
-    <section class="bg-gray-50 py-32">
-        <div class="max-w-[1440px] mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                <div>
-                    <span class="text-accent text-xs font-black uppercase tracking-[0.4em] mb-4 block">Recommended</span>
-                    <h2 class="text-4xl md:text-6xl font-serif font-black text-primary">Explore More <span
-                            class="text-accent">Insights</span></h2>
-                </div>
-                <a href="<?= base_url('blog') ?>"
-                    class="text-sm font-black uppercase tracking-widest text-primary border-b-2 border-accent pb-2 hover:text-accent transition-all">
-                    View All articles
-                </a>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <?php $related = $related_posts ?? []; ?>
-                <?php if (!empty($related)): ?>
-                    <?php foreach ($related as $item): ?>
-                        <?php
-                        $relatedTitle = $item['title'] ?? 'Insight';
-                        $relatedCategory = $item['category'] ?? 'General';
-                        $relatedExcerpt = $item['excerpt'] ?? (isset($item['content']) ? substr(strip_tags($item['content']), 0, 140) . '...' : '');
-                        $relatedImage = $item['featured_image'] ?? $item['image'] ?? 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800';
-                        $relatedSlug = $item['slug'] ?? '';
-                        ?>
-                        <article
-                            class="group bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-premium transition-all duration-500 flex flex-col">
-                            <div class="relative h-64 overflow-hidden">
-                                <img src="<?= esc($relatedImage) ?>"
-                                    class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-1000 grayscale group-hover:grayscale-0">
-                                <div class="absolute top-6 left-6">
-                                    <span
-                                        class="px-4 py-1.5 bg-white/90 backdrop-blur text-[10px] font-black uppercase tracking-widest rounded-full"><?= esc($relatedCategory) ?></span>
-                                </div>
-                            </div>
-                            <div class="p-10 flex flex-col flex-grow">
-                                <h3
-                                    class="text-2xl font-serif font-black text-primary mb-6 group-hover:text-accent transition-colors leading-snug">
-                                    <?= esc($relatedTitle) ?>
-                                </h3>
-                                <p class="text-gray-500 leading-relaxed mb-8 flex-grow">
-                                    <?= esc($relatedExcerpt) ?>
-                                </p>
-                                <a href="<?= base_url('blog/' . $relatedSlug) ?>"
-                                    class="inline-flex items-center text-xs font-black uppercase tracking-[0.2em] text-primary group-hover:text-accent transition-all">
-                                    Read Insight <i data-lucide="arrow-right" class="ml-3 w-4 h-4"></i>
-                                </a>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="col-span-full bg-white rounded-[2.5rem] p-10 text-center text-gray-500">
-                        More insights will appear here soon.
+                <section class="article-next-step" aria-labelledby="apply-insight-heading">
+                    <span>Put the insight to work</span>
+                    <h2 id="apply-insight-heading">Making a business-critical hire?</h2>
+                    <p>HiredNext supports confidential executive search, leadership hiring and hard-to-find specialist mandates with structured market mapping and assessment.</p>
+                    <div>
+                        <a href="<?= base_url('services/executive-search') ?>">Explore executive search</a>
+                        <a href="<?= base_url('contact') ?>">Discuss a mandate</a>
                     </div>
-                <?php endif; ?>
+                </section>
             </div>
         </div>
-    </section>
+    </article>
+</div>
 
+<section class="related-insights" aria-labelledby="related-insights-heading">
+    <div class="related-insights-inner">
+        <div class="related-insights-heading">
+            <div>
+                <p class="editorial-kicker"><span></span> Continue reading</p>
+                <h2 id="related-insights-heading">Related HiredNext insights</h2>
+            </div>
+            <a href="<?= base_url('blog') ?>">View all insights <span aria-hidden="true">→</span></a>
+        </div>
 
-    <!-- ================= FOOTER ================= -->
+        <?php $related = $related_posts ?? []; ?>
+        <?php if (!empty($related)): ?>
+            <div class="related-insights-grid">
+                <?php foreach ($related as $item): ?>
+                    <?php
+                    $relatedTitle = trim((string)($item['title'] ?? 'HiredNext insight'));
+                    $relatedCategory = trim((string)($item['category'] ?? '')) ?: 'Recruitment';
+                    $relatedExcerpt = trim((string)($item['excerpt'] ?? ''));
+                    if ($relatedExcerpt === '') {
+                        $relatedExcerpt = trim((string)preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags((string)($item['content'] ?? '')), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+                    }
+                    if (strlen($relatedExcerpt) > 150) {
+                        $relatedExcerpt = rtrim(substr($relatedExcerpt, 0, 147)) . '…';
+                    }
+                    $relatedImage = trim((string)($item['featured_image'] ?? '')) ?: base_url('theme/assets/home.jpeg');
+                    if (!preg_match('#^https?://#i', $relatedImage)) {
+                        $relatedImage = base_url(ltrim($relatedImage, '/'));
+                    }
+                    ?>
+                    <article>
+                        <a class="related-insight-image" href="<?= base_url('blog/' . ($item['slug'] ?? '')) ?>">
+                            <img src="<?= esc($relatedImage) ?>" alt="<?= esc($relatedTitle) ?>" loading="lazy" width="800" height="520">
+                            <span><?= esc($relatedCategory) ?></span>
+                        </a>
+                        <div>
+                            <h3><a href="<?= base_url('blog/' . ($item['slug'] ?? '')) ?>"><?= esc($relatedTitle) ?></a></h3>
+                            <?php if ($relatedExcerpt !== ''): ?><p><?= esc($relatedExcerpt) ?></p><?php endif; ?>
+                            <a href="<?= base_url('blog/' . ($item['slug'] ?? '')) ?>">Read insight <span aria-hidden="true">→</span></a>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="related-insights-empty">More recruiter-led insights will appear here soon.</div>
+        <?php endif; ?>
+    </div>
+</section>
+
 <?= $this->endSection() ?>

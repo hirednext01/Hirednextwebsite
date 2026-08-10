@@ -1,31 +1,41 @@
 <!DOCTYPE html>
-<?php
-$pageTitle = $title ?? 'HiredNext | Executive Search & Leadership Recruitment Firm in India';
-$metaDescription = $metaDescription ?? ($settings['meta_description'] ?? 'HiredNext is a talent advisory and recruitment firm in India specialising in executive search, leadership hiring, permanent recruitment and RPO solutions.');
-$canonicalUrl = $canonical ?? current_url();
-?>
-<title><?= esc($pageTitle) ?></title>
-<meta name="description" content="<?= esc($metaDescription) ?>">
-<link rel="canonical" href="<?= esc($canonicalUrl) ?>">
-<meta property="og:type" content="website">
-<meta property="og:title" content="<?= esc($pageTitle) ?>">
-<meta property="og:description" content="<?= esc($metaDescription) ?>">
-<meta property="og:url" content="<?= esc($canonicalUrl) ?>">
-<meta property="og:site_name" content="HiredNext">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="<?= esc($pageTitle) ?>">
-<meta name="twitter:description" content="<?= esc($metaDescription) ?>">
-<html lang="en">
-
+<html lang="en-IN">
 <head>
+    <?php
+    $settings = $settings ?? [];
+    $pageTitle = $title ?? 'HiredNext | Executive Search & Leadership Recruitment Firm in India';
+    $metaDescription = $metaDescription ?? ($settings['meta_description'] ?? 'HiredNext is an executive search and recruitment firm in India specialising in leadership hiring, permanent recruitment and RPO solutions.');
+    $canonicalUrl = $canonical ?? current_url();
+    $socialImage = $ogImage ?? base_url('theme/assets/home.jpeg');
+    $socialType = $ogType ?? 'website';
+    $keywordContent = $metaKeywords ?? ($settings['meta_keywords'] ?? $settings['site_keywords'] ?? 'HiredNext, talent advisory, recruitment');
+    ?>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><?= esc($title ?? ($settings['meta_title'] ?? (($settings['site_name'] ?? 'HiredNext') . ' | Shaping Careers, Powering Organizations'))) ?></title>
-    <meta name="description" content="<?= esc($settings['meta_description'] ?? $settings['site_description'] ?? 'HiredNext is a global talent advisory and recruitment firm delivering high-impact leadership solutions.') ?>" />
-    <meta name="keywords" content="<?= esc($settings['meta_keywords'] ?? $settings['site_keywords'] ?? 'HiredNext, talent advisory, recruitment') ?>" />
-    <?php if (!empty(current_url())): ?>
-        <link rel="canonical" href="<?= esc(current_url()) ?>" />
-    <?php endif; ?>
+    <title><?= esc($pageTitle) ?></title>
+    <meta name="description" content="<?= esc($metaDescription) ?>" />
+    <meta name="keywords" content="<?= esc($keywordContent) ?>" />
+    <?php if (!empty($articleAuthor)): ?><meta name="author" content="<?= esc($articleAuthor) ?>" /><?php endif; ?>
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <link rel="canonical" href="<?= esc($canonicalUrl) ?>" />
+    <meta property="og:type" content="<?= esc($socialType) ?>" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content="<?= esc($pageTitle) ?>" />
+    <meta property="og:description" content="<?= esc($metaDescription) ?>" />
+    <meta property="og:url" content="<?= esc($canonicalUrl) ?>" />
+    <meta property="og:site_name" content="HiredNext Recruitment" />
+    <meta property="og:image" content="<?= esc($socialImage) ?>" />
+    <meta property="og:image:alt" content="<?= esc($pageTitle) ?>" />
+    <?php if (!empty($publishedTime)): ?><meta property="article:published_time" content="<?= esc($publishedTime) ?>" /><?php endif; ?>
+    <?php if (!empty($modifiedTime)): ?><meta property="article:modified_time" content="<?= esc($modifiedTime) ?>" /><?php endif; ?>
+    <?php if (!empty($articleAuthor)): ?><meta property="article:author" content="<?= esc($articleAuthor) ?>" /><?php endif; ?>
+    <?php if (!empty($articleSection)): ?><meta property="article:section" content="<?= esc($articleSection) ?>" /><?php endif; ?>
+    <?php foreach (($articleTags ?? []) as $articleTag): ?><meta property="article:tag" content="<?= esc($articleTag) ?>" /><?php endforeach; ?>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<?= esc($pageTitle) ?>" />
+    <meta name="twitter:description" content="<?= esc($metaDescription) ?>" />
+    <meta name="twitter:image" content="<?= esc($socialImage) ?>" />
+    <link rel="alternate" type="application/rss+xml" title="HiredNext Recruitment Insights" href="<?= base_url('blog/feed.xml') ?>" />
 
     <?php if (!empty($jsonLd) && is_string($jsonLd)): ?>
         <script type="application/ld+json"><?= $jsonLd ?></script>
@@ -37,9 +47,9 @@ $canonicalUrl = $canonical ?? current_url();
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts -->
+    <!-- Brand typography -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <!-- Tailwind Config -->
@@ -53,8 +63,8 @@ $canonicalUrl = $canonical ?? current_url();
                         gold: '#d4af37',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Manrope', 'sans-serif'],
+                        serif: ['DM Serif Display', 'serif'],
                     }
                 }
             }
@@ -203,28 +213,28 @@ $canonicalUrl = $canonical ?? current_url();
                 <div>
                     <h4 class="font-bold mb-6 uppercase tracking-widest text-sm">Contact</h4>
                     <?php
-                    $phones = array_filter([
+                    $phones = array_values(array_unique(array_filter([
                         $settings['contact_phone'] ?? null,
                         $settings['contact_phone_2'] ?? null,
                         $settings['contact_phone_3'] ?? null,
                         $settings['contact_phone_4'] ?? null,
-                    ]);
-                    $emails = array_filter([
+                    ])));
+                    $emails = array_values(array_unique(array_filter([
                         $settings['contact_email'] ?? null,
                         $settings['contact_email_2'] ?? null,
                         $settings['contact_email_3'] ?? null,
                         $settings['contact_email_4'] ?? null,
-                    ]);
-                    $addresses = array_filter([
+                    ])));
+                    $addresses = array_values(array_unique(array_filter([
                         $settings['company_address'] ?? null,
                         $settings['contact_address_2'] ?? null,
                         $settings['contact_address_3'] ?? null,
-                    ]);
-                    $hours = array_filter([
+                    ])));
+                    $hours = array_values(array_unique(array_filter([
                         $settings['working_hours'] ?? null,
                         $settings['working_hours_2'] ?? null,
                         $settings['working_hours_3'] ?? null,
-                    ]);
+                    ])));
                     ?>
                     <div class="space-y-4 text-sm text-white/70">
                         <?php if (!empty($phones)): ?>
@@ -364,7 +374,7 @@ $canonicalUrl = $canonical ?? current_url();
             <!-- COPYRIGHT -->
             <div class="border-t border-white/5 pt-12 text-center">
                 <p class="text-[10px] font-bold text-white/70 uppercase tracking-[0.5em]">
-                    &copy; 2016 HiredNext Talent Advisory. Precision in Every Placement.
+                    &copy; <?= esc(date('Y')) ?> HiredNext Recruitment. Precision in Every Placement.
                 </p>
                 <p class="mt-4 text-[10px] font-bold text-white/40 uppercase tracking-[0.3em]">
                     <a href="https://neptastic.in" target="_blank" rel="noopener" class="hover:text-accent transition-colors">
