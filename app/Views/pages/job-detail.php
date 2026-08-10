@@ -69,34 +69,67 @@
             </div>
 
             <div class="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
-                <h3 class="text-2xl font-bold text-primary mb-4">Apply for this role</h3>
+                <h3 id="apply-heading" class="text-2xl font-bold text-primary mb-4">Apply for this role</h3>
 
                 <?php if (session('success')): ?>
-                    <div class="rounded-2xl border border-green-200 bg-green-50 text-green-700 px-6 py-4 text-sm font-semibold mb-6">
+                    <div role="status" class="rounded-2xl border border-green-200 bg-green-50 text-green-700 px-6 py-4 text-sm font-semibold mb-6">
                         <?= esc(session('success')) ?>
                     </div>
                 <?php endif; ?>
                 <?php if (session('errors')): ?>
-                    <div class="rounded-2xl border border-red-200 bg-red-50 text-red-700 px-6 py-4 text-sm font-semibold mb-6">
+                    <div role="alert" class="rounded-2xl border border-red-200 bg-red-50 text-red-700 px-6 py-4 text-sm font-semibold mb-6">
                         <?= esc(implode(' ', session('errors'))) ?>
                     </div>
                 <?php endif; ?>
 
-                <form action="<?= base_url('jobs/' . ($job['slug'] ?? '') . '/apply') ?>" method="post" enctype="multipart/form-data" class="space-y-4">
-                    <input name="name" required placeholder="Full Name" class="w-full border border-gray-200 rounded-xl px-4 py-3" />
-                    <input name="email" type="email" required placeholder="Email" class="w-full border border-gray-200 rounded-xl px-4 py-3" />
-                    <input name="phone" required placeholder="Phone" class="w-full border border-gray-200 rounded-xl px-4 py-3" />
-                    <input name="linkedin" required placeholder="LinkedIn Profile URL" class="w-full border border-gray-200 rounded-xl px-4 py-3" />
-                    <textarea name="message" placeholder="Short message (optional)" class="w-full border border-gray-200 rounded-xl px-4 py-3" rows="4"></textarea>
-                    <div class="rounded-xl border border-dashed border-gray-300 px-4 py-4 text-sm text-gray-500">
-                        <input name="resume" type="file" accept=".pdf,.doc,.docx" required class="w-full" />
+                <form
+                    action="<?= base_url('jobs/' . ($job['slug'] ?? '') . '/apply') ?>"
+                    method="post"
+                    enctype="multipart/form-data"
+                    class="space-y-4"
+                    aria-labelledby="apply-heading"
+                    data-agent-action="apply-to-job"
+                    data-job-slug="<?= esc($job['slug'] ?? '') ?>"
+                >
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="job_slug" value="<?= esc($job['slug'] ?? '') ?>" />
+
+                    <div>
+                        <label for="application-name" class="block text-sm font-bold text-primary mb-2">Full name *</label>
+                        <input id="application-name" name="name" autocomplete="name" required placeholder="Full Name" class="w-full border border-gray-200 rounded-xl px-4 py-3" />
                     </div>
 
-                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-accent transition-all">
+                    <div>
+                        <label for="application-email" class="block text-sm font-bold text-primary mb-2">Email *</label>
+                        <input id="application-email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="Email" class="w-full border border-gray-200 rounded-xl px-4 py-3" />
+                    </div>
+
+                    <div>
+                        <label for="application-phone" class="block text-sm font-bold text-primary mb-2">Phone *</label>
+                        <input id="application-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="Phone" class="w-full border border-gray-200 rounded-xl px-4 py-3" />
+                    </div>
+
+                    <div>
+                        <label for="application-linkedin" class="block text-sm font-bold text-primary mb-2">LinkedIn profile URL *</label>
+                        <input id="application-linkedin" name="linkedin" type="url" autocomplete="url" required placeholder="https://www.linkedin.com/in/..." class="w-full border border-gray-200 rounded-xl px-4 py-3" />
+                    </div>
+
+                    <div>
+                        <label for="application-message" class="block text-sm font-bold text-primary mb-2">Short message <span class="text-gray-400 font-normal">optional</span></label>
+                        <textarea id="application-message" name="message" placeholder="Short message (optional)" class="w-full border border-gray-200 rounded-xl px-4 py-3" rows="4"></textarea>
+                    </div>
+
+                    <div class="rounded-xl border border-dashed border-gray-300 px-4 py-4 text-sm text-gray-500">
+                        <label for="application-resume" class="block text-sm font-bold text-primary mb-2">Resume / CV *</label>
+                        <input id="application-resume" name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="w-full" aria-describedby="application-resume-help" />
+                        <p id="application-resume-help" class="text-xs text-gray-500 mt-2">Accepted formats: PDF, DOC, DOCX (max 5MB)</p>
+                    </div>
+
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-accent transition-all" aria-label="Submit application for <?= esc($job['title'] ?? 'this role') ?>">
                         Submit Application
                     </button>
                 </form>
-                <p class="text-xs text-gray-500 mt-4">Accepted formats: PDF, DOC, DOCX (max 5MB)</p>
+                <p class="text-xs text-gray-500 mt-4">Your application is submitted only for this exact role. HiredNext does not charge candidates to apply for a job or secure placement.</p>
             </div>
 
             <div class="relative overflow-hidden bg-primary text-white rounded-[2.5rem] p-8 shadow-xl border border-primary">
