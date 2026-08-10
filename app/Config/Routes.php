@@ -23,7 +23,7 @@ $routes->get('blog', 'Home::blog');
 $routes->get('blog/(:any)', 'Home::blogPost/$1');
 $routes->get('press-media', 'Home::pressMedia');
 $routes->get('contact', 'Home::contact');
-$routes->get('jobs', 'Home::jobs');
+$routes->get('jobs', 'Jobs::index');
 $routes->get('jobs/(:any)', 'Home::jobDetail/$1');
 $routes->post('jobs/(:any)/apply', 'Home::applyJob/$1');
 $routes->get('testimonials', 'Home::testimonials');
