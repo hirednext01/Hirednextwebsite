@@ -24,6 +24,9 @@ $routes->get('sitemap.xml', 'Seo::sitemap');
 $routes->get('llms.txt', 'Seo::llms');
 $routes->get('authority/media.json', 'Authority::mediaJson');
 $routes->get('authority/placement-evidence.json', 'Authority::placementEvidenceJson');
+$routes->get('hiring-intelligence', 'DiscoveryAuthority::hiringIntelligence');
+$routes->get('authority/hiring-intelligence.json', 'DiscoveryAuthority::hiringIntelligenceJson');
+$routes->get('authority/actions.json', 'DiscoveryAuthority::actionsJson');
 $routes->get('insights', 'Aeo::index');
 $routes->get('insights/(:any)', 'Aeo::show/$1');
 
