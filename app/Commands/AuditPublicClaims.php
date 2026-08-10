@@ -12,7 +12,7 @@ class AuditPublicClaims extends BaseCommand
 {
     protected $group = 'SEO';
     protected $name = 'seo:audit-claims';
-    protected $description = 'Flag unsupported or inconsistent public numeric claims before deployment.';
+    protected $description = 'Flag unsupported or inconsistent public claims before deployment.';
     protected $usage = 'seo:audit-claims';
 
     public function run(array $params)
@@ -29,6 +29,7 @@ class AuditPublicClaims extends BaseCommand
             '21-day average hiring speed' => '/21\s*(?:day|days)/i',
             '12 sectors' => '/12\s+sectors?/i',
             '25+ industries' => '/25\s*\+\s*industr(?:y|ies)/i',
+            'guaranteed success wording' => '/success\s+guaranteed|guaranteed\s+success/i',
         ];
 
         $roots = [
@@ -92,7 +93,7 @@ class AuditPublicClaims extends BaseCommand
         CLI::newLine();
 
         if (!$findings) {
-            CLI::write('PASS: No flagged unverified numeric claims were found in public site code.', 'green');
+            CLI::write('PASS: No flagged unsupported public claims were found in public site code.', 'green');
             return;
         }
 
