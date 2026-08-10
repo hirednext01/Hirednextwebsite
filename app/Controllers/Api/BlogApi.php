@@ -170,6 +170,9 @@ class BlogApi extends BaseApiController
             $updateData['id'] = $id;
             if ($status === 'published') {
                 $this->notifyIndexNow(base_url('blog/' . $slug));
+                if (!empty($existing['slug']) && $existing['slug'] !== $slug) {
+                    $this->notifyIndexNow(base_url('blog/' . $existing['slug']));
+                }
             }
             return $this->successResponse($updateData, 'Blog post updated successfully');
         } catch (\Exception $e) {
@@ -190,17 +193,24 @@ class BlogApi extends BaseApiController
                 return $this->errorResponse('Blog post not found', 404);
             }
 
-            $result = $db->table('blog_posts')->where('id', $id)->delete();
+            if (($existing['status'] ?? '') === 'archived') {
+                return $this->successResponse([], 'Blog post already archived');
+            }
+
+            $result = $db->table('blog_posts')->where('id', $id)->update([
+                'status' => 'archived',
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
             if (!$result) {
-                return $this->errorResponse('Failed to delete blog post', 500);
+                return $this->errorResponse('Failed to archive blog post', 500);
             }
 
             if (!empty($existing['slug'])) {
                 $this->notifyIndexNow(base_url('blog/' . $existing['slug']));
             }
-            return $this->successResponse([], 'Blog post deleted successfully');
+            return $this->successResponse([], 'Blog post archived successfully');
         } catch (\Exception $e) {
-            return $this->errorResponse('Error deleting blog post: ' . $e->getMessage(), 500);
+            return $this->errorResponse('Error archiving blog post: ' . $e->getMessage(), 500);
         }
     }
 
