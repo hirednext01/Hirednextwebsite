@@ -179,7 +179,7 @@ class BlogSearchOptimizer
             }
         }
 
-        $links[] = ['label' => 'Taru Shikha — Founder, HiredNext', 'url' => self::SITE . '/founder/taru-shikha'];
+        $links[] = ['label' => 'Taru Shikha — Founder, HiredNext', 'url' => self::SITE . '/about/taru-shikha'];
         return array_slice(array_values(array_unique($links, SORT_REGULAR)), 0, 4);
     }
 
