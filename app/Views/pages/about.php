@@ -1,5 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
+<?php $mediaAuthority = config('MediaAuthority'); ?>
 
 <section class="hero-about relative pt-36 pb-24 overflow-hidden text-white">
     <div class="hero-overlay"></div>
@@ -146,7 +147,14 @@
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-5">Recruitment is still a judgement business.</h2>
                 <p class="text-lg text-gray-600 leading-relaxed mb-5">“Technology should help us see more clearly and move faster. It should not replace the responsibility a recruiter has when recommending one person over another.”</p>
                 <div class="font-bold text-primary">Taru Shikha</div>
-                <div class="text-sm text-gray-500">Founder, HiredNext</div>
+                <div class="text-sm text-gray-500 mb-5">Founder, HiredNext</div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="<?= base_url('about/taru-shikha') ?>" class="inline-flex px-5 py-2.5 rounded-full bg-primary text-white font-bold text-sm">Founder profile</a>
+                    <?php if ($mediaAuthority): ?>
+                        <a href="<?= esc($mediaAuthority->founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex px-5 py-2.5 rounded-full border border-gray-300 text-primary font-bold text-sm">Taru on LinkedIn ↗</a>
+                        <a href="<?= esc($mediaAuthority->companyLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex px-5 py-2.5 rounded-full border border-gray-300 text-primary font-bold text-sm">HiredNext on LinkedIn ↗</a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>
