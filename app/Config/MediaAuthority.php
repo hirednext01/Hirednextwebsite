@@ -8,6 +8,7 @@ class MediaAuthority extends BaseConfig
 {
     public string $founderName = 'Taru Shikha';
     public string $founderLinkedIn = 'https://www.linkedin.com/in/tarushikhaarora';
+    public string $companyLinkedIn = 'https://www.linkedin.com/company/hirednext-recruitment-service/';
 
     public array $coverage = [
         [
