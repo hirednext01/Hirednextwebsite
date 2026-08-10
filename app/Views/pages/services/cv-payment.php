@@ -1,18 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <?php
-$qrStaticUrl = base_url('theme/assets/hirednext-paytm-qr.jpg');
-$qrFile = FCPATH . 'theme/assets/hirednext-paytm-qr.jpg';
-$qrSrc = $qrStaticUrl;
-
-// Render the verified QR inline when the file is available. This avoids failures caused by
-// document-root, CDN or cache configuration while keeping the same visible payment design.
-if (is_file($qrFile) && is_readable($qrFile)) {
-    $qrBytes = @file_get_contents($qrFile);
-    if ($qrBytes !== false && $qrBytes !== '') {
-        $qrSrc = 'data:image/jpeg;base64,' . base64_encode($qrBytes);
-    }
-}
+$qrSrc = base_url('cv-payment/qr');
 ?>
 <style>
     /* This page starts on a light background, so the fixed global navigation needs dark text immediately. */
@@ -47,7 +36,7 @@ if (is_file($qrFile) && is_readable($qrFile)) {
                 </div>
                 <div class="flex flex-col items-center justify-center">
                     <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
-                        <img src="<?= esc($qrSrc) ?>" alt="HiredNext UPI QR code for ₹599 priority CV assessment" width="320" height="320" class="block w-full max-w-[320px] h-auto rounded-xl" loading="eager" decoding="sync" onerror="this.onerror=null;this.src='<?= esc($qrStaticUrl) ?>';">
+                        <img src="<?= esc($qrSrc) ?>" alt="HiredNext UPI QR code for ₹599 priority CV assessment" width="320" height="320" class="block w-full max-w-[320px] h-auto rounded-xl" loading="eager" decoding="sync">
                     </div>
                     <p class="mt-3 text-xs text-gray-500 text-center">Scan the QR above to pay ₹599.</p>
                 </div>
