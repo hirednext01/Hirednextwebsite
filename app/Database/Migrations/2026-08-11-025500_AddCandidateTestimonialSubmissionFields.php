@@ -15,12 +15,19 @@ class AddCandidateTestimonialSubmissionFields extends Migration
         $fields = array_flip($this->db->getFieldNames('reviews'));
         $columns = [];
 
+        if (!isset($fields['linkedin_url'])) {
+            $columns['linkedin_url'] = [
+                'type' => 'TEXT',
+                'null' => true,
+                'after' => 'source_url',
+            ];
+        }
         if (!isset($fields['submitter_email'])) {
             $columns['submitter_email'] = [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
                 'null' => true,
-                'after' => 'source_url',
+                'after' => 'linkedin_url',
             ];
         }
         if (!isset($fields['submitter_phone'])) {
@@ -76,7 +83,7 @@ class AddCandidateTestimonialSubmissionFields extends Migration
         }
 
         $fields = array_flip($this->db->getFieldNames('reviews'));
-        foreach (['submitted_via', 'publish_consent', 'future_support', 'help_received', 'submitter_phone', 'submitter_email'] as $field) {
+        foreach (['submitted_via', 'publish_consent', 'future_support', 'help_received', 'submitter_phone', 'submitter_email', 'linkedin_url'] as $field) {
             if (isset($fields[$field])) {
                 $this->forge->dropColumn('reviews', $field);
             }
