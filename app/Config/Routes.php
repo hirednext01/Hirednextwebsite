@@ -13,6 +13,8 @@ $routes->get('cv-assessment', 'CandidateServices::cvAssessment');
 $routes->post('cv-assessment/submit', 'CvAssessment::submit');
 $routes->get('robots.txt', 'Seo::robots');
 $routes->get('sitemap.xml', 'Seo::sitemap');
+$routes->get('insights', 'Aeo::index');
+$routes->get('insights/(:any)', 'Aeo::show/$1');
 $routes->get('industry/(:any)', 'Home::industry/$1');
 $routes->get('regions/(:any)', 'Home::region/$1');
 $routes->get('blog', 'Home::blog');
