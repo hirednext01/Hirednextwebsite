@@ -25,8 +25,16 @@ $routes->get('authority/media.json', 'Authority::mediaJson');
 $routes->get('authority/placement-evidence.json', 'Authority::placementEvidenceJson');
 $routes->get('insights', 'Aeo::index');
 $routes->get('insights/(:any)', 'Aeo::show/$1');
+
+// Priority industry authority pages. These use the existing approved industry design.
 $routes->get('industry/garment-textile-recruitment-india', 'IndustryAuthority::garmentTextile');
+$routes->get('industry/it-recruitment-services-india', 'IndustryAuthority::itTechnology');
+$routes->get('industry/bfsi-leadership-hiring', 'IndustryAuthority::bfsiNbfc');
+$routes->get('industry/pharma-life-sciences-recruitment-india', 'IndustryAuthority::pharmaLifeSciences');
+$routes->get('industry/global-capability-centres-hiring-india', 'IndustryAuthority::globalCapabilityCentres');
+$routes->get('industry/semiconductor-recruitment-india', 'IndustryAuthority::semiconductors');
 $routes->get('industry/(:any)', 'Home::industry/$1');
+
 $routes->get('regions/(:any)', 'Home::region/$1');
 $routes->get('blog', 'Home::blog');
 $routes->get('blog/feed.xml', 'Seo::blogFeed');
