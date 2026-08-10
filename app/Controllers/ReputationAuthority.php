@@ -156,8 +156,9 @@ class ReputationAuthority extends BaseController
             'project_type' => 'Candidate Journey',
             'location' => $currentRole ?: null,
             'proof_type' => 'Candidate Story',
-            'source_label' => $linkedinUrl !== '' ? 'LinkedIn / public profile' : null,
-            'source_url' => $linkedinUrl ?: null,
+            'source_label' => null,
+            'source_url' => null,
+            'linkedin_url' => $linkedinUrl ?: null,
             'submitter_email' => $email,
             'submitter_phone' => $phone ?: null,
             'help_received' => $helpReceived,
@@ -190,7 +191,7 @@ class ReputationAuthority extends BaseController
                 "Current role: {$currentRole}\n" .
                 "How HiredNext helped: {$helpReceived}\n" .
                 "Future support: {$futureSupport}\n" .
-                "LinkedIn/public proof: {$linkedinUrl}\n\n" .
+                "LinkedIn/public identity: {$linkedinUrl}\n\n" .
                 "Story:\n{$story}\n\n" .
                 "Status: pending review\n"
             );
