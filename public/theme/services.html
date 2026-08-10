@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HiredNext | Shaping Careers, Powering Organizations</title>
+    <link rel="stylesheet" href="css/style.css" />
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0c3466',
+                        accent: '#ff4e16',
+                        gold: '#d4af37',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-5">
+
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <div class="flex justify-between items-center">
+
+                <!-- LOGO -->
+                <a href="./index.html" class="flex items-center">
+                    <span id="logoText" class="text-2xl font-bold tracking-tighter text-white">
+                        Hired<span class="text-accent">Next</span>
+                    </span>
+                </a>
+
+                <!-- DESKTOP NAV -->
+                <div class="hidden md:flex space-x-10 items-center">
+                    <a href="./index.html" class="nav-link text-sm font-semibold text-white">Home</a>
+                    <a href="./about.html" class="nav-link text-sm font-semibold text-white">About</a>
+                    <a href="./services.html" class="nav-link text-sm font-semibold text-white">Services</a>
+                    <a href="./testimonials.html" class="nav-link text-sm font-semibold text-white">Testimonials</a>
+                    <a href="./blog.html" class="nav-link text-sm font-semibold text-white">Blog</a>
+
+                    <a href="./contact.html"
+                        class="bg-accent text-white px-8 py-2.5 rounded-full text-sm font-bold hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">
+                        Book Consultation
+                    </a>
+                </div>
+
+                <!-- MOBILE MENU BUTTON -->
+                <div class="md:hidden">
+                    <button id="menuBtn" class="text-white">
+                        <!-- MENU ICON -->
+                        <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <line x1="3" y1="12" x2="21" y2="12" />
+                            <line x1="3" y1="18" x2="21" y2="18" />
+                        </svg>
+
+                        <!-- CLOSE ICON -->
+                        <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" class="hidden">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu"
+            class="md:hidden hidden bg-white shadow-xl absolute top-full left-0 w-full p-6 animate-in slide-in-from-top duration-300">
+            <div class="flex flex-col space-y-4">
+                <a href="./index.html" class="mobile-link">Home</a>
+                <a href="./services.html" class="mobile-link">Services</a>
+                <a href="./testimonials.html" class="mobile-link">Testimonials</a>
+                <a href="./blog.html" class="mobile-link">Blog</a>
+                <a href="#about" class="mobile-link">About</a>
+                <a href="./contact.html" class="bg-accent text-white px-6 py-3 rounded-xl text-center font-bold">
+                    Book Consultation
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 overflow-hidden bg-primary text-white">
+        <div
+            class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary via-primary/50 to-transparent z-10">
+        </div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-accent opacity-10 rounded-full blur-3xl animate-float">
+        </div>
+        <div class="absolute bottom-10 -left-20 w-80 h-80 bg-gold opacity-10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 relative z-20 text-center">
+            <span
+                class="reveal reveal-up inline-block px-5 py-2 bg-accent/20 text-accent font-bold text-xs uppercase tracking-widest rounded-full mb-8 backdrop-blur-md border border-accent/20">
+                Our Insights
+            </span>
+            <h1 class="reveal reveal-up text-5xl md:text-7xl font-bold font-serif mb-8 leading-tight">
+                Thoughts on <span class="text-accent">Talent</span> & <span class="text-gold">Tech</span>
+            </h1>
+            <p class="reveal reveal-up text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Stay updated with the latest trends in leadership, global recruitment, and industry innovations.
+            </p>
+        </div>
+    </header>
+    <!-- ================= SERVICES ================= -->
+    <section class="py-32 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 space-y-32">
+
+            <!-- ================= 1. PERMANENT HIRING ================= -->
+            <div class="flex flex-col lg:flex-row gap-20 items-center">
+
+                <!-- IMAGE -->
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute inset-0 bg-primary/10 rounded-[3rem] rotate-2"></div>
+                    <div class="relative overflow-hidden rounded-[3rem] shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200"
+                            class="w-full h-[520px] object-cover transition-transform duration-700 hover:scale-105" />
+                    </div>
+                </div>
+
+                <!-- CONTENT -->
+                <div class="lg:w-1/2">
+                    <span class="text-accent font-black tracking-widest uppercase text-xs">
+                        Creating Teams That Last
+                    </span>
+
+                    <h2 class="text-5xl font-serif font-black text-primary mt-4 mb-6">
+                        Permanent Hiring
+                    </h2>
+
+                    <p class="text-gold text-xl italic mb-6">
+                        Strategic long-term hiring solutions
+                    </p>
+
+                    <p class="text-gray-500 text-lg leading-relaxed mb-10 max-w-xl">
+                        Strategic long-term hiring focused on cultural alignment, role precision,
+                        and sustainable business growth — ensuring higher retention and performance.
+                    </p>
+
+                    <a href="./services/service-permanent-hiring.html"
+                        class="inline-flex items-center gap-4 px-10 py-4 bg-primary text-white rounded-full font-bold hover:bg-accent transition shadow-xl">
+                        Explore Service →
+                    </a>
+                </div>
+            </div>
+
+            <!-- ================= 2. RPO SOLUTIONS ================= -->
+            <div class="flex flex-col lg:flex-row-reverse gap-20 items-center">
+
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute inset-0 bg-gold/10 rounded-[3rem] -rotate-2"></div>
+                    <div class="relative overflow-hidden rounded-[3rem] shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200"
+                            class="w-full h-[520px] object-cover transition-transform duration-700 hover:scale-105" />
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2">
+                    <span class="text-accent font-black tracking-widest uppercase text-xs">
+                        Smarter Hiring. Stronger Results.
+                    </span>
+
+                    <h2 class="text-5xl font-serif font-black text-primary mt-4 mb-6">
+                        RPO Solutions
+                    </h2>
+
+                    <p class="text-gold text-xl italic mb-6">
+                        End-to-end recruitment ownership
+                    </p>
+
+                    <p class="text-gray-500 text-lg leading-relaxed mb-10 max-w-xl">
+                        Comprehensive recruitment management that reduces cost, accelerates
+                        hiring timelines, and ensures consistent talent quality at scale.
+                    </p>
+
+                    <a href="./services/service-rpo.html"
+                        class="inline-flex items-center gap-4 px-10 py-4 bg-primary text-white rounded-full font-bold hover:bg-gold transition shadow-xl">
+                        Explore Service →
+                    </a>
+                </div>
+            </div>
+
+            <!-- ================= 3. EXECUTIVE SEARCH ================= -->
+            <div class="flex flex-col lg:flex-row gap-20 items-center">
+
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute inset-0 bg-primary/10 rounded-[3rem] rotate-2"></div>
+                    <div class="relative overflow-hidden rounded-[3rem] shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200"
+                            class="w-full h-[520px] object-cover transition-transform duration-700 hover:scale-105" />
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2">
+                    <span class="text-accent font-black tracking-widest uppercase text-xs">
+                        Building Leadership That Shapes the Future
+                    </span>
+
+                    <h2 class="text-5xl font-serif font-black text-primary mt-4 mb-6">
+                        HiredNext Realm
+                    </h2>
+
+                    <p class="text-gold text-xl italic mb-6">
+                        Elite executive & CXO search
+                    </p>
+
+                    <p class="text-gray-500 text-lg leading-relaxed mb-10 max-w-xl">
+                        Confidential, research-driven leadership hiring backed by global executive
+                        networks and deep industry intelligence.
+                    </p>
+
+                    <a href="./services/service-executive-search.html"
+                        class="inline-flex items-center gap-4 px-10 py-4 bg-primary text-white rounded-full font-bold hover:bg-accent transition shadow-xl">
+                        Explore Service →
+                    </a>
+                </div>
+            </div>
+
+            <!-- ================= 4. HIREDNEXT AVRON ================= -->
+            <div class="flex flex-col lg:flex-row-reverse gap-20 items-center">
+
+                <div class="lg:w-1/2 relative">
+                    <div class="absolute inset-0 bg-gold/10 rounded-[3rem] -rotate-2"></div>
+                    <div class="relative overflow-hidden rounded-[3rem] shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200"
+                            class="w-full h-[520px] object-cover transition-transform duration-700 hover:scale-105" />
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2">
+                    <span class="text-accent font-black tracking-widest uppercase text-xs">
+                        Accelerate Your Career with Intelligence
+                    </span>
+
+                    <h2 class="text-5xl font-serif font-black text-primary mt-4 mb-6">
+                        HiredNext Avron
+                    </h2>
+
+                    <p class="text-gold text-xl italic mb-6">
+                        AI-powered career acceleration
+                    </p>
+
+                    <p class="text-gray-500 text-lg leading-relaxed mb-10 max-w-xl">
+                        An intelligent career companion delivering skill-gap analysis,
+                        personalized learning paths, and data-driven career insights.
+                    </p>
+
+                    <a href="./services/service-avron.html"
+                        class="inline-flex items-center gap-4 px-10 py-4 bg-primary text-white rounded-full font-bold hover:bg-gold transition shadow-xl">
+                        Explore Service →
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="py-40 bg-primary text-white text-center relative overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay">
+        </div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-accent opacity-10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-gold opacity-10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-5xl mx-auto px-6 relative z-10 reveal reveal-up">
+            <h2 class="text-5xl md:text-7xl font-serif font-bold mb-10 leading-tight">
+                Transform talent into a <br>
+                <span class="text-gold italic">strategic advantage.</span>
+            </h2>
+
+            <a href="#contact"
+                class="inline-block px-12 py-5 bg-white text-primary rounded-full font-black uppercase tracking-widest hover:bg-accent hover:text-white transition-all shadow-[0_10px_30px_rgba(255,255,255,0.2)] hover:shadow-[0_20px_40px_rgba(255,78,22,0.4)] hover:-translate-y-1">
+                Partner With Us
+            </a>
+        </div>
+    </section>
+
+    <!-- ================= METHODOLOGY ================= -->
+    <section class="py-32 bg-gray-50 relative overflow-hidden">
+        <div class="max-w-[1440px] mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20 reveal reveal-up">
+                <span class="text-accent font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">
+                    How We Deliver
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold text-primary font-serif mb-6">
+                    Our Methodology
+                </h2>
+                <p class="text-gray-500 text-lg">
+                    A precision-engineered approach to talent acquisition that balances speed, quality, and cultural
+                    alignment.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="group reveal reveal-up">
+                    <div
+                        class="bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                        <div
+                            class="text-3xl font-black text-accent/20 mb-6 group-hover:text-accent/40 transition-colors">
+                            01</div>
+                        <h3 class="text-xl font-bold text-primary mb-4">Discovery</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">Deep dive into your organizational culture,
+                            goals, and specific role requirements.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="group reveal reveal-up" style="animation-delay: 100ms;">
+                    <div
+                        class="bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                        <div
+                            class="text-3xl font-black text-accent/20 mb-6 group-hover:text-accent/40 transition-colors">
+                            02</div>
+                        <h3 class="text-xl font-bold text-primary mb-4">Sourcing</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">Leveraging global networks and AI-powered tools
+                            to identify elite talent.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="group reveal reveal-up" style="animation-delay: 200ms;">
+                    <div
+                        class="bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                        <div
+                            class="text-3xl font-black text-accent/20 mb-6 group-hover:text-accent/40 transition-colors">
+                            03</div>
+                        <h3 class="text-xl font-bold text-primary mb-4">Evaluation</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">Multi-layered assessment focusing on both
+                            technical mastery and soft skill alignment.</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="group reveal reveal-up" style="animation-delay: 300ms;">
+                    <div
+                        class="bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                        <div
+                            class="text-3xl font-black text-accent/20 mb-6 group-hover:text-accent/40 transition-colors">
+                            04</div>
+                        <h3 class="text-xl font-bold text-primary mb-4">Onboarding</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">Ensuring seamless integration and providing
+                            post-placement support for long-term success.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= WHY CHOOSE US (FIXED + UPGRADED) ================= -->
+    <section class="py-32 bg-white relative overflow-hidden">
+        <!-- subtle background glow -->
+        <div class="absolute -top-32 -right-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+
+        <div class="max-w-[1440px] mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-24 items-center">
+
+                <!-- LEFT CONTENT -->
+                <div class="reveal reveal-right">
+                    <span class="text-accent font-black uppercase tracking-[0.35em] text-[11px] mb-6 block">
+                        The HiredNext Edge
+                    </span>
+
+                    <h2 class="text-4xl md:text-6xl font-bold text-primary font-serif mb-10 leading-tight">
+                        Why Strategic Leaders <br>
+                        <span class="text-accent">Choose Us.</span>
+                    </h2>
+
+                    <p class="text-xl text-gray-500 mb-14 leading-relaxed max-w-xl">
+                        We don’t just fill roles — we architect leadership ecosystems that
+                        fuel long-term growth, trust, and measurable business outcomes.
+                    </p>
+
+                    <div class="space-y-6 max-w-xl">
+                        <!-- Item -->
+                        <div
+                            class="flex items-center gap-6 p-6 bg-gray-50 rounded-2xl group hover:bg-primary transition-all duration-300">
+                            <div
+                                class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <span class="text-lg font-bold group-hover:text-white">
+                                Industry-First Intelligence
+                            </span>
+                        </div>
+
+                        <!-- Item -->
+                        <div
+                            class="flex items-center gap-6 p-6 bg-gray-50 rounded-2xl group hover:bg-primary transition-all duration-300">
+                            <div
+                                class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </div>
+                            <span class="text-lg font-bold group-hover:text-white">
+                                100% Confidential Search
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT STATS -->
+                <div class="grid grid-cols-2 gap-8 reveal reveal-left">
+
+                    <!-- Card -->
+                    <div
+                        class="p-12 bg-primary rounded-[3rem] text-center hover:-translate-y-3 transition-all duration-500 shadow-xl">
+                        <div class="text-5xl font-black text-gold mb-3">98%</div>
+                        <div class="text-white/70 text-[11px] font-black uppercase tracking-widest">
+                            Client Retention
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div
+                        class="p-12 bg-accent rounded-[3rem] text-center hover:-translate-y-3 transition-all duration-500 shadow-xl">
+                        <div class="text-5xl font-black text-white mb-3">15d</div>
+                        <div class="text-white/70 text-[11px] font-black uppercase tracking-widest">
+                            Avg. Fill Time
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div
+                        class="p-12 bg-gray-100 rounded-[3rem] text-center hover:-translate-y-3 transition-all duration-500 shadow-md">
+                        <div class="text-5xl font-black text-primary mb-3">50k+</div>
+                        <div class="text-primary/50 text-[11px] font-black uppercase tracking-widest">
+                            Global Network
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div
+                        class="p-12 bg-gold rounded-[3rem] text-center hover:-translate-y-3 transition-all duration-500 shadow-xl">
+                        <div class="text-5xl font-black text-white mb-3">8+</div>
+                        <div class="text-white/70 text-[11px] font-black uppercase tracking-widest">
+                            Years Excellence
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const obs = new IntersectionObserver(e => {
+            e.forEach(x => x.isIntersecting && x.target.classList.add('reveal-visible'))
+        }, { threshold: .15 });
+        reveals.forEach(r => obs.observe(r));
+    </script>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="contact" class="bg-primary text-white pt-20 pb-10">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
+
+                <!-- BRAND -->
+                <div>
+                    <h3 class="text-3xl font-bold mb-8">
+                        Hired<span class="text-accent">Next</span>
+                    </h3>
+
+                    <p class="text-gray-300 mb-8 text-base leading-relaxed">
+                        Driving growth through strategic talent solutions and future-ready
+                        recruitment practices. Trusted global partner for mid-to-senior
+                        leadership hiring.
+                    </p>
+
+                    <div class="flex space-x-4">
+                        <!-- LinkedIn -->
+                        <a href="#" class="p-3 bg-white/10 rounded-full hover:bg-accent transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <rect x="2" y="2" width="20" height="20" rx="2" />
+                                <line x1="8" y1="11" x2="8" y2="16" />
+                                <line x1="8" y1="8" x2="8" y2="8" />
+                                <path d="M12 16v-5a2 2 0 0 1 4 0v5" />
+                            </svg>
+                        </a>
+
+                        <!-- Twitter -->
+                        <a href="#" class="p-3 bg-white/10 rounded-full hover:bg-accent transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 12 8v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+                            </svg>
+                        </a>
+
+                        <!-- Facebook -->
+                        <a href="#" class="p-3 bg-white/10 rounded-full hover:bg-accent transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- QUICK LINKS -->
+                <div>
+                    <h4 class="text-xl font-bold mb-8 border-l-4 border-accent pl-4">
+                        Quick Links
+                    </h4>
+                    <ul class="space-y-4 text-gray-300">
+                        <li><a href="./index.html" class="hover:text-accent transition-colors">Home</a></li>
+                        <li><a href="./services.html" class="hover:text-accent transition-colors">Our Services</a></li>
+                        <li><a href="./testimonials.html" class="hover:text-accent transition-colors">Testimonials</a>
+                        </li>
+                        <li><a href="./blog.html" class="hover:text-accent transition-colors">Insights & Blog</a></li>
+                        <li><a href="#about" class="hover:text-accent transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-accent transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- SERVICES -->
+                <div>
+                    <h4 class="text-xl font-bold mb-8 border-l-4 border-gold pl-4">
+                        Our Services
+                    </h4>
+                    <ul class="space-y-4 text-gray-300">
+                        <li>Permanent Hiring</li>
+                        <li>RPO Solutions</li>
+                        <li>Executive Search</li>
+                        <li>Candidate Upskilling</li>
+                    </ul>
+                </div>
+
+                <!-- CONTACT INFO -->
+                <div>
+                    <h4 class="text-xl font-bold mb-8 border-l-4 border-accent pl-4">
+                        Contact Info
+                    </h4>
+
+                    <ul class="space-y-5 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="mr-4 text-accent">✉</span>
+                            <span class="text-base">working@hirednext.info</span>
+                        </li>
+
+                        <li class="flex items-start">
+                            <span class="mr-4 text-accent">📍</span>
+                            <span class="text-base leading-relaxed">
+                                Delhi NCR | Mumbai | Chennai | Bangalore
+                            </span>
+                        </li>
+
+                        <li class="flex items-start">
+                            <span class="mr-4 text-accent">⏰</span>
+                            <span class="text-base">
+                                Mon – Fri | 9:00 AM – 5:00 PM
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- COPYRIGHT -->
+            <div class="border-t border-white/10 pt-10 text-center text-sm text-gray-400">
+                <p>
+                    © <span id="year"></span> HiredNext Talent Advisory. All rights reserved.
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+
+
+    <!-- ================== Nav Script ================== -->
+    <script>
+        const navbar = document.getElementById('navbar');
+        const logoText = document.getElementById('logoText');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        let isOpen = false;
+
+        // SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('bg-transparent', 'py-5');
+                navbar.classList.add('bg-white', 'shadow-md', 'py-3');
+
+                logoText.classList.remove('text-white');
+                logoText.classList.add('text-primary');
+
+                navLinks.forEach(link => {
+                    link.classList.remove('text-white');
+                    link.classList.add('text-primary');
+                });
+
+                menuBtn.classList.remove('text-white');
+                menuBtn.classList.add('text-primary');
+
+            } else {
+                navbar.classList.add('bg-transparent', 'py-5');
+                navbar.classList.remove('bg-white', 'shadow-md', 'py-3');
+
+                logoText.classList.add('text-white');
+                logoText.classList.remove('text-primary');
+
+                navLinks.forEach(link => {
+                    link.classList.add('text-white');
+                    link.classList.remove('text-primary');
+                });
+
+                menuBtn.classList.add('text-white');
+                menuBtn.classList.remove('text-primary');
+            }
+        });
+
+        // MOBILE MENU TOGGLE
+        menuBtn.addEventListener('click', () => {
+            isOpen = !isOpen;
+            mobileMenu.classList.toggle('hidden', !isOpen);
+            menuIcon.classList.toggle('hidden', isOpen);
+            closeIcon.classList.toggle('hidden', !isOpen);
+        });
+
+        // CLOSE MENU ON LINK CLICK
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                isOpen = false;
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+    </script>
+
+
+    <!-- ================= Footer Script ================= -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+
+
+</body>
+
+</html>

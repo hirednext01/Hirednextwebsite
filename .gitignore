@@ -1,0 +1,10 @@
+.env
+*.env
+*.log
+vendor/
+writable/
+app_backup_*/
+\[
+Person,
+Taru Shikha,
+.DS_Store

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Executive Search | HiredNext Realm – Building Leadership That Shapes the Future</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="../assets/favicon.jpg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#0c3466', accent: '#ff4e16', gold: '#d4af37' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-5">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <div class="flex justify-between items-center">
+                <a href="../index.html" class="flex items-center">
+                    <span id="logoText" class="text-2xl font-bold tracking-tighter text-white">Hired<span class="text-accent">Next</span></span>
+                </a>
+                <div class="hidden md:flex space-x-10 items-center">
+                    <a href="../index.html" class="nav-link text-sm font-semibold text-white">Home</a>
+                    <a href="../about.html" class="nav-link text-sm font-semibold text-white">About</a>
+                    <a href="../services.html" class="nav-link text-sm font-semibold text-white">Services</a>
+                    <a href="../testimonials.html" class="nav-link text-sm font-semibold text-white">Testimonials</a>
+                    <a href="../blog.html" class="nav-link text-sm font-semibold text-white">Blog</a>
+                    <a href="../contact.html" class="bg-accent text-white px-8 py-2.5 rounded-full text-sm font-bold hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Book Consultation</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menuBtn" class="text-white">
+                        <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+                        <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hidden"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden hidden bg-white shadow-xl absolute top-full left-0 w-full p-6">
+            <div class="flex flex-col space-y-4">
+                <a href="../index.html" class="mobile-link">Home</a>
+                <a href="../about.html" class="mobile-link">About</a>
+                <a href="../services.html" class="mobile-link">Services</a>
+                <a href="../testimonials.html" class="mobile-link">Testimonials</a>
+                <a href="../blog.html" class="mobile-link">Blog</a>
+                <a href="../contact.html" class="bg-accent text-white px-6 py-3 rounded-xl text-center font-bold">Book Consultation</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative bg-primary pt-36 pb-24 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+        <div class="absolute -top-32 -right-32 w-96 h-96 bg-accent/20 blur-3xl rounded-full"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-gold/10 blur-3xl rounded-full"></div>
+        <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <nav class="flex items-center gap-2 text-sm text-white/70 mb-8">
+                <a href="../index.html" class="hover:text-accent transition">Home</a><span>/</span>
+                <a href="../services.html" class="hover:text-accent transition">Services</a><span>/</span>
+                <span class="text-gold font-semibold">Executive Search</span>
+            </nav>
+            <div class="max-w-4xl">
+                <span class="inline-block px-4 py-1.5 bg-gold/20 text-gold font-bold text-xs uppercase tracking-widest rounded-full mb-6">HiredNext Realm</span>
+                <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">Executive <span class="text-accent">Search</span></h1>
+                <p class="text-xl md:text-2xl text-gold italic mb-4">Building Leadership That Shapes the Future</p>
+                <p class="text-lg text-white/80 max-w-2xl">Identifying and securing top-tier leadership requires discretion, insight, and global reach. We specialize in confidential CXO and board-level hiring, powered by deep industry networks and a rigorous evaluation process.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative z-20 -mt-8 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 md:p-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center"><div class="text-3xl md:text-4xl font-black text-primary mb-1">100%</div><div class="text-xs font-bold text-gray-500 uppercase tracking-widest">Confidential</div></div>
+            <div class="text-center"><div class="text-3xl md:text-4xl font-black text-accent mb-1">50k+</div><div class="text-xs font-bold text-gray-500 uppercase tracking-widest">Executive Network</div></div>
+            <div class="text-center"><div class="text-3xl md:text-4xl font-black text-primary mb-1">CXO</div><div class="text-xs font-bold text-gray-500 uppercase tracking-widest">& Board Level</div></div>
+            <div class="text-center"><div class="text-3xl md:text-4xl font-black text-gold mb-1">15+</div><div class="text-xs font-bold text-gray-500 uppercase tracking-widest">Countries</div></div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-primary mb-8">Confidential & Strategic Leadership Hiring</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-8">We combine bespoke CXO and board-level search methodology with strictly confidential execution. Our team taps into elite global executive networks and applies evidence-based leadership assessments so you get leaders who match both capability and culture.</p>
+                    <ul class="space-y-5 mb-10">
+                        <li class="flex items-start gap-4"><span class="text-accent text-xl shrink-0">✓</span><span class="text-gray-700 font-medium">Bespoke CXO & board-level search methodology tailored to your context</span></li>
+                        <li class="flex items-start gap-4"><span class="text-accent text-xl shrink-0">✓</span><span class="text-gray-700 font-medium">Strictly confidential, professional process with clear communication</span></li>
+                        <li class="flex items-start gap-4"><span class="text-accent text-xl shrink-0">✓</span><span class="text-gray-700 font-medium">Access to elite global executive networks and passive candidates</span></li>
+                        <li class="flex items-start gap-4"><span class="text-accent text-xl shrink-0">✓</span><span class="text-gray-700 font-medium">Evidence-based leadership assessments and cultural fit evaluation</span></li>
+                    </ul>
+                    <a href="../contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-full font-bold hover:bg-accent transition-all shadow-lg">Initiate Executive Search →</a>
+                </div>
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-accent/10 rounded-[3rem] rotate-2"></div>
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200" alt="Executive Search" class="relative rounded-[2.5rem] shadow-2xl w-full h-[520px] object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <h2 class="text-4xl font-serif font-bold text-primary text-center mb-4">Who Executive Search Is For</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-16">When the role is mission-critical and discretion is non-negotiable.</p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:border-accent/30 hover:shadow-xl transition-all text-center">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center text-primary text-2xl font-black">👑</div>
+                    <h3 class="font-bold text-primary mb-2">C-Suite & Board</h3>
+                    <p class="text-sm text-gray-500">CEO, CFO, CTO, COO and board appointments</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:border-accent/30 hover:shadow-xl transition-all text-center">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-2xl bg-accent/10 flex items-center justify-center text-accent text-2xl font-black">🔒</div>
+                    <h3 class="font-bold text-primary mb-2">Confidential Replacements</h3>
+                    <p class="text-sm text-gray-500">Sensitive succession and replacement hiring</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:border-accent/30 hover:shadow-xl transition-all text-center">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-2xl bg-gold/10 flex items-center justify-center text-gold text-2xl font-black">🌍</div>
+                    <h3 class="font-bold text-primary mb-2">Global Leaders</h3>
+                    <p class="text-sm text-gray-500">Cross-border leadership and regional heads</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:border-accent/30 hover:shadow-xl transition-all text-center">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center text-primary text-2xl font-black">📈</div>
+                    <h3 class="font-bold text-primary mb-2">Transformational Hires</h3>
+                    <p class="text-sm text-gray-500">Leaders who will drive strategy and change</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <h2 class="text-4xl font-serif font-bold text-primary text-center mb-4">Our Executive Search Process</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-16">From brief to placement, we maintain the highest standards of confidentiality and rigour.</p>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="group bg-gray-50 p-10 rounded-[2.5rem] border-2 border-transparent hover:border-accent hover:shadow-xl transition-all duration-300">
+                    <div class="text-accent font-black text-4xl mb-6">01</div>
+                    <h4 class="font-bold text-primary text-xl mb-3">Briefing</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">We define the leadership profile, success criteria, and organizational context in depth so the search is aligned from day one.</p>
+                </div>
+                <div class="group bg-gray-50 p-10 rounded-[2.5rem] border-2 border-transparent hover:border-accent hover:shadow-xl transition-all duration-300">
+                    <div class="text-accent font-black text-4xl mb-6">02</div>
+                    <h4 class="font-bold text-primary text-xl mb-3">Mapping</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">We identify and map potential leaders across industries and geographies using our network and research capabilities.</p>
+                </div>
+                <div class="group bg-gray-50 p-10 rounded-[2.5rem] border-2 border-transparent hover:border-accent hover:shadow-xl transition-all duration-300">
+                    <div class="text-accent font-black text-4xl mb-6">03</div>
+                    <h4 class="font-bold text-primary text-xl mb-3">Vetting</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">Rigorous technical, strategic, and cultural leadership assessment—including references and background verification.</p>
+                </div>
+                <div class="group bg-gray-50 p-10 rounded-[2.5rem] border-2 border-transparent hover:border-accent hover:shadow-xl transition-all duration-300">
+                    <div class="text-accent font-black text-4xl mb-6">04</div>
+                    <h4 class="font-bold text-primary text-xl mb-3">Selection</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">We support negotiations, onboarding, and transition planning so your new leader hits the ground running.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-primary text-white">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <h2 class="text-4xl font-serif font-bold text-center mb-4">Leadership Roles We Fill</h2>
+            <p class="text-center text-white/70 max-w-2xl mx-auto mb-16">From C-suite to regional and functional heads across all major industries.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <span class="px-6 py-3 bg-white/10 rounded-full text-sm font-semibold border border-white/20">CEO / Managing Director</span>
+                <span class="px-6 py-3 bg-white/10 rounded-full text-sm font-semibold border border-white/20">CFO / Finance Lead</span>
+                <span class="px-6 py-3 bg-white/10 rounded-full text-sm font-semibold border border-white/20">CTO / Technology Head</span>
+                <span class="px-6 py-3 bg-white/10 rounded-full text-sm font-semibold border border-white/20">COO / Operations</span>
+                <span class="px-6 py-3 bg-white/10 rounded-full text-sm font-semibold border border-white/20">CHRO / HR Leadership</span>
+                <span class="px-6 py-3 bg-white/10 rounded-full text-sm font-semibold border border-white/20">Board & Advisory</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <h2 class="text-4xl font-serif font-bold text-primary text-center mb-16">Explore Our Other Services</h2>
+            <div class="grid md:grid-cols-3 gap-10">
+                <a href="service-permanent-hiring.html" class="group bg-white p-10 rounded-[3rem] hover:bg-primary hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-primary">
+                    <h3 class="text-2xl font-bold text-primary group-hover:text-white mb-4">Permanent Hiring</h3>
+                    <p class="text-gray-500 group-hover:text-white/80 leading-relaxed">Strategic long-term hiring for mid to senior roles with cultural alignment.</p>
+                    <span class="inline-flex items-center gap-2 mt-6 text-accent group-hover:text-gold font-bold text-sm">Learn more →</span>
+                </a>
+                <a href="service-rpo.html" class="group bg-white p-10 rounded-[3rem] hover:bg-primary hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-primary">
+                    <h3 class="text-2xl font-bold text-primary group-hover:text-white mb-4">RPO Solutions</h3>
+                    <p class="text-gray-500 group-hover:text-white/80 leading-relaxed">End-to-end recruitment ownership with scalable models.</p>
+                    <span class="inline-flex items-center gap-2 mt-6 text-accent group-hover:text-gold font-bold text-sm">Learn more →</span>
+                </a>
+                <a href="service-avron.html" class="group bg-white p-10 rounded-[3rem] hover:bg-primary hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-primary">
+                    <h3 class="text-2xl font-bold text-primary group-hover:text-white mb-4">HiredNext Avron</h3>
+                    <p class="text-gray-500 group-hover:text-white/80 leading-relaxed">AI-powered career acceleration for professionals.</p>
+                    <span class="inline-flex items-center gap-2 mt-6 text-accent group-hover:text-gold font-bold text-sm">Learn more →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-primary text-white text-center relative overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
+        <div class="relative z-10">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold mb-8">Find the leaders your company deserves.</h2>
+            <p class="text-xl text-white/80 max-w-xl mx-auto mb-10">Start a confidential conversation about your next C-suite or board-level hire.</p>
+            <a href="../contact.html" class="inline-block px-12 py-5 bg-accent rounded-full font-bold shadow-xl hover:bg-accent/90 hover:-translate-y-1 transition-all">Initiate Executive Search</a>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-primary text-white pt-20 pb-10">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
+                <div>
+                    <h3 class="text-3xl font-bold mb-8">Hired<span class="text-accent">Next</span></h3>
+                    <p class="text-gray-300 mb-8 text-base leading-relaxed">Driving growth through strategic talent solutions and future-ready recruitment practices. Trusted global partner for mid-to-senior leadership hiring.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="p-3 bg-white/10 rounded-full hover:bg-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="2" /><line x1="8" y1="11" x2="8" y2="16" /><line x1="8" y1="8" x2="8" y2="8" /><path d="M12 16v-5a2 2 0 0 1 4 0v5" /></svg></a>
+                        <a href="#" class="p-3 bg-white/10 rounded-full hover:bg-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 12 8v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" /></svg></a>
+                        <a href="#" class="p-3 bg-white/10 rounded-full hover:bg-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-8 border-l-4 border-accent pl-4">Quick Links</h4>
+                    <ul class="space-y-4 text-gray-300">
+                        <li><a href="../index.html" class="hover:text-accent transition-colors">Home</a></li>
+                        <li><a href="../services.html" class="hover:text-accent transition-colors">Our Services</a></li>
+                        <li><a href="../testimonials.html" class="hover:text-accent transition-colors">Testimonials</a></li>
+                        <li><a href="../blog.html" class="hover:text-accent transition-colors">Insights & Blog</a></li>
+                        <li><a href="../about.html" class="hover:text-accent transition-colors">About Us</a></li>
+                        <li><a href="../contact.html" class="hover:text-accent transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-8 border-l-4 border-gold pl-4">Our Services</h4>
+                    <ul class="space-y-4 text-gray-300">
+                        <li><a href="service-permanent-hiring.html" class="hover:text-accent transition-colors">Permanent Hiring</a></li>
+                        <li><a href="service-rpo.html" class="hover:text-accent transition-colors">RPO Solutions</a></li>
+                        <li><a href="service-executive-search.html" class="hover:text-accent transition-colors">Executive Search</a></li>
+                        <li><a href="service-avron.html" class="hover:text-accent transition-colors">HiredNext Avron</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-8 border-l-4 border-accent pl-4">Contact Info</h4>
+                    <ul class="space-y-5 text-gray-300">
+                        <li class="flex items-start"><span class="mr-4 text-accent">✉</span><span>working@hirednext.info</span></li>
+                        <li class="flex items-start"><span class="mr-4 text-accent">📍</span><span>Delhi NCR | Mumbai | Chennai | Bangalore</span></li>
+                        <li class="flex items-start"><span class="mr-4 text-accent">⏰</span><span>Mon – Fri | 9:00 AM – 5:00 PM</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-10 text-center text-sm text-gray-400">
+                <p>© <span id="year"></span> HiredNext Talent Advisory. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const logoText = document.getElementById('logoText');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+        let isOpen = false;
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('bg-transparent', 'py-5'); navbar.classList.add('bg-white', 'shadow-md', 'py-3');
+                logoText.classList.remove('text-white'); logoText.classList.add('text-primary');
+                navLinks.forEach(l => { l.classList.remove('text-white'); l.classList.add('text-primary'); });
+                menuBtn.classList.remove('text-white'); menuBtn.classList.add('text-primary');
+            } else {
+                navbar.classList.add('bg-transparent', 'py-5'); navbar.classList.remove('bg-white', 'shadow-md', 'py-3');
+                logoText.classList.add('text-white'); logoText.classList.remove('text-primary');
+                navLinks.forEach(l => { l.classList.add('text-white'); l.classList.remove('text-primary'); });
+                menuBtn.classList.add('text-white'); menuBtn.classList.remove('text-primary');
+            }
+        });
+        menuBtn.addEventListener('click', () => { isOpen = !isOpen; mobileMenu.classList.toggle('hidden', !isOpen); menuIcon.classList.toggle('hidden', isOpen); closeIcon.classList.toggle('hidden', !isOpen); });
+        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => { isOpen = false; mobileMenu.classList.add('hidden'); menuIcon.classList.remove('hidden'); closeIcon.classList.add('hidden'); }));
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>

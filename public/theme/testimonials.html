@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testimonials | HiredNext</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0c3466',
+                        accent: '#ff4e16',
+                        gold: '#d4af37'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            scroll-behavior: smooth
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s cubic-bezier(.17, .55, .55, 1)
+        }
+
+        .reveal-visible {
+            opacity: 1;
+            transform: none
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0)
+            }
+
+            100% {
+                transform: translateX(-50%)
+            }
+        }
+
+        .animate-marquee {
+            animation: marquee 30s linear infinite
+        }
+    </style>
+</head>
+
+<body class="bg-white font-sans selection:bg-accent/20">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-5">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+            <div class="flex justify-between items-center">
+                <!-- LOGO -->
+                <a href="./index.html" class="flex items-center">
+                    <span id="logoText" class="text-2xl font-bold tracking-tighter text-white">
+                        Hired<span class="text-accent">Next</span>
+                    </span>
+                </a>
+                <!-- DESKTOP NAV -->
+                <div class="hidden md:flex space-x-10 items-center">
+                    <a href="./index.html" class="nav-link text-sm font-semibold text-white">Home</a>
+                    <a href="./about.html" class="nav-link text-sm font-semibold text-white">About</a>
+                    <a href="./services.html" class="nav-link text-sm font-semibold text-white">Services</a>
+                    <a href="./testimonials.html" class="nav-link text-sm font-semibold text-white">Testimonials</a>
+                    <a href="./blog.html" class="nav-link text-sm font-semibold text-white">Blog</a>
+                    <a href="./contact.html"
+                        class="bg-accent text-white px-8 py-2.5 rounded-full text-sm font-bold hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">
+                        Book Consultation
+                    </a>
+                </div>
+                <!-- MOBILE MENU BUTTON -->
+                <div class="md:hidden">
+                    <button id="menuBtn" class="text-white">
+                        <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <line x1="3" y1="12" x2="21" y2="12" />
+                            <line x1="3" y1="18" x2="21" y2="18" />
+                        </svg>
+                        <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" class="hidden">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu"
+            class="md:hidden hidden bg-white shadow-xl absolute top-full left-0 w-full p-6 animate-in slide-in-from-top duration-300">
+            <div class="flex flex-col space-y-4">
+                <a href="./index.html" class="mobile-link">Home</a>
+                <a href="./services.html" class="mobile-link">Services</a>
+                <a href="./testimonials.html" class="mobile-link">Testimonials</a>
+                <a href="./blog.html" class="mobile-link">Blog</a>
+                <a href="./about.html" class="mobile-link">About</a>
+                <a href="./contact.html" class="bg-accent text-white px-6 py-3 rounded-xl text-center font-bold">
+                    Book Consultation
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= HERO ================= -->
+    <header class="bg-primary text-white pt-32 pb-48 relative overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20">
+        </div>
+
+        <!-- Blobs -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[128px] -mr-32 -mt-32">
+        </div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[128px] -ml-32 -mb-32">
+        </div>
+
+        <div class="max-w-[1440px] mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div>
+                <span
+                    class="inline-block px-4 py-2 bg-white/10 rounded-full text-[10px] font-black tracking-[0.4em] uppercase mb-8 border border-white/10">
+                    Trusted Globally
+                </span>
+
+                <h1 class="text-5xl md:text-7xl font-serif font-bold leading-[1.05] mb-8">
+                    Voices of <span class="text-gold italic">Success.</span><br>
+                    Stories of <span class="text-accent">Impact.</span>
+                </h1>
+
+                <p class="text-xl text-white/60 mb-12 max-w-lg leading-relaxed">
+                    Partnering with forward-thinking organizations to build the leadership teams of tomorrow.
+                </p>
+
+                <div class="flex items-center gap-12">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-white mb-1">120+</div>
+                        <div class="text-[10px] uppercase tracking-widest text-white/40">Partners</div>
+                    </div>
+                    <div class="w-px h-12 bg-white/10"></div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-white mb-1">98%</div>
+                        <div class="text-[10px] uppercase tracking-widest text-white/40">Retention</div>
+                    </div>
+                    <div class="w-px h-12 bg-white/10"></div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-white mb-1">15+</div>
+                        <div class="text-[10px] uppercase tracking-widest text-white/40">Countries</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden lg:block relative">
+                <div class="relative rounded-[3rem] overflow-hidden border-[8px] border-white/5 shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=1000"
+                        class="w-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"></div>
+                    <div class="absolute bottom-10 left-10 right-10">
+                        <div class="flex gap-1 text-gold mb-4">★★★★★</div>
+                        <p class="text-xl font-serif italic mb-6">"HiredNext didn't just find us a candidate; they found
+                            us a future CEO."</p>
+                        <div class="flex items-center">
+                            <img src="https://i.pravatar.cc/100?img=33"
+                                class="w-10 h-10 rounded-full mr-4 border-2 border-white">
+                            <div>
+                                <div class="text-sm font-bold">Jonathan Doe</div>
+                                <div class="text-xs text-white/60 uppercase tracking-widest">Chairman, AlphaGroup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= FILTER BAR ================= -->
+    <div class="sticky top-20 z-40 max-w-[1440px] mx-auto px-6 -mt-10">
+        <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-6 shadow-xl border flex flex-wrap gap-3 justify-center">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="IT">IT</button>
+            <button class="filter-btn" data-filter="BFSI">BFSI</button>
+            <button class="filter-btn" data-filter="Retail">Retail</button>
+            <button class="filter-btn" data-filter="Manufacturing">Manufacturing</button>
+        </div>
+    </div>
+
+    <style>
+        .filter-btn {
+            padding: 12px 24px;
+            border-radius: 1rem;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .2em;
+            border: 2px solid #f1f1f1;
+            color: #777;
+            transition: .3s
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #0c3466;
+            color: #fff;
+            border-color: #0c3466;
+            transform: scale(1.05)
+        }
+    </style>
+
+    <!-- ================= TESTIMONIAL GRID ================= -->
+    <section class="py-32 max-w-[1440px] mx-auto px-6">
+        <div id="testimonialGrid" class="columns-1 md:columns-2 xl:columns-3 gap-8 space-y-8">
+
+            <!-- CARD 1 -->
+            <div class="testimonial-card reveal break-inside-avoid bg-white border border-gray-100 rounded-[2.5rem] p-10 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group"
+                data-industry="IT">
+                <div class="flex justify-between items-start mb-8">
+                    <div class="flex gap-1 text-accent">★★★★★</div>
+                    <span
+                        class="px-3 py-1 bg-gray-50 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400">IT
+                        & Tech</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-primary mb-6 group-hover:text-accent transition-colors">"Strategic
+                    Talent Acquisition"</h3>
+
+                <p class="text-lg text-gray-600 leading-relaxed mb-10">
+                    "HiredNext understood our tech stack and cultural nuances immediately. The candidates they presented
+                    were not just skilled, but aligned with our long-term vision."
+                </p>
+                <div class="flex items-center pt-8 border-t border-gray-100">
+                    <img src="https://i.pravatar.cc/100?u=11" class="w-12 h-12 rounded-xl mr-4 object-cover">
+                    <div>
+                        <div class="font-bold text-primary text-sm">Amit Verma</div>
+                        <div class="text-xs text-gray-400 font-bold uppercase tracking-wider">CTO, <span
+                                class="text-accent">TechCorp</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DARK CARD (Featured) -->
+            <div class="testimonial-card reveal break-inside-avoid bg-primary text-white rounded-[2.5rem] p-10 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden"
+                data-industry="BFSI">
+                <!-- Background Pattern -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-[50px] -mr-10 -mt-10"></div>
+
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-8">
+                        <div class="flex gap-1 text-gold">★★★★★</div>
+                        <span
+                            class="px-3 py-1 bg-white/10 rounded-full text-[10px] font-black uppercase tracking-widest text-white/60">BFSI</span>
+                    </div>
+
+                    <h3 class="text-2xl font-serif italic text-white mb-6">"A True Partnership"</h3>
+
+                    <p class="text-xl text-white/80 leading-relaxed mb-10 font-light">
+                        "In the competitive banking sector, precision is everything. HiredNext delivered exceptional
+                        leadership talent that has transformed our regional operations."
+                    </p>
+                    <div class="flex items-center pt-8 border-t border-white/10">
+                        <img src="https://i.pravatar.cc/100?u=12"
+                            class="w-12 h-12 rounded-xl mr-4 object-cover border border-white/20">
+                        <div>
+                            <div class="font-bold text-white text-sm">Neha Sharma</div>
+                            <div class="text-xs text-white/60 font-bold uppercase tracking-wider">HR Head, <span
+                                    class="text-gold">GlobalBank</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="testimonial-card reveal break-inside-avoid bg-white border border-gray-100 rounded-[2.5rem] p-10 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group"
+                data-industry="Retail">
+                <div class="flex justify-between items-start mb-8">
+                    <div class="flex gap-1 text-accent">★★★★★</div>
+                    <span
+                        class="px-3 py-1 bg-gray-50 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400">Retail</span>
+                </div>
+                <h3 class="text-xl font-bold text-primary mb-6 group-hover:text-accent transition-colors">"Drastic
+                    Improvement"</h3>
+
+                <p class="text-lg text-gray-600 leading-relaxed mb-10">
+                    "We struggled to find leaders who understood omnichannel retail. HiredNext brought in experts who
+                    turned our strategy around in months."
+                </p>
+                <div class="flex items-center pt-8 border-t border-gray-100">
+                    <img src="https://i.pravatar.cc/100?u=13" class="w-12 h-12 rounded-xl mr-4 object-cover">
+                    <div>
+                        <div class="font-bold text-primary text-sm">Rahul Mehta</div>
+                        <div class="text-xs text-gray-400 font-bold uppercase tracking-wider">Director, <span
+                                class="text-accent">RetailHubs</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="testimonial-card reveal break-inside-avoid bg-white border border-gray-100 rounded-[2.5rem] p-10 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group"
+                data-industry="Manufacturing">
+                <div class="flex justify-between items-start mb-8">
+                    <div class="flex gap-1 text-accent">★★★★★</div>
+                    <span
+                        class="px-3 py-1 bg-gray-50 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400">Manufacturing</span>
+                </div>
+                <h3 class="text-xl font-bold text-primary mb-6 group-hover:text-accent transition-colors">"Operational
+                    Excellence"</h3>
+
+                <p class="text-lg text-gray-600 leading-relaxed mb-10">
+                    "Finding a Plant Head who aligns with modern lean practices was tough. HiredNext mapped the market
+                    and found the perfect fit within weeks."
+                </p>
+                <div class="flex items-center pt-8 border-t border-gray-100">
+                    <img src="https://i.pravatar.cc/100?u=14" class="w-12 h-12 rounded-xl mr-4 object-cover">
+                    <div>
+                        <div class="font-bold text-primary text-sm">Vikram Singh</div>
+                        <div class="text-xs text-gray-400 font-bold uppercase tracking-wider">COO, <span
+                                class="text-accent">AutoMakers</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 5 -->
+            <div class="testimonial-card reveal break-inside-avoid bg-gray-50 border border-gray-100 rounded-[2.5rem] p-10 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group"
+                data-industry="IT">
+                <div class="flex justify-between items-start mb-8">
+                    <div class="flex gap-1 text-accent">★★★★★</div>
+                    <span
+                        class="px-3 py-1 bg-white rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400">IT
+                        & Tech</span>
+                </div>
+                <h3 class="text-xl font-bold text-primary mb-6 group-hover:text-accent transition-colors">"Scaling
+                    Engineering Teams"</h3>
+
+                <p class="text-lg text-gray-600 leading-relaxed mb-10">
+                    "We needed to scale our engineering team by 50% in a quarter. HiredNext acted as an extension of our
+                    HR, delivering quality at speed."
+                </p>
+                <div class="flex items-center pt-8 border-t border-gray-200">
+                    <img src="https://i.pravatar.cc/100?u=15" class="w-12 h-12 rounded-xl mr-4 object-cover">
+                    <div>
+                        <div class="font-bold text-primary text-sm">Sarah Jenkins</div>
+                        <div class="text-xs text-gray-400 font-bold uppercase tracking-wider">VP Eng, <span
+                                class="text-accent">SoftSys</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= MARQUEE ================= -->
+    <section class="py-24 bg-gray-50 border-y border-gray-100 overflow-hidden relative">
+        <div class="animate-marquee flex gap-32 whitespace-nowrap opacity-20 items-center">
+            <!-- Original -->
+            <span class="text-6xl font-serif font-black text-primary">TECHCORP</span>
+            <span class="text-6xl font-serif font-black text-primary">GLOBALBANK</span>
+            <span class="text-6xl font-serif font-black text-primary">RETAILHUBS</span>
+            <span class="text-6xl font-serif font-black text-primary">ENGIFIRST</span>
+            <span class="text-6xl font-serif font-black text-primary">AUTOYARD</span>
+            <span class="text-6xl font-serif font-black text-primary">SOFTSYS</span>
+
+            <!-- Duplicate for seamless loop -->
+            <span class="text-6xl font-serif font-black text-primary">TECHCORP</span>
+            <span class="text-6xl font-serif font-black text-primary">GLOBALBANK</span>
+            <span class="text-6xl font-serif font-black text-primary">RETAILHUBS</span>
+            <span class="text-6xl font-serif font-black text-primary">ENGIFIRST</span>
+            <span class="text-6xl font-serif font-black text-primary">AUTOYARD</span>
+            <span class="text-6xl font-serif font-black text-primary">SOFTSYS</span>
+        </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="py-40 text-center">
+        <h2 class="text-6xl md:text-8xl font-serif font-bold text-primary mb-12">
+            Ready for your <span class="text-accent italic">Leadership Legacy?</span>
+        </h2>
+
+        <a href="#contact"
+            class="inline-flex items-center px-16 py-7 bg-primary text-white rounded-[2.5rem] font-black uppercase tracking-widest hover:bg-accent transition">
+            Schedule Advisory →
+        </a>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="contact" class="bg-primary text-white pt-20 pb-10">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
+
+                <!-- BRAND -->
+                <div>
+                    <h3 class="text-3xl font-bold mb-8">
+                        Hired<span class="text-accent">Next</span>
+                    </h3>
+
+                    <p class="text-gray-300 mb-8 text-base leading-relaxed">
+                        Driving growth through strategic talent solutions and future-ready
+                        recruitment practices. Trusted global partner for mid-to-senior
+                        leadership hiring.
+                    </p>
+
+                    <div class="flex space-x-4">
+                        <!-- LinkedIn -->
+                        <a href="#" class="p-3 bg-white/10 rounded-full hover:bg-accent transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <rect x="2" y="2" width="20" height="20" rx="2" />
+                                <line x1="8" y1="11" x2="8" y2="16" />
+                                <line x1="8" y1="8" x2="8" y2="8" />
+                                <path d="M12 16v-5a2 2 0 0 1 4 0v5" />
+                            </svg>
+                        </a>
+
+                        <!-- Twitter -->
+                        <a href="#" class="p-3 bg-white/10 rounded-full hover:bg-accent transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53A4.48 4.48 0 0 0 12 8v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+                            </svg>
+                        </a>
+
+                        <!-- Facebook -->
+                        <a href="#" class="p-3 bg-white/10 rounded-full hover:bg-accent transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- QUICK LINKS -->
+                <div>
+                    <h4 class="text-xl font-bold mb-8 border-l-4 border-accent pl-4">
+                        Quick Links
+                    </h4>
+                    <ul class="space-y-4 text-gray-300">
+                        <li><a href="./index.html" class="hover:text-accent transition-colors">Home</a></li>
+                        <li><a href="./services.html" class="hover:text-accent transition-colors">Our Services</a></li>
+                        <li><a href="./testimonials.html" class="hover:text-accent transition-colors">Testimonials</a>
+                        </li>
+                        <li><a href="./blog.html" class="hover:text-accent transition-colors">Insights & Blog</a></li>
+                        <li><a href="./about.html" class="hover:text-accent transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-accent transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- SERVICES -->
+                <div>
+                    <h4 class="text-xl font-bold mb-8 border-l-4 border-gold pl-4">
+                        Our Services
+                    </h4>
+                    <ul class="space-y-4 text-gray-300">
+                        <li>Permanent Hiring</li>
+                        <li>RPO Solutions</li>
+                        <li>Executive Search</li>
+                        <li>Candidate Upskilling</li>
+                    </ul>
+                </div>
+
+                <!-- CONTACT INFO -->
+                <div>
+                    <h4 class="text-xl font-bold mb-8 border-l-4 border-accent pl-4">
+                        Contact Info
+                    </h4>
+
+                    <ul class="space-y-5 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="mr-4 text-accent">✉</span>
+                            <span class="text-base">working@hirednext.info</span>
+                        </li>
+
+                        <li class="flex items-start">
+                            <span class="mr-4 text-accent">📍</span>
+                            <span class="text-base leading-relaxed">
+                                Delhi NCR | Mumbai | Chennai | Bangalore
+                            </span>
+                        </li>
+
+                        <li class="flex items-start">
+                            <span class="mr-4 text-accent">⏰</span>
+                            <span class="text-base">
+                                Mon – Fri | 9:00 AM – 5:00 PM
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- COPYRIGHT -->
+            <div class="border-t border-white/10 pt-10 text-center text-sm text-gray-400">
+                <p>
+                    © <span id="year"></span> HiredNext Talent Advisory. All rights reserved.
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ================= JS ================= -->
+    <script>
+        /* Reveal */
+        const reveals = document.querySelectorAll('.reveal');
+        const io = new IntersectionObserver(e => {
+            e.forEach(x => x.isIntersecting && x.target.classList.add('reveal-visible'))
+        }, { threshold: .15 });
+        reveals.forEach(r => io.observe(r));
+
+        /* Filter */
+        const btns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.testimonial-card');
+
+        btns.forEach(btn => {
+            btn.onclick = () => {
+                btns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const f = btn.dataset.filter;
+                cards.forEach(c => {
+                    c.style.display = (f === 'All' || c.dataset.industry === f) ? 'block' : 'none';
+                });
+            }
+        });
+
+        /* Navbar Scripts */
+        const navbar = document.getElementById('navbar');
+        const logoText = document.getElementById('logoText');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        let isOpen = false;
+
+        // SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('bg-transparent', 'py-5');
+                navbar.classList.add('bg-white', 'shadow-md', 'py-3');
+
+                logoText.classList.remove('text-white');
+                logoText.classList.add('text-primary');
+
+                navLinks.forEach(link => {
+                    link.classList.remove('text-white');
+                    link.classList.add('text-primary');
+                });
+
+                menuBtn.classList.remove('text-white');
+                menuBtn.classList.add('text-primary');
+
+            } else {
+                navbar.classList.add('bg-transparent', 'py-5');
+                navbar.classList.remove('bg-white', 'shadow-md', 'py-3');
+
+                logoText.classList.add('text-white');
+                logoText.classList.remove('text-primary');
+
+                navLinks.forEach(link => {
+                    link.classList.add('text-white');
+                    link.classList.remove('text-primary');
+                });
+
+                menuBtn.classList.add('text-white');
+                menuBtn.classList.remove('text-primary');
+            }
+        });
+
+        // MOBILE MENU TOGGLE
+        menuBtn.addEventListener('click', () => {
+            isOpen = !isOpen;
+            mobileMenu.classList.toggle('hidden', !isOpen);
+            menuIcon.classList.toggle('hidden', isOpen);
+            closeIcon.classList.toggle('hidden', !isOpen);
+        });
+
+        // CLOSE MENU ON LINK CLICK
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                isOpen = false;
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+    </script>
+
+    <!-- ================= Footer Script ================= -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
