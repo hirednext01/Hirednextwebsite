@@ -70,6 +70,12 @@ class SeedReputationProof extends BaseCommand
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
 
+            // New schema stores senior titles explicitly. Keep the legacy
+            // location value for backward compatibility with older installs.
+            if (isset($fields['designation'])) {
+                $payload['designation'] = $designation !== '' ? $designation : null;
+            }
+
             $matches = $db->table('reviews')
                 ->select('id, client_name, source_url')
                 ->where('source_url', $sourceUrl)
