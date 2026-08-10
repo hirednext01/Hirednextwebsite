@@ -8,6 +8,11 @@ class CreateBookingRequestsTable extends Migration
 {
     public function up()
     {
+        $db = \Config\Database::connect();
+        if ($db->tableExists('booking_requests')) {
+            return;
+        }
+
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -59,7 +64,6 @@ class CreateBookingRequestsTable extends Migration
         $this->forge->addKey('id', true);
         $this->forge->addKey('email');
         $this->forge->addKey('created_at');
-
         $this->forge->createTable('booking_requests');
     }
 
