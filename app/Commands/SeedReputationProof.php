@@ -51,16 +51,18 @@ class SeedReputationProof extends BaseCommand
                 continue;
             }
 
+            $sourceLabel = trim((string)($item['source_label'] ?? 'External source'));
+            $proofType = trim((string)($item['proof_type'] ?? 'External Recommendation'));
             $payload = [
                 'client_name' => $name,
                 'name' => $name,
                 'comment' => $excerpt,
                 // Public LinkedIn recommendations/posts do not carry a star rating.
                 'rating' => 0,
-                'project_type' => trim((string)($item['proof_type'] ?? 'External Recommendation')),
-                'proof_type' => trim((string)($item['proof_type'] ?? 'External Recommendation')),
-                'location' => trim((string)($item['context'] ?? 'Public external recommendation')),
-                'source_label' => trim((string)($item['source_label'] ?? 'External source')),
+                'project_type' => $proofType,
+                'proof_type' => $proofType,
+                'location' => 'Public ' . $sourceLabel,
+                'source_label' => $sourceLabel,
                 'source_url' => $sourceUrl,
                 'status' => 'active',
                 'sort_order' => (int)($item['sort_order'] ?? -50),
