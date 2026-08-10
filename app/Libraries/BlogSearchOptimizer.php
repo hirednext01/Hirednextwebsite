@@ -160,6 +160,7 @@ class BlogSearchOptimizer
             ['needles' => ['permanent hiring', 'mid-senior', 'specialist hiring'], 'label' => 'Permanent Hiring', 'url' => self::SITE . '/services/permanent-hiring'],
             ['needles' => ['resume', 'cv ', 'candidate', 'interview', 'career'], 'label' => 'Career Services for Candidates', 'url' => self::SITE . '/services/candidates'],
             ['needles' => ['ai ', 'artificial intelligence', 'automation', 'human judgement', 'human judgment'], 'label' => 'How HiredNext Uses AI in Recruitment', 'url' => self::SITE . '/about'],
+            ['needles' => ['garment', 'textile', 'apparel', 'fashion', 'merchandising', 'fabric technologist'], 'label' => 'Garment & Textile Recruitment India', 'url' => self::SITE . '/industry/garment-textile-recruitment-india'],
             ['needles' => ['retail', 'omnichannel', 'd2c'], 'label' => 'Retail Executive Search', 'url' => self::SITE . '/industry/retail-executive-search'],
             ['needles' => ['bfsi', 'nbfc', 'banking', 'fintech', 'insurance'], 'label' => 'BFSI Leadership Hiring', 'url' => self::SITE . '/industry/bfsi-leadership-hiring'],
             ['needles' => ['manufacturing', 'plant leadership', 'factory'], 'label' => 'Manufacturing Talent Advisory', 'url' => self::SITE . '/industry/manufacturing-talent-advisory'],
