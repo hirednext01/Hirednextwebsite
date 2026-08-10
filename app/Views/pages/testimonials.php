@@ -132,8 +132,10 @@ foreach ($items as $candidate) {
                 $industry = $proofType;
                 $sourceLabel = trim((string)($item['source_label'] ?? ''));
                 $sourceUrl = trim((string)($item['source_url'] ?? ''));
+                $linkedinUrl = trim((string)($item['linkedin_url'] ?? ''));
                 $submittedVia = trim((string)($item['submitted_via'] ?? ''));
                 $helpReceived = trim((string)($item['help_received'] ?? ''));
+                $isCandidateSubmission = $submittedVia === 'candidate_testimonial_form';
                 ?>
                 <div class="testimonial-card reveal break-inside-avoid bg-white border border-gray-100 rounded-[2.5rem] p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group" data-industry="<?= esc($industry) ?>">
                     <div class="flex justify-between items-start gap-4 mb-6">
@@ -141,12 +143,14 @@ foreach ($items as $candidate) {
                             <a href="<?= esc($sourceUrl) ?>" target="_blank" rel="noopener noreferrer external" class="px-3 py-1 bg-primary/5 rounded-full text-[10px] font-black uppercase tracking-widest text-primary hover:text-accent transition-colors">
                                 <?= esc($sourceLabel ?: 'Public source') ?> ↗
                             </a>
-                        <?php elseif ($rating > 0 && $submittedVia !== 'candidate_testimonial_form'): ?>
+                        <?php elseif ($isCandidateSubmission && $linkedinUrl !== ''): ?>
+                            <a href="<?= esc($linkedinUrl) ?>" target="_blank" rel="noopener noreferrer external" class="px-3 py-1 bg-primary/5 rounded-full text-[10px] font-black uppercase tracking-widest text-primary hover:text-accent transition-colors">LinkedIn profile ↗</a>
+                        <?php elseif ($rating > 0 && !$isCandidateSubmission): ?>
                             <div class="flex gap-1 text-accent" aria-label="<?= esc((string)$rating) ?> out of 5 rating">
                                 <?php for ($i = 1; $i <= 5; $i++): ?><?= $i <= $rating ? '★' : '☆' ?><?php endfor; ?>
                             </div>
                         <?php else: ?>
-                            <span class="px-3 py-1 bg-gray-50 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400"><?= $submittedVia === 'candidate_testimonial_form' ? 'Candidate submitted' : 'Feedback' ?></span>
+                            <span class="px-3 py-1 bg-gray-50 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400"><?= $isCandidateSubmission ? 'Candidate submitted' : 'Feedback' ?></span>
                         <?php endif; ?>
 
                         <span class="px-3 py-1 bg-gray-50 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400 text-right"><?= esc($industry) ?></span>
@@ -161,7 +165,7 @@ foreach ($items as $candidate) {
                         <div class="min-w-0">
                             <div class="font-bold text-primary text-sm"><?= esc($name) ?></div>
                             <div class="text-xs text-gray-400 font-bold uppercase tracking-wider mt-1"><?= esc($role) ?><?= $company && $company !== $proofType && $company !== 'Candidate Journey' ? ', ' : '' ?><?php if ($company && $company !== $proofType && $company !== 'Candidate Journey'): ?><span class="text-accent"><?= esc($company) ?></span><?php endif; ?></div>
-                            <?php if ($sourceUrl !== ''): ?><div class="text-[10px] text-gray-400 mt-2">Public identity/source link supplied and reviewed.</div><?php endif; ?>
+                            <?php if ($sourceUrl !== ''): ?><div class="text-[10px] text-gray-400 mt-2">Public testimonial/source link verified.</div><?php elseif ($isCandidateSubmission && $linkedinUrl !== ''): ?><div class="text-[10px] text-gray-400 mt-2">LinkedIn identity link supplied; testimonial submitted directly to HiredNext.</div><?php endif; ?>
                         </div>
                     </div>
                 </div>
