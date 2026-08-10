@@ -55,12 +55,17 @@ class SeedAuthorityBlogs extends BaseCommand
             }
 
             $now = date('Y-m-d H:i:s');
+            $featuredImage = trim((string)($post['featured_image'] ?? ''));
+            if ($featuredImage === '') {
+                $featuredImage = 'https://hirednext.net/theme/assets/home.jpeg';
+            }
+
             $insert = [
                 'title' => $title,
                 'slug' => $slug,
                 'content' => (string)$post['content'],
                 'excerpt' => trim((string)($post['excerpt'] ?? '')),
-                'featured_image' => trim((string)($post['featured_image'] ?? '')),
+                'featured_image' => $featuredImage,
                 'category' => trim((string)($post['category'] ?? 'Recruitment')) ?: 'Recruitment',
                 'tags' => trim((string)($post['tags'] ?? '')),
                 'author_name' => trim((string)($post['author_name'] ?? 'Taru Shikha')) ?: 'Taru Shikha',
