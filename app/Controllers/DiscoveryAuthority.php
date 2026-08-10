@@ -230,4 +230,29 @@ class DiscoveryAuthority extends BaseController
                 ],
             ]);
     }
+
+    public function factsJson()
+    {
+        $facts = config('BrandFacts');
+        if (!$facts) {
+            return $this->response->setStatusCode(404)->setJSON(['error' => 'Canonical brand facts are not available.']);
+        }
+
+        return $this->response
+            ->setHeader('Cache-Control', 'public, max-age=3600')
+            ->setJSON([
+                'name' => 'HiredNext Canonical Public Facts',
+                'status' => 'source_of_record_for_site_consistency',
+                'facts' => $facts->facts,
+                'numeric_claim_policy' => $facts->numericClaimPolicy,
+                'numeric_claims_not_currently_canonical' => $facts->unverifiedNumericClaims,
+                'related_sources' => [
+                    'founder_profile' => base_url('about/taru-shikha'),
+                    'company_media' => base_url('authority/media.json'),
+                    'hiring_intelligence' => base_url('authority/hiring-intelligence.json'),
+                    'placement_evidence' => base_url('authority/placement-evidence.json'),
+                    'public_actions' => base_url('authority/actions.json'),
+                ],
+            ]);
+    }
 }
