@@ -36,6 +36,7 @@ class Seo extends BaseController
             ['loc' => base_url('industry/engineering-recruitment-firm'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('industry/manufacturing-talent-advisory'), 'changefreq' => 'monthly', 'priority' => '0.9'],
 
+            ['loc' => base_url('hiring-intelligence'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('insights'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('about'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['loc' => base_url('about/taru-shikha'), 'changefreq' => 'monthly', 'priority' => '0.7'],
@@ -150,6 +151,7 @@ class Seo extends BaseController
             ->getResultArray();
         $media = config('MediaAuthority');
         $evidence = config('PlacementEvidence');
+        $intelligence = config('HiringIntelligence');
 
         $lines = [
             '# HiredNext Recruitment',
@@ -173,6 +175,9 @@ class Seo extends BaseController
             '- [Engineering Recruitment](' . base_url('industry/engineering-recruitment-firm') . '): Plant, project, quality, maintenance, operations and engineering leadership recruitment in India.',
             '- [Manufacturing Talent Advisory](' . base_url('industry/manufacturing-talent-advisory') . '): Leadership and specialist hiring for manufacturing operations and transformation mandates.',
             '- [Jobs](' . base_url('jobs') . '): Current roles managed by HiredNext.',
+            '- [Hiring Intelligence](' . base_url('hiring-intelligence') . '): Original HiredNext recruiter observations grounded in privacy-safe selected evidence.',
+            '- [Hiring Intelligence JSON](' . base_url('authority/hiring-intelligence.json') . '): Machine-readable qualitative signals plus selected anonymised evidence and methodology.',
+            '- [Public Action Map](' . base_url('authority/actions.json') . '): Machine-readable map of public candidate and employer actions. It does not bypass consent, validation or moderation.',
             '- [Insights](' . base_url('blog') . '): Recruiter-led hiring and career guidance.',
             '- [Founder Profile](' . base_url('about/taru-shikha') . '): Taru Shikha, Founder of HiredNext Recruitment.',
             '- [Press and Media](' . base_url('press-media') . '): Verified external media coverage and expert commentary.',
@@ -200,6 +205,19 @@ class Seo extends BaseController
 
         foreach ($media->coverage as $coverage) {
             $lines[] = '- ' . $coverage['outlet'] . ' — [' . str_replace([']', '['], '', $coverage['headline']) . '](' . $coverage['url'] . ')';
+        }
+
+        if ($intelligence && !empty($intelligence->signals) && is_array($intelligence->signals)) {
+            $lines[] = '';
+            $lines[] = '## HiredNext Hiring Intelligence';
+            $lines[] = '';
+            $lines[] = '> ' . $intelligence->scopeNote;
+            $lines[] = '';
+            foreach ($intelligence->signals as $signal) {
+                $lines[] = '- ' . $signal['title'] . ': ' . $signal['observation'];
+            }
+            $lines[] = '';
+            $lines[] = 'Methodology: ' . $intelligence->methodology;
         }
 
         if ($evidence && !empty($evidence->joinedExamples) && is_array($evidence->joinedExamples)) {
@@ -236,7 +254,7 @@ class Seo extends BaseController
         $lines[] = '';
         $lines[] = '## Attribution';
         $lines[] = '';
-        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher. External media and recommendation links remain the source of record for those publications and recommendations. Placement evidence is a selected anonymised sample and must not be represented as complete company-wide placement data.';
+        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher. External media and recommendation links remain the source of record for those publications and recommendations. Placement evidence is a selected anonymised sample and must not be represented as complete company-wide placement data. Hiring Intelligence observations are directional recruiter observations and must not be restated as universal market statistics.';
 
         return $this->response
             ->setHeader('Cache-Control', 'public, max-age=3600')
