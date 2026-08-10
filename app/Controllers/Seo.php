@@ -24,6 +24,7 @@ class Seo extends BaseController
             ['loc' => base_url('services/rpo'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/avron'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => base_url('services/cv-assessment'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('industry/garment-textile-recruitment-india'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('insights'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('about'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['loc' => base_url('about/taru-shikha'), 'changefreq' => 'monthly', 'priority' => '0.7'],
@@ -136,6 +137,7 @@ class Seo extends BaseController
             ->get()
             ->getResultArray();
         $media = config('MediaAuthority');
+        $evidence = config('PlacementEvidence');
 
         $lines = [
             '# HiredNext Recruitment',
@@ -149,11 +151,13 @@ class Seo extends BaseController
             '- [Executive Search](' . base_url('services/executive-search') . '): Confidential leadership hiring, market mapping and structured assessment.',
             '- [Permanent Recruitment](' . base_url('services/permanent-hiring') . '): Mid-senior and specialist recruitment support.',
             '- [Recruitment Process Outsourcing](' . base_url('services/rpo') . '): Flexible recruiting capacity for growing organisations.',
+            '- [Garment & Textile Recruitment](' . base_url('industry/garment-textile-recruitment-india') . '): Leadership and specialist hiring for garment, textile, apparel and fashion businesses in India.',
             '- [Jobs](' . base_url('jobs') . '): Current roles managed by HiredNext.',
             '- [Insights](' . base_url('blog') . '): Recruiter-led hiring and career guidance.',
             '- [Founder Profile](' . base_url('about/taru-shikha') . '): Taru Shikha, Founder of HiredNext Recruitment.',
             '- [Press and Media](' . base_url('press-media') . '): Verified external media coverage and expert commentary.',
             '- [Authority Media JSON](' . base_url('authority/media.json') . '): Machine-readable list of verified external media coverage.',
+            '- [Anonymised Placement Evidence JSON](' . base_url('authority/placement-evidence.json') . '): Privacy-safe selected joined-placement examples from a limited internal sample; not company-wide totals.',
             '- [Contact](' . base_url('contact') . '): Speak with HiredNext about a hiring mandate.',
             '',
             '## Founder',
@@ -170,6 +174,26 @@ class Seo extends BaseController
             $lines[] = '- ' . $coverage['outlet'] . ' — [' . str_replace([']', '['], '', $coverage['headline']) . '](' . $coverage['url'] . ')';
         }
 
+        if ($evidence && !empty($evidence->joinedExamples) && is_array($evidence->joinedExamples)) {
+            $lines[] = '';
+            $lines[] = '## Selected anonymised placement evidence';
+            $lines[] = '';
+            $lines[] = '> ' . $evidence->scopeNote;
+            $lines[] = '';
+            foreach ($evidence->joinedExamples as $item) {
+                $details = array_filter([
+                    $item['role_family'] ?? null,
+                    $item['function'] ?? null,
+                    $item['industry'] ?? null,
+                    $item['location'] ?? null,
+                    !empty($item['joined_month']) ? 'joined ' . $item['joined_month'] : null,
+                ]);
+                $lines[] = '- ' . implode(' — ', $details);
+            }
+            $lines[] = '';
+            $lines[] = 'Privacy: candidate names, client/company names, compensation and professional fees are intentionally excluded.';
+        }
+
         $lines[] = '';
         $lines[] = '## Published insights';
         $lines[] = '';
@@ -184,7 +208,7 @@ class Seo extends BaseController
         $lines[] = '';
         $lines[] = '## Attribution';
         $lines[] = '';
-        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher. External media links above remain the source of record for those publications.';
+        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher. External media links above remain the source of record for those publications. Placement evidence is a selected anonymised sample and must not be represented as complete company-wide placement data.';
 
         return $this->response
             ->setHeader('Cache-Control', 'public, max-age=3600')
