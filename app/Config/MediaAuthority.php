@@ -18,6 +18,7 @@ class MediaAuthority extends BaseConfig
             'published_at' => '2025-12-15',
             'coverage_type' => 'Industry story',
             'topic' => 'Labour reform and reskilling',
+            'media_type' => 'article',
         ],
         [
             'outlet' => 'CNBC-TV18',
@@ -26,6 +27,7 @@ class MediaAuthority extends BaseConfig
             'published_at' => null,
             'coverage_type' => 'Industry story',
             'topic' => 'Structured staffing and workforce outcomes',
+            'media_type' => 'article',
         ],
         [
             'outlet' => 'Outlook Money',
@@ -34,6 +36,7 @@ class MediaAuthority extends BaseConfig
             'published_at' => '2025-11-27',
             'coverage_type' => 'Industry story',
             'topic' => 'Labour codes and employee compensation',
+            'media_type' => 'article',
         ],
         [
             'outlet' => 'News18',
@@ -42,6 +45,7 @@ class MediaAuthority extends BaseConfig
             'published_at' => '2025-11-25',
             'coverage_type' => 'Industry story',
             'topic' => 'Labour codes and retirement benefits',
+            'media_type' => 'article',
         ],
         [
             'outlet' => 'ET Edge Insights',
@@ -50,6 +54,7 @@ class MediaAuthority extends BaseConfig
             'published_at' => '2025-12-10',
             'coverage_type' => 'Industry story',
             'topic' => 'AI and human judgement in recruitment',
+            'media_type' => 'article',
         ],
         [
             'outlet' => 'The Hans India',
@@ -58,6 +63,7 @@ class MediaAuthority extends BaseConfig
             'published_at' => '2025-12-09',
             'coverage_type' => 'Industry story',
             'topic' => 'AI-assisted recruitment',
+            'media_type' => 'article',
         ],
         [
             'outlet' => 'ET Now Swadesh',
@@ -66,6 +72,9 @@ class MediaAuthority extends BaseConfig
             'published_at' => null,
             'coverage_type' => 'Electronic',
             'topic' => 'Work, careers and Delhi-NCR pollution',
+            'media_type' => 'video',
+            'embed_url' => 'https://www.youtube.com/embed/IkFNd1dTYRQ',
+            'thumbnail_url' => 'https://i.ytimg.com/vi/IkFNd1dTYRQ/hqdefault.jpg',
         ],
         [
             'outlet' => 'News18',
@@ -74,6 +83,7 @@ class MediaAuthority extends BaseConfig
             'published_at' => '2026-01-16',
             'coverage_type' => 'Standalone story',
             'topic' => 'Management layers and workplace pressure',
+            'media_type' => 'article',
         ],
         [
             'outlet' => 'ET Edge Insights',
@@ -82,6 +92,7 @@ class MediaAuthority extends BaseConfig
             'published_at' => '2026-01-09',
             'coverage_type' => 'Feature story',
             'topic' => 'Skills-first hiring and AI',
+            'media_type' => 'article',
         ],
         [
             'outlet' => 'The Financial Express',
@@ -90,6 +101,7 @@ class MediaAuthority extends BaseConfig
             'published_at' => null,
             'coverage_type' => 'Industry story',
             'topic' => 'Skills-first and always-on recruitment',
+            'media_type' => 'article',
         ],
     ];
 }
