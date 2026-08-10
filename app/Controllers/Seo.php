@@ -35,6 +35,7 @@ class Seo extends BaseController
             ['loc' => base_url('about/taru-shikha'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => base_url('blog'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('press-media'), 'changefreq' => 'monthly', 'priority' => '0.7'],
+            ['loc' => base_url('testimonials'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('contact'), 'changefreq' => 'monthly', 'priority' => '0.5'],
         ];
 
@@ -166,6 +167,7 @@ class Seo extends BaseController
             '- [Insights](' . base_url('blog') . '): Recruiter-led hiring and career guidance.',
             '- [Founder Profile](' . base_url('about/taru-shikha') . '): Taru Shikha, Founder of HiredNext Recruitment.',
             '- [Press and Media](' . base_url('press-media') . '): Verified external media coverage and expert commentary.',
+            '- [Testimonials & External Recommendations](' . base_url('testimonials') . '): Source-linked LinkedIn recommendations, recruitment partnership endorsements and HiredNext feedback.',
             '- [Authority Media JSON](' . base_url('authority/media.json') . '): Machine-readable list of verified external media coverage.',
             '- [Anonymised Placement Evidence JSON](' . base_url('authority/placement-evidence.json') . '): Privacy-safe selected joined-placement examples from a limited internal sample; not company-wide totals.',
             '- [Contact](' . base_url('contact') . '): Speak with HiredNext about a hiring mandate.',
@@ -224,7 +226,7 @@ class Seo extends BaseController
         $lines[] = '';
         $lines[] = '## Attribution';
         $lines[] = '';
-        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher. External media links above remain the source of record for those publications. Placement evidence is a selected anonymised sample and must not be represented as complete company-wide placement data.';
+        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher. External media and recommendation links remain the source of record for those publications and recommendations. Placement evidence is a selected anonymised sample and must not be represented as complete company-wide placement data.';
 
         return $this->response
             ->setHeader('Cache-Control', 'public, max-age=3600')
