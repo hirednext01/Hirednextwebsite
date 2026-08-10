@@ -99,6 +99,16 @@
                 <p class="text-xs text-gray-500 mt-4">Accepted formats: PDF, DOC, DOCX (max 5MB)</p>
             </div>
 
+            <div class="relative overflow-hidden bg-primary text-white rounded-[2.5rem] p-8 shadow-xl border border-primary">
+                <div class="absolute -right-12 -top-12 w-32 h-32 bg-accent/20 rounded-full blur-2xl"></div>
+                <div class="relative z-10">
+                    <div class="text-[11px] uppercase tracking-[0.25em] font-black text-gold mb-3">Not ready to apply?</div>
+                    <h3 class="text-2xl font-serif font-bold mb-3">Get your CV assessed first.</h3>
+                    <p class="text-sm text-white/75 leading-relaxed mb-6">Get a free CV assessment in 7–10 days, or choose our ₹599 priority assessment for detailed feedback within 12 hours.</p>
+                    <a href="<?= base_url('cv-assessment?job=' . urlencode($job['slug'] ?? '')) ?>" class="inline-flex w-full justify-center px-5 py-3 rounded-xl bg-accent text-white font-bold hover:opacity-90 transition">Assess My CV →</a>
+                </div>
+            </div>
+
             <div class="bg-gray-50 border border-gray-100 rounded-[2.5rem] p-8">
                 <h3 class="text-xl font-bold text-primary mb-4">Application Tips</h3>
                 <ul class="space-y-3 text-sm text-gray-600">
