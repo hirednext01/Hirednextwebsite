@@ -25,7 +25,10 @@ $reputationItems = ($reputationConfig && !empty($reputationConfig->items) && is_
                     Recruitment practitioner focused on executive search, leadership hiring, skills-first assessment and the responsible use of AI in hiring. Her public commentary covers how technology can improve recruitment without replacing human judgement.
                 </p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="<?= esc($founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer" class="inline-flex px-6 py-3 rounded-full bg-white text-primary font-bold text-sm">LinkedIn profile</a>
+                    <a href="<?= esc($founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex px-6 py-3 rounded-full bg-white text-primary font-bold text-sm">Taru on LinkedIn ↗</a>
+                    <?php if (!empty($companyLinkedIn)): ?>
+                        <a href="<?= esc($companyLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex px-6 py-3 rounded-full border border-white/30 text-white font-bold text-sm">HiredNext on LinkedIn ↗</a>
+                    <?php endif; ?>
                     <a href="<?= base_url('testimonials') ?>" class="inline-flex px-6 py-3 rounded-full border border-white/30 text-white font-bold text-sm">Recommendations</a>
                     <a href="<?= base_url('press-media') ?>" class="inline-flex px-6 py-3 rounded-full border border-white/30 text-white font-bold text-sm">Press & Media</a>
                 </div>
@@ -70,6 +73,7 @@ $reputationItems = ($reputationConfig && !empty($reputationConfig->items) && is_
                     <div class="text-[11px] uppercase tracking-[0.16em] font-black text-gray-500 mb-3"><?= esc($item['source_label'] ?? 'External source') ?></div>
                     <p class="text-gray-700 leading-relaxed mb-5">“<?= esc($item['excerpt'] ?? '') ?>”</p>
                     <div class="font-bold text-primary mb-1"><?= esc($item['name'] ?? '') ?></div>
+                    <?php if (!empty($item['designation'])): ?><div class="text-xs font-bold text-gray-600 mb-1"><?= esc($item['designation']) ?></div><?php endif; ?>
                     <div class="text-xs text-gray-500 mb-4"><?= esc($item['proof_type'] ?? 'Recruitment recommendation') ?></div>
                     <?php if (!empty($item['source_url'])): ?>
                         <a href="<?= esc($item['source_url']) ?>" target="_blank" rel="noopener noreferrer external" class="text-sm font-bold text-accent">View external source →</a>
@@ -112,7 +116,12 @@ $reputationItems = ($reputationConfig && !empty($reputationConfig->items) && is_
     <div class="max-w-[900px] mx-auto px-4 sm:px-8 text-center">
         <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">About HiredNext</h2>
         <p class="text-white/75 leading-relaxed mb-7">HiredNext supports executive search, leadership hiring and specialist recruitment with a human-led, technology-enabled approach.</p>
-        <a href="<?= base_url('about') ?>" class="inline-flex px-7 py-3 rounded-full bg-accent text-white font-bold">About HiredNext</a>
+        <div class="flex flex-wrap gap-3 justify-center">
+            <a href="<?= base_url('about') ?>" class="inline-flex px-7 py-3 rounded-full bg-accent text-white font-bold">About HiredNext</a>
+            <?php if (!empty($companyLinkedIn)): ?>
+                <a href="<?= esc($companyLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex px-7 py-3 rounded-full border border-white/30 text-white font-bold">Follow HiredNext on LinkedIn ↗</a>
+            <?php endif; ?>
+        </div>
     </div>
 </section>
 
