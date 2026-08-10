@@ -2,8 +2,7 @@
 
 namespace App\Controllers\Api;
 
-use CodeIgniter\RESTful\ResourceController;
-use CodeIgniter\HTTP\ResponseInterface;
+use App\Libraries\BlogSearchOptimizer;
 
 class BlogApi extends BaseApiController
 {
@@ -53,67 +52,54 @@ class BlogApi extends BaseApiController
         try {
             $data = $this->request->getJSON(true);
 
-            // Validate required fields
-            $required = ['title', 'content'];
-            foreach ($required as $field) {
+            foreach (['title', 'content'] as $field) {
                 if (empty($data[$field])) {
                     return $this->errorResponse("Field '$field' is required", 422);
                 }
             }
 
             $db = \Config\Database::connect();
-
-            // Generate slug from title if not provided
             $slug = $data['slug'] ?? $this->generateSlug($data['title']);
 
-            // Check if slug already exists
-            $existingSlug = $db->table('blog_posts')
-                ->where('slug', $slug)
-                ->get()
-                ->getRowArray();
-
-            if ($existingSlug) {
-                $slug = $slug . '-' . time();
+            if ($db->table('blog_posts')->where('slug', $slug)->get()->getRowArray()) {
+                $slug .= '-' . time();
             }
 
-            $excerpt = trim((string)($data['excerpt'] ?? ''));
-            if ($excerpt === '') {
-                $excerpt = $this->generateExcerpt($data['content']);
-            }
+            $status = $data['status'] ?? 'draft';
             $category = trim((string)($data['category'] ?? '')) ?: 'Recruitment';
-            $tags = trim((string)($data['tags'] ?? ''));
-            $author = trim((string)($data['author_name'] ?? '')) ?: 'HiredNext Editorial';
-
-            $insertData = [
+            $base = [
                 'title' => $data['title'],
                 'slug' => $slug,
                 'content' => $data['content'],
-                'excerpt' => $excerpt,
+                'excerpt' => trim((string)($data['excerpt'] ?? '')),
                 'featured_image' => $data['featured_image'] ?? '',
                 'category' => $category,
-                'tags' => $tags,
-                'author_name' => $author,
-                'meta_title' => trim((string)($data['meta_title'] ?? '')) ?: $data['title'],
-                'meta_description' => trim((string)($data['meta_description'] ?? '')) ?: $excerpt,
-                'meta_keywords' => trim((string)($data['meta_keywords'] ?? '')) ?: ($tags ?: $category),
-                'status' => $data['status'] ?? 'draft',
-                'sort_order' => $data['sort_order'] ?? 0,
-                'published_at' => ($data['status'] ?? 'draft') === 'published' ? date('Y-m-d H:i:s') : null,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
+                'tags' => trim((string)($data['tags'] ?? '')),
+                'author_name' => trim((string)($data['author_name'] ?? '')) ?: 'HiredNext Editorial',
+                'meta_title' => trim((string)($data['meta_title'] ?? '')),
+                'meta_description' => trim((string)($data['meta_description'] ?? '')),
+                'meta_keywords' => trim((string)($data['meta_keywords'] ?? '')),
             ];
 
-            $result = $db->table('blog_posts')->insert($insertData);
+            $optimized = (new BlogSearchOptimizer())->optimise($base, $status === 'published');
+            $insertData = array_merge($base, $optimized, [
+                'status' => $status,
+                'sort_order' => $data['sort_order'] ?? 0,
+                'published_at' => $status === 'published' ? date('Y-m-d H:i:s') : null,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
 
-            if ($result) {
-                $insertData['id'] = $db->insertID();
-                if (($insertData['status'] ?? 'draft') === 'published') {
-                    $this->notifyIndexNow(base_url('blog/' . $slug));
-                }
-                return $this->successResponse($insertData, 'Blog post created successfully');
-            } else {
+            $result = $db->table('blog_posts')->insert($insertData);
+            if (!$result) {
                 return $this->errorResponse('Failed to create blog post', 500);
             }
+
+            $insertData['id'] = $db->insertID();
+            if ($status === 'published') {
+                $this->notifyIndexNow(base_url('blog/' . $slug));
+            }
+            return $this->successResponse($insertData, 'Blog post created successfully');
         } catch (\Exception $e) {
             return $this->errorResponse('Error creating blog post: ' . $e->getMessage(), 500);
         }
@@ -127,18 +113,13 @@ class BlogApi extends BaseApiController
             }
 
             $data = $this->request->getJSON(true);
-
-            // Validate required fields
-            $required = ['title', 'content'];
-            foreach ($required as $field) {
+            foreach (['title', 'content'] as $field) {
                 if (empty($data[$field])) {
                     return $this->errorResponse("Field '$field' is required", 422);
                 }
             }
 
             $db = \Config\Database::connect();
-
-            // Check if blog post exists
             $existing = $db->table('blog_posts')
                 ->where('id', $id)
                 ->where('status !=', 'archived')
@@ -149,63 +130,48 @@ class BlogApi extends BaseApiController
                 return $this->errorResponse('Blog post not found', 404);
             }
 
-            // Generate slug from title if not provided
             $slug = $data['slug'] ?? $this->generateSlug($data['title']);
-
-            // Check if slug already exists (excluding current post)
-            $existingSlug = $db->table('blog_posts')
-                ->where('slug', $slug)
-                ->where('id !=', $id)
-                ->get()
-                ->getRowArray();
-
-            if ($existingSlug) {
-                $slug = $slug . '-' . time();
+            if ($db->table('blog_posts')->where('slug', $slug)->where('id !=', $id)->get()->getRowArray()) {
+                $slug .= '-' . time();
             }
 
-            $excerpt = trim((string)($data['excerpt'] ?? ''));
-            if ($excerpt === '') {
-                $excerpt = $this->generateExcerpt($data['content']);
-            }
+            $status = $data['status'] ?? $existing['status'] ?? 'draft';
             $category = trim((string)($data['category'] ?? '')) ?: 'Recruitment';
-            $tags = trim((string)($data['tags'] ?? ''));
-            $author = trim((string)($data['author_name'] ?? '')) ?: 'HiredNext Editorial';
-
-            $updateData = [
+            $base = [
                 'title' => $data['title'],
                 'slug' => $slug,
                 'content' => $data['content'],
-                'excerpt' => $excerpt,
+                'excerpt' => trim((string)($data['excerpt'] ?? '')),
                 'featured_image' => $data['featured_image'] ?? '',
                 'category' => $category,
-                'tags' => $tags,
-                'author_name' => $author,
-                'meta_title' => trim((string)($data['meta_title'] ?? '')) ?: $data['title'],
-                'meta_description' => trim((string)($data['meta_description'] ?? '')) ?: $excerpt,
-                'meta_keywords' => trim((string)($data['meta_keywords'] ?? '')) ?: ($tags ?: $category),
-                'status' => $data['status'] ?? 'draft',
-                'sort_order' => $data['sort_order'] ?? 0,
-                'updated_at' => date('Y-m-d H:i:s')
+                'tags' => trim((string)($data['tags'] ?? '')),
+                'author_name' => trim((string)($data['author_name'] ?? '')) ?: 'HiredNext Editorial',
+                'meta_title' => trim((string)($data['meta_title'] ?? '')),
+                'meta_description' => trim((string)($data['meta_description'] ?? '')),
+                'meta_keywords' => trim((string)($data['meta_keywords'] ?? '')),
             ];
 
-            // Set published_at if status is changing to published
-            if (($data['status'] ?? 'draft') === 'published' && $existing['status'] !== 'published') {
+            $optimized = (new BlogSearchOptimizer())->optimise($base, $status === 'published');
+            $updateData = array_merge($base, $optimized, [
+                'status' => $status,
+                'sort_order' => $data['sort_order'] ?? 0,
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+
+            if ($status === 'published' && ($existing['status'] ?? '') !== 'published') {
                 $updateData['published_at'] = date('Y-m-d H:i:s');
             }
 
-            $result = $db->table('blog_posts')
-                ->where('id', $id)
-                ->update($updateData);
-
-            if ($result) {
-                $updateData['id'] = $id;
-                if (($updateData['status'] ?? 'draft') === 'published') {
-                    $this->notifyIndexNow(base_url('blog/' . $slug));
-                }
-                return $this->successResponse($updateData, 'Blog post updated successfully');
-            } else {
+            $result = $db->table('blog_posts')->where('id', $id)->update($updateData);
+            if (!$result) {
                 return $this->errorResponse('Failed to update blog post', 500);
             }
+
+            $updateData['id'] = $id;
+            if ($status === 'published') {
+                $this->notifyIndexNow(base_url('blog/' . $slug));
+            }
+            return $this->successResponse($updateData, 'Blog post updated successfully');
         } catch (\Exception $e) {
             return $this->errorResponse('Error updating blog post: ' . $e->getMessage(), 500);
         }
@@ -219,30 +185,20 @@ class BlogApi extends BaseApiController
             }
 
             $db = \Config\Database::connect();
-
-            // Check if blog post exists
-            $existing = $db->table('blog_posts')
-                ->where('id', $id)
-                ->get()
-                ->getRowArray();
-
+            $existing = $db->table('blog_posts')->where('id', $id)->get()->getRowArray();
             if (!$existing) {
                 return $this->errorResponse('Blog post not found', 404);
             }
 
-            // Hard delete
-            $result = $db->table('blog_posts')
-                ->where('id', $id)
-                ->delete();
-
-            if ($result) {
-                if (!empty($existing['slug'])) {
-                    $this->notifyIndexNow(base_url('blog/' . $existing['slug']));
-                }
-                return $this->successResponse([], 'Blog post deleted successfully');
-            } else {
+            $result = $db->table('blog_posts')->where('id', $id)->delete();
+            if (!$result) {
                 return $this->errorResponse('Failed to delete blog post', 500);
             }
+
+            if (!empty($existing['slug'])) {
+                $this->notifyIndexNow(base_url('blog/' . $existing['slug']));
+            }
+            return $this->successResponse([], 'Blog post deleted successfully');
         } catch (\Exception $e) {
             return $this->errorResponse('Error deleting blog post: ' . $e->getMessage(), 500);
         }
@@ -250,32 +206,10 @@ class BlogApi extends BaseApiController
 
     private function generateSlug($title)
     {
-        // Convert to lowercase and replace spaces with hyphens
         $slug = strtolower(trim($title));
         $slug = preg_replace('/[^a-z0-9-]/', '-', $slug);
         $slug = preg_replace('/-+/', '-', $slug);
-        $slug = trim($slug, '-');
-
-        return $slug;
-    }
-
-    private function generateExcerpt($content, $length = 150)
-    {
-        // Strip HTML tags and generate excerpt
-        $text = html_entity_decode(strip_tags($content), ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        $text = trim((string)preg_replace('/\s+/u', ' ', $text));
-        if (strlen($text) <= $length) {
-            return $text;
-        }
-
-        $excerpt = substr($text, 0, $length);
-        $lastSpace = strrpos($excerpt, ' ');
-
-        if ($lastSpace !== false) {
-            $excerpt = substr($excerpt, 0, $lastSpace);
-        }
-
-        return $excerpt . '...';
+        return trim($slug, '-');
     }
 
     private function notifyIndexNow($url)
