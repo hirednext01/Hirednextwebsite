@@ -6,6 +6,9 @@ use CodeIgniter\Config\BaseConfig;
 
 class ReputationProof extends BaseConfig
 {
+    public string $founderLinkedIn = 'https://in.linkedin.com/in/tarushikhaarora';
+    public int $linkedInRecommendationCount = 12;
+
     /**
      * Public, externally verifiable reputation signals.
      *
