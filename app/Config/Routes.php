@@ -16,6 +16,7 @@ $routes->get('services/(:any)', 'Home::serviceDetail/$1');
 // Backward-compatible alias so existing job links/bookmarks continue to work.
 $routes->get('cv-assessment', 'CandidateServices::cvAssessment');
 $routes->post('cv-assessment/submit', 'CvAssessment::submit');
+$routes->get('cv-payment/qr', 'CvPayment::qr');
 $routes->get('cv-payment/(:num)', 'CvPayment::checkout/$1');
 $routes->post('cv-payment/verify', 'CvPayment::verify');
 $routes->get('robots.txt', 'Seo::robots');
@@ -68,7 +69,7 @@ $routes->group('api', ['namespace' => 'App\\Controllers\\Api'], function ($route
     $routes->post('contact/submit', 'ContactApi::submit'); $routes->get('contact/leads', 'ContactApi::index'); $routes->get('contact/leads/(:num)', 'ContactApi::show/$1'); $routes->put('contact/leads/(:num)', 'ContactApi::update/$1'); $routes->delete('contact/leads/(:num)', 'ContactApi::delete/$1');
     $routes->post('upload', 'UploadController::index'); $routes->delete('upload/(:any)', 'UploadController::delete/$1');
     $routes->get('contact-messages', 'ContactMessagesApi::index'); $routes->get('contact-messages/(:num)', 'ContactMessagesApi::show/$1'); $routes->post('contact-messages', 'ContactMessagesApi::create'); $routes->put('contact-messages/(:num)/read', 'ContactMessagesApi::markAsRead/$1'); $routes->put('contact-messages/(:num)/replied', 'ContactMessagesApi::markAsReplied/$1'); $routes->put('contact-messages/(:num)/archived', 'ContactMessagesApi::markAsArchived/$1'); $routes->delete('contact-messages/(:num)', 'ContactMessagesApi::delete/$1'); $routes->get('contact-messages/stats', 'ContactMessagesApi::getStats');
-    $routes->get('projects', 'ProjectsApi::index'); $routes->get('projects/(:num)', 'ProjectsApi::show/$1'); $routes->post('projects', 'ProjectsApi::create'); $routes->put('projects/(:num)', 'ProjectsApi::update/$1'); $routes->delete('projects/(:num)', 'ProjectsApi::delete/$1'); $routes->post('projects/upload', 'ProjectsApi::uploadImage');
+    $routes->get('projects', 'ProjectsApi::index'); $routes->post('projects', 'ProjectsApi::create'); $routes->get('projects/(:num)', 'ProjectsApi::show/$1'); $routes->put('projects/(:num)', 'ProjectsApi::update/$1'); $routes->delete('projects/(:num)', 'ProjectsApi::delete/$1'); $routes->post('projects/upload', 'ProjectsApi::uploadImage');
     $routes->get('jobs', 'JobsApi::index'); $routes->post('jobs', 'JobsApi::create'); $routes->get('jobs/departments', 'JobsApi::departments'); $routes->get('jobs/(:num)', 'JobsApi::show/$1'); $routes->put('jobs/(:num)', 'JobsApi::update/$1'); $routes->delete('jobs/(:num)', 'JobsApi::delete/$1'); $routes->get('jobs/(:num)/applications', 'JobsApi::applications/$1'); $routes->put('applications/(:num)', 'JobApplicationsApi::update/$1');
     $routes->get('press-media', 'PressMediaApi::index'); $routes->get('press-media/(:num)', 'PressMediaApi::show/$1'); $routes->post('press-media', 'PressMediaApi::create'); $routes->put('press-media/(:num)', 'PressMediaApi::update/$1'); $routes->delete('press-media/(:num)', 'PressMediaApi::delete/$1');
 });
