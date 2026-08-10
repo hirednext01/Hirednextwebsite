@@ -1,5 +1,9 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
+<?php
+$reputationConfig = config('ReputationProof');
+$reputationItems = ($reputationConfig && !empty($reputationConfig->items) && is_array($reputationConfig->items)) ? array_slice($reputationConfig->items, 0, 3) : [];
+?>
 
 <section class="relative bg-primary text-white pt-36 pb-20 overflow-hidden">
     <div class="absolute inset-0 opacity-10 pointer-events-none">
@@ -22,6 +26,7 @@
                 </p>
                 <div class="flex flex-wrap gap-3">
                     <a href="<?= esc($founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer" class="inline-flex px-6 py-3 rounded-full bg-white text-primary font-bold text-sm">LinkedIn profile</a>
+                    <a href="<?= base_url('testimonials') ?>" class="inline-flex px-6 py-3 rounded-full border border-white/30 text-white font-bold text-sm">Recommendations</a>
                     <a href="<?= base_url('press-media') ?>" class="inline-flex px-6 py-3 rounded-full border border-white/30 text-white font-bold text-sm">Press & Media</a>
                 </div>
             </div>
@@ -50,6 +55,34 @@
         </div>
     </div>
 </section>
+
+<?php if (!empty($reputationItems)): ?>
+<section class="py-20 bg-white border-t border-gray-100">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="max-w-3xl mb-10">
+            <div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-3">External recommendations</div>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">What people say about Taru Shikha’s recruitment approach</h2>
+            <p class="text-gray-600 leading-relaxed">Short excerpts from publicly available LinkedIn recommendations and endorsements, linked back to the external source.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5">
+            <?php foreach ($reputationItems as $item): ?>
+                <article class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+                    <div class="text-[11px] uppercase tracking-[0.16em] font-black text-gray-500 mb-3"><?= esc($item['source_label'] ?? 'External source') ?></div>
+                    <p class="text-gray-700 leading-relaxed mb-5">“<?= esc($item['excerpt'] ?? '') ?>”</p>
+                    <div class="font-bold text-primary mb-1"><?= esc($item['name'] ?? '') ?></div>
+                    <div class="text-xs text-gray-500 mb-4"><?= esc($item['proof_type'] ?? 'Recruitment recommendation') ?></div>
+                    <?php if (!empty($item['source_url'])): ?>
+                        <a href="<?= esc($item['source_url']) ?>" target="_blank" rel="noopener noreferrer external" class="text-sm font-bold text-accent">View external source →</a>
+                    <?php endif; ?>
+                </article>
+            <?php endforeach; ?>
+        </div>
+        <div class="mt-8">
+            <a href="<?= base_url('testimonials') ?>" class="inline-flex px-6 py-3 rounded-full bg-primary text-white font-bold text-sm">View testimonials & recommendations</a>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
 
 <section class="py-20 bg-gray-50">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
