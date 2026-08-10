@@ -90,6 +90,8 @@ class BlogSearchOptimizer
             'Engineering' => ['engineering', 'technical leadership', 'projects', 'maintenance'],
             'Garment & Textile' => ['garment', 'textile', 'apparel', 'fashion'],
             'GCC Hiring' => ['gcc', 'global capability centre', 'global capability center'],
+            'Pharma & Life Sciences' => ['pharma', 'pharmaceutical', 'life sciences', 'biotech', 'regulatory affairs'],
+            'Semiconductor Hiring' => ['semiconductor', 'vlsi', 'chip design', 'soc ', 'firmware', 'embedded'],
             'Recruitment India' => ['india', 'indian hiring', 'indian recruitment'],
             'Workforce Strategy' => ['workforce', 'staffing', 'labour', 'labor', 'reskilling', 'reskilling'],
         ];
@@ -162,15 +164,18 @@ class BlogSearchOptimizer
             ['needles' => ['ai ', 'artificial intelligence', 'automation', 'human judgement', 'human judgment'], 'label' => 'How HiredNext Uses AI in Recruitment', 'url' => self::SITE . '/about'],
             ['needles' => ['garment', 'textile', 'apparel', 'fashion', 'merchandising', 'fabric technologist'], 'label' => 'Garment & Textile Recruitment India', 'url' => self::SITE . '/industry/garment-textile-recruitment-india'],
             ['needles' => ['retail', 'omnichannel', 'd2c'], 'label' => 'Retail Executive Search', 'url' => self::SITE . '/industry/retail-executive-search'],
-            ['needles' => ['bfsi', 'nbfc', 'banking', 'fintech', 'insurance'], 'label' => 'BFSI Leadership Hiring', 'url' => self::SITE . '/industry/bfsi-leadership-hiring'],
+            ['needles' => ['bfsi', 'nbfc', 'banking', 'fintech', 'insurance', 'credit risk', 'collections'], 'label' => 'BFSI & NBFC Recruitment India', 'url' => self::SITE . '/industry/bfsi-leadership-hiring'],
+            ['needles' => ['pharma', 'pharmaceutical', 'life sciences', 'biotech', 'regulatory affairs'], 'label' => 'Pharma & Life Sciences Recruitment India', 'url' => self::SITE . '/industry/pharma-life-sciences-recruitment-india'],
+            ['needles' => ['global capability centre', 'global capability center', ' gcc ', 'captive centre', 'captive center'], 'label' => 'Global Capability Centre Hiring India', 'url' => self::SITE . '/industry/global-capability-centres-hiring-india'],
+            ['needles' => ['semiconductor', 'vlsi', 'chip design', 'chip ', 'soc ', 'firmware', 'embedded systems'], 'label' => 'Semiconductor Recruitment India', 'url' => self::SITE . '/industry/semiconductor-recruitment-india'],
             ['needles' => ['manufacturing', 'plant leadership', 'factory'], 'label' => 'Manufacturing Talent Advisory', 'url' => self::SITE . '/industry/manufacturing-talent-advisory'],
             ['needles' => ['engineering', 'technical leadership', 'maintenance'], 'label' => 'Engineering Recruitment', 'url' => self::SITE . '/industry/engineering-recruitment-firm'],
-            ['needles' => ['software', 'technology hiring', 'product leader', 'engineering leader', 'it recruitment'], 'label' => 'IT Recruitment Services India', 'url' => self::SITE . '/industry/it-recruitment-services-india'],
+            ['needles' => ['software', 'technology hiring', 'product leader', 'engineering leader', 'it recruitment', 'cybersecurity'], 'label' => 'IT & Technology Recruitment India', 'url' => self::SITE . '/industry/it-recruitment-services-india'],
         ];
 
         foreach ($rules as $rule) {
             foreach ($rule['needles'] as $needle) {
-                if (mb_strpos($haystack, $needle) !== false) {
+                if (mb_strpos(' ' . $haystack . ' ', $needle) !== false || mb_strpos($haystack, trim($needle)) !== false) {
                     $links[] = ['label' => $rule['label'], 'url' => $rule['url']];
                     break;
                 }
