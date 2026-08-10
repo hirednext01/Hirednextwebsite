@@ -44,7 +44,7 @@ $routes->get('contact', 'Home::contact');
 $routes->get('jobs', 'Jobs::index');
 $routes->get('jobs/(:any)', 'Home::jobDetail/$1');
 $routes->post('jobs/(:any)/apply', 'Home::applyJob/$1');
-$routes->get('testimonials', 'Home::testimonials');
+$routes->get('testimonials', 'Authority::testimonials');
 $routes->post('contact/submit', 'Home::submitContact');
 $routes->get('test', 'Test::index');
 
