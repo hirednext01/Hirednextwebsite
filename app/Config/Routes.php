@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
 // Main website routes
 $routes->get('/', 'Home::index');
 $routes->get('about', 'Home::about');
-$routes->get('services', 'Home::services');
+$routes->get('services', 'CandidateServices::services');
 $routes->get('services/cv-assessment', 'CandidateServices::cvAssessment');
 $routes->get('services/(:any)', 'Home::serviceDetail/$1');
 // Backward-compatible alias so existing job links/bookmarks continue to work.
