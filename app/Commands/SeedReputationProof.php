@@ -38,6 +38,7 @@ class SeedReputationProof extends BaseCommand
 
         $inserted = 0;
         $updated = 0;
+        $deduplicated = 0;
         $skipped = 0;
 
         foreach ($config->items as $item) {
@@ -58,31 +59,34 @@ class SeedReputationProof extends BaseCommand
                 'client_name' => $name,
                 'name' => $name,
                 'comment' => $excerpt,
-                // Public LinkedIn recommendations/posts do not carry a star rating.
                 'rating' => 0,
                 'project_type' => $proofType,
                 'proof_type' => $proofType,
-                // The testimonial view uses this legacy display field for role/designation.
-                // Prefer a verified senior designation when one is available.
                 'location' => $designation !== '' ? $designation : 'Public ' . $sourceLabel,
                 'source_label' => $sourceLabel,
                 'source_url' => $sourceUrl,
-                // Keep source-backed recommendations separate from rated reviews
-                // so the approved Home testimonial cards never imply fake stars.
                 'status' => 'external',
                 'sort_order' => (int)($item['sort_order'] ?? -50),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
 
-            $existing = $db->table('reviews')
+            $matches = $db->table('reviews')
                 ->select('id, client_name, source_url')
                 ->where('source_url', $sourceUrl)
                 ->where('client_name', $name)
+                ->orderBy('id', 'ASC')
                 ->get()
-                ->getRowArray();
+                ->getResultArray();
+
+            $existing = $matches[0] ?? null;
+            $duplicateIds = array_map(static fn(array $row) => (int)$row['id'], array_slice($matches, 1));
 
             if ($dryRun) {
                 CLI::write('[DRY RUN] ' . ($existing ? 'Would update: ' : 'Would insert: ') . $name, 'yellow');
+                if ($duplicateIds) {
+                    CLI::write('[DRY RUN] Would remove ' . count($duplicateIds) . ' duplicate row(s) for: ' . $name, 'yellow');
+                    $deduplicated += count($duplicateIds);
+                }
                 $existing ? $updated++ : $inserted++;
                 continue;
             }
@@ -97,12 +101,19 @@ class SeedReputationProof extends BaseCommand
                 CLI::write('Inserted source-linked proof: ' . $name, 'green');
                 $inserted++;
             }
+
+            if ($duplicateIds) {
+                $db->table('reviews')->whereIn('id', $duplicateIds)->delete();
+                CLI::write('Removed duplicate source-linked rows: ' . $name . ' (' . count($duplicateIds) . ')', 'yellow');
+                $deduplicated += count($duplicateIds);
+            }
         }
 
         CLI::newLine();
         CLI::write('Reputation proof items configured: ' . count($config->items), 'yellow');
         CLI::write(($dryRun ? 'Would insert: ' : 'Inserted: ') . $inserted, 'green');
         CLI::write(($dryRun ? 'Would update: ' : 'Updated: ') . $updated, 'green');
+        CLI::write(($dryRun ? 'Would remove duplicates: ' : 'Duplicate rows removed: ') . $deduplicated, 'yellow');
         CLI::write('Invalid items skipped: ' . $skipped, 'yellow');
         if ($dryRun) {
             CLI::write('Dry run only. Database was not changed.', 'yellow');
