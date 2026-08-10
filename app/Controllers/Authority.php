@@ -192,6 +192,36 @@ class Authority extends BaseController
             ]);
     }
 
+    public function placementEvidenceJson()
+    {
+        $evidence = config('PlacementEvidence');
+
+        if (!$evidence) {
+            return $this->response->setStatusCode(404)->setJSON(['error' => 'Placement evidence is not available.']);
+        }
+
+        return $this->response
+            ->setHeader('Cache-Control', 'public, max-age=3600')
+            ->setJSON([
+                'publisher' => [
+                    'name' => 'HiredNext Recruitment',
+                    'url' => base_url('/'),
+                ],
+                'evidence_type' => 'selected_anonymised_joined_placements',
+                'scope_note' => $evidence->scopeNote,
+                'sample_count' => count($evidence->joinedExamples),
+                'selected_examples' => $evidence->joinedExamples,
+                'privacy' => [
+                    'candidate_names_published' => false,
+                    'client_company_names_published' => false,
+                    'compensation_published' => false,
+                    'professional_fees_published' => false,
+                ],
+                'related_industry_page' => base_url('industry/garment-textile-recruitment-india'),
+                'source_note' => 'The source is a limited internal HiredNext placement sample supplied for authority-building. It is intentionally anonymised and must not be treated as the complete placement database.',
+            ]);
+    }
+
     private function normaliseUrl($value)
     {
         $value = strtolower(trim((string)$value));
