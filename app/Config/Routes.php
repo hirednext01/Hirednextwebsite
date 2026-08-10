@@ -27,6 +27,7 @@ $routes->get('authority/placement-evidence.json', 'Authority::placementEvidenceJ
 $routes->get('hiring-intelligence', 'DiscoveryAuthority::hiringIntelligence');
 $routes->get('authority/hiring-intelligence.json', 'DiscoveryAuthority::hiringIntelligenceJson');
 $routes->get('authority/actions.json', 'DiscoveryAuthority::actionsJson');
+$routes->get('authority/facts.json', 'DiscoveryAuthority::factsJson');
 $routes->get('insights', 'Aeo::index');
 $routes->get('insights/(:any)', 'Aeo::show/$1');
 
