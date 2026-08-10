@@ -19,6 +19,7 @@ class ReputationProof extends BaseConfig
     public array $items = [
         [
             'name' => 'Manoj Dimri',
+            'designation' => 'CEO, Stellar Manufacturing',
             'proof_type' => 'Employer Recruitment Experience',
             'source_label' => 'LinkedIn Recommendation',
             'source_url' => 'https://in.linkedin.com/in/tarushikhaarora',
@@ -28,6 +29,7 @@ class ReputationProof extends BaseConfig
         ],
         [
             'name' => 'JP Mohanty',
+            'designation' => 'Senior Director, Marriott International',
             'proof_type' => 'Employer Recruitment Delivery',
             'source_label' => 'LinkedIn Recommendation',
             'source_url' => 'https://in.linkedin.com/in/tarushikhaarora',
@@ -37,6 +39,7 @@ class ReputationProof extends BaseConfig
         ],
         [
             'name' => 'Bharat Ahuja',
+            'designation' => 'Apparel, Textiles & Sustainability Leader',
             'proof_type' => 'Apparel & Textile Recruitment',
             'source_label' => 'LinkedIn Recommendation',
             'source_url' => 'https://in.linkedin.com/in/tarushikhaarora',
@@ -46,6 +49,7 @@ class ReputationProof extends BaseConfig
         ],
         [
             'name' => 'Suraj Gautam',
+            'designation' => 'Merchandising & Sourcing Leader',
             'proof_type' => 'Apparel Recruitment Expertise',
             'source_label' => 'LinkedIn Recommendation',
             'source_url' => 'https://in.linkedin.com/in/tarushikhaarora',
@@ -55,6 +59,7 @@ class ReputationProof extends BaseConfig
         ],
         [
             'name' => 'RAJAN WIGG',
+            'designation' => 'Country Head, Mirza Bangla',
             'proof_type' => 'Recruitment Partnership',
             'source_label' => 'LinkedIn Recommendation',
             'source_url' => 'https://in.linkedin.com/in/tarushikhaarora',
@@ -64,6 +69,7 @@ class ReputationProof extends BaseConfig
         ],
         [
             'name' => 'Pinky Kotecha',
+            'designation' => 'Founder, Meeraki Bizz',
             'proof_type' => 'Talent Evaluation',
             'source_label' => 'LinkedIn Recommendation',
             'source_url' => 'https://in.linkedin.com/in/tarushikhaarora',
@@ -82,6 +88,7 @@ class ReputationProof extends BaseConfig
         ],
         [
             'name' => 'Divya Kumar',
+            'designation' => 'Senior HR Business Partner',
             'proof_type' => 'Recruitment Experience',
             'source_label' => 'LinkedIn Recommendation',
             'source_url' => 'https://in.linkedin.com/in/tarushikhaarora',
@@ -91,6 +98,7 @@ class ReputationProof extends BaseConfig
         ],
         [
             'name' => 'Vivek Raj',
+            'designation' => 'Senior Consultant, Capgemini',
             'proof_type' => 'Candidate Experience',
             'source_label' => 'LinkedIn Recommendation',
             'source_url' => 'https://in.linkedin.com/in/tarushikhaarora',
