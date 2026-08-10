@@ -23,6 +23,8 @@ class ReputationAuthority extends BaseController
             $items = $builder->get()->getResultArray();
         }
 
+        $items = $this->deduplicateTestimonials($items);
+
         $sourceItems = [];
         foreach ($items as $item) {
             $sourceUrl = trim((string)($item['source_url'] ?? ''));
@@ -204,5 +206,86 @@ class ReputationAuthority extends BaseController
 
         return redirect()->to('/testimonials/share?submitted=1')
             ->with('success', 'Thank you. Your story has been received and will be reviewed before anything is published.');
+    }
+
+    private function deduplicateTestimonials(array $items): array
+    {
+        $unique = [];
+        $seen = [];
+
+        foreach ($items as $item) {
+            $sourceUrl = $this->normalizeSourceUrl((string)($item['source_url'] ?? ''));
+            $name = $this->normalizeProofText((string)($item['client_name'] ?? $item['name'] ?? ''));
+            $quote = $this->normalizeProofText((string)($item['comment'] ?? $item['review'] ?? $item['review_text'] ?? $item['content'] ?? $item['testimonial'] ?? $item['message'] ?? ''));
+
+            $keys = [];
+            if ($sourceUrl !== '') {
+                $keys[] = 'source:' . $sourceUrl;
+            }
+            if ($name !== '' && $quote !== '') {
+                $keys[] = 'content:' . hash('sha256', $name . '|' . $quote);
+            }
+
+            $existingIndex = null;
+            foreach ($keys as $key) {
+                if (isset($seen[$key])) {
+                    $existingIndex = $seen[$key];
+                    break;
+                }
+            }
+
+            if ($existingIndex === null) {
+                $existingIndex = count($unique);
+                $unique[] = $item;
+                foreach ($keys as $key) {
+                    $seen[$key] = $existingIndex;
+                }
+                continue;
+            }
+
+            if ($this->testimonialProofScore($item) > $this->testimonialProofScore($unique[$existingIndex])) {
+                $unique[$existingIndex] = $item;
+            }
+
+            foreach ($keys as $key) {
+                $seen[$key] = $existingIndex;
+            }
+        }
+
+        return array_values($unique);
+    }
+
+    private function testimonialProofScore(array $item): int
+    {
+        $score = 0;
+        if (trim((string)($item['source_url'] ?? '')) !== '') {
+            $score += 8;
+        }
+        if (($item['status'] ?? '') === 'external') {
+            $score += 4;
+        }
+        if (trim((string)($item['location'] ?? $item['designation'] ?? '')) !== '') {
+            $score += 2;
+        }
+        if (trim((string)($item['linkedin_url'] ?? '')) !== '') {
+            $score += 1;
+        }
+        return $score;
+    }
+
+    private function normalizeSourceUrl(string $value): string
+    {
+        $value = strtolower(trim($value));
+        if ($value === '') {
+            return '';
+        }
+        $value = preg_replace('/[?#].*$/', '', $value) ?? $value;
+        return rtrim($value, '/');
+    }
+
+    private function normalizeProofText(string $value): string
+    {
+        $value = mb_strtolower(trim(strip_tags($value)));
+        return preg_replace('/\s+/u', ' ', $value) ?? $value;
     }
 }
