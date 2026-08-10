@@ -1,506 +1,163 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<!-- ================= HERO SECTION ================= -->
-    <section class="hero-about relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden text-white">
-      <div class="hero-overlay"></div>
-      <div class="hero-sheen"></div>
-      <div class="hero-noise"></div>
 
-      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <!-- LEFT CONTENT -->
-          <div class="reveal reveal-right">
-            <div
-              class="inline-flex items-center gap-3 px-5 py-2 bg-white/10 border border-white/15 rounded-full text-[11px] uppercase tracking-[0.35em] font-bold mb-8"
-            >
-              <span class="h-2 w-2 rounded-full bg-gold shadow-[0_0_12px_rgba(212,175,55,0.7)]"></span>
-              Our Story
+<section class="hero-about relative pt-36 pb-24 overflow-hidden text-white">
+    <div class="hero-overlay"></div>
+    <div class="hero-sheen"></div>
+    <div class="hero-noise"></div>
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8 relative z-10">
+        <div class="max-w-4xl">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/15 rounded-full text-[11px] uppercase tracking-[0.28em] font-bold mb-7">
+                <span class="h-2 w-2 rounded-full bg-gold"></span>
+                About HiredNext
             </div>
-            <h1 class="text-4xl md:text-6xl xl:text-7xl font-bold mb-8 leading-tight font-serif">
-              The people behind<br />
-              <span class="text-accent">HiredNext</span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-6">
+                Human judgement.<br><span class="text-accent">Technology-enabled hiring.</span>
             </h1>
-            <p class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">
-              <?= esc($settings['about_description'] ?? 'With over 10+ years of recruitment excellence, HiredNext has established itself as a trusted talent partner for organizations seeking leadership-driven growth and workforce transformation.') ?>
+            <p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl mb-8">
+                HiredNext combines experienced recruiters, sector knowledge and responsible use of AI and automation to help companies identify, assess and engage stronger talent.
             </p>
-            <div class="flex flex-wrap items-center gap-6 text-xs uppercase tracking-[0.3em] text-white/60">
-              <span class="flex items-center gap-2">
-                <span class="h-2 w-2 rounded-full bg-accent"></span> 10+ Years
-              </span>
-              <span class="flex items-center gap-2">
-                <span class="h-2 w-2 rounded-full bg-gold"></span> 1500+ Placements
-              </span>
-              <span class="flex items-center gap-2">
-                <span class="h-2 w-2 rounded-full bg-white"></span> Global Advisory
-              </span>
+            <div class="flex flex-wrap gap-x-7 gap-y-3 text-xs uppercase tracking-[0.18em] text-white/65 font-bold">
+                <span>10+ years</span>
+                <span>1500+ placements</span>
+                <span>25+ industries</span>
+                <span>Human-led decisions</span>
             </div>
-          </div>
-
-          <!-- RIGHT PANEL -->
-          <div class="hidden lg:block relative reveal reveal-scale">
-            <div class="hero-panel rounded-[2.5rem] p-10 shadow-2xl border border-white/10">
-              <div class="text-xs uppercase tracking-[0.3em] text-white/60 mb-6">
-                Built on Trust
-              </div>
-              <div class="space-y-6">
-                <div class="flex items-center justify-between">
-                  <div class="text-lg font-semibold">Leadership Search</div>
-                  <div class="text-white/70">98%</div>
-                </div>
-                <div class="h-2 w-full rounded-full bg-white/10 overflow-hidden">
-                  <div class="h-full w-[90%] bg-accent rounded-full"></div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="text-lg font-semibold">Client Retention</div>
-                  <div class="text-white/70">94%</div>
-                </div>
-                <div class="h-2 w-full rounded-full bg-white/10 overflow-hidden">
-                  <div class="h-full w-[86%] bg-gold rounded-full"></div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="hero-card relative mt-8 bg-white text-primary p-8 rounded-[2rem] shadow-2xl border border-white/80"
-            >
-              <div class="text-xs uppercase tracking-[0.3em] text-primary/50 mb-3">Since</div>
-              <div class="text-3xl font-bold mb-2">2016</div>
-              <div class="text-sm text-gray-500 uppercase font-extrabold tracking-widest">
-                Trusted Talent Partners
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
+</section>
 
-    <!-- ================= ABOUT US CONTENT ================= -->
-    <section class="py-32 bg-white">
-      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <!-- LEFT CONTENT -->
-          <div class="reveal reveal-right">
-            <h2
-              class="text-4xl md:text-5xl font-bold text-primary mb-8 font-serif"
-            >
-              🏢 Our Mission
-            </h2>
-            <p class="text-xl text-gray-600 mb-10 leading-relaxed">
-              To enable organizations and professionals to achieve long-term
-              success by delivering talent solutions that balance capability,
-              culture, and future potential.
-            </p>
-
-            <div class="space-y-8">
-              <!-- Vision -->
-              <div
-                class="flex items-start p-8 bg-gray-50 rounded-2xl shadow-sm border-l-8 border-accent reveal reveal-up"
-              >
-                <div class="bg-accent/10 p-3 rounded-xl text-accent mr-6">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="28"
-                    height="28"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <circle cx="12" cy="12" r="4" />
-                    <line x1="22" y1="12" x2="18" y2="12" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-xl font-bold text-primary mb-2">
-                    🎯 Our Vision
-                  </h4>
-                  <p class="text-base text-gray-600">
-                    To be recognized as a globally respected recruitment and
-                    talent advisory firm known for insight-driven hiring,
-                    integrity, and consistent results.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Values -->
-              <div
-                class="flex items-start p-8 bg-gray-50 rounded-2xl shadow-sm border-l-8 border-gold reveal reveal-up"
-              >
-                <div class="bg-gold/10 p-3 rounded-xl text-gold mr-6">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="28"
-                    height="28"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-xl font-bold text-primary mb-2">
-                    💎 Our Values
-                  </h4>
-                  <p class="text-base text-gray-600">
-                    Integrity, excellence, and partnership drive everything we
-                    do. We believe in building long-term relationships that
-                    create value for both organizations and professionals.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- RIGHT STATS -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <!-- Stat 1 -->
-            <div
-              class="bg-primary p-12 rounded-[2.5rem] text-center flex flex-col items-center justify-center transform hover:scale-105 transition-all shadow-xl h-full reveal reveal-left"
-            >
-              <div class="text-5xl font-bold text-gold mb-3">10+</div>
-              <div
-                class="text-white/70 text-sm font-bold uppercase tracking-[0.2em]"
-              >
-                Years Experience
-              </div>
-            </div>
-
-            <!-- Stat 2 -->
-            <div
-              class="bg-primary p-12 rounded-[2.5rem] text-center flex flex-col items-center justify-center transform hover:scale-105 transition-all shadow-xl h-full reveal reveal-left"
-            >
-              <div class="text-5xl font-bold text-gold mb-3">1500+</div>
-              <div
-                class="text-white/70 text-sm font-bold uppercase tracking-[0.2em]"
-              >
-                Leadership Placements
-              </div>
-            </div>
-
-            <!-- Stat 3 -->
-            <div
-              class="bg-primary p-12 rounded-[2.5rem] text-center flex flex-col items-center justify-center transform hover:scale-105 transition-all shadow-xl h-full reveal reveal-left"
-            >
-              <div class="text-5xl font-bold text-gold mb-3">25+</div>
-              <div
-                class="text-white/70 text-sm font-bold uppercase tracking-[0.2em]"
-              >
-                Industries Served
-              </div>
-            </div>
-
-            <!-- Success Card -->
-            <div
-              class="bg-accent p-12 rounded-[2.5rem] text-center flex flex-col items-center justify-center text-white shadow-2xl shadow-accent/30 h-full reveal reveal-left"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="56"
-                height="56"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="mb-4"
-              >
-                <path d="M20 6L9 17l-5-5" />
-              </svg>
-              <div class="text-2xl font-bold uppercase tracking-widest mb-1">
-                Success
-              </div>
-              <div class="text-white/80 text-sm font-medium">
-                Guaranteed Focus
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= FOUNDER SECTION ================= -->
-    <section class="py-32 bg-gray-50">
-      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
-        <div class="reveal reveal-scale">
-          <div
-            class="bg-white rounded-[4rem] p-16 lg:p-24 relative overflow-hidden border border-gray-100 shadow-sm"
-          >
-            <!-- Big Quote Background -->
-            <div class="absolute top-10 right-10 text-accent/10">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="200"
-                height="200"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M3 21c3 0 6-3 6-6V9H3v6h4c0 2-2 4-4 4v2z" />
-                <path d="M15 21c3 0 6-3 6-6V9h-6v6h4c0 2-2 4-4 4v2z" />
-              </svg>
-            </div>
-
-            <div
-              class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10"
-            >
-              <!-- LEFT: IMAGE -->
-              <div class="lg:col-span-4 reveal reveal-right">
-                <div
-                  class="rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-[12px] border-white"
-                >
-                  <img src="<?= base_url('theme/about.png') ?>" alt="Founder" class="w-full h-auto" />
-                </div>
-                <div class="mt-8 text-center lg:text-left">
-                  <h3 class="text-3xl font-bold text-primary">Taru Shikha</h3>
-                  <p
-                    class="text-accent font-extrabold uppercase tracking-widest text-sm mt-2"
-                  >
-                    Founder, HiredNext
-                  </p>
-                </div>
-              </div>
-
-              <!-- RIGHT: CONTENT -->
-              <div class="lg:col-span-8 reveal reveal-left">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  class="text-accent mb-8"
-                >
-                  <path d="M3 21c3 0 6-3 6-6V9H3v6h4c0 2-2 4-4 4v2z" />
-                  <path d="M15 21c3 0 6-3 6-6V9h-6v6h4c0 2-2 4-4 4v2z" />
-                </svg>
-                <p
-                  class="text-3xl md:text-4xl font-serif text-primary italic leading-tight mb-10"
-                >
-                  "At HiredNext, recruitment goes beyond job descriptions. We
-                  focus on understanding people, potential, and purpose. Every
-                  hiring decision shapes an organization's future — and we take
-                  that responsibility seriously."
+<section class="py-20 bg-white">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="grid lg:grid-cols-2 gap-14 items-start">
+            <div>
+                <div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-3">What we believe</div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">Recruitment should become more intelligent without becoming less human.</h2>
+                <p class="text-gray-600 leading-relaxed mb-5">
+                    Technology can help recruiters process information faster, identify patterns and keep candidates engaged. But hiring decisions still require context, judgement, motivation assessment and an understanding of people that cannot be reduced to a score.
                 </p>
-                <div class="flex space-x-6 items-center">
-                  <div class="h-1 w-24 bg-accent"></div>
-                  <p class="text-gray-500 text-lg max-w-lg leading-relaxed">
-                    Our commitment is to excellence, ensuring that every
-                    placement adds long-term value to both the individual and
-                    the organization.
-                  </p>
+                <p class="text-gray-600 leading-relaxed">
+                    Our approach is therefore human-led and AI-assisted: recruiters own the mandate and the final assessment, while technology supports screening, research, workflow automation and candidate engagement where it adds value.
+                </p>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="rounded-2xl bg-gray-50 border border-gray-200 p-6">
+                    <div class="text-sm font-black text-accent mb-2">Human judgement</div>
+                    <p class="text-sm text-gray-600 leading-relaxed">Experienced recruiters calibrate the role, assess evidence and make the final recommendation.</p>
                 </div>
-              </div>
+                <div class="rounded-2xl bg-gray-50 border border-gray-200 p-6">
+                    <div class="text-sm font-black text-accent mb-2">AI-assisted screening</div>
+                    <p class="text-sm text-gray-600 leading-relaxed">AI can support CV parsing, candidate-role matching and structured review to help recruiters focus attention faster.</p>
+                </div>
+                <div class="rounded-2xl bg-gray-50 border border-gray-200 p-6">
+                    <div class="text-sm font-black text-accent mb-2">Automation</div>
+                    <p class="text-sm text-gray-600 leading-relaxed">Workflow automation can support outreach, scheduling, reminders, follow-ups and repetitive coordination.</p>
+                </div>
+                <div class="rounded-2xl bg-gray-50 border border-gray-200 p-6">
+                    <div class="text-sm font-black text-accent mb-2">Assessment depth</div>
+                    <p class="text-sm text-gray-600 leading-relaxed">Psychometric or other structured assessments can be added when the client and role genuinely require them.</p>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
+</section>
 
-    <!-- ================= OUR PROCESS ================= -->
-    <section class="py-32 bg-white relative overflow-hidden">
-      <div
-        class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"
-      ></div>
-      <div
-        class="absolute -top-40 -right-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-      ></div>
-
-      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
-        <div class="text-center max-w-3xl mx-auto mb-20 reveal reveal-up">
-          <span
-            class="text-accent font-extrabold uppercase tracking-[0.3em] text-xs mb-4 block"
-          >
-            How We Work
-          </span>
-          <h2
-            class="text-4xl md:text-5xl font-bold text-primary font-serif mb-6"
-          >
-            Our Process
-          </h2>
-          <p class="text-gray-500 text-lg">
-            A seamless, insight-driven approach to connecting world-class talent
-            with industry-leading organizations.
-          </p>
+<section class="py-20 bg-gray-50">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-3">AI-enabled recruitment</div>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Where technology can support the hiring process</h2>
+            <p class="text-gray-600 leading-relaxed">We use or can introduce technology selectively depending on the mandate. The objective is better signal and faster execution, not automation for its own sake.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          <!-- Step 1 -->
-          <div class="group text-center reveal reveal-up">
-            <div class="relative w-20 h-20 mx-auto mb-8">
-              <div
-                class="absolute inset-0 bg-primary/5 rounded-full scale-0 group-hover:scale-110 transition-transform duration-500"
-              ></div>
-              <div
-                class="relative w-full h-full flex items-center justify-center text-primary group-hover:text-accent transition-colors duration-300"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">
-              Industry Aligned Recruiters
-            </h3>
-            <p class="text-gray-500 text-sm leading-relaxed">
-              Our recruiters are specialists in their sectors, bringing deep
-              domain expertise to understand your unique hiring needs.
-            </p>
-          </div>
-
-          <!-- Step 2 -->
-          <div
-            class="group text-center reveal reveal-up"
-            style="animation-delay: 100ms"
-          >
-            <div class="relative w-20 h-20 mx-auto mb-8">
-              <div
-                class="absolute inset-0 bg-primary/5 rounded-full scale-0 group-hover:scale-110 transition-transform duration-500"
-              ></div>
-              <div
-                class="relative w-full h-full flex items-center justify-center text-primary group-hover:text-accent transition-colors duration-300"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                >
-                  <path
-                    d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-                  />
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">
-              End to End Solutions
-            </h3>
-            <p class="text-gray-500 text-sm leading-relaxed">
-              From role analysis to onboarding support, we manage the complete
-              recruitment lifecycle with precision.
-            </p>
-          </div>
-
-          <!-- Step 3 -->
-          <div
-            class="group text-center reveal reveal-up"
-            style="animation-delay: 200ms"
-          >
-            <div class="relative w-20 h-20 mx-auto mb-8">
-              <div
-                class="absolute inset-0 bg-primary/5 rounded-full scale-0 group-hover:scale-110 transition-transform duration-500"
-              ></div>
-              <div
-                class="relative w-full h-full flex items-center justify-center text-primary group-hover:text-accent transition-colors duration-300"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="2" y1="12" x2="22" y2="12" />
-                  <path
-                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">
-              Global Talent Reach
-            </h3>
-            <p class="text-gray-500 text-sm leading-relaxed">
-              Access top talent across borders through our extensive network and
-              presence in multiple countries.
-            </p>
-          </div>
-
-          <!-- Step 4 -->
-          <div
-            class="group text-center reveal reveal-up"
-            style="animation-delay: 300ms"
-          >
-            <div class="relative w-20 h-20 mx-auto mb-8">
-              <div
-                class="absolute inset-0 bg-primary/5 rounded-full scale-0 group-hover:scale-110 transition-transform duration-500"
-              ></div>
-              <div
-                class="relative w-full h-full flex items-center justify-center text-primary group-hover:text-accent transition-colors duration-300"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">
-              Culture First Hiring
-            </h3>
-            <p class="text-gray-500 text-sm leading-relaxed">
-              Beyond skills matching, we ensure candidates align with your
-              company's values and culture for long term success.
-            </p>
-          </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <article class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm">
+                <h3 class="text-xl font-bold text-primary mb-3">AI screening & role matching</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">Structured CV review, skill and experience extraction, keyword and role-fit signals, followed by recruiter validation.</p>
+            </article>
+            <article class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm">
+                <h3 class="text-xl font-bold text-primary mb-3">Automated candidate engagement</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">Automated messages, reminders and follow-ups can reduce delays while keeping recruiter ownership of important conversations.</p>
+            </article>
+            <article class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm">
+                <h3 class="text-xl font-bold text-primary mb-3">AI-assisted calling</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">For suitable high-volume workflows, AI-assisted or automated calling can support first-touch screening, confirmations and scheduling, with human escalation where needed.</p>
+            </article>
+            <article class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm">
+                <h3 class="text-xl font-bold text-primary mb-3">Interview intelligence</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">Structured scorecards, note summaries and evidence capture can make evaluation more consistent across interviewers.</p>
+            </article>
+            <article class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm">
+                <h3 class="text-xl font-bold text-primary mb-3">Psychometric assessments</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">Psychometric testing can be incorporated on request when it is relevant to the role, seniority and client assessment philosophy.</p>
+            </article>
+            <article class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm">
+                <h3 class="text-xl font-bold text-primary mb-3">Recruitment analytics</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">Pipeline visibility, response patterns and hiring-stage data can help clients and recruiters identify bottlenecks and improve decisions.</p>
+            </article>
         </div>
-      </div>
-    </section>
 
-    <!-- ================= CTA SECTION ================= -->
-    <section
-      class="py-40 bg-primary text-white text-center relative overflow-hidden"
-    >
-      <div
-        class="absolute -top-24 -left-24 w-96 h-96 bg-accent opacity-10 rounded-full blur-3xl"
-      ></div>
-      <div
-        class="absolute -bottom-24 -right-24 w-96 h-96 bg-gold opacity-10 rounded-full blur-3xl"
-      ></div>
+        <div class="mt-8 rounded-2xl bg-primary text-white p-6 md:p-7 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <p class="text-sm md:text-base text-white/80 leading-relaxed max-w-4xl"><strong class="text-white">Responsible use matters.</strong> AI-generated signals are treated as decision support, not as an automatic hiring verdict. Final recommendations remain with recruiters and hiring stakeholders.</p>
+        </div>
+    </div>
+</section>
 
-      <div class="max-w-5xl mx-auto px-6 relative z-10 reveal reveal-up">
-        <h2
-          class="text-5xl md:text-7xl font-serif font-bold mb-10 leading-tight"
-        >
-          Ready to transform your <br />
-          <span class="text-gold italic">talent strategy?</span>
-        </h2>
-        <a
-          href="<?= base_url('contact') ?>"
-          class="inline-block px-12 py-5 bg-white text-primary rounded-full font-black uppercase tracking-widest hover:bg-accent hover:text-white transition-all shadow-[0_10px_30px_rgba(255,255,255,0.2)] hover:shadow-[0_20px_40px_rgba(255,78,22,0.4)] hover:-translate-y-1"
-        >
-          Get in Touch
-        </a>
-      </div>
-    </section>
+<section class="py-20 bg-white">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-3">Our process</div>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Strategy first. Technology where useful. Recruiter judgement throughout.</h2>
+            <p class="text-gray-600 leading-relaxed">Every mandate starts with understanding the business problem before choosing sourcing channels, automation or assessment tools.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <?php
+            $steps = [
+                ['01', 'Strategise the mandate', 'Clarify why the role exists, business outcomes, must-have evidence, culture context, compensation, location and decision-makers.'],
+                ['02', 'Map the talent market', 'Identify target companies, adjacent talent pools, relevant industries and realistic candidate availability before outreach starts.'],
+                ['03', 'Source & engage', 'Combine recruiter networks, direct search, databases and appropriate automation to reach relevant active and passive talent.'],
+                ['04', 'Screen intelligently', 'Use structured recruiter screening supported by AI-assisted parsing or matching where useful, then validate the evidence through human conversation.'],
+                ['05', 'Evaluate deeply', 'Assess achievements, scale, motivation, communication, leadership context and role fit. Add psychometric or other structured testing when requested and relevant.'],
+                ['06', 'Present, close & support', 'Share evidence-led shortlists, coordinate interviews, manage feedback and offers, and support the candidate through joining.'],
+            ];
+            ?>
+            <?php foreach ($steps as $step): ?>
+                <article class="rounded-2xl border border-gray-200 p-7 bg-white hover:shadow-md transition-shadow">
+                    <div class="text-accent text-sm font-black mb-4"><?= esc($step[0]) ?></div>
+                    <h3 class="text-xl font-bold text-primary mb-3"><?= esc($step[1]) ?></h3>
+                    <p class="text-sm text-gray-600 leading-relaxed"><?= esc($step[2]) ?></p>
+                </article>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-gray-50">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="grid lg:grid-cols-12 gap-10 items-center bg-white border border-gray-100 rounded-[2rem] p-7 md:p-10 shadow-sm">
+            <div class="lg:col-span-4">
+                <div class="rounded-[1.5rem] overflow-hidden max-w-[320px] mx-auto">
+                    <img src="<?= base_url('theme/about.png') ?>" alt="Taru Shikha, Founder of HiredNext" class="w-full h-auto" loading="lazy">
+                </div>
+            </div>
+            <div class="lg:col-span-8">
+                <div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-3">Founder perspective</div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-5">Recruitment is still a judgement business.</h2>
+                <p class="text-lg text-gray-600 leading-relaxed mb-5">“Technology should help us see more clearly and move faster. It should not replace the responsibility a recruiter has when recommending one person over another.”</p>
+                <div class="font-bold text-primary">Taru Shikha</div>
+                <div class="text-sm text-gray-500">Founder, HiredNext</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-primary text-white text-center">
+    <div class="max-w-3xl mx-auto px-4 sm:px-8">
+        <h2 class="text-3xl md:text-4xl font-serif font-bold mb-5">Planning a critical hire?</h2>
+        <p class="text-white/75 mb-8">Tell us what the business needs from the role. We’ll help shape the search and assessment approach around it.</p>
+        <a href="<?= base_url('services/clients') ?>" class="inline-flex px-8 py-4 rounded-full bg-accent text-white font-bold">Explore Services for Clients</a>
+    </div>
+</section>
 
 <?= $this->endSection() ?>
