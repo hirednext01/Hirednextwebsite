@@ -17,15 +17,18 @@ class Seo extends BaseController
         $urls = [
             ['loc' => base_url(), 'changefreq' => 'weekly', 'priority' => '1.0'],
             ['loc' => base_url('jobs'), 'changefreq' => 'daily', 'priority' => '0.9'],
-            ['loc' => base_url('services'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('services/clients'), 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['loc' => base_url('services/candidates'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/executive-search'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('services/permanent-hiring'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/rpo'), 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => base_url('cv-assessment'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('services/avron'), 'changefreq' => 'monthly', 'priority' => '0.7'],
+            ['loc' => base_url('services/cv-assessment'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('insights'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('about'), 'changefreq' => 'monthly', 'priority' => '0.6'],
-            ['loc' => base_url('blog'), 'changefreq' => 'weekly', 'priority' => '0.7'],
-            ['loc' => base_url('press-media'), 'changefreq' => 'monthly', 'priority' => '0.5'],
+            ['loc' => base_url('about/taru-shikha'), 'changefreq' => 'monthly', 'priority' => '0.7'],
+            ['loc' => base_url('blog'), 'changefreq' => 'weekly', 'priority' => '0.8'],
+            ['loc' => base_url('press-media'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => base_url('contact'), 'changefreq' => 'monthly', 'priority' => '0.5'],
         ];
 
@@ -123,7 +126,8 @@ class Seo extends BaseController
 
     public function llms()
     {
-        $posts = \Config\Database::connect()->table('blog_posts')
+        $db = \Config\Database::connect();
+        $posts = $db->table('blog_posts')
             ->select('title, slug, excerpt, category')
             ->where('status', 'published')
             ->orderBy('published_at', 'DESC')
@@ -131,24 +135,44 @@ class Seo extends BaseController
             ->limit(50)
             ->get()
             ->getResultArray();
+        $media = config('MediaAuthority');
 
         $lines = [
             '# HiredNext Recruitment',
             '',
-            '> HiredNext is an India-based executive search and recruitment firm focused on leadership, mid-senior and specialist hiring.',
+            '> HiredNext is an India-based executive search and recruitment firm focused on leadership, mid-senior and specialist hiring. HiredNext uses a human-led, technology-enabled approach to search, screening and assessment.',
             '',
             '## Core pages',
             '',
+            '- [Services for Clients](' . base_url('services/clients') . '): Executive search, permanent hiring and RPO for employers.',
+            '- [Services for Candidates](' . base_url('services/candidates') . '): CV assessment, career support, interview strategy and HiredNext Avron.',
             '- [Executive Search](' . base_url('services/executive-search') . '): Confidential leadership hiring, market mapping and structured assessment.',
             '- [Permanent Recruitment](' . base_url('services/permanent-hiring') . '): Mid-senior and specialist recruitment support.',
             '- [Recruitment Process Outsourcing](' . base_url('services/rpo') . '): Flexible recruiting capacity for growing organisations.',
             '- [Jobs](' . base_url('jobs') . '): Current roles managed by HiredNext.',
             '- [Insights](' . base_url('blog') . '): Recruiter-led hiring and career guidance.',
+            '- [Founder Profile](' . base_url('about/taru-shikha') . '): Taru Shikha, Founder of HiredNext Recruitment.',
+            '- [Press and Media](' . base_url('press-media') . '): Verified external media coverage and expert commentary.',
+            '- [Authority Media JSON](' . base_url('authority/media.json') . '): Machine-readable list of verified external media coverage.',
             '- [Contact](' . base_url('contact') . '): Speak with HiredNext about a hiring mandate.',
             '',
-            '## Published insights',
+            '## Founder',
+            '',
+            '- Taru Shikha — Founder, HiredNext Recruitment.',
+            '- Profile: ' . base_url('about/taru-shikha'),
+            '- LinkedIn: ' . $media->founderLinkedIn,
+            '',
+            '## Verified external media coverage',
             '',
         ];
+
+        foreach ($media->coverage as $coverage) {
+            $lines[] = '- ' . $coverage['outlet'] . ' — [' . str_replace([']', '['], '', $coverage['headline']) . '](' . $coverage['url'] . ')';
+        }
+
+        $lines[] = '';
+        $lines[] = '## Published insights';
+        $lines[] = '';
 
         foreach ($posts as $post) {
             $summary = trim((string)preg_replace('/\s+/u', ' ', strip_tags((string)($post['excerpt'] ?? ''))));
@@ -160,7 +184,7 @@ class Seo extends BaseController
         $lines[] = '';
         $lines[] = '## Attribution';
         $lines[] = '';
-        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher.';
+        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher. External media links above remain the source of record for those publications.';
 
         return $this->response
             ->setHeader('Cache-Control', 'public, max-age=3600')

@@ -107,6 +107,9 @@ class BlogApi extends BaseApiController
 
             if ($result) {
                 $insertData['id'] = $db->insertID();
+                if (($insertData['status'] ?? 'draft') === 'published') {
+                    $this->notifyIndexNow(base_url('blog/' . $slug));
+                }
                 return $this->successResponse($insertData, 'Blog post created successfully');
             } else {
                 return $this->errorResponse('Failed to create blog post', 500);
@@ -186,7 +189,7 @@ class BlogApi extends BaseApiController
             ];
 
             // Set published_at if status is changing to published
-            if ($data['status'] === 'published' && $existing['status'] !== 'published') {
+            if (($data['status'] ?? 'draft') === 'published' && $existing['status'] !== 'published') {
                 $updateData['published_at'] = date('Y-m-d H:i:s');
             }
 
@@ -196,6 +199,9 @@ class BlogApi extends BaseApiController
 
             if ($result) {
                 $updateData['id'] = $id;
+                if (($updateData['status'] ?? 'draft') === 'published') {
+                    $this->notifyIndexNow(base_url('blog/' . $slug));
+                }
                 return $this->successResponse($updateData, 'Blog post updated successfully');
             } else {
                 return $this->errorResponse('Failed to update blog post', 500);
@@ -230,6 +236,9 @@ class BlogApi extends BaseApiController
                 ->delete();
 
             if ($result) {
+                if (!empty($existing['slug'])) {
+                    $this->notifyIndexNow(base_url('blog/' . $existing['slug']));
+                }
                 return $this->successResponse([], 'Blog post deleted successfully');
             } else {
                 return $this->errorResponse('Failed to delete blog post', 500);
@@ -267,5 +276,37 @@ class BlogApi extends BaseApiController
         }
 
         return $excerpt . '...';
+    }
+
+    private function notifyIndexNow($url)
+    {
+        try {
+            $config = config('SearchDiscovery');
+            if (!$config || empty($config->indexNowKey) || empty($config->indexNowEndpoint)) {
+                return;
+            }
+
+            $host = parse_url(base_url(), PHP_URL_HOST);
+            if (!$host) {
+                return;
+            }
+
+            $client = \Config\Services::curlrequest([
+                'timeout' => 3,
+                'connect_timeout' => 2,
+                'http_errors' => false,
+            ]);
+
+            $client->post($config->indexNowEndpoint, [
+                'json' => [
+                    'host' => $host,
+                    'key' => $config->indexNowKey,
+                    'keyLocation' => rtrim(base_url(), '/') . '/' . $config->indexNowKey . '.txt',
+                    'urlList' => [(string)$url],
+                ],
+            ]);
+        } catch (\Throwable $e) {
+            // Indexing notifications must never block blog publishing.
+        }
     }
 }
