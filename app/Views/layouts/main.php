@@ -140,6 +140,21 @@
         <div class="bg-accent text-gray-900 text-center text-xs font-bold uppercase tracking-widest py-3 px-4">Maintenance Mode Enabled — The site may be temporarily unavailable.</div>
     <?php endif; ?>
 
+    <?php $isHomePage = trim((string) service('uri')->getPath(), '/') === ''; ?>
+    <?php if ($isHomePage): ?>
+        <div class="absolute top-[98px] left-0 right-0 z-40 px-4 sm:px-8 lg:px-12">
+            <div class="max-w-[1440px] mx-auto flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/15 bg-primary/80 backdrop-blur-md px-4 sm:px-5 py-2.5 shadow-lg">
+                <p class="text-[11px] sm:text-xs text-white/80 leading-relaxed">
+                    <span class="font-extrabold text-white">Candidate safety:</span> HiredNext does not charge candidates for job placement. Optional career services, where offered, are separately priced.
+                </p>
+                <div class="flex items-center gap-2 shrink-0">
+                    <a href="<?= base_url('jobs') ?>" class="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-[11px] sm:text-xs font-extrabold text-white hover:bg-white/20 transition">I'm a Candidate</a>
+                    <a href="<?= base_url('services/clients') ?>" class="rounded-full bg-accent px-4 py-2 text-[11px] sm:text-xs font-extrabold text-gray-900 hover:opacity-90 transition">I'm an Employer</a>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <main id="main-content"><?= $this->renderSection('content') ?></main>
 
     <footer class="py-20 bg-primary text-white relative overflow-hidden">
