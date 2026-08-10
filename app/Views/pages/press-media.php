@@ -1,62 +1,150 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<div class="min-h-screen bg-gray-50 pb-24">
+<?php
+$items = $press_media_items ?? [];
+$mediaConfig = config('MediaAuthority');
+$verifiedCoverage = $mediaConfig->coverage ?? [];
+$coverageByUrl = [];
+$outlets = [];
+
+foreach ($verifiedCoverage as $coverage) {
+    $url = rtrim(strtolower(trim((string)($coverage['url'] ?? ''))), '/');
+    if ($url !== '') {
+        $coverageByUrl[$url] = $coverage;
+    }
+    if (!empty($coverage['outlet'])) {
+        $outlets[] = $coverage['outlet'];
+    }
+}
+$outlets = array_values(array_unique($outlets));
+?>
+
+<div class="min-h-screen bg-[#f7f8fa] pb-24">
     <header class="relative pt-44 pb-24 overflow-hidden bg-primary text-white">
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30"></div>
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
         <div class="absolute -top-40 -right-40 w-[600px] h-[600px] bg-accent/10 blur-[120px] rounded-full"></div>
         <div class="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-gold/5 blur-[120px] rounded-full"></div>
 
-        <div class="max-w-[1440px] mx-auto px-6 sm:px-12 relative z-20 text-center">
-            <span class="inline-block px-5 py-2 bg-accent/20 text-accent font-black text-[10px] uppercase tracking-[0.3em] rounded-full mb-8 border border-accent/20">
-                Press Coverage
-            </span>
-            <h1 class="text-5xl md:text-7xl font-black font-serif mb-6 leading-[1.1]">
-                Press & <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-gold">Media</span>
-            </h1>
-            <p class="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
-                Highlights, mentions, and media stories featuring HiredNext.
-            </p>
+        <div class="max-w-[1440px] mx-auto px-6 sm:px-12 relative z-20">
+            <div class="max-w-4xl">
+                <span class="inline-flex items-center gap-2 px-5 py-2 bg-white/10 text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-full mb-8 border border-white/15">
+                    <span class="h-2 w-2 rounded-full bg-accent"></span>
+                    Press &amp; Media
+                </span>
+                <h1 class="text-5xl md:text-7xl font-black font-serif mb-6 leading-[1.05]">
+                    HiredNext in the <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-gold">Media</span>
+                </h1>
+                <p class="text-lg md:text-xl text-white/65 max-w-3xl leading-relaxed">
+                    Verified coverage, interviews and expert commentary on recruitment, AI-assisted hiring, labour reform, skills and the changing world of work.
+                </p>
+            </div>
+
+            <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 text-sm text-white/70">
+                <div><span class="text-3xl font-black text-white"><?= count($verifiedCoverage) ?></span> <span class="ml-2 uppercase tracking-[0.2em] text-[10px] font-bold">verified appearances</span></div>
+                <div class="hidden sm:block h-8 w-px bg-white/15"></div>
+                <div class="uppercase tracking-[0.2em] text-[10px] font-bold">National business, news &amp; workforce coverage</div>
+            </div>
         </div>
     </header>
 
-    <section class="max-w-[1440px] mx-auto px-6 sm:px-12 -mt-10 relative z-30">
-        <?php $items = $press_media_items ?? []; ?>
+    <?php if (!empty($outlets)): ?>
+        <section class="max-w-[1440px] mx-auto px-6 sm:px-12 -mt-8 relative z-30">
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-xl px-6 py-5">
+                <div class="text-[10px] uppercase tracking-[0.28em] font-black text-gray-400 mb-4">Featured across</div>
+                <div class="flex flex-wrap gap-x-7 gap-y-3 items-center">
+                    <?php foreach ($outlets as $outlet): ?>
+                        <span class="text-primary font-black text-sm md:text-base tracking-tight"><?= esc($outlet) ?></span>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <section class="max-w-[1440px] mx-auto px-6 sm:px-12 pt-16">
         <?php if (!empty($items)): ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <?php foreach ($items as $item): ?>
-                    <article class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
-                        <?php if (!empty($item['image_url'])): ?>
-                            <a href="<?= esc($item['media_link']) ?>" target="_blank" rel="noopener noreferrer" class="block">
-                                <div class="aspect-[16/10] bg-gray-100 p-4 flex items-center justify-center border-b border-gray-100">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-7">
+                <?php foreach ($items as $index => $item): ?>
+                    <?php
+                    $mediaLink = trim((string)($item['media_link'] ?? ''));
+                    $normalisedUrl = rtrim(strtolower($mediaLink), '/');
+                    $verified = $coverageByUrl[$normalisedUrl] ?? null;
+                    $outlet = trim((string)($verified['outlet'] ?? 'Media Coverage'));
+                    $headline = trim((string)($verified['headline'] ?? $item['description'] ?? 'HiredNext media coverage'));
+                    $topic = trim((string)($verified['topic'] ?? 'Recruitment & workforce'));
+                    $coverageType = trim((string)($verified['coverage_type'] ?? 'Media coverage'));
+                    $publishedAt = trim((string)($verified['published_at'] ?? ''));
+                    $imageUrl = trim((string)($item['image_url'] ?? ''));
+                    $isGenericLogo = $imageUrl !== '' && str_contains(strtolower($imageUrl), 'theme/assets/logo.jpeg');
+                    $hasImage = $imageUrl !== '' && !$isGenericLogo;
+                    ?>
+                    <article class="group bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col min-h-[420px]">
+                        <?php if ($hasImage): ?>
+                            <a href="<?= esc($mediaLink) ?>" target="_blank" rel="noopener noreferrer" class="block bg-gray-100 border-b border-gray-100 overflow-hidden">
+                                <div class="aspect-[16/8] flex items-center justify-center p-5">
                                     <img
-                                        src="<?= esc($item['image_url']) ?>"
-                                        alt="Press & Media"
+                                        src="<?= esc($imageUrl) ?>"
+                                        alt="<?= esc($outlet . ' coverage featuring HiredNext') ?>"
                                         loading="lazy"
-                                        class="max-w-full max-h-full object-contain transition-transform duration-500 hover:scale-[1.02]"
-                                        onerror="this.style.display='none'; this.parentElement.classList.add('hidden');"
+                                        class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                                        onerror="this.closest('a').style.display='none';"
                                     >
                                 </div>
                             </a>
+                        <?php else: ?>
+                            <div class="relative aspect-[16/6] bg-primary overflow-hidden border-b border-white/10 flex items-end p-7">
+                                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_85%_20%,rgba(255,78,22,.8),transparent_32%)]"></div>
+                                <div class="absolute right-6 top-5 text-[64px] leading-none font-serif text-white/5">HN</div>
+                                <div class="relative z-10">
+                                    <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-2">Published by</div>
+                                    <div class="text-2xl md:text-3xl text-white font-black tracking-tight"><?= esc($outlet) ?></div>
+                                </div>
+                            </div>
                         <?php endif; ?>
 
-                        <div class="p-6 flex flex-col flex-1">
-                            <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                                <?= esc($item['description'] ?? '') ?>
+                        <div class="p-7 md:p-8 flex flex-col flex-1">
+                            <div class="flex flex-wrap items-center gap-2 mb-5">
+                                <span class="inline-flex items-center rounded-full bg-accent/10 text-accent px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] font-black"><?= esc($outlet) ?></span>
+                                <span class="inline-flex items-center rounded-full bg-gray-100 text-gray-500 px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] font-bold"><?= esc($coverageType) ?></span>
+                            </div>
+
+                            <h2 class="text-2xl md:text-[1.7rem] leading-snug font-serif font-bold text-primary mb-4 group-hover:text-accent transition-colors">
+                                <?= esc($headline) ?>
+                            </h2>
+
+                            <p class="text-gray-600 leading-relaxed mb-7">
+                                <?= esc($topic) ?>
                             </p>
 
-                            <a href="<?= esc($item['media_link']) ?>" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center text-primary font-black text-[10px] uppercase tracking-[0.2em] hover:text-accent transition-colors">
-                                Open Story
-                                <span class="ml-3">→</span>
-                            </a>
+                            <div class="mt-auto flex items-center justify-between gap-5 pt-5 border-t border-gray-100">
+                                <div class="text-[10px] uppercase tracking-[0.18em] font-bold text-gray-400">
+                                    <?= $publishedAt !== '' ? esc(date('d M Y', strtotime($publishedAt))) : 'Verified source' ?>
+                                </div>
+                                <?php if ($mediaLink !== ''): ?>
+                                    <a href="<?= esc($mediaLink) ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-primary font-black text-[10px] uppercase tracking-[0.2em] hover:text-accent transition-colors">
+                                        Read coverage <span aria-hidden="true">↗</span>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </article>
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
             <div class="bg-white rounded-3xl border border-gray-100 p-12 text-center text-gray-500">
-                Press & Media items will appear here once available.
+                Press &amp; Media items will appear here once available.
             </div>
         <?php endif; ?>
+    </section>
+
+    <section class="max-w-[1440px] mx-auto px-6 sm:px-12 pt-16">
+        <div class="rounded-[2rem] bg-primary text-white px-7 py-8 md:px-10 md:py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+                <div class="text-[10px] uppercase tracking-[0.25em] text-accent font-black mb-3">Media enquiries</div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold">Looking for a recruitment or workforce perspective?</h2>
+                <p class="text-white/60 mt-2 max-w-2xl">HiredNext contributes practitioner commentary on hiring, executive search, AI in recruitment, skills and workforce change.</p>
+            </div>
+            <a href="<?= base_url('contact') ?>" class="shrink-0 inline-flex items-center justify-center rounded-xl bg-accent text-gray-900 px-6 py-3 font-black text-sm hover:opacity-90 transition">Contact HiredNext</a>
+        </div>
     </section>
 </div>
 <?= $this->endSection() ?>
