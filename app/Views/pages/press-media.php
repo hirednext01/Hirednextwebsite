@@ -6,6 +6,7 @@ $mediaConfig = config('MediaAuthority');
 $verifiedCoverage = $mediaConfig->coverage ?? [];
 $coverageByUrl = [];
 $outlets = [];
+$videoObjects = [];
 
 foreach ($verifiedCoverage as $coverage) {
     $url = rtrim(strtolower(trim((string)($coverage['url'] ?? ''))), '/');
@@ -15,9 +16,39 @@ foreach ($verifiedCoverage as $coverage) {
     if (!empty($coverage['outlet'])) {
         $outlets[] = $coverage['outlet'];
     }
+
+    if (($coverage['media_type'] ?? '') === 'video' && !empty($coverage['thumbnail_url']) && !empty($coverage['url'])) {
+        $video = [
+            '@context' => 'https://schema.org',
+            '@type' => 'VideoObject',
+            'name' => $coverage['headline'] ?? 'HiredNext media appearance',
+            'description' => $coverage['topic'] ?? 'HiredNext media appearance',
+            'thumbnailUrl' => [$coverage['thumbnail_url']],
+            'contentUrl' => $coverage['url'],
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => $coverage['outlet'] ?? 'Media publisher',
+            ],
+            'about' => [
+                ['@id' => 'https://hirednext.net/#organization'],
+                ['@id' => base_url('about/taru-shikha') . '#person'],
+            ],
+        ];
+        if (!empty($coverage['embed_url'])) {
+            $video['embedUrl'] = $coverage['embed_url'];
+        }
+        if (!empty($coverage['published_at'])) {
+            $video['uploadDate'] = $coverage['published_at'];
+        }
+        $videoObjects[] = $video;
+    }
 }
 $outlets = array_values(array_unique($outlets));
 ?>
+
+<?php foreach ($videoObjects as $videoObject): ?>
+    <script type="application/ld+json"><?= json_encode($videoObject, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
+<?php endforeach; ?>
 
 <div class="min-h-screen bg-[#f7f8fa] pb-24">
     <header class="relative pt-44 pb-24 overflow-hidden bg-primary text-white">
@@ -73,22 +104,31 @@ $outlets = array_values(array_unique($outlets));
                     $topic = trim((string)($verified['topic'] ?? 'Recruitment & workforce'));
                     $coverageType = trim((string)($verified['coverage_type'] ?? 'Media coverage'));
                     $publishedAt = trim((string)($verified['published_at'] ?? ''));
-                    $imageUrl = trim((string)($item['image_url'] ?? ''));
+                    $mediaType = trim((string)($verified['media_type'] ?? 'article'));
+                    $verifiedThumbnail = trim((string)($verified['thumbnail_url'] ?? ''));
+                    $itemImage = trim((string)($item['image_url'] ?? ''));
+                    $imageUrl = $verifiedThumbnail !== '' ? $verifiedThumbnail : $itemImage;
                     $isGenericLogo = $imageUrl !== '' && str_contains(strtolower($imageUrl), 'theme/assets/logo.jpeg');
                     $hasImage = $imageUrl !== '' && !$isGenericLogo;
                     ?>
                     <article class="group bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col min-h-[420px]">
                         <?php if ($hasImage): ?>
-                            <a href="<?= esc($mediaLink) ?>" target="_blank" rel="noopener noreferrer" class="block bg-gray-100 border-b border-gray-100 overflow-hidden">
-                                <div class="aspect-[16/8] flex items-center justify-center p-5">
+                            <a href="<?= esc($mediaLink) ?>" target="_blank" rel="noopener noreferrer external" class="relative block bg-gray-100 border-b border-gray-100 overflow-hidden" aria-label="Open <?= esc($outlet) ?> coverage: <?= esc($headline) ?>">
+                                <div class="aspect-[16/8] flex items-center justify-center bg-black/5">
                                     <img
                                         src="<?= esc($imageUrl) ?>"
-                                        alt="<?= esc($outlet . ' coverage featuring HiredNext') ?>"
+                                        alt="<?= esc($outlet . ' coverage featuring HiredNext: ' . $headline) ?>"
                                         loading="lazy"
-                                        class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                                        class="w-full h-full <?= $mediaType === 'video' ? 'object-cover' : 'object-contain p-5' ?> transition-transform duration-500 group-hover:scale-[1.02]"
                                         onerror="this.closest('a').style.display='none';"
                                     >
                                 </div>
+                                <?php if ($mediaType === 'video'): ?>
+                                    <span class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                                        <span class="w-16 h-16 rounded-full bg-white/95 text-primary shadow-xl flex items-center justify-center text-2xl pl-1">▶</span>
+                                    </span>
+                                    <span class="absolute left-5 bottom-5 rounded-full bg-black/70 text-white px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] font-black">Video appearance</span>
+                                <?php endif; ?>
                             </a>
                         <?php else: ?>
                             <div class="relative aspect-[16/6] bg-primary overflow-hidden border-b border-white/10 flex items-end p-7">
@@ -105,6 +145,7 @@ $outlets = array_values(array_unique($outlets));
                             <div class="flex flex-wrap items-center gap-2 mb-5">
                                 <span class="inline-flex items-center rounded-full bg-accent/10 text-accent px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] font-black"><?= esc($outlet) ?></span>
                                 <span class="inline-flex items-center rounded-full bg-gray-100 text-gray-500 px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] font-bold"><?= esc($coverageType) ?></span>
+                                <?php if ($mediaType === 'video'): ?><span class="inline-flex items-center rounded-full bg-primary/5 text-primary px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] font-bold">Video</span><?php endif; ?>
                             </div>
 
                             <h2 class="text-2xl md:text-[1.7rem] leading-snug font-serif font-bold text-primary mb-4 group-hover:text-accent transition-colors">
@@ -120,8 +161,8 @@ $outlets = array_values(array_unique($outlets));
                                     <?= $publishedAt !== '' ? esc(date('d M Y', strtotime($publishedAt))) : 'Verified source' ?>
                                 </div>
                                 <?php if ($mediaLink !== ''): ?>
-                                    <a href="<?= esc($mediaLink) ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-primary font-black text-[10px] uppercase tracking-[0.2em] hover:text-accent transition-colors">
-                                        Read coverage <span aria-hidden="true">↗</span>
+                                    <a href="<?= esc($mediaLink) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex items-center gap-2 text-primary font-black text-[10px] uppercase tracking-[0.2em] hover:text-accent transition-colors">
+                                        <?= $mediaType === 'video' ? 'Watch coverage' : 'Read coverage' ?> <span aria-hidden="true">↗</span>
                                     </a>
                                 <?php endif; ?>
                             </div>
