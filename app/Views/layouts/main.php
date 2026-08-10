@@ -193,10 +193,15 @@
                 <div>
                     <h4 class="font-bold mb-3 uppercase tracking-widest text-sm">Industry Expertise</h4>
                     <div class="flex flex-wrap gap-x-3 gap-y-2 text-sm text-white/70">
-                        <a href="<?= base_url('industry/it-recruitment-services-india') ?>" class="hover:text-accent">IT Recruitment</a>
+                        <a href="<?= base_url('industry/garment-textile-recruitment-india') ?>" class="hover:text-accent">Garment / Textile / Apparel</a>
+                        <span>•</span><a href="<?= base_url('industry/it-recruitment-services-india') ?>" class="hover:text-accent">IT / Technology</a>
                         <span>•</span><a href="<?= base_url('industry/bfsi-leadership-hiring') ?>" class="hover:text-accent">BFSI / NBFC</a>
                         <span>•</span><a href="<?= base_url('industry/retail-executive-search') ?>" class="hover:text-accent">Retail</a>
+                        <span>•</span><a href="<?= base_url('industry/pharma-life-sciences-recruitment-india') ?>" class="hover:text-accent">Pharma / Life Sciences</a>
+                        <span>•</span><a href="<?= base_url('industry/global-capability-centres-hiring-india') ?>" class="hover:text-accent">GCC</a>
+                        <span>•</span><a href="<?= base_url('industry/semiconductor-recruitment-india') ?>" class="hover:text-accent">Semiconductors</a>
                         <span>•</span><a href="<?= base_url('industry/engineering-recruitment-firm') ?>" class="hover:text-accent">Engineering</a>
+                        <span>•</span><a href="<?= base_url('industry/manufacturing-talent-advisory') ?>" class="hover:text-accent">Manufacturing</a>
                     </div>
                 </div>
             </div>
