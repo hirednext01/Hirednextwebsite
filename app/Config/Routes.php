@@ -11,6 +11,8 @@ $routes->get('services', 'Home::services');
 $routes->get('services/(:any)', 'Home::serviceDetail/$1');
 $routes->get('cv-assessment', 'CandidateServices::cvAssessment');
 $routes->post('cv-assessment/submit', 'CvAssessment::submit');
+$routes->get('cv-payment/(:num)', 'CvPayment::checkout/$1');
+$routes->post('cv-payment/verify', 'CvPayment::verify');
 $routes->get('robots.txt', 'Seo::robots');
 $routes->get('sitemap.xml', 'Seo::sitemap');
 $routes->get('insights', 'Aeo::index');
