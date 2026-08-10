@@ -11,6 +11,17 @@
     </div>
 </section>
 
+<section class="bg-white border-b border-gray-100">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8 py-5">
+        <div class="rounded-2xl border border-primary/10 bg-primary/5 px-5 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <p class="text-sm text-gray-700 leading-relaxed">
+                <span class="font-extrabold text-primary">Candidate safety:</span> HiredNext does not charge candidates to apply for a job or secure placement. Optional career services shown on this page are separately priced.
+            </p>
+            <a href="<?= base_url('jobs') ?>" class="shrink-0 text-sm font-extrabold text-primary hover:text-accent">View open jobs →</a>
+        </div>
+    </div>
+</section>
+
 <section class="py-20 bg-white">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
         <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
