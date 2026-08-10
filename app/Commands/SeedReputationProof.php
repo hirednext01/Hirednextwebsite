@@ -53,6 +53,7 @@ class SeedReputationProof extends BaseCommand
 
             $sourceLabel = trim((string)($item['source_label'] ?? 'External source'));
             $proofType = trim((string)($item['proof_type'] ?? 'External Recommendation'));
+            $designation = trim((string)($item['designation'] ?? ''));
             $payload = [
                 'client_name' => $name,
                 'name' => $name,
@@ -61,7 +62,9 @@ class SeedReputationProof extends BaseCommand
                 'rating' => 0,
                 'project_type' => $proofType,
                 'proof_type' => $proofType,
-                'location' => 'Public ' . $sourceLabel,
+                // The testimonial view uses this legacy display field for role/designation.
+                // Prefer a verified senior designation when one is available.
+                'location' => $designation !== '' ? $designation : 'Public ' . $sourceLabel,
                 'source_label' => $sourceLabel,
                 'source_url' => $sourceUrl,
                 // Keep source-backed recommendations separate from rated reviews
