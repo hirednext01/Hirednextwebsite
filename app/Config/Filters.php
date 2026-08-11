@@ -19,12 +19,13 @@ class Filters extends BaseConfig
      * make reading things nicer and simpler.
      */
     public array $aliases = [
-        'csrf'          => CSRF::class,
-        'toolbar'       => DebugToolbar::class,
-        'honeypot'      => Honeypot::class,
-        'invalidchars'  => InvalidChars::class,
-        'secureheaders' => SecureHeaders::class,
-        'cors'          => \App\Filters\CorsFilter::class,
+        'csrf'             => CSRF::class,
+        'toolbar'          => DebugToolbar::class,
+        'honeypot'         => Honeypot::class,
+        'invalidchars'     => InvalidChars::class,
+        'secureheaders'    => SecureHeaders::class,
+        'cors'             => \App\Filters\CorsFilter::class,
+        'publicauthority'  => \App\Filters\PublicAuthorityFilter::class,
     ];
 
     /**
@@ -39,13 +40,14 @@ class Filters extends BaseConfig
             // 'invalidchars',
         ],
         'after' => [
+            'publicauthority',
             // 'honeypot',
             // 'secureheaders',
         ],
     ];
 
     /**
-     * List of filter aliases that works on a
+     * List of filter aliases that works on any
      * particular HTTP method (GET, POST, etc.).
      *
      * Example:
@@ -59,10 +61,10 @@ class Filters extends BaseConfig
 
     /**
      * List of filter aliases that should run on any
-     * before or after URI patterns.
+     * particular HTTP method (GET, POST, etc.).
      *
      * Example:
-     * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
+     * 'post' => ['foo', 'bar']
      */
     public array $filters = [
         'cors' => ['before' => ['api/*']],
