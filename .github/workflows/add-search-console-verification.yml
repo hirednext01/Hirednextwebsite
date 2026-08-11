@@ -1,0 +1,48 @@
+name: Add Search Console Verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-search-console-verification.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-verification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add Google Search Console verification meta tag
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('app/Views/layouts/main.php')
+          text = path.read_text()
+          tag = '    <meta name="google-site-verification" content="6JT4B14DLEhwjms08H8WbwW8PQ2HqzOE2IdLW9FtJRM" />\n'
+          if '6JT4B14DLEhwjms08H8WbwW8PQ2HqzOE2IdLW9FtJRM' not in text:
+              marker = '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n'
+              if marker not in text:
+                  raise SystemExit('Viewport marker not found')
+              text = text.replace(marker, marker + tag, 1)
+              path.write_text(text)
+          PY
+
+      - name: Commit verification tag
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "Verification tag already present"
+            exit 0
+          fi
+          git config user.name "HiredNext Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add app/Views/layouts/main.php
+          git commit -m "Add Google Search Console verification tag"
+          git push origin HEAD:main
