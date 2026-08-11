@@ -215,12 +215,18 @@ class ReputationAuthority extends BaseController
 
         foreach ($items as $item) {
             $sourceUrl = $this->normalizeSourceUrl((string)($item['source_url'] ?? ''));
-            $name = $this->normalizeProofText((string)($item['client_name'] ?? $item['name'] ?? ''));
+            $name = $this->canonicalTestimonialName($this->normalizeProofText((string)($item['client_name'] ?? $item['name'] ?? '')));
             $quote = $this->normalizeProofText((string)($item['comment'] ?? $item['review'] ?? $item['review_text'] ?? $item['content'] ?? $item['testimonial'] ?? $item['message'] ?? ''));
+            $isExternalProof = $sourceUrl !== '' || (($item['status'] ?? '') === 'external');
 
             $keys = [];
-            if ($sourceUrl !== '') {
-                $keys[] = 'source:' . $sourceUrl;
+            // Many LinkedIn recommendations intentionally point to the same public
+            // recommendations page. Dedupe by person identity, not by URL alone.
+            if ($isExternalProof && $name !== '') {
+                $keys[] = 'external-person:' . $name;
+            }
+            if ($sourceUrl !== '' && $name !== '') {
+                $keys[] = 'source-person:' . hash('sha256', $sourceUrl . '|' . $name);
             }
             if ($name !== '' && $quote !== '') {
                 $keys[] = 'content:' . hash('sha256', $name . '|' . $quote);
@@ -264,7 +270,7 @@ class ReputationAuthority extends BaseController
         if (($item['status'] ?? '') === 'external') {
             $score += 4;
         }
-        if (trim((string)($item['location'] ?? $item['designation'] ?? '')) !== '') {
+        if (trim((string)($item['designation'] ?? $item['location'] ?? '')) !== '') {
             $score += 2;
         }
         if (trim((string)($item['linkedin_url'] ?? '')) !== '') {
@@ -287,5 +293,16 @@ class ReputationAuthority extends BaseController
     {
         $value = mb_strtolower(trim(strip_tags($value)));
         return preg_replace('/\s+/u', ' ', $value) ?? $value;
+    }
+
+    private function canonicalTestimonialName(string $name): string
+    {
+        $aliases = [
+            'manoj d' => 'manoj dimri',
+            'manoj d.' => 'manoj dimri',
+            'manoj dimri' => 'manoj dimri',
+        ];
+
+        return $aliases[$name] ?? $name;
     }
 }
