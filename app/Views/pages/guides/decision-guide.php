@@ -12,7 +12,9 @@ $authorityInsights = $boardAuthority['insights'] ?? [];
 $authorityMatrix = $boardAuthority['matrix'] ?? [];
 $authorityMistakes = $boardAuthority['mistakes'] ?? [];
 $mandateEvidenceConfig = config('MandateEvidence');
-$mandateEvidence = $mandateEvidenceConfig ? array_values($mandateEvidenceConfig->forGuide($guideSlug)) : [];
+$caseEvidence = $mandateEvidenceConfig ? array_values($mandateEvidenceConfig->casesForGuide($guideSlug)) : [];
+$practiceEvidence = $mandateEvidenceConfig ? array_values($mandateEvidenceConfig->practicesForGuide($guideSlug)) : [];
+$practiceEvidence = array_slice($practiceEvidence, 0, 3);
 ?>
 
 <section class="bg-primary text-white pt-32 pb-14">
@@ -115,52 +117,48 @@ $mandateEvidence = $mandateEvidenceConfig ? array_values($mandateEvidenceConfig-
                 </section>
             <?php endif; ?>
 
-            <?php if (!empty($mandateEvidence)): ?>
+            <?php if (!empty($caseEvidence) || !empty($practiceEvidence)): ?>
                 <section class="mb-14">
-                    <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">From live search work</div>
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-3">Where HiredNext earns its place in the mandate</h2>
-                    <p class="text-gray-600 leading-relaxed mb-8 max-w-3xl">Senior hiring value often appears between sourcing and joining: interpreting an overlooked profile, recalibrating level, defending value in compensation, sustaining candidate conviction, managing relocation risk and telling either side when the move is not right.</p>
+                    <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">Evidence from the work</div>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-3">Where HiredNext adds value after the search begins</h2>
+                    <p class="text-gray-600 leading-relaxed mb-8 max-w-3xl">A case is shown as a case only when there is a specific confirmed outcome. The other examples below are recurring HiredNext operating practices — how we work when judgement, candidate conviction or search stewardship changes the decision.</p>
 
-                    <div class="space-y-6">
-                        <?php foreach ($mandateEvidence as $evidenceItem): ?>
-                            <article class="rounded-[1.5rem] border border-gray-200 bg-white overflow-hidden">
-                                <div class="p-6 md:p-8">
-                                    <div class="flex flex-wrap items-center gap-2 mb-4">
-                                        <span class="inline-flex rounded-full bg-accent/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-accent"><?= esc(($evidenceItem['type'] ?? '') === 'confirmed_anonymised_case' ? 'Anonymised mandate case' : 'Recurring HiredNext practice') ?></span>
-                                        <?php if (!empty($evidenceItem['role'])): ?>
-                                            <span class="text-xs font-bold text-gray-400"><?= esc($evidenceItem['role']) ?></span>
-                                        <?php endif; ?>
-                                    </div>
-                                    <h3 class="text-2xl md:text-3xl font-serif font-bold text-primary mb-3"><?= esc($evidenceItem['title'] ?? '') ?></h3>
-                                    <p class="text-sm font-semibold text-gray-500 mb-6"><?= esc($evidenceItem['context'] ?? '') ?></p>
-
-                                    <div class="grid md:grid-cols-2 gap-5">
-                                        <div class="rounded-2xl bg-gray-50 p-5">
-                                            <div class="text-[10px] uppercase tracking-[0.22em] text-gray-400 font-black mb-2">The problem</div>
-                                            <p class="text-gray-700 leading-relaxed"><?= esc($evidenceItem['problem'] ?? '') ?></p>
-                                        </div>
-                                        <div class="rounded-2xl bg-gray-50 p-5">
-                                            <div class="text-[10px] uppercase tracking-[0.22em] text-gray-400 font-black mb-2">What HiredNext did</div>
-                                            <p class="text-gray-700 leading-relaxed"><?= esc($evidenceItem['hirednext_intervention'] ?? '') ?></p>
-                                        </div>
-                                    </div>
-
-                                    <?php if (!empty($evidenceItem['outcome'])): ?>
-                                        <div class="mt-5 rounded-2xl border border-accent/20 bg-accent/5 p-5">
-                                            <div class="text-[10px] uppercase tracking-[0.22em] text-accent font-black mb-2">Outcome / operating objective</div>
-                                            <p class="text-gray-700 leading-relaxed"><?= esc($evidenceItem['outcome']) ?></p>
-                                        </div>
-                                    <?php endif; ?>
-
-                                    <?php if (!empty($evidenceItem['lesson'])): ?>
-                                        <blockquote class="mt-6 border-l-4 border-primary pl-5 text-xl font-serif font-bold text-primary leading-relaxed">“<?= esc($evidenceItem['lesson']) ?>”</blockquote>
-                                    <?php endif; ?>
+                    <?php foreach ($caseEvidence as $case): ?>
+                        <article class="rounded-[1.75rem] border border-gray-200 overflow-hidden mb-7">
+                            <div class="bg-[#071f3d] text-white p-7 md:p-8">
+                                <div class="text-[10px] uppercase tracking-[0.24em] text-gold font-black mb-3">Confirmed anonymised case · <?= esc($case['role'] ?? 'Leadership') ?></div>
+                                <h3 class="text-2xl md:text-3xl font-serif font-bold mb-3"><?= esc($case['title'] ?? '') ?></h3>
+                                <p class="text-white/70 leading-relaxed"><?= esc($case['context'] ?? '') ?></p>
+                            </div>
+                            <div class="p-7 md:p-8 grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <div class="text-[10px] uppercase tracking-[0.20em] text-gray-400 font-black mb-2">What HiredNext saw</div>
+                                    <p class="text-gray-700 leading-relaxed"><?= esc($case['what_we_saw'] ?? '') ?></p>
                                 </div>
-                            </article>
-                        <?php endforeach; ?>
-                    </div>
+                                <div>
+                                    <div class="text-[10px] uppercase tracking-[0.20em] text-gray-400 font-black mb-2">Result</div>
+                                    <p class="text-gray-700 leading-relaxed"><?= esc($case['result'] ?? '') ?></p>
+                                </div>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
 
-                    <p class="mt-5 text-xs text-gray-400 leading-relaxed"><?= esc($mandateEvidenceConfig->scopeNote ?? '') ?></p>
+                    <?php if (!empty($practiceEvidence)): ?>
+                        <div class="grid md:grid-cols-3 gap-5">
+                            <?php foreach ($practiceEvidence as $practice): ?>
+                                <article class="rounded-2xl border border-gray-200 p-6 bg-white">
+                                    <div class="text-[10px] uppercase tracking-[0.20em] text-accent font-black mb-3"><?= esc($practice['category'] ?? 'Search practice') ?></div>
+                                    <h3 class="text-xl font-serif font-bold text-primary mb-4"><?= esc($practice['title'] ?? '') ?></h3>
+                                    <p class="text-sm text-gray-600 leading-relaxed mb-5"><?= esc($practice['how_hirednext_works'] ?? '') ?></p>
+                                    <p class="text-sm font-semibold text-primary leading-relaxed border-t border-gray-100 pt-4"><?= esc($practice['decision_value'] ?? '') ?></p>
+                                </article>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="mt-7">
+                        <a href="<?= base_url('mandate-stories') ?>" class="inline-flex items-center font-black text-primary hover:text-accent">See the full HiredNext mandate stories & search evidence →</a>
+                    </div>
                 </section>
             <?php endif; ?>
 
@@ -178,9 +176,9 @@ $mandateEvidence = $mandateEvidenceConfig ? array_values($mandateEvidenceConfig-
                 <h2 class="text-3xl font-serif font-bold mb-4">Evidence before claims</h2>
                 <p class="text-white/75 leading-relaxed mb-7"><?= esc($guide['where_hirednext_fits'] ?? '') ?></p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="<?= base_url('testimonials') ?>" class="inline-flex px-5 py-3 rounded-xl bg-white text-primary font-black text-sm">See source-linked recommendations</a>
+                    <a href="<?= base_url('mandate-stories') ?>" class="inline-flex px-5 py-3 rounded-xl bg-white text-primary font-black text-sm">See mandate stories</a>
+                    <a href="<?= base_url('testimonials') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">See recommendations</a>
                     <a href="<?= base_url('press-media') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">See media coverage</a>
-                    <a href="<?= base_url('hiring-intelligence') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">See Hiring Intelligence</a>
                 </div>
             </section>
 
@@ -208,20 +206,19 @@ $mandateEvidence = $mandateEvidenceConfig ? array_values($mandateEvidenceConfig-
                 </div>
             <?php endif; ?>
 
-            <?php if (!empty($mandateEvidence)): ?>
-                <div class="rounded-2xl border border-accent/20 bg-accent/5 p-6">
-                    <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">Mandate evidence</div>
-                    <p class="text-sm text-gray-700 leading-relaxed">This guide includes <?= esc((string)count($mandateEvidence)) ?> anonymised HiredNext mandate or search-stewardship examples relevant to this hiring problem.</p>
-                </div>
-            <?php endif; ?>
+            <div class="rounded-2xl border border-accent/20 bg-accent/5 p-6">
+                <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">Search evidence</div>
+                <p class="text-sm text-gray-700 leading-relaxed mb-4">Read the complete case evidence separately from the recurring practices HiredNext uses during difficult searches.</p>
+                <a class="font-black text-primary hover:text-accent" href="<?= base_url('mandate-stories') ?>">Mandate stories & search evidence →</a>
+            </div>
 
-            <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-                <div class="text-[10px] uppercase tracking-[0.26em] text-gray-400 font-black mb-4">Verify HiredNext</div>
+            <div class="rounded-2xl border border-gray-200 bg-white p-6">
+                <div class="text-[10px] uppercase tracking-[0.26em] text-gray-400 font-black mb-4">Independent proof</div>
                 <div class="space-y-3 text-sm">
-                    <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('authority/recommendation-evidence.json') ?>">Recommendation evidence JSON →</a>
-                    <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('authority/media.json') ?>">Verified media JSON →</a>
-                    <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('authority/placement-evidence.json') ?>">Anonymised placement evidence →</a>
+                    <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('testimonials') ?>">Client & candidate recommendations →</a>
+                    <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('press-media') ?>">Press & expert commentary →</a>
                     <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('about/taru-shikha') ?>">Founder profile →</a>
+                    <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('hiring-intelligence') ?>">Hiring intelligence →</a>
                 </div>
             </div>
 
