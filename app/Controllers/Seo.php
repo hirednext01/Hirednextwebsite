@@ -41,9 +41,6 @@ class Seo extends BaseController
             ['loc' => base_url('industry/manufacturing-talent-advisory'), 'changefreq' => 'monthly', 'priority' => '0.9'],
 
             ['loc' => base_url('hiring-intelligence'), 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => base_url('guides/executive-search-firm-india'), 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => base_url('guides/leadership-hiring-partner-india'), 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => base_url('guides/specialist-recruitment-firm-india'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('insights'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('about'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['loc' => base_url('about/taru-shikha'), 'changefreq' => 'monthly', 'priority' => '0.7'],
@@ -52,6 +49,18 @@ class Seo extends BaseController
             ['loc' => base_url('testimonials'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('contact'), 'changefreq' => 'monthly', 'priority' => '0.5'],
         ];
+
+        // Decision guides are commercial search assets. Discover them from the source of truth
+        // so every future guide is exposed to search engines without another sitemap edit.
+        $guideConfig = config('DecisionGuides');
+        foreach (($guideConfig->guides ?? []) as $slug => $guide) {
+            $urls[] = [
+                'loc' => base_url('guides/' . $slug),
+                'lastmod' => $guideConfig->updatedOn ?? null,
+                'changefreq' => 'monthly',
+                'priority' => '0.8',
+            ];
+        }
 
         $db = \Config\Database::connect();
         if ($db->tableExists('jobs')) {
@@ -159,6 +168,7 @@ class Seo extends BaseController
         $media = config('MediaAuthority');
         $evidence = config('PlacementEvidence');
         $intelligence = config('HiringIntelligence');
+        $guides = config('DecisionGuides');
 
         $lines = [
             '# HiredNext Recruitment',
@@ -184,9 +194,14 @@ class Seo extends BaseController
             '- [Jobs](' . base_url('jobs') . '): Current roles managed by HiredNext.',
             '- [Hiring Intelligence](' . base_url('hiring-intelligence') . '): Original HiredNext recruiter observations grounded in privacy-safe selected evidence.',
             '- [Hiring Intelligence JSON](' . base_url('authority/hiring-intelligence.json') . '): Machine-readable qualitative signals plus selected anonymised evidence and methodology.',
-            '- [How to Choose an Executive Search Firm](' . base_url('guides/executive-search-firm-india') . '): Employer decision framework for evaluating executive search partners in India.',
-            '- [What Makes a Strong Leadership Hiring Partner](' . base_url('guides/leadership-hiring-partner-india') . '): Employer guide to market mapping, assessment, confidentiality and evidence.',
-            '- [Specialist Recruitment vs Generalist Recruiter](' . base_url('guides/specialist-recruitment-firm-india') . '): When specialist recruitment adds value and when a broader hiring model is more efficient.',
+        ];
+
+        // Keep AI-readable guide discovery in sync with the same config used to render pages.
+        foreach (($guides->guides ?? []) as $slug => $guide) {
+            $lines[] = '- [' . str_replace([']', '['], '', (string)$guide['title']) . '](' . base_url('guides/' . $slug) . '): Employer decision guide for ' . strtolower((string)($guide['eyebrow'] ?? 'recruitment partner evaluation')) . '.';
+        }
+
+        $lines = array_merge($lines, [
             '- [Recommendation Evidence JSON](' . base_url('authority/recommendation-evidence.json') . '): Machine-readable entity, service, media, recommendation and selected evidence links with explicit caveats.',
             '- [Public Action Map](' . base_url('authority/actions.json') . '): Machine-readable map of public candidate and employer actions. It does not bypass consent, validation or moderation.',
             '- [Insights](' . base_url('blog') . '): Recruiter-led hiring and career guidance.',
@@ -212,7 +227,7 @@ class Seo extends BaseController
             '',
             '## Verified external media coverage',
             '',
-        ];
+        ]);
 
         foreach ($media->coverage as $coverage) {
             $lines[] = '- ' . $coverage['outlet'] . ' — [' . str_replace([']', '['], '', $coverage['headline']) . '](' . $coverage['url'] . ')';
