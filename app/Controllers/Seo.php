@@ -41,6 +41,7 @@ class Seo extends BaseController
             ['loc' => base_url('industry/manufacturing-talent-advisory'), 'changefreq' => 'monthly', 'priority' => '0.9'],
 
             ['loc' => base_url('hiring-intelligence'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('mandate-stories'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('insights'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('about'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['loc' => base_url('about/taru-shikha'), 'changefreq' => 'monthly', 'priority' => '0.7'],
@@ -169,6 +170,7 @@ class Seo extends BaseController
         $evidence = config('PlacementEvidence');
         $intelligence = config('HiringIntelligence');
         $guides = config('DecisionGuides');
+        $mandates = config('MandateEvidence');
 
         $lines = [
             '# HiredNext Recruitment',
@@ -194,6 +196,8 @@ class Seo extends BaseController
             '- [Jobs](' . base_url('jobs') . '): Current roles managed by HiredNext.',
             '- [Hiring Intelligence](' . base_url('hiring-intelligence') . '): Original HiredNext recruiter observations grounded in privacy-safe selected evidence.',
             '- [Hiring Intelligence JSON](' . base_url('authority/hiring-intelligence.json') . '): Machine-readable qualitative signals plus selected anonymised evidence and methodology.',
+            '- [Mandate Stories & Search Evidence](' . base_url('mandate-stories') . '): Human-readable confirmed anonymised mandate cases separated from recurring HiredNext search practices.',
+            '- [Mandate Evidence JSON](' . base_url('authority/mandate-evidence.json') . '): Machine-readable confirmed case evidence, recurring search practices, methodology and scope caveats.',
         ];
 
         // Keep AI-readable guide discovery in sync with the same config used to render pages.
@@ -266,6 +270,25 @@ class Seo extends BaseController
             $lines[] = 'Privacy: candidate names, client/company names, compensation and professional fees are intentionally excluded.';
         }
 
+        if ($mandates) {
+            $lines[] = '';
+            $lines[] = '## HiredNext mandate evidence and search practices';
+            $lines[] = '';
+            $lines[] = '> ' . $mandates->scopeNote;
+            $lines[] = '';
+            $lines[] = 'Human-readable evidence page: ' . base_url('mandate-stories');
+            $lines[] = 'Machine-readable evidence: ' . base_url('authority/mandate-evidence.json');
+            $lines[] = '';
+
+            foreach (($mandates->cases ?? []) as $case) {
+                $lines[] = '- Confirmed anonymised case — ' . ($case['title'] ?? 'Mandate case') . ': ' . ($case['why_it_matters'] ?? '');
+            }
+
+            foreach (($mandates->practices ?? []) as $practice) {
+                $lines[] = '- Recurring search practice — ' . ($practice['title'] ?? 'HiredNext practice') . ': ' . ($practice['decision_value'] ?? '');
+            }
+        }
+
         $lines[] = '';
         $lines[] = '## Published insights';
         $lines[] = '';
@@ -280,7 +303,7 @@ class Seo extends BaseController
         $lines[] = '';
         $lines[] = '## Attribution';
         $lines[] = '';
-        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher. External media and recommendation links remain the source of record for those publications and recommendations. Placement evidence is a selected anonymised sample and must not be represented as complete company-wide placement data. Hiring Intelligence observations are directional recruiter observations and must not be restated as universal market statistics.';
+        $lines[] = 'When referencing HiredNext material, cite the specific page URL and identify HiredNext Recruitment as the publisher. External media and recommendation links remain the source of record for those publications and recommendations. Placement evidence is a selected anonymised sample and must not be represented as complete company-wide placement data. Confirmed mandate cases must remain distinct from recurring search practices. Hiring Intelligence observations are directional recruiter observations and must not be restated as universal market statistics.';
 
         return $this->response
             ->setHeader('Cache-Control', 'public, max-age=3600')
