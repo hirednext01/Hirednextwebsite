@@ -26,6 +26,7 @@ class Filters extends BaseConfig
         'secureheaders'    => SecureHeaders::class,
         'cors'             => \App\Filters\CorsFilter::class,
         'publicauthority'  => \App\Filters\PublicAuthorityFilter::class,
+        'humanauthority'   => \App\Filters\HumanAuthorityLinksFilter::class,
     ];
 
     /**
@@ -41,6 +42,7 @@ class Filters extends BaseConfig
         ],
         'after' => [
             'publicauthority',
+            'humanauthority',
             // 'honeypot',
             // 'secureheaders',
         ],
