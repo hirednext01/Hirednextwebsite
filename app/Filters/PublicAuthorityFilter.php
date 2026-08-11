@@ -74,14 +74,43 @@ class PublicAuthorityFilter implements FilterInterface
             'claude.ai': 'claude'
         };
         let source = sources[refHost] || utmSources[explicit] || '';
-        if (!source) return;
-        window.hiredNextAiReferral = source;
+        if (source) {
+            window.hiredNextAiReferral = source;
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'ai_referral', {
+                    ai_source: source,
+                    landing_path: window.location.pathname,
+                    referrer: document.referrer || '(utm)'
+                });
+            }
+        }
+
         if (typeof window.gtag === 'function') {
-            window.gtag('event', 'ai_referral', {
-                ai_source: source,
-                landing_path: window.location.pathname,
-                referrer: document.referrer || '(utm)'
-            });
+            if (window.location.pathname === '/contact' && params.get('submitted') === '1') {
+                const leadKey = 'hirednext_generate_lead:' + window.location.href;
+                if (!sessionStorage.getItem(leadKey)) {
+                    window.gtag('event', 'generate_lead', { lead_type: 'employer_contact' });
+                    sessionStorage.setItem(leadKey, '1');
+                }
+            }
+
+            document.addEventListener('click', function (event) {
+                const link = event.target.closest('a');
+                if (!link || !link.href) return;
+                const href = link.href;
+                if (href.includes('calendly.com/tarushikha-hirednext')) {
+                    window.gtag('event', 'book_call_click', {
+                        landing_path: window.location.pathname,
+                        link_url: href
+                    });
+                }
+                if (window.location.pathname.startsWith('/guides/') && (href.includes('/contact') || href.includes('calendly.com/tarushikha-hirednext'))) {
+                    window.gtag('event', 'authority_cta_click', {
+                        guide_path: window.location.pathname,
+                        link_url: href
+                    });
+                }
+            }, { passive: true });
         }
     } catch (e) {
         // Tracking must never interfere with navigation or form submission.
