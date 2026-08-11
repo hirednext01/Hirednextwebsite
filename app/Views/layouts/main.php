@@ -84,7 +84,7 @@
                     </span>
                 </a>
 
-                <div class="hidden xl:flex flex-1 items-center justify-end gap-5 2xl:gap-8 ml-9 2xl:ml-12">
+                <div class="hidden lg:flex flex-1 items-center justify-end gap-3 xl:gap-5 2xl:gap-8 ml-6 xl:ml-9 2xl:ml-12">
                     <a href="<?= base_url() ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Home</a>
                     <a href="<?= base_url('about') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">About</a>
 
@@ -114,7 +114,7 @@
                     <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="ml-1 bg-accent text-gray-900 px-6 2xl:px-7 py-2.5 rounded-full text-sm 2xl:text-[15px] font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Book a 30-Min Call</a>
                 </div>
 
-                <div class="xl:hidden ml-auto">
+                <div class="lg:hidden ml-auto">
                     <button id="menuBtn" class="text-white" aria-label="Open navigation menu">
                         <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                         <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -123,7 +123,7 @@
             </div>
         </div>
 
-        <div id="mobileMenu" class="xl:hidden hidden bg-white shadow-xl absolute top-full left-0 w-full p-6 animate-in slide-in-from-top duration-300 max-h-[calc(100vh-80px)] overflow-y-auto">
+        <div id="mobileMenu" class="lg:hidden hidden bg-white shadow-xl absolute top-full left-0 w-full p-6 animate-in slide-in-from-top duration-300 max-h-[calc(100vh-80px)] overflow-y-auto">
             <div class="flex flex-col space-y-4">
                 <a href="<?= base_url() ?>" class="mobile-link">Home</a>
                 <a href="<?= base_url('about') ?>" class="mobile-link">About</a>
