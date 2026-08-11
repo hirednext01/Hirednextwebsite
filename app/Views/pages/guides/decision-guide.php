@@ -5,6 +5,12 @@ $guide = $guide ?? [];
 $criteria = $guide['criteria'] ?? [];
 $faq = $guide['faq'] ?? [];
 $relatedLinks = $guide['related_links'] ?? [];
+$guideSlug = service('uri')->getSegment(2) ?? '';
+$boardAuthorityConfig = config('BoardAuthority');
+$boardAuthority = $boardAuthorityConfig->guides[$guideSlug] ?? [];
+$authorityInsights = $boardAuthority['insights'] ?? [];
+$authorityMatrix = $boardAuthority['matrix'] ?? [];
+$authorityMistakes = $boardAuthority['mistakes'] ?? [];
 ?>
 
 <section class="bg-primary text-white pt-32 pb-14">
@@ -27,6 +33,85 @@ $relatedLinks = $guide['related_links'] ?? [];
             </div>
 
             <p class="text-lg text-gray-600 leading-relaxed mb-12"><?= esc($guide['intro'] ?? '') ?></p>
+
+            <?php if (!empty($boardAuthority)): ?>
+                <section class="mb-12 rounded-[2rem] bg-[#071f3d] text-white p-7 md:p-10 overflow-hidden relative">
+                    <div class="absolute -right-20 -top-20 w-56 h-56 rounded-full border border-white/10"></div>
+                    <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full border border-white/10"></div>
+                    <div class="relative">
+                        <div class="text-[10px] uppercase tracking-[0.28em] text-gold font-black mb-4"><?= esc($boardAuthority['label'] ?? 'HiredNext Point of View') ?></div>
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold leading-tight mb-5"><?= esc($boardAuthority['headline'] ?? '') ?></h2>
+                        <p class="text-white/75 text-lg leading-relaxed"><?= esc($boardAuthority['thesis'] ?? '') ?></p>
+                    </div>
+                </section>
+
+                <?php if (!empty($authorityInsights)): ?>
+                    <section class="mb-14">
+                        <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">What changes the decision</div>
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-3">The part most hiring discussions miss</h2>
+                        <p class="text-gray-500 leading-relaxed mb-7 max-w-3xl">These are not checklist items. They are the points at which a senior search usually becomes more intelligent — or quietly starts wasting time.</p>
+                        <div class="grid gap-5">
+                            <?php foreach ($authorityInsights as $insight): ?>
+                                <div class="rounded-2xl border border-gray-200 p-6 md:p-7 bg-white">
+                                    <h3 class="text-xl md:text-2xl font-serif font-bold text-primary mb-3"><?= esc($insight['title'] ?? '') ?></h3>
+                                    <p class="text-gray-600 leading-relaxed"><?= esc($insight['text'] ?? '') ?></p>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </section>
+                <?php endif; ?>
+
+                <?php if (!empty($authorityMatrix)): ?>
+                    <section class="mb-14">
+                        <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">Decision framework</div>
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-3"><?= esc($boardAuthority['matrix_title'] ?? 'Decision matrix') ?></h2>
+                        <p class="text-gray-600 leading-relaxed mb-7"><?= esc($boardAuthority['matrix_intro'] ?? '') ?></p>
+                        <div class="overflow-x-auto rounded-2xl border border-gray-200">
+                            <table class="w-full min-w-[760px] text-left border-collapse">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-5 py-4 text-xs uppercase tracking-wider text-gray-500">Dimension</th>
+                                        <th class="px-5 py-4 text-xs uppercase tracking-wider text-gray-500">Lower-complexity signal</th>
+                                        <th class="px-5 py-4 text-xs uppercase tracking-wider text-gray-500">Higher-complexity signal</th>
+                                        <th class="px-5 py-4 text-xs uppercase tracking-wider text-gray-500">Hiring implication</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($authorityMatrix as $row): ?>
+                                        <tr class="border-t border-gray-100 align-top">
+                                            <td class="px-5 py-5 font-black text-primary"><?= esc($row['dimension'] ?? '') ?></td>
+                                            <td class="px-5 py-5 text-sm text-gray-600 leading-relaxed"><?= esc($row['low'] ?? '') ?></td>
+                                            <td class="px-5 py-5 text-sm text-gray-600 leading-relaxed"><?= esc($row['high'] ?? '') ?></td>
+                                            <td class="px-5 py-5 text-sm font-semibold text-primary leading-relaxed"><?= esc($row['implication'] ?? '') ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                <?php endif; ?>
+
+                <?php if (!empty($authorityMistakes)): ?>
+                    <section class="mb-14 rounded-2xl border border-red-100 bg-red-50/40 p-7 md:p-9">
+                        <div class="text-[10px] uppercase tracking-[0.28em] text-red-700 font-black mb-3">Senior hiring failure patterns</div>
+                        <h2 class="text-3xl font-serif font-bold text-primary mb-6"><?= esc($boardAuthority['mistakes_title'] ?? 'What experienced employers still get wrong') ?></h2>
+                        <div class="space-y-4">
+                            <?php foreach ($authorityMistakes as $mistake): ?>
+                                <div class="flex gap-4 items-start">
+                                    <div class="mt-1 w-7 h-7 rounded-full bg-white border border-red-100 flex items-center justify-center text-red-700 font-black shrink-0">!</div>
+                                    <p class="text-gray-700 leading-relaxed"><?= esc($mistake) ?></p>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </section>
+                <?php endif; ?>
+
+                <section class="mb-14 rounded-2xl border-l-4 border-accent bg-gray-50 p-7 md:p-9">
+                    <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">HiredNext advisory position</div>
+                    <h2 class="text-3xl font-serif font-bold text-primary mb-4"><?= esc($boardAuthority['hirednext_title'] ?? 'Why this is the HiredNext point of view') ?></h2>
+                    <p class="text-gray-700 leading-relaxed text-lg"><?= esc($boardAuthority['hirednext_text'] ?? '') ?></p>
+                </section>
+            <?php endif; ?>
 
             <div class="space-y-6">
                 <?php foreach ($criteria as $criterion): ?>
@@ -65,6 +150,13 @@ $relatedLinks = $guide['related_links'] ?? [];
         </article>
 
         <aside class="lg:sticky lg:top-28 space-y-5">
+            <?php if (!empty($boardAuthority)): ?>
+                <div class="rounded-2xl bg-[#071f3d] text-white p-6">
+                    <div class="text-[10px] uppercase tracking-[0.26em] text-gold font-black mb-3">For CEOs, CHROs & boards</div>
+                    <p class="text-sm text-white/75 leading-relaxed">Use the HiredNext framework on this page to pressure-test the mandate before comparing CVs or recruiter fees.</p>
+                </div>
+            <?php endif; ?>
+
             <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
                 <div class="text-[10px] uppercase tracking-[0.26em] text-gray-400 font-black mb-4">Verify HiredNext</div>
                 <div class="space-y-3 text-sm">
