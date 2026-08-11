@@ -51,6 +51,82 @@
             }}
         }
     </script>
+    <style>
+        /* Global brand/navigation sizing is explicit so Safari, Chrome and Windows
+           do not switch layouts at different effective Tailwind breakpoints. */
+        .site-brand-lockup {
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            font-family: 'Manrope', Arial, sans-serif;
+            font-synthesis: none;
+        }
+        .site-brand-primary {
+            font-size: 30px;
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.045em;
+        }
+        .site-brand-divider {
+            width: 1px;
+            height: 24px;
+            margin: 0 13px;
+            background: currentColor;
+            opacity: .24;
+        }
+        .site-brand-secondary {
+            font-size: 14px;
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: .17em;
+        }
+        .site-desktop-nav {
+            display: none;
+        }
+        .site-mobile-toggle {
+            display: block;
+            margin-left: auto;
+        }
+        @media (min-width: 1040px) {
+            .site-desktop-nav {
+                display: flex;
+                flex: 1 1 auto;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 1rem;
+                margin-left: 1.5rem;
+            }
+            .site-mobile-toggle {
+                display: none;
+            }
+            .site-mobile-menu {
+                display: none !important;
+            }
+        }
+        @media (min-width: 1040px) and (max-width: 1279px) {
+            .site-brand-primary { font-size: 28px; }
+            .site-brand-secondary { font-size: 12px; letter-spacing: .13em; }
+            .site-brand-divider { height: 21px; margin-left: 10px; margin-right: 10px; }
+            .site-desktop-nav { gap: .75rem; margin-left: 1.15rem; }
+            .site-desktop-nav .nav-link { font-size: 12.5px; }
+            .site-nav-cta { font-size: 12.5px; padding-left: 1rem !important; padding-right: 1rem !important; }
+        }
+        @media (min-width: 1280px) {
+            .site-brand-primary { font-size: 34px; }
+            .site-brand-secondary { font-size: 15px; }
+            .site-desktop-nav { gap: 1.25rem; margin-left: 2rem; }
+        }
+        @media (min-width: 1536px) {
+            .site-brand-primary { font-size: 36px; }
+            .site-brand-secondary { font-size: 16px; }
+            .site-desktop-nav { gap: 1.65rem; margin-left: 2.5rem; }
+        }
+        @media (max-width: 560px) {
+            .site-brand-primary { font-size: 25px; }
+            .site-brand-secondary { font-size: 10px; letter-spacing: .11em; }
+            .site-brand-divider { height: 18px; margin-left: 8px; margin-right: 8px; }
+        }
+    </style>
     <?php if (!empty($settings['google_analytics'])): ?>
         <script async src="https://www.googletagmanager.com/gtag/js?id=<?= esc($settings['google_analytics']) ?>"></script>
         <script>
@@ -73,10 +149,10 @@
                 <a href="<?= base_url() ?>" class="flex items-center shrink-0" aria-label="HiredNext Recruitment home">
                     <span id="logoText" class="text-white whitespace-nowrap leading-none">
                         <?php if ($siteName === 'HiredNext'): ?>
-                            <span class="inline-flex items-center">
-                                <span class="text-[26px] lg:text-[30px] 2xl:text-[32px] font-extrabold tracking-[-0.055em]">HIRED<span class="text-accent">NEXT</span></span>
-                                <span class="mx-3 lg:mx-3.5 h-5 lg:h-6 w-px bg-current opacity-25" aria-hidden="true"></span>
-                                <span class="text-[13px] lg:text-[14px] 2xl:text-[15px] font-extrabold tracking-[0.16em]">RECRUITMENT</span>
+                            <span class="site-brand-lockup">
+                                <span class="site-brand-primary">HIRED<span class="text-accent">NEXT</span></span>
+                                <span class="site-brand-divider" aria-hidden="true"></span>
+                                <span class="site-brand-secondary">RECRUITMENT</span>
                             </span>
                         <?php else: ?>
                             <span class="text-2xl lg:text-3xl font-bold tracking-tight"><?= esc($siteName) ?></span>
@@ -84,12 +160,12 @@
                     </span>
                 </a>
 
-                <div class="hidden lg:flex flex-1 items-center justify-end gap-3 xl:gap-5 2xl:gap-8 ml-6 xl:ml-9 2xl:ml-12">
-                    <a href="<?= base_url() ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Home</a>
-                    <a href="<?= base_url('about') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">About</a>
+                <div class="site-desktop-nav">
+                    <a href="<?= base_url() ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Home</a>
+                    <a href="<?= base_url('about') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">About</a>
 
                     <div class="relative group py-3">
-                        <button type="button" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">
+                        <button type="button" class="nav-link text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">
                             Services
                             <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
                         </button>
@@ -107,14 +183,14 @@
                         </div>
                     </div>
 
-                    <a href="<?= base_url('testimonials') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Testimonials</a>
-                    <a href="<?= base_url('press-media') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Press & Media</a>
-                    <a href="<?= base_url('blog') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Blog</a>
-                    <a href="<?= base_url('jobs') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Jobs</a>
-                    <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="ml-1 bg-accent text-gray-900 px-6 2xl:px-7 py-2.5 rounded-full text-sm 2xl:text-[15px] font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Book a 30-Min Call</a>
+                    <a href="<?= base_url('testimonials') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Testimonials</a>
+                    <a href="<?= base_url('press-media') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Press & Media</a>
+                    <a href="<?= base_url('blog') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Blog</a>
+                    <a href="<?= base_url('jobs') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Jobs</a>
+                    <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="site-nav-cta ml-1 bg-accent text-gray-900 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Book a 30-Min Call</a>
                 </div>
 
-                <div class="lg:hidden ml-auto">
+                <div class="site-mobile-toggle">
                     <button id="menuBtn" class="text-white" aria-label="Open navigation menu">
                         <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                         <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -123,7 +199,7 @@
             </div>
         </div>
 
-        <div id="mobileMenu" class="lg:hidden hidden bg-white shadow-xl absolute top-full left-0 w-full p-6 animate-in slide-in-from-top duration-300 max-h-[calc(100vh-80px)] overflow-y-auto">
+        <div id="mobileMenu" class="site-mobile-menu hidden bg-white shadow-xl absolute top-full left-0 w-full p-6 animate-in slide-in-from-top duration-300 max-h-[calc(100vh-80px)] overflow-y-auto">
             <div class="flex flex-col space-y-4">
                 <a href="<?= base_url() ?>" class="mobile-link">Home</a>
                 <a href="<?= base_url('about') ?>" class="mobile-link">About</a>
@@ -276,6 +352,20 @@
                 closeIcon.classList.add('hidden');
                 document.body.classList.remove('overflow-hidden');
             }));
+        }
+
+        // The legacy payment template embeds an old base64 image. Replace it with
+        // the maintained QR asset served through the dedicated no-cache endpoint.
+        if (/\/cv-payment\/\d+\/?$/.test(window.location.pathname)) {
+            const paymentQr = document.querySelector('img[src^="data:image/"]');
+            if (paymentQr) {
+                paymentQr.src = '<?= base_url('cv-payment/qr') ?>?v=20260811';
+                paymentQr.alt = 'HiredNext Paytm payment QR code';
+                paymentQr.style.width = '100%';
+                paymentQr.style.maxWidth = '300px';
+                paymentQr.style.height = 'auto';
+                paymentQr.style.display = 'block';
+            }
         }
 
         const observerOptions = { threshold: 0.1 };
