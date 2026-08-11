@@ -4,6 +4,13 @@
 $calendlyUrl = 'https://calendly.com/tarushikha-hirednext/30min';
 $items = $testimonials ?? [];
 $publishedCount = count($items);
+$knownRoleCompany = [
+    'CEO, Stellar Manufacturing' => ['CEO', 'Stellar Manufacturing'],
+    'Senior Director, Marriott International' => ['Senior Director', 'Marriott International'],
+    'Country Head, Mirza Bangla' => ['Country Head', 'Mirza Bangla'],
+    'Founder, Meeraki Bizz' => ['Founder', 'Meeraki Bizz'],
+    'Senior Consultant, Capgemini' => ['Senior Consultant', 'Capgemini'],
+];
 ?>
 
 <style>
@@ -16,6 +23,10 @@ $publishedCount = count($items);
     .testimonial-quote-mark {
         font-family: 'DM Serif Display', serif;
         line-height: .65;
+    }
+    .testimonial-person-name {
+        font-family: 'DM Serif Display', serif;
+        letter-spacing: -0.015em;
     }
 </style>
 
@@ -88,8 +99,11 @@ $publishedCount = count($items);
                     $headline = $item['headline'] ?? $item['title'] ?? $proofType;
                     $quote = $item['review'] ?? $item['comment'] ?? $item['review_text'] ?? $item['content'] ?? $item['testimonial'] ?? $item['message'] ?? '';
                     $name = $item['client_name'] ?? $item['name'] ?? 'Client';
-                    $role = trim((string)($item['designation'] ?? $item['role'] ?? $item['client_position'] ?? ''));
+                    $role = trim((string)($item['designation'] ?? $item['role'] ?? $item['client_position'] ?? $item['location'] ?? ''));
                     $company = trim((string)($item['company'] ?? $item['organization'] ?? $item['client_company'] ?? ''));
+                    if ($company === '' && isset($knownRoleCompany[$role])) {
+                        [$role, $company] = $knownRoleCompany[$role];
+                    }
                     $sourceLabel = trim((string)($item['source_label'] ?? ''));
                     $sourceUrl = trim((string)($item['source_url'] ?? ''));
                     $linkedinUrl = trim((string)($item['linkedin_url'] ?? ''));
@@ -134,13 +148,13 @@ $publishedCount = count($items);
                             </blockquote>
 
                             <div class="mt-auto pt-6 border-t <?= $isDark ? 'border-white/12' : 'border-[#ece7dd]' ?> flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
-                                <div>
-                                    <div class="font-extrabold <?= $isDark ? 'text-white' : 'text-primary' ?> text-base"><?= esc($name) ?></div>
+                                <div class="min-w-0">
+                                    <div class="testimonial-person-name text-xl md:text-2xl font-bold <?= $isDark ? 'text-white' : 'text-primary' ?> leading-tight"><?= esc($name) ?></div>
                                     <?php if ($role !== ''): ?>
-                                        <div class="text-sm <?= $isDark ? 'text-white/60' : 'text-gray-500' ?> mt-1 leading-relaxed font-medium"><?= esc($role) ?></div>
+                                        <div class="mt-2 text-[10px] md:text-[11px] uppercase tracking-[0.18em] font-extrabold <?= $isDark ? 'text-gold/85' : 'text-accent' ?> leading-relaxed"><?= esc($role) ?></div>
                                     <?php endif; ?>
                                     <?php if ($company !== ''): ?>
-                                        <div class="text-xs <?= $isDark ? 'text-white/40' : 'text-gray-400' ?> mt-1 uppercase tracking-[0.12em]"><?= esc($company) ?></div>
+                                        <div class="mt-1.5 text-sm font-semibold <?= $isDark ? 'text-white/55' : 'text-primary/55' ?> leading-relaxed"><?= esc($company) ?></div>
                                     <?php endif; ?>
                                 </div>
 
