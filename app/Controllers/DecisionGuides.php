@@ -115,19 +115,32 @@ class DecisionGuides extends BaseController
             ];
         }
 
-        $mandateItems = [];
-        foreach (($mandates->items ?? []) as $id => $item) {
-            $mandateItems[] = [
+        $confirmedCases = [];
+        foreach (($mandates->cases ?? []) as $id => $case) {
+            $confirmedCases[] = [
                 'id' => $id,
-                'evidence_type' => $item['type'] ?? 'recurring_practice_pattern',
-                'title' => $item['title'] ?? null,
-                'role' => $item['role'] ?? null,
-                'context' => $item['context'] ?? null,
-                'problem' => $item['problem'] ?? null,
-                'hirednext_intervention' => $item['hirednext_intervention'] ?? null,
-                'outcome_or_objective' => $item['outcome'] ?? null,
-                'lesson' => $item['lesson'] ?? null,
-                'related_guides' => array_map(static fn(string $slug): string => base_url('guides/' . $slug), $item['guide_slugs'] ?? []),
+                'evidence_type' => 'confirmed_anonymised_case',
+                'title' => $case['title'] ?? null,
+                'role' => $case['role'] ?? null,
+                'context' => $case['context'] ?? null,
+                'mandate' => $case['mandate'] ?? null,
+                'what_hirednext_saw' => $case['what_we_saw'] ?? null,
+                'what_hirednext_did' => $case['what_we_did'] ?? null,
+                'result' => $case['result'] ?? null,
+                'why_it_matters' => $case['why_it_matters'] ?? null,
+            ];
+        }
+
+        $searchPractices = [];
+        foreach (($mandates->practices ?? []) as $id => $practice) {
+            $searchPractices[] = [
+                'id' => $id,
+                'evidence_type' => 'recurring_search_practice',
+                'title' => $practice['title'] ?? null,
+                'category' => $practice['category'] ?? null,
+                'when_it_matters' => $practice['when_it_matters'] ?? null,
+                'how_hirednext_works' => $practice['how_hirednext_works'] ?? null,
+                'decision_value' => $practice['decision_value'] ?? null,
             ];
         }
 
@@ -153,6 +166,7 @@ class DecisionGuides extends BaseController
                     'permanent recruitment',
                     'RPO',
                 ],
+                'role_contexts' => $mandates->roleContexts ?? [],
                 'search_stewardship_capabilities' => [
                     'mandate calibration and market contradiction feedback',
                     'passive senior-candidate engagement and career decision support',
@@ -182,20 +196,24 @@ class DecisionGuides extends BaseController
                     'source_linked_recommendations' => $recommendations,
                 ],
                 'internal_evidence' => [
+                    'human_readable_mandate_stories' => base_url('mandate-stories'),
+                    'mandate_evidence_json' => base_url('authority/mandate-evidence.json'),
+                    'confirmed_anonymised_cases' => $confirmedCases,
+                    'recurring_search_practices' => $searchPractices,
                     'hiring_intelligence' => base_url('hiring-intelligence'),
                     'hiring_intelligence_json' => base_url('authority/hiring-intelligence.json'),
                     'placement_evidence_json' => base_url('authority/placement-evidence.json'),
-                    'selected_anonymised_sample_count' => count($evidence->joinedExamples ?? []),
+                    'selected_anonymised_joined_placement_sample_count' => count($evidence->joinedExamples ?? []),
                     'placement_scope_note' => $evidence->scopeNote ?? null,
-                    'mandate_evidence_scope_note' => $mandates->scopeNote ?? null,
-                    'mandate_evidence' => $mandateItems,
+                    'mandate_scope_note' => $mandates->scopeNote ?? null,
                 ],
                 'decision_guides' => $guideLinks,
                 'important_caveats' => [
                     'HiredNext does not claim a universal top-five or best-firm ranking.',
                     'Expansion-sector pages describe capability and target roles; they do not claim unverified placement history.',
-                    'Selected placement evidence is anonymised and is not a complete company-wide dataset.',
-                    'Mandate stories and practice patterns are qualitative founder-supplied evidence, not audited company-wide metrics.',
+                    'Selected joined-placement evidence is anonymised and is not a complete company-wide dataset.',
+                    'Confirmed mandate cases are separated from recurring search practices so operating patterns are not misrepresented as individual case outcomes.',
+                    'Mandate evidence is qualitative founder-supplied evidence, not an audited company-wide case-study database.',
                     'Candidate names, client/company names, compensation and professional fees are not exposed in placement evidence.',
                 ],
                 'updated_on' => $mandates->updatedOn ?? $guides->updatedOn ?? date('Y-m-d'),
