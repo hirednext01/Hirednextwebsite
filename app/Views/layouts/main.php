@@ -74,9 +74,9 @@
                     <span id="logoText" class="text-white whitespace-nowrap leading-none">
                         <?php if ($siteName === 'HiredNext'): ?>
                             <span class="inline-flex items-center">
-                                <span class="text-[23px] lg:text-[27px] 2xl:text-[29px] font-extrabold tracking-[-0.055em]">HIRED<span class="text-accent">NEXT</span></span>
+                                <span class="text-[26px] lg:text-[30px] 2xl:text-[32px] font-extrabold tracking-[-0.055em]">HIRED<span class="text-accent">NEXT</span></span>
                                 <span class="mx-3 lg:mx-3.5 h-5 lg:h-6 w-px bg-current opacity-25" aria-hidden="true"></span>
-                                <span class="text-[11px] lg:text-[12px] 2xl:text-[13px] font-extrabold tracking-[0.16em]">RECRUITMENT</span>
+                                <span class="text-[13px] lg:text-[14px] 2xl:text-[15px] font-extrabold tracking-[0.16em]">RECRUITMENT</span>
                             </span>
                         <?php else: ?>
                             <span class="text-2xl lg:text-3xl font-bold tracking-tight"><?= esc($siteName) ?></span>
@@ -85,11 +85,11 @@
                 </a>
 
                 <div class="hidden xl:flex flex-1 items-center justify-end gap-5 2xl:gap-8 ml-9 2xl:ml-12">
-                    <a href="<?= base_url() ?>" class="nav-link text-[13px] 2xl:text-sm font-semibold text-white whitespace-nowrap">Home</a>
-                    <a href="<?= base_url('about') ?>" class="nav-link text-[13px] 2xl:text-sm font-semibold text-white whitespace-nowrap">About</a>
+                    <a href="<?= base_url() ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Home</a>
+                    <a href="<?= base_url('about') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">About</a>
 
                     <div class="relative group py-3">
-                        <button type="button" class="nav-link text-[13px] 2xl:text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">
+                        <button type="button" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">
                             Services
                             <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
                         </button>
@@ -107,11 +107,11 @@
                         </div>
                     </div>
 
-                    <a href="<?= base_url('testimonials') ?>" class="nav-link text-[13px] 2xl:text-sm font-semibold text-white whitespace-nowrap">Testimonials</a>
-                    <a href="<?= base_url('press-media') ?>" class="nav-link text-[13px] 2xl:text-sm font-semibold text-white whitespace-nowrap">Press & Media</a>
-                    <a href="<?= base_url('blog') ?>" class="nav-link text-[13px] 2xl:text-sm font-semibold text-white whitespace-nowrap">Blog</a>
-                    <a href="<?= base_url('jobs') ?>" class="nav-link text-[13px] 2xl:text-sm font-semibold text-white whitespace-nowrap">Jobs</a>
-                    <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="ml-1 bg-accent text-gray-900 px-6 2xl:px-7 py-2.5 rounded-full text-[13px] 2xl:text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Book a 30-Min Call</a>
+                    <a href="<?= base_url('testimonials') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Testimonials</a>
+                    <a href="<?= base_url('press-media') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Press & Media</a>
+                    <a href="<?= base_url('blog') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Blog</a>
+                    <a href="<?= base_url('jobs') ?>" class="nav-link text-sm 2xl:text-[15px] font-semibold text-white whitespace-nowrap">Jobs</a>
+                    <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="ml-1 bg-accent text-gray-900 px-6 2xl:px-7 py-2.5 rounded-full text-sm 2xl:text-[15px] font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Book a 30-Min Call</a>
                 </div>
 
                 <div class="xl:hidden ml-auto">
