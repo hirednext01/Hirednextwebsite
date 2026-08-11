@@ -143,7 +143,7 @@
 
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:text-primary">Skip to main content</a>
 
-    <nav id="navbar" aria-label="Primary" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-5">
+    <nav id="navbar" aria-label="Primary" class="fixed w-full z-50 transition-all duration-300 bg-primary py-5">
         <div class="max-w-[1500px] mx-auto px-5 sm:px-8 lg:px-10 xl:px-12">
             <div class="flex items-center w-full">
                 <a href="<?= base_url() ?>" class="flex items-center shrink-0" aria-label="HiredNext Recruitment home">
@@ -316,7 +316,7 @@
         const syncNavbar = () => {
             if (!navbar) return;
             const scrolled = window.scrollY > 80;
-            navbar.classList.toggle('bg-transparent', !scrolled);
+            navbar.classList.toggle('bg-primary', !scrolled);
             navbar.classList.toggle('bg-white', scrolled);
             navbar.classList.toggle('shadow-premium', scrolled);
             navbar.classList.toggle('py-5', !scrolled);

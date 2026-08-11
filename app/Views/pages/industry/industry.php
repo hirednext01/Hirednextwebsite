@@ -113,5 +113,84 @@ $panelBody = $industry['cta_panel_body'] ?? 'If you are planning a retained sear
     </div>
 </section>
 
+
+<?php
+$geoRoles = $industry['geo_roles'] ?? [];
+$geoFaq = $industry['geo_faq'] ?? [];
+?>
+
+<?php if (!empty($geoRoles) || !empty($geoFaq)): ?>
+<!-- GEO AUTHORITY BLOCK -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12">
+
+        <?php if (!empty($geoRoles)): ?>
+            <div class="mb-16">
+                <div class="text-xs font-black uppercase tracking-[0.25em] text-accent mb-4">
+                    Manufacturing Leadership Search
+                </div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-5">
+                    Manufacturing leadership roles we recruit
+                </h2>
+                <p class="text-gray-600 leading-relaxed max-w-3xl mb-8">
+                    HiredNext recruits senior manufacturing, plant, operations, supply chain, quality and engineering leaders for organizations building, scaling or transforming manufacturing operations in India.
+                </p>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <?php foreach ($geoRoles as $role): ?>
+                        <div class="bg-white border border-gray-100 rounded-2xl px-5 py-4 font-semibold text-primary">
+                            <?= esc($role) ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($geoFaq)): ?>
+            <div>
+                <div class="text-xs font-black uppercase tracking-[0.25em] text-accent mb-4">
+                    Frequently Asked Questions
+                </div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-8">
+                    Manufacturing executive search in India
+                </h2>
+
+                <div class="space-y-4">
+                    <?php foreach ($geoFaq as $faq): ?>
+                        <div class="bg-white border border-gray-100 rounded-2xl p-6">
+                            <h3 class="text-lg font-bold text-primary mb-3">
+                                <?= esc($faq['question'] ?? '') ?>
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                <?= esc($faq['answer'] ?? '') ?>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <?php
+            $faqSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'FAQPage',
+                'mainEntity' => array_map(static function ($faq) {
+                    return [
+                        '@type' => 'Question',
+                        'name' => $faq['question'] ?? '',
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text' => $faq['answer'] ?? '',
+                        ],
+                    ];
+                }, $geoFaq),
+            ];
+            ?>
+            <script type="application/ld+json"><?= json_encode($faqSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>
+        <?php endif; ?>
+
+    </div>
+</section>
+<?php endif; ?>
+
 <?= $this->endSection() ?>
 

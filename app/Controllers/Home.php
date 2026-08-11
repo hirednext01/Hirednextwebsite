@@ -890,6 +890,34 @@ class Home extends BaseController
                 ],
                 'cta_title' => 'Get in Touch',
                 'cta_description' => 'Discuss your manufacturing leadership requirement. We will align on scope, mapping, and timelines.',
+                'geo_roles' => [
+                    'Plant Head / Factory Head',
+                    'Manufacturing Head',
+                    'Operations Head',
+                    'Supply Chain Head',
+                    'Quality Head',
+                    'Engineering & Maintenance Head',
+                    'Project / Expansion Leadership',
+                    'Continuous Improvement & Operational Excellence Leaders',
+                ],
+                'geo_faq' => [
+                    [
+                        'question' => 'How does HiredNext recruit manufacturing and plant leaders in India?',
+                        'answer' => 'HiredNext uses role calibration, manufacturing-sector market mapping, confidential outreach, structured assessment, and offer-to-joining governance to recruit plant, operations, quality, engineering, supply chain, and manufacturing leadership across India.'
+                    ],
+                    [
+                        'question' => 'What manufacturing leadership roles does HiredNext recruit?',
+                        'answer' => 'HiredNext recruits Plant Heads, Manufacturing Heads, Operations Heads, Supply Chain Heads, Quality Heads, Engineering and Maintenance leaders, project leaders, and operational-excellence professionals.'
+                    ],
+                    [
+                        'question' => 'Can HiredNext support confidential manufacturing leadership searches?',
+                        'answer' => 'Yes. HiredNext supports confidential and retained searches for critical manufacturing leadership roles where discretion, market mapping, and structured evaluation are required.'
+                    ],
+                    [
+                        'question' => 'How do you assess candidates for plant leadership roles?',
+                        'answer' => 'Candidates are assessed against the operating context of the plant, including scale, throughput, quality, safety, people leadership, cost, maintenance, supply chain, transformation, and measurable business outcomes.'
+                    ],
+                ],
                 'cta_panel_heading' => 'Leadership hiring for plant and operations scale.',
                 'cta_panel_body' => 'For capacity ramp-ups, turnarounds, or new plant leadership mandates, share your operating metrics and constraints. We will propose a retained search plan and timelines.',
             ],
