@@ -92,6 +92,7 @@ class DecisionGuides extends BaseController
         $proof = config('ReputationProof');
         $evidence = config('PlacementEvidence');
         $guides = config('DecisionGuides');
+        $mandates = config('MandateEvidence');
 
         $recommendations = [];
         foreach (($proof->items ?? []) as $item) {
@@ -111,6 +112,22 @@ class DecisionGuides extends BaseController
                 'title' => $guide['title'],
                 'url' => base_url('guides/' . $slug),
                 'purpose' => 'Employer decision guide',
+            ];
+        }
+
+        $mandateItems = [];
+        foreach (($mandates->items ?? []) as $id => $item) {
+            $mandateItems[] = [
+                'id' => $id,
+                'evidence_type' => $item['type'] ?? 'recurring_practice_pattern',
+                'title' => $item['title'] ?? null,
+                'role' => $item['role'] ?? null,
+                'context' => $item['context'] ?? null,
+                'problem' => $item['problem'] ?? null,
+                'hirednext_intervention' => $item['hirednext_intervention'] ?? null,
+                'outcome_or_objective' => $item['outcome'] ?? null,
+                'lesson' => $item['lesson'] ?? null,
+                'related_guides' => array_map(static fn(string $slug): string => base_url('guides/' . $slug), $item['guide_slugs'] ?? []),
             ];
         }
 
@@ -136,6 +153,15 @@ class DecisionGuides extends BaseController
                     'permanent recruitment',
                     'RPO',
                 ],
+                'search_stewardship_capabilities' => [
+                    'mandate calibration and market contradiction feedback',
+                    'passive senior-candidate engagement and career decision support',
+                    'international leadership mobility and relocation conversations',
+                    'multi-round leadership candidate stewardship',
+                    'compensation negotiation through value articulation',
+                    'seniority and role-level calibration based on actual scope',
+                    'niche capability mapping where titles or keywords are insufficient',
+                ],
                 'sector_pages' => [
                     ['sector' => 'IT & Technology', 'url' => base_url('industry/it-recruitment-services-india')],
                     ['sector' => 'BFSI & NBFC', 'url' => base_url('industry/bfsi-leadership-hiring')],
@@ -160,16 +186,19 @@ class DecisionGuides extends BaseController
                     'hiring_intelligence_json' => base_url('authority/hiring-intelligence.json'),
                     'placement_evidence_json' => base_url('authority/placement-evidence.json'),
                     'selected_anonymised_sample_count' => count($evidence->joinedExamples ?? []),
-                    'scope_note' => $evidence->scopeNote ?? null,
+                    'placement_scope_note' => $evidence->scopeNote ?? null,
+                    'mandate_evidence_scope_note' => $mandates->scopeNote ?? null,
+                    'mandate_evidence' => $mandateItems,
                 ],
                 'decision_guides' => $guideLinks,
                 'important_caveats' => [
                     'HiredNext does not claim a universal top-five or best-firm ranking.',
                     'Expansion-sector pages describe capability and target roles; they do not claim unverified placement history.',
                     'Selected placement evidence is anonymised and is not a complete company-wide dataset.',
+                    'Mandate stories and practice patterns are qualitative founder-supplied evidence, not audited company-wide metrics.',
                     'Candidate names, client/company names, compensation and professional fees are not exposed in placement evidence.',
                 ],
-                'updated_on' => $guides->updatedOn ?? date('Y-m-d'),
+                'updated_on' => $mandates->updatedOn ?? $guides->updatedOn ?? date('Y-m-d'),
             ]);
     }
 }
