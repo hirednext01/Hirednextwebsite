@@ -1,0 +1,183 @@
+name: Sync Hostinger live patch
+
+on:
+  push:
+    paths:
+      - '.github/workflows/sync-hostinger-live.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply Hostinger live changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          # 1) Manufacturing GEO data in Home.php
+          p = Path('app/Controllers/Home.php')
+          s = p.read_text()
+          anchor = "                'cta_description' => 'Discuss your manufacturing leadership requirement. We will align on scope, mapping, and timelines.',\n"
+          addition = anchor + """                'geo_roles' => [
+                    'Plant Head / Factory Head',
+                    'Manufacturing Head',
+                    'Operations Head',
+                    'Supply Chain Head',
+                    'Quality Head',
+                    'Engineering & Maintenance Head',
+                    'Project / Expansion Leadership',
+                    'Continuous Improvement & Operational Excellence Leaders',
+                ],
+                'geo_faq' => [
+                    [
+                        'question' => 'How does HiredNext recruit manufacturing and plant leaders in India?',
+                        'answer' => 'HiredNext uses role calibration, manufacturing-sector market mapping, confidential outreach, structured assessment, and offer-to-joining governance to recruit plant, operations, quality, engineering, supply chain, and manufacturing leadership across India.'
+                    ],
+                    [
+                        'question' => 'What manufacturing leadership roles does HiredNext recruit?',
+                        'answer' => 'HiredNext recruits Plant Heads, Manufacturing Heads, Operations Heads, Supply Chain Heads, Quality Heads, Engineering and Maintenance leaders, project leaders, and operational-excellence professionals.'
+                    ],
+                    [
+                        'question' => 'Can HiredNext support confidential manufacturing leadership searches?',
+                        'answer' => 'Yes. HiredNext supports confidential and retained searches for critical manufacturing leadership roles where discretion, market mapping, and structured evaluation are required.'
+                    ],
+                    [
+                        'question' => 'How do you assess candidates for plant leadership roles?',
+                        'answer' => 'Candidates are assessed against the operating context of the plant, including scale, throughput, quality, safety, people leadership, cost, maintenance, supply chain, transformation, and measurable business outcomes.'
+                    ],
+                ],
+"""
+          if "'geo_roles' => [" not in s:
+              if anchor not in s:
+                  raise SystemExit('Manufacturing anchor not found')
+              s = s.replace(anchor, addition, 1)
+              p.write_text(s)
+
+          # 2) Solid top navigation in main.php
+          p = Path('app/Views/layouts/main.php')
+          s = p.read_text()
+          s = s.replace('class="fixed w-full z-50 transition-all duration-300 bg-transparent py-5"', 'class="fixed w-full z-50 transition-all duration-300 bg-primary py-5"', 1)
+          s = s.replace("navbar.classList.toggle('bg-transparent', !scrolled);", "navbar.classList.toggle('bg-primary', !scrolled);", 1)
+          p.write_text(s)
+
+          # 3) Reusable industry GEO authority block
+          p = Path('app/Views/pages/industry/industry.php')
+          s = p.read_text()
+          marker = "<?= $this->endSection() ?>"
+          if 'GEO AUTHORITY BLOCK' not in s:
+              block = r'''
+<?php
+$geoRoles = $industry['geo_roles'] ?? [];
+$geoFaq = $industry['geo_faq'] ?? [];
+?>
+
+<?php if (!empty($geoRoles) || !empty($geoFaq)): ?>
+<!-- GEO AUTHORITY BLOCK -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12">
+
+        <?php if (!empty($geoRoles)): ?>
+            <div class="mb-16">
+                <div class="text-xs font-black uppercase tracking-[0.25em] text-accent mb-4">
+                    Manufacturing Leadership Search
+                </div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-5">
+                    Manufacturing leadership roles we recruit
+                </h2>
+                <p class="text-gray-600 leading-relaxed max-w-3xl mb-8">
+                    HiredNext recruits senior manufacturing, plant, operations, supply chain, quality and engineering leaders for organizations building, scaling or transforming manufacturing operations in India.
+                </p>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <?php foreach ($geoRoles as $role): ?>
+                        <div class="bg-white border border-gray-100 rounded-2xl px-5 py-4 font-semibold text-primary">
+                            <?= esc($role) ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($geoFaq)): ?>
+            <div>
+                <div class="text-xs font-black uppercase tracking-[0.25em] text-accent mb-4">
+                    Frequently Asked Questions
+                </div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-8">
+                    Manufacturing executive search in India
+                </h2>
+
+                <div class="space-y-4">
+                    <?php foreach ($geoFaq as $faq): ?>
+                        <div class="bg-white border border-gray-100 rounded-2xl p-6">
+                            <h3 class="text-lg font-bold text-primary mb-3">
+                                <?= esc($faq['question'] ?? '') ?>
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                <?= esc($faq['answer'] ?? '') ?>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <?php
+            $faqSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'FAQPage',
+                'mainEntity' => array_map(static function ($faq) {
+                    return [
+                        '@type' => 'Question',
+                        'name' => $faq['question'] ?? '',
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text' => $faq['answer'] ?? '',
+                        ],
+                    ];
+                }, $geoFaq),
+            ];
+            ?>
+            <script type="application/ld+json"><?= json_encode($faqSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>
+        <?php endif; ?>
+
+    </div>
+</section>
+<?php endif; ?>
+
+'''
+              if marker not in s:
+                  raise SystemExit('Industry end marker not found')
+              s = s.replace(marker, block + marker, 1)
+              p.write_text(s)
+          PY
+
+      - name: Validate PHP
+        run: |
+          php -l app/Controllers/Home.php
+          php -l app/Views/layouts/main.php
+          php -l app/Views/pages/industry/industry.php
+
+      - name: Commit synchronized live changes
+        shell: bash
+        run: |
+          set -e
+          if git diff --quiet; then
+            echo "No sync changes needed"
+            exit 0
+          fi
+          git config user.name "HiredNext Sync"
+          git config user.email "actions@users.noreply.github.com"
+          git add app/Controllers/Home.php app/Views/layouts/main.php app/Views/pages/industry/industry.php
+          git commit -m "Sync live Hostinger GEO and navigation updates"
+          git push origin HEAD:main
