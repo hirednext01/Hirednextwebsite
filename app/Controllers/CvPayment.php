@@ -39,7 +39,7 @@ class CvPayment extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        return view('pages/services/cv-payment', [
+        return view('pages/services/cv-payment-direct', [
             'title' => 'Complete Payment | HiredNext',
             'currentPage' => 'services',
             'lead' => $lead,
