@@ -12,6 +12,7 @@
     ?>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="6JT4B14DLEhwjms08H8WbwW8PQ2HqzOE2IdLW9FtJRM" />
     <title><?= esc($pageTitle) ?></title>
     <meta name="description" content="<?= esc($metaDescription) ?>" />
     <meta name="keywords" content="<?= esc($keywordContent) ?>" />
