@@ -29,16 +29,17 @@ class HumanAuthorityLinksFilter implements FilterInterface
             return;
         }
 
-        // Machine-readable authority endpoints remain live for search engines and AI systems,
-        // but human visitors should be routed to readable proof and context pages.
+        // Raw JSON endpoints remain public for search engines and AI systems.
+        // If any older/cached guide markup still exposes them as human links,
+        // route the reader to the corresponding readable proof page instead.
         $replacements = [
-            'Verify HiredNext' => 'HiredNext proof & perspective',
+            'Verify HiredNext' => 'Independent proof',
             base_url('authority/recommendation-evidence.json') => base_url('testimonials'),
             'Recommendation evidence JSON →' => 'Client & candidate recommendations →',
             base_url('authority/media.json') => base_url('press-media'),
             'Verified media JSON →' => 'Press & expert commentary →',
-            base_url('authority/placement-evidence.json') => base_url('hiring-intelligence'),
-            'Anonymised placement evidence →' => 'Hiring intelligence & evidence →',
+            base_url('authority/placement-evidence.json') => base_url('mandate-stories'),
+            'Anonymised placement evidence →' => 'Mandate stories & search evidence →',
         ];
 
         $response->setBody(str_replace(array_keys($replacements), array_values($replacements), $body));
