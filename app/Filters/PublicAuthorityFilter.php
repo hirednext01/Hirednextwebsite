@@ -61,10 +61,19 @@ class PublicAuthorityFilter implements FilterInterface
             'copilot.microsoft.com': 'copilot',
             'claude.ai': 'claude'
         };
-        let source = sources[refHost] || '';
-        if (!source && ['chatgpt', 'perplexity', 'gemini', 'copilot', 'claude'].includes(explicit)) {
-            source = explicit;
-        }
+        const utmSources = {
+            'chatgpt': 'chatgpt',
+            'chatgpt.com': 'chatgpt',
+            'perplexity': 'perplexity',
+            'perplexity.ai': 'perplexity',
+            'gemini': 'gemini',
+            'gemini.google.com': 'gemini',
+            'copilot': 'copilot',
+            'copilot.microsoft.com': 'copilot',
+            'claude': 'claude',
+            'claude.ai': 'claude'
+        };
+        let source = sources[refHost] || utmSources[explicit] || '';
         if (!source) return;
         window.hiredNextAiReferral = source;
         if (typeof window.gtag === 'function') {
