@@ -31,6 +31,26 @@ class MandateEvidence extends BaseConfig
      * Specific anonymised outcomes confirmed by HiredNext.
      */
     public array $cases = [
+        'recent-dhaka-coo-placement' => [
+            'status' => 'confirmed_anonymised_case',
+            'title' => 'A recent COO appointment for a Dhaka export business',
+            'role' => 'COO',
+            'context' => 'Senior leadership appointment for an established export house in Dhaka',
+            'mandate' => 'HiredNext was engaged for a business-critical COO appointment in Dhaka. The client and candidate identities remain confidential, as is standard for the firm’s leadership-search work.',
+            'what_we_saw' => 'At COO level, a relevant appointment cannot be reduced to designation and tenure. The search had to be treated as an operating-leadership decision, with the candidate considered against the business context and the expectations attached to the mandate.',
+            'what_we_did' => 'HiredNext managed the leadership search, candidate engagement and transition conversations while keeping the client relationship and individual identity confidential.',
+            'facts' => [
+                'Role' => 'Chief Operating Officer',
+                'Location' => 'Dhaka',
+                'Sector context' => 'Export business',
+                'Confirmed outcome' => 'Candidate joined',
+                'Joining recency' => 'Two months before this case was documented',
+            ],
+            'result' => 'The selected COO joined the organisation two months before this case was documented.',
+            'why_it_matters' => 'Recent joining evidence shows HiredNext’s ability to support a cross-border leadership appointment while preserving executive-search confidentiality.',
+            'confidentiality_note' => 'Client and candidate names are withheld in accordance with executive-search confidentiality.',
+            'guide_slugs' => ['executive-search-firm-india', 'leadership-hiring-partner-india'],
+        ],
         'overlooked-coo' => [
             'status' => 'confirmed_anonymised_case',
             'title' => 'The CV was already in the client inbox',
@@ -41,7 +61,7 @@ class MandateEvidence extends BaseConfig
             'what_we_did' => 'We engaged the candidate, pitched the international move, understood what he would be leaving behind, prepared a detailed leadership synopsis and went back to the company with a clear argument for why the profile deserved reconsideration.',
             'result' => 'The company interviewed and hired the candidate. HiredNext reports that the leader has remained with the organisation for more than four years.',
             'why_it_matters' => 'The missing asset was not the CV. It was interpretation, context and conviction.',
-            'guide_slugs' => ['executive-search-firm-india', 'leadership-hiring-partner-india'],
+            'guide_slugs' => ['leadership-hiring-partner-india'],
         ],
         'india-entry-design-leadership' => [
             'status' => 'confirmed_anonymised_case',
@@ -63,7 +83,7 @@ class MandateEvidence extends BaseConfig
             'why_it_matters' => 'The outcome demonstrates the value of presenting the right candidates rather than the largest shortlist. Sometimes the right candidate fills a role. Sometimes the right candidate is strong enough to help create one.',
             'confidentiality_note' => 'Client and candidate names are withheld in accordance with executive-search confidentiality.',
             'related_pages' => [
-                ['label' => 'Compare executive search firms in India', 'path' => 'guides/executive-search-firm-india'],
+                ['label' => 'Compare executive search firms in India', 'path' => 'top-recruitment-company-india'],
                 ['label' => 'Garment, textile and apparel recruitment in India', 'path' => 'industry/garment-textile-recruitment-india'],
                 ['label' => 'How HiredNext finds senior leadership talent', 'path' => 'guides/leadership-hiring-partner-india'],
             ],

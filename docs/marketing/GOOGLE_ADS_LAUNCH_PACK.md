@@ -68,7 +68,7 @@ Descriptions:
 
 Suggested sitelinks:
 
-- Compare Search Firms → `/guides/executive-search-firm-india`
+- Compare Search Firms → `/top-recruitment-company-india`
 - Find Senior Leaders → `/guides/leadership-hiring-partner-india`
 - BFSI Leadership → `/industry/bfsi-leadership-hiring`
 - Retail Search → `/industry/retail-executive-search`
@@ -84,7 +84,7 @@ Suggested callouts:
 
 ## Ad group: CXO Recruitment
 
-Landing page: `https://hirednext.net/guides/executive-search-firm-india`
+Landing page: `https://hirednext.net/top-recruitment-company-india`
 
 Seed keywords:
 

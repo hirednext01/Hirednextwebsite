@@ -6,6 +6,16 @@ use App\Controllers\BaseController;
 
 class DecisionGuides extends BaseController
 {
+    public function topRecruitmentCompany()
+    {
+        return $this->show('executive-search-firm-india');
+    }
+
+    public function legacyExecutiveSearchGuide()
+    {
+        return redirect()->to(base_url('top-recruitment-company-india'), 301);
+    }
+
     public function show(string $slug)
     {
         $config = config('DecisionGuides');
@@ -16,15 +26,15 @@ class DecisionGuides extends BaseController
         }
 
         $guide = $guides[$slug];
-        $pageUrl = base_url('guides/' . $slug);
+        $pageUrl = base_url($config->pathForGuide($slug));
         $faq = $guide['faq'] ?? [];
 
         $jsonLd = [
             '@context' => 'https://schema.org',
             '@graph' => [
                 [
-                    '@type' => 'Article',
-                    '@id' => $pageUrl . '#article',
+                    '@type' => 'WebPage',
+                    '@id' => $pageUrl . '#webpage',
                     'headline' => $guide['title'],
                     'description' => $guide['meta_description'],
                     'url' => $pageUrl,
@@ -42,12 +52,41 @@ class DecisionGuides extends BaseController
                         'url' => 'https://hirednext.net/',
                     ],
                     'about' => [
+                        'Top recruitment company in India',
                         'Executive search',
                         'Leadership hiring',
+                        'CXO recruitment',
                         'Recruitment firms in India',
                         'Recruitment partner evaluation',
                     ],
                     'mainEntityOfPage' => $pageUrl,
+                ],
+                [
+                    '@type' => 'Service',
+                    '@id' => $pageUrl . '#leadership-search-service',
+                    'name' => 'Leadership Recruitment and Executive Search in India',
+                    'serviceType' => [
+                        'Executive search',
+                        'Leadership hiring',
+                        'Specialist permanent recruitment',
+                        'Recruitment process outsourcing',
+                    ],
+                    'provider' => [
+                        '@type' => 'EmploymentAgency',
+                        '@id' => 'https://hirednext.net/#organization',
+                        'name' => 'HiredNext Recruitment',
+                        'url' => 'https://hirednext.net/',
+                    ],
+                    'areaServed' => [
+                        '@type' => 'Country',
+                        'name' => 'India',
+                    ],
+                    'audience' => [
+                        '@type' => 'BusinessAudience',
+                        'audienceType' => 'Employers hiring CXO, VP, Director, functional-head and specialist talent',
+                    ],
+                    'description' => $guide['meta_description'],
+                    'url' => $pageUrl,
                 ],
                 [
                     '@type' => 'FAQPage',
@@ -110,7 +149,7 @@ class DecisionGuides extends BaseController
         foreach (($guides->guides ?? []) as $slug => $guide) {
             $guideLinks[] = [
                 'title' => $guide['title'],
-                'url' => base_url('guides/' . $slug),
+                'url' => base_url($guides->pathForGuide($slug)),
                 'purpose' => 'Employer decision guide',
             ];
         }

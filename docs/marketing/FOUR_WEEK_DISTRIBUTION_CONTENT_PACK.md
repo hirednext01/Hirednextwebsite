@@ -8,7 +8,7 @@ All copy below avoids unsupported company-wide performance statistics. Adapt cli
 
 # Week 1 — How to Compare Executive Search Firms in India
 
-Primary page: `/guides/executive-search-firm-india`
+Primary page: `/top-recruitment-company-india`
 
 ## Founder LinkedIn post
 

@@ -64,7 +64,7 @@ class ReviewsApi extends BaseApiController
             $data = $this->request->getJSON(true);
             
             // Validate required fields
-            $required = ['client_name', 'rating'];
+            $required = ['client_name'];
             foreach ($required as $field) {
                 if (empty($data[$field])) {
                     return $this->errorResponse("Field '$field' is required", 422);
@@ -75,8 +75,9 @@ class ReviewsApi extends BaseApiController
             }
 
             // Validate rating
-            if (!is_numeric($data['rating']) || $data['rating'] < 1 || $data['rating'] > 5) {
-                return $this->errorResponse('Rating must be between 1 and 5', 422);
+            $rating = $data['rating'] ?? 0;
+            if (!is_numeric($rating) || $rating < 0 || $rating > 5) {
+                return $this->errorResponse('Rating must be between 0 and 5', 422);
             }
 
             $db = \Config\Database::connect();
@@ -87,7 +88,7 @@ class ReviewsApi extends BaseApiController
 
             $insertData = [
                 'client_name' => $data['client_name'],
-                'rating' => $data['rating'],
+                'rating' => $rating,
                 'comment' => $comment,
                 'project_type' => $projectType,
                 'location' => $location,
@@ -96,6 +97,8 @@ class ReviewsApi extends BaseApiController
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ];
+
+            $insertData = $this->withOptionalProofFields($db, $insertData, $data);
 
             $result = $db->table('reviews')->insert($insertData);
             
@@ -120,7 +123,7 @@ class ReviewsApi extends BaseApiController
             $data = $this->request->getJSON(true);
             
             // Validate required fields
-            $required = ['client_name', 'rating'];
+            $required = ['client_name'];
             foreach ($required as $field) {
                 if (empty($data[$field])) {
                     return $this->errorResponse("Field '$field' is required", 422);
@@ -131,8 +134,9 @@ class ReviewsApi extends BaseApiController
             }
 
             // Validate rating
-            if (!is_numeric($data['rating']) || $data['rating'] < 1 || $data['rating'] > 5) {
-                return $this->errorResponse('Rating must be between 1 and 5', 422);
+            $rating = $data['rating'] ?? 0;
+            if (!is_numeric($rating) || $rating < 0 || $rating > 5) {
+                return $this->errorResponse('Rating must be between 0 and 5', 422);
             }
 
             $db = \Config\Database::connect();
@@ -154,7 +158,7 @@ class ReviewsApi extends BaseApiController
 
             $updateData = [
                 'client_name' => $data['client_name'],
-                'rating' => $data['rating'],
+                'rating' => $rating,
                 'comment' => $comment,
                 'project_type' => $projectType,
                 'location' => $location,
@@ -162,6 +166,8 @@ class ReviewsApi extends BaseApiController
                 'sort_order' => $data['sort_order'] ?? 0,
                 'updated_at' => date('Y-m-d H:i:s')
             ];
+
+            $updateData = $this->withOptionalProofFields($db, $updateData, $data);
 
             $result = $db->table('reviews')
                         ->where('id', $id)
@@ -210,5 +216,24 @@ class ReviewsApi extends BaseApiController
         } catch (\Exception $e) {
             return $this->errorResponse('Error deleting review: ' . $e->getMessage(), 500);
         }
+    }
+
+    private function withOptionalProofFields($db, array $payload, array $input): array
+    {
+        $availableFields = array_flip($db->getFieldNames('reviews'));
+        $optionalFields = [
+            'name', 'designation', 'proof_type', 'source_label', 'source_url',
+            'linkedin_url', 'relationship_type', 'placement_role',
+            'placement_location', 'placement_year', 'help_received',
+            'submitted_via', 'publish_consent',
+        ];
+
+        foreach ($optionalFields as $field) {
+            if (isset($availableFields[$field]) && array_key_exists($field, $input)) {
+                $payload[$field] = $input[$field] === '' ? null : $input[$field];
+            }
+        }
+
+        return $payload;
     }
 }

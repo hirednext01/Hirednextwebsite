@@ -56,7 +56,7 @@ class Seo extends BaseController
         $guideConfig = config('DecisionGuides');
         foreach (($guideConfig->guides ?? []) as $slug => $guide) {
             $urls[] = [
-                'loc' => base_url('guides/' . $slug),
+                'loc' => base_url($guideConfig->pathForGuide($slug)),
                 'lastmod' => $guideConfig->updatedOn ?? null,
                 'changefreq' => 'monthly',
                 'priority' => '0.8',
@@ -202,7 +202,7 @@ class Seo extends BaseController
 
         // Keep AI-readable guide discovery in sync with the same config used to render pages.
         foreach (($guides->guides ?? []) as $slug => $guide) {
-            $lines[] = '- [' . str_replace([']', '['], '', (string)$guide['title']) . '](' . base_url('guides/' . $slug) . '): Employer decision guide for ' . strtolower((string)($guide['eyebrow'] ?? 'recruitment partner evaluation')) . '.';
+            $lines[] = '- [' . str_replace([']', '['], '', (string)$guide['title']) . '](' . base_url($guides->pathForGuide($slug)) . '): Employer decision guide for ' . strtolower((string)($guide['eyebrow'] ?? 'recruitment partner evaluation')) . '.';
         }
 
         $lines = array_merge($lines, [
@@ -211,7 +211,7 @@ class Seo extends BaseController
             '- [Insights](' . base_url('blog') . '): Recruiter-led hiring and career guidance.',
             '- [Founder Profile](' . base_url('about/taru-shikha') . '): Taru Shikha, Founder of HiredNext Recruitment.',
             '- [Press and Media](' . base_url('press-media') . '): Verified external media coverage and expert commentary.',
-            '- [Testimonials & External Recommendations](' . base_url('testimonials') . '): Source-linked LinkedIn recommendations, recruitment partnership endorsements and HiredNext feedback.',
+            '- [Client Testimonials & Placed Candidate Stories](' . base_url('testimonials') . '): Hiring-leader recommendations are presented separately from reviewed stories submitted by candidates placed through HiredNext.',
             '- [Authority Media JSON](' . base_url('authority/media.json') . '): Machine-readable list of verified external media coverage.',
             '- [Anonymised Placement Evidence JSON](' . base_url('authority/placement-evidence.json') . '): Privacy-safe selected joined-placement examples from a limited internal sample; not company-wide totals.',
             '- [Contact](' . base_url('contact') . '): Speak with HiredNext about a hiring mandate.',

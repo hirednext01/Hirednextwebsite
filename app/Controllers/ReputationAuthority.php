@@ -24,6 +24,20 @@ class ReputationAuthority extends BaseController
         }
 
         $items = $this->deduplicateTestimonials($items);
+        $employerItems = [];
+        $placedCandidateItems = [];
+        $professionalItems = [];
+
+        foreach ($items as $item) {
+            $relationship = $this->testimonialRelationship($item);
+            if ($relationship === 'placed_candidate') {
+                $placedCandidateItems[] = $item;
+            } elseif ($relationship === 'candidate_professional') {
+                $professionalItems[] = $item;
+            } else {
+                $employerItems[] = $item;
+            }
+        }
 
         $sourceItems = [];
         foreach ($items as $item) {
@@ -55,8 +69,8 @@ class ReputationAuthority extends BaseController
                     '@type' => 'CollectionPage',
                     '@id' => $pageUrl . '#collection',
                     'url' => $pageUrl,
-                    'name' => 'HiredNext Recruitment Testimonials and External Recommendations',
-                    'description' => 'Source-linked external recommendations and recruitment feedback connected to HiredNext Recruitment and founder Taru Shikha.',
+                    'name' => 'HiredNext Client Testimonials and Placed Candidate Stories',
+                    'description' => 'Client and hiring-leader recommendations presented separately from stories submitted by candidates placed through HiredNext Recruitment.',
                     'about' => [
                         ['@id' => 'https://hirednext.net/#organization'],
                         ['@id' => base_url('about/taru-shikha') . '#person'],
@@ -79,13 +93,16 @@ class ReputationAuthority extends BaseController
         ];
 
         return view('pages/testimonials', [
-            'title' => 'Recruitment Testimonials & LinkedIn Recommendations | HiredNext',
-            'metaDescription' => 'Public LinkedIn recommendations, recruitment partnership endorsements and feedback connected to HiredNext Recruitment and founder Taru Shikha.',
-            'metaKeywords' => 'HiredNext reviews, HiredNext testimonials, Taru Shikha recommendations, recruitment company reviews India, executive search testimonials, leadership hiring India',
+            'title' => 'Client Testimonials & Placed Candidate Stories | HiredNext',
+            'metaDescription' => 'Read HiredNext client and hiring-leader testimonials separately from reviewed stories submitted by candidates placed through HiredNext.',
+            'metaKeywords' => 'HiredNext client testimonials, HiredNext candidate stories, placed candidate reviews, recruitment company testimonials India, executive search testimonials',
             'canonical' => $pageUrl,
             'currentPage' => 'testimonials',
             'settings' => $settings,
             'testimonials' => $items,
+            'employerTestimonials' => $employerItems,
+            'placedCandidateTestimonials' => $placedCandidateItems,
+            'professionalTestimonials' => $professionalItems,
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
     }
@@ -93,8 +110,8 @@ class ReputationAuthority extends BaseController
     public function share()
     {
         return view('pages/testimonial-share', [
-            'title' => 'Share Your HiredNext Story | Candidate Testimonial',
-            'metaDescription' => 'Share how HiredNext supported your job search, hiring journey or career progress. Candidate stories are reviewed before publication.',
+            'title' => 'Share Your HiredNext Placement Story | Candidate Testimonial',
+            'metaDescription' => 'If HiredNext helped place you in a role, share your candidate experience. Every placement story is reviewed before publication.',
             'canonical' => base_url('testimonials/share'),
             'currentPage' => 'testimonials',
             'settings' => $this->loadWebsiteSettings(),
@@ -107,6 +124,9 @@ class ReputationAuthority extends BaseController
         $email = trim((string)$this->request->getPost('email'));
         $phone = trim((string)$this->request->getPost('phone'));
         $currentRole = trim((string)$this->request->getPost('current_role'));
+        $placementRole = trim((string)$this->request->getPost('placement_role'));
+        $placementLocation = trim((string)$this->request->getPost('placement_location'));
+        $placementYear = trim((string)$this->request->getPost('placement_year'));
         $helpReceived = trim((string)$this->request->getPost('help_received'));
         $story = trim((string)$this->request->getPost('story'));
         $linkedinUrl = trim((string)$this->request->getPost('linkedin_url'));
@@ -120,7 +140,21 @@ class ReputationAuthority extends BaseController
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'Please enter a valid email address.';
         }
-        if ($helpReceived === '') {
+        if (mb_strlen($placementRole) < 2) {
+            $errors[] = 'Please enter the role HiredNext helped you join.';
+        }
+        if ($placementYear !== '' && (!preg_match('/^20\d{2}$/', $placementYear) || (int)$placementYear < 2016 || (int)$placementYear > (int)date('Y'))) {
+            $errors[] = 'Please enter a valid placement year.';
+        }
+        $allowedHelpOptions = [
+            'Matched me with the right opportunity',
+            'Understood my experience beyond the CV',
+            'Prepared and supported me through interviews',
+            'Helped me evaluate the career move',
+            'Managed the offer, transition or joining well',
+            'Stayed transparent and responsive throughout',
+        ];
+        if (!in_array($helpReceived, $allowedHelpOptions, true)) {
             $errors[] = 'Please tell us how HiredNext helped you.';
         }
         if (mb_strlen($story) < 30) {
@@ -166,12 +200,21 @@ class ReputationAuthority extends BaseController
             'help_received' => $helpReceived,
             'future_support' => $futureSupport,
             'publish_consent' => 1,
-            'submitted_via' => 'candidate_testimonial_form',
+            'submitted_via' => 'candidate_placement_testimonial_form',
+            'relationship_type' => 'placed_candidate',
+            'placement_role' => $placementRole,
+            'placement_location' => $placementLocation ?: null,
+            'placement_year' => $placementYear ?: null,
             'status' => 'pending',
             'sort_order' => 0,
             'created_at' => $now,
             'updated_at' => $now,
         ];
+
+        // The page remains usable during a rolling deployment even if the
+        // additive relationship-field migration has not run yet.
+        $reviewFields = array_flip($db->getFieldNames('reviews'));
+        $data = array_intersect_key($data, $reviewFields);
 
         try {
             $db->table('reviews')->insert($data);
@@ -191,6 +234,9 @@ class ReputationAuthority extends BaseController
                 "Email: {$email}\n" .
                 "Phone: {$phone}\n" .
                 "Current role: {$currentRole}\n" .
+                "Placed role: {$placementRole}\n" .
+                "Placement location: {$placementLocation}\n" .
+                "Placement year: {$placementYear}\n" .
                 "How HiredNext helped: {$helpReceived}\n" .
                 "Future support: {$futureSupport}\n" .
                 "LinkedIn/public identity: {$linkedinUrl}\n\n" .
@@ -205,7 +251,44 @@ class ReputationAuthority extends BaseController
         }
 
         return redirect()->to('/testimonials/share?submitted=1')
-            ->with('success', 'Thank you. Your story has been received and will be reviewed before anything is published.');
+            ->with('success', 'Thank you. Your placement story has been received and will be reviewed before anything is published.');
+    }
+
+    private function testimonialRelationship(array $item): string
+    {
+        $relationship = trim((string)($item['relationship_type'] ?? ''));
+        if (in_array($relationship, ['employer', 'placed_candidate', 'candidate_professional'], true)) {
+            return $relationship;
+        }
+
+        $submittedVia = trim((string)($item['submitted_via'] ?? ''));
+        $helpReceived = trim((string)($item['help_received'] ?? ''));
+        if ($submittedVia === 'candidate_placement_testimonial_form') {
+            return 'placed_candidate';
+        }
+        if ($submittedVia === 'candidate_testimonial_form') {
+            return $helpReceived === 'Helped me get hired' ? 'placed_candidate' : 'candidate_professional';
+        }
+
+        $proofType = mb_strtolower(trim((string)($item['proof_type'] ?? $item['project_type'] ?? '')));
+        if (str_contains($proofType, 'candidate') || str_contains($proofType, 'career')) {
+            return 'candidate_professional';
+        }
+
+        if (($item['status'] ?? '') === 'external') {
+            $explicitEmployerTypes = [
+                'employer recruitment experience',
+                'employer recruitment delivery',
+                'apparel & textile recruitment',
+                'talent evaluation',
+                'recruitment experience',
+            ];
+            return in_array($proofType, $explicitEmployerTypes, true)
+                ? 'employer'
+                : 'candidate_professional';
+        }
+
+        return 'employer';
     }
 
     private function deduplicateTestimonials(array $items): array

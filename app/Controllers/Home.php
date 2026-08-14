@@ -10,6 +10,7 @@ class Home extends BaseController
     {
         $settings = $this->loadWebsiteSettings();
         $jobModel = new \App\Models\JobModel();
+        $brand = config('BrandFacts')->facts ?? [];
 
         $faq = [
             [
@@ -49,18 +50,27 @@ class Home extends BaseController
             '@context' => 'https://schema.org',
             '@graph' => [
                 [
-                    '@type' => 'Organization',
+                    '@type' => 'EmploymentAgency',
                     '@id' => 'https://hirednext.net/#organization',
-                    'name' => 'HiredNext Recruitment',
-                    'url' => 'https://hirednext.net/',
+                    'name' => $brand['organization_name'] ?? 'HiredNext Recruitment',
+                    'legalName' => $brand['legal_name'] ?? 'HiredNext Recruitment',
+                    'url' => $brand['website'] ?? 'https://hirednext.net/',
+                    'email' => $brand['email'] ?? 'jobs@hirednext.info',
+                    'foundingDate' => (string)($brand['founded_year'] ?? 2016),
                     'description' => 'HiredNext is a talent advisory and recruitment firm specializing in executive search, leadership hiring and specialist recruitment across India.',
+                    'areaServed' => [
+                        '@type' => 'Country',
+                        'name' => 'India',
+                    ],
                     'founder' => [
                         '@type' => 'Person',
-                        'name' => 'Taru Shikha'
+                        '@id' => base_url('about/taru-shikha') . '#person',
+                        'name' => $brand['founder'] ?? 'Taru Shikha',
+                        'jobTitle' => $brand['founder_title'] ?? 'Founder & Proprietor',
                     ],
                     'sameAs' => [
-                        'https://www.linkedin.com/company/hirednext-recruitment-service/'
-                    ]
+                        $brand['company_linkedin'] ?? 'https://www.linkedin.com/company/hirednext-recruitment-service/',
+                    ],
                 ],
                 [
                     '@type' => 'WebSite',

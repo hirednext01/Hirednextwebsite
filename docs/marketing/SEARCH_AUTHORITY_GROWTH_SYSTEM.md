@@ -32,7 +32,7 @@ Do not optimise campaigns around raw clicks, impressions or follower count unles
 Primary assets:
 
 - `/services/executive-search`
-- `/guides/executive-search-firm-india`
+- `/top-recruitment-company-india`
 - `/guides/leadership-hiring-partner-india`
 - `/guides/specialist-recruitment-firm-india`
 
@@ -128,7 +128,7 @@ Google currently recommends exact match for the greatest steering/control and ad
 Landing pages:
 
 - `/services/executive-search`
-- `/guides/executive-search-firm-india`
+- `/top-recruitment-company-india`
 
 Initial exact/phrase themes:
 

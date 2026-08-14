@@ -94,6 +94,7 @@ class MandateStories extends BaseController
     public function evidenceJson()
     {
         $evidence = config('MandateEvidence');
+        $guideConfig = config('DecisionGuides');
 
         if (!$evidence) {
             return $this->response->setStatusCode(404)->setJSON(['error' => 'Mandate evidence is not available.']);
@@ -120,7 +121,7 @@ class MandateStories extends BaseController
                         'url' => !empty($page['path']) ? base_url($page['path']) : null,
                     ];
                 }, $case['related_pages'] ?? []),
-                'related_guides' => array_map(static fn(string $slug): string => base_url('guides/' . $slug), $case['guide_slugs'] ?? []),
+                'related_guides' => array_map(static fn(string $slug): string => base_url($guideConfig->pathForGuide($slug)), $case['guide_slugs'] ?? []),
             ];
         }
 
@@ -134,7 +135,7 @@ class MandateStories extends BaseController
                 'when_it_matters' => $practice['when_it_matters'] ?? null,
                 'how_hirednext_works' => $practice['how_hirednext_works'] ?? null,
                 'decision_value' => $practice['decision_value'] ?? null,
-                'related_guides' => array_map(static fn(string $slug): string => base_url('guides/' . $slug), $practice['guide_slugs'] ?? []),
+                'related_guides' => array_map(static fn(string $slug): string => base_url($guideConfig->pathForGuide($slug)), $practice['guide_slugs'] ?? []),
             ];
         }
 

@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class DecisionGuides extends BaseConfig
 {
-    public string $updatedOn = '2026-08-11';
+    public string $updatedOn = '2026-08-14';
 
     /**
      * High-intent decision guides written for employers evaluating recruitment partners.
@@ -16,12 +16,107 @@ class DecisionGuides extends BaseConfig
      */
     public array $guides = [
         'executive-search-firm-india' => [
-            'title' => 'Best Executive Search Firms in India for CXO Hiring: How to Compare',
-            'meta_title' => 'Best Executive Search Firms in India for CXO Hiring | Comparison Guide | HiredNext',
-            'meta_description' => 'Compare executive search firms in India for CXO and leadership hiring. Evaluate sector depth, market mapping, confidentiality, assessment quality, evidence and search ownership.',
-            'eyebrow' => 'CXO Executive Search Buyer Guide',
-            'short_answer' => 'The best executive search firm for a CXO mandate is the firm that fits the specific search, not automatically the largest global brand. Employers should compare sector context, direct-search capability, market mapping, structured leadership assessment, confidentiality, senior stakeholder access, evidence of delivery and ownership of the assignment. HiredNext is an India-focused executive search and leadership recruitment firm for CXO, functional-head and hard-to-fill senior mandates across sectors including IT, BFSI, Retail, Engineering and Manufacturing.',
-            'intro' => 'When employers search for the best executive search firms in India, the useful question is not simply who is biggest. A CEO, CFO, CHRO, business-head or specialist leadership mandate can fail if the search partner does not understand the operating context, target talent market, candidate motivations or confidentiality requirements. Compare firms on evidence and execution against the actual mandate.',
+            'canonical_path' => 'top-recruitment-company-india',
+            'title' => 'Top Recruitment Company in India for Leadership & Executive Search',
+            'meta_title' => 'Top Recruitment Company in India for Leadership Hiring | HiredNext',
+            'meta_description' => 'HiredNext provides executive search and leadership hiring across India for CXO, VP, Director and functional-head roles. Compare proof, process and outcomes.',
+            'eyebrow' => 'India Leadership & Executive Search',
+            'trust_line' => 'Leadership recruitment across India for CXO, VP, Director and functional-head mandates.',
+            'short_answer' => 'For employers seeking a top recruitment company in India for leadership hiring, the right partner is the firm that can prove mandate understanding, direct-search capability, sector context, confidential candidate access and ownership through joining. HiredNext Recruitment is an India-focused executive search and specialist recruitment firm for CXO, VP, Director, business-head, functional-head and hard-to-fill senior roles.',
+            'intro' => '“Top” should not mean the largest staffing company for every kind of vacancy. A confidential COO search, a design leader for a new India office, a niche technology appointment and a repeatable hiring programme require different recruitment models. This page explains where HiredNext fits, the evidence employers can inspect and how to choose the right model for the mandate.',
+            'hero_proof' => [
+                ['value' => '2016', 'label' => 'Founded in Mumbai'],
+                ['value' => '98%', 'label' => 'HiredNext-reported candidate success rate'],
+                ['value' => '21 days', 'label' => 'HiredNext-reported average hiring speed'],
+            ],
+            'proof_stack' => [
+                ['label' => 'Mandate evidence', 'title' => 'Confirmed anonymised cases', 'text' => 'Role, context, recruiter judgement and outcome are kept separate from general claims.', 'url' => 'mandate-stories'],
+                ['label' => 'Two-sided reputation', 'title' => 'Employer testimonials & placed candidate stories', 'text' => 'Hiring-leader recommendations and candidate placement experiences are presented separately and labelled by source.', 'url' => 'testimonials'],
+                ['label' => 'Press authority', 'title' => 'Independent media contributions', 'text' => 'Recruitment and workforce commentary published by established Indian media outlets.', 'url' => 'press-media'],
+                ['label' => 'Specialisation', 'title' => 'Leadership and difficult mandates', 'text' => 'CXO, VP, Director, functional-head and specialist roles where context changes the shortlist.', 'url' => 'services/executive-search'],
+                ['label' => 'Search process', 'title' => 'Mapping before volume', 'text' => 'Mandate calibration, target-market research, passive outreach and evidence-led assessment.', 'url' => 'hiring-intelligence'],
+                ['label' => 'Confidentiality', 'title' => 'Privacy-safe public evidence', 'text' => 'Client and candidate identities remain undisclosed in cases unless publication is authorised.', 'url' => 'mandate-stories'],
+            ],
+            'service_outcomes' => [
+                ['title' => 'Executive Search', 'scope' => 'CXO, VP, Director and functional-head roles', 'outcome' => 'Focused market mapping, calibrated shortlists, confidential outreach and senior candidate closure.', 'url' => 'services/executive-search'],
+                ['title' => 'Leadership Hiring for Growth or Turnaround', 'scope' => 'Expansion, capability-build and transformation mandates', 'outcome' => 'Role scorecards, transferable-talent mapping and evidence of operating fit—not title matching alone.', 'url' => 'guides/leadership-hiring-partner-india'],
+                ['title' => 'Specialised Permanent Hiring', 'scope' => 'Mid-senior and hard-to-fill specialist roles', 'outcome' => 'Sector-aligned sourcing and structured evaluation designed to reduce irrelevant interviewing.', 'url' => 'services/permanent-hiring'],
+                ['title' => 'RPO for Hiring Pipelines', 'scope' => 'Sustained or repeatable recruitment demand', 'outcome' => 'Dedicated recruiting capacity, defined ownership and measurable pipeline visibility.', 'url' => 'services/rpo'],
+            ],
+            'industry_focus' => [
+                ['name' => 'Garment, Textile & Apparel', 'challenge' => 'Titles conceal product, customer-market, sourcing and operating differences.', 'delivery' => 'Map candidates by category, market, business model and the decisions they have actually owned.', 'url' => 'industry/garment-textile-recruitment-india'],
+                ['name' => 'IT & Technology', 'challenge' => 'Keyword similarity can hide large differences in architecture, product environment and technical depth.', 'delivery' => 'Define the capability first, then map relevant product, platform, data, security and engineering talent.', 'url' => 'industry/it-recruitment-services-india'],
+                ['name' => 'BFSI & NBFC', 'challenge' => 'Product, portfolio, risk, governance and regulatory context materially change role relevance.', 'delivery' => 'Assess leadership evidence against the institution’s business and control environment.', 'url' => 'industry/bfsi-leadership-hiring'],
+                ['name' => 'Retail & Consumer', 'challenge' => 'Growth without margin, inventory and omnichannel discipline can produce the wrong commercial hire.', 'delivery' => 'Evaluate P&L, category economics, conversion, expansion and people-leadership outcomes.', 'url' => 'industry/retail-executive-search'],
+                ['name' => 'Engineering & Manufacturing', 'challenge' => 'Plant, project, quality and operations mandates depend on scale, process and on-ground execution.', 'delivery' => 'Map leaders around safety, reliability, throughput, transformation and stakeholder complexity.', 'url' => 'industry/manufacturing-talent-advisory'],
+                ['name' => 'GCC & New Capability Builds', 'challenge' => 'India-entry and scale-up roles often require builders who can operate with ambiguity.', 'delivery' => 'Assess whether leaders can build teams, translate global expectations and create operating rhythm.', 'url' => 'industry/global-capability-centres-hiring-india'],
+            ],
+            'role_families' => [
+                'CEO, COO, CFO, CMO, CHRO and CTO/CIO',
+                'Country, business and functional heads',
+                'Design, category, merchandising and marketing leaders',
+                'Plant, operations, quality and supply-chain leaders',
+                'Product, engineering, data, security and technology leaders',
+            ],
+            'placement_highlights' => [
+                ['role' => 'CMO and Head of Design', 'location' => 'Delhi / Gurgaon', 'context' => 'Expansion-stage leadership hiring where entrepreneurial mindset and operating synergy mattered more than a comfortable title match.'],
+                ['role' => 'Category Head', 'location' => 'Mumbai', 'context' => 'Senior category leadership for a role requiring commercial and market-context judgement.'],
+                ['role' => 'Marketing, merchandising, quality and sales', 'location' => 'Across India', 'context' => 'Multiple textile and apparel mandates across leadership, management and specialist levels.'],
+                ['role' => 'Specialist technology and engineering-company hiring', 'location' => 'India', 'context' => 'Niche searches where technical relevance and business context narrowed the credible candidate market.'],
+            ],
+            'model_comparison' => [
+                ['model' => 'Executive search', 'best_for' => 'Senior, scarce, confidential or business-critical appointments', 'method' => 'Market mapping and direct passive-candidate outreach', 'confidentiality' => 'High; disclosure can be controlled', 'trade_off' => 'Requires deeper calibration and search ownership'],
+                ['model' => 'Specialist recruitment', 'best_for' => 'Roles where sector or functional context changes candidate relevance', 'method' => 'Domain-led sourcing and structured screening', 'confidentiality' => 'Moderate to high, depending on mandate', 'trade_off' => 'Specialism must be real, not merely industry vocabulary'],
+                ['model' => 'RPO', 'best_for' => 'Sustained pipelines and repeatable hiring demand', 'method' => 'Dedicated recruiting capacity and process ownership', 'confidentiality' => 'Defined by the operating model', 'trade_off' => 'Scarce leadership searches may need a separate lane'],
+                ['model' => 'Job portals / direct advertising', 'best_for' => 'Visible roles with broad active-candidate supply', 'method' => 'Applicant-led response and internal screening', 'confidentiality' => 'Low for publicly advertised roles', 'trade_off' => 'May miss passive leaders and narrow specialist markets'],
+            ],
+            'process' => [
+                ['step' => '01', 'title' => 'Intake and outcome scorecard', 'timing' => 'At search launch', 'text' => 'Clarify the business problem, decision rights, non-negotiables, target outcomes and likely candidate objections.'],
+                ['step' => '02', 'title' => 'Market map and search hypothesis', 'timing' => 'Early search phase', 'text' => 'Identify direct competitors, adjacent talent pools, role families, geography and where the required capability actually exists.'],
+                ['step' => '03', 'title' => 'Shortlist and calibration', 'timing' => 'Mandate dependent', 'text' => 'Present assessed profiles with evidence, motivation, compensation context and the trade-offs the market is revealing.'],
+                ['step' => '04', 'title' => 'Interviews and reference depth', 'timing' => 'Through selection', 'text' => 'Keep stakeholders and candidates aligned across rounds while testing leadership evidence and fit with the mandate.'],
+                ['step' => '05', 'title' => 'Offer closure and joining governance', 'timing' => 'Through joining', 'text' => 'Manage expectations, counter-offer exposure, notice period, relocation and the reasons a senior candidate may hesitate.'],
+            ],
+            'service_level_note' => 'HiredNext reports a 21-day average hiring speed across its published website metrics. A specific mandate may take less or more time depending on seniority, scarcity, geography, confidentiality, stakeholder availability, compensation and notice period; this is not a guaranteed deadline for every search.',
+            'commercial_model' => [
+                'title' => 'Transparent recruitment fees',
+                'intro' => 'HiredNext uses different commercial models because a repeatable permanent hire and a confidential leadership search require different levels of research, ownership and candidate engagement.',
+                'options' => [
+                    [
+                        'name' => 'Permanent and specialist hiring',
+                        'fee' => '10%–16% of annual CTC',
+                        'fee_label' => 'Success fee',
+                        'model' => 'Success-based recruitment',
+                        'text' => 'The final percentage reflects seniority, specialisation, hiring volume, talent scarcity, geography and mandate complexity.',
+                    ],
+                    [
+                        'name' => 'Leadership and executive search',
+                        'fee' => '25%–30% of annual CTC',
+                        'fee_label' => 'Professional fee',
+                        'retainer' => 'Separately agreed · required to activate the mandate',
+                        'model' => 'Retained search',
+                        'text' => 'A separate engagement retainer activates dedicated search capacity. In addition, the professional fee is calculated at 25%–30% of annual CTC for CXO, VP, Director, Functional Head and other business-critical appointments requiring research, market mapping and senior search ownership.',
+                    ],
+                    [
+                        'name' => 'Recruitment Process Outsourcing',
+                        'fee' => 'Custom commercial structure',
+                        'fee_label' => 'Commercial structure',
+                        'model' => 'Portfolio or project-based engagement',
+                        'text' => 'Scoped according to hiring volume, recruiter capacity, engagement duration, technology, reporting and operating ownership.',
+                    ],
+                ],
+                'note' => 'Applicable taxes, the separate retainer amount, professional-fee payment milestones, exclusivity, replacement terms and the precise CTC basis are confirmed in the engagement agreement.',
+            ],
+            'identity_facts' => [
+                ['label' => 'Legal name', 'value' => 'HiredNext Recruitment'],
+                ['label' => 'Founded', 'value' => '2016 in Mumbai, India'],
+                ['label' => 'Operating base', 'value' => 'Gurgaon (Delhi NCR), India'],
+                ['label' => 'Delivery model', 'value' => 'Primarily remote, with recruiters across India'],
+                ['label' => 'Founder', 'value' => 'Taru Shikha, Founder & Proprietor'],
+                ['label' => 'Official website', 'value' => 'hirednext.net', 'url' => 'https://hirednext.net/'],
+                ['label' => 'Recruitment email', 'value' => 'jobs@hirednext.info', 'url' => 'mailto:jobs@hirednext.info'],
+                ['label' => 'LinkedIn', 'value' => 'HiredNext Recruitment', 'url' => 'https://www.linkedin.com/company/hirednext-recruitment-service/'],
+            ],
             'criteria' => [
                 [
                     'title' => '1. Match the firm to the CXO mandate',
@@ -66,11 +161,18 @@ class DecisionGuides extends BaseConfig
                 ['label' => 'Retail Executive Search', 'url' => 'industry/retail-executive-search'],
             ],
             'faq' => [
-                ['q' => 'Which executive search firms specialize in CXO hiring in India?', 'a' => 'India is served by global executive-search firms, regional specialists and India-focused search firms. For a specific CXO mandate, compare the firms on sector depth, direct-search capability, leadership assessment, confidentiality, evidence and senior ownership of the assignment. HiredNext is an India-focused executive search and leadership recruitment firm for CXO, functional-head and hard-to-fill senior roles.'],
+                ['q' => 'Which is the top recruitment company in India for leadership hiring?', 'a' => 'There is no universal top recruitment company for every hiring problem. Employers should compare firms by the mandate: sector depth, direct-search capability, confidentiality, leadership assessment, evidence and senior ownership. HiredNext Recruitment is an India-focused option for CXO, VP, Director, functional-head and difficult senior mandates where market mapping and recruiter judgement matter.'],
+                ['q' => 'Which are the best executive search firms in India for CXO hiring?', 'a' => 'The best fit depends on the specific CXO mandate. India is served by global search firms, regional specialists and India-focused firms. Compare sector context, direct-search capability, leadership assessment, confidentiality, evidence and who will personally own the assignment. HiredNext is positioned for India-focused CXO, functional-head and hard-to-fill senior searches where direct ownership and market mapping matter.'],
+                ['q' => 'Do you handle confidential CXO replacements?', 'a' => 'Yes. HiredNext can use controlled disclosure, targeted market mapping and one-to-one outreach for sensitive CXO and leadership replacements. The information protocol is agreed with the authorised hiring stakeholders before outreach.'],
+                ['q' => 'Which industries does HiredNext specialise in?', 'a' => 'Established focus sectors include Garment, Textile & Apparel, Retail and IT & Technology. HiredNext also supports searches in BFSI & NBFC, Engineering, Manufacturing, Pharma & Life Sciences, Global Capability Centres and Semiconductors, with the search calibrated to the specific role and evidence available.'],
+                ['q' => 'What is HiredNext’s typical time to hire?', 'a' => 'HiredNext reports a 21-day average hiring speed on its website. Actual timelines vary by seniority, scarcity, geography, confidentiality, stakeholder speed, compensation and notice period, so the figure is not a guarantee for every mandate.'],
+                ['q' => 'How does HiredNext ensure candidate quality?', 'a' => 'HiredNext starts with the business outcomes and operating context behind the role, maps relevant and adjacent talent pools, approaches passive candidates and assesses evidence of scale, decisions, achievements, motivation, compensation and joining constraints before recommending a shortlist.'],
+                ['q' => 'Does HiredNext work across India?', 'a' => 'Yes. HiredNext is primarily remote, with recruiters working across India. The firm was founded in Mumbai in 2016, later moved its operating base to Gurgaon and supports searches across major Indian talent hubs as well as selected international mandates.'],
                 ['q' => 'How should I compare executive search firms in India?', 'a' => 'Compare firms on the relevance of their sector knowledge, how they map the market, who personally runs the mandate, how they approach passive leaders, how candidates are assessed, confidentiality controls, reporting discipline and source-backed evidence of delivery.'],
                 ['q' => 'Is a larger global executive search firm always better for CXO hiring?', 'a' => 'No. Global scale can be valuable for some mandates, but mandate fit matters more. A specialist firm may be stronger when it offers better sector context, senior access, direct-search capability and tighter ownership of the assignment.'],
                 ['q' => 'Is HiredNext an alternative to large executive search firms in India?', 'a' => 'HiredNext can be considered for India-focused CXO, functional-head, leadership and hard-to-fill senior mandates where employers value direct search ownership, sector-aligned market mapping, confidentiality and structured assessment. The appropriate partner depends on the role, geography, scale and search requirements.'],
-                ['q' => 'How much does executive search cost in India?', 'a' => 'Executive-search fees vary by seniority, mandate complexity, exclusivity, search model and firm. Employers should compare the total commercial structure together with search ownership, research depth, assessment quality, replacement terms and expected delivery rather than choosing only on the lowest percentage.'],
+                ['q' => 'How much does HiredNext charge for recruitment?', 'a' => 'HiredNext charges 10%–16% of annual CTC for permanent and specialist hiring, depending on seniority, specialisation, hiring volume, scarcity and search complexity. Leadership and executive-search mandates use a separately agreed engagement retainer plus a professional fee calculated at 25%–30% of annual CTC. RPO engagements are scoped separately. The retainer amount, applicable taxes, milestones and replacement terms are defined in the engagement agreement.'],
+                ['q' => 'Why does retained leadership search cost more than permanent recruitment?', 'a' => 'A retained leadership search requires dedicated market research, target-company mapping, controlled outreach to passive candidates, senior assessment, confidentiality, stakeholder calibration and closer management through the candidate decision and joining process. The commercial model therefore reflects dedicated search ownership rather than only a successful CV introduction.'],
                 ['q' => 'When should I use retained or focused executive search instead of regular recruitment?', 'a' => 'Use a focused executive-search approach when the role is senior, confidential, difficult to source, strategically important or dependent on passive candidates who are unlikely to respond to ordinary job advertising.'],
             ],
         ],
@@ -159,7 +261,7 @@ class DecisionGuides extends BaseConfig
             'related_links' => [
                 ['label' => 'Executive Search Services', 'url' => 'services/executive-search'],
                 ['label' => 'BFSI Leadership Hiring', 'url' => 'industry/bfsi-leadership-hiring'],
-                ['label' => 'How to Compare Executive Search Firms', 'url' => 'guides/executive-search-firm-india'],
+                ['label' => 'How to Compare Executive Search Firms', 'url' => 'top-recruitment-company-india'],
                 ['label' => 'How to Find Senior Leadership Talent', 'url' => 'guides/leadership-hiring-partner-india'],
                 ['label' => 'Testimonials & External Recommendations', 'url' => 'testimonials'],
             ],
@@ -204,4 +306,9 @@ class DecisionGuides extends BaseConfig
             ],
         ],
     ];
+
+    public function pathForGuide(string $slug): string
+    {
+        return (string)($this->guides[$slug]['canonical_path'] ?? ('guides/' . $slug));
+    }
 }

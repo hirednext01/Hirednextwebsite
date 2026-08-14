@@ -130,7 +130,7 @@ $roleContexts = $roleContexts ?? [];
                     <p class="text-white/75 text-lg leading-relaxed mb-7">The value is in seeing what others miss, explaining why it matters, keeping the right person engaged and being willing to tell either side when the assumption, level, offer or move does not make sense.</p>
                     <div class="flex flex-wrap gap-3">
                         <a href="<?= base_url('services/clients') ?>" class="inline-flex px-5 py-3 rounded-xl bg-white text-primary font-black text-sm">Discuss a hiring mandate</a>
-                        <a href="<?= base_url('guides/executive-search-firm-india') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">Read the Executive Search guide</a>
+                        <a href="<?= base_url('top-recruitment-company-india') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">Read the Executive Search guide</a>
                     </div>
                 </section>
 
@@ -146,7 +146,7 @@ $roleContexts = $roleContexts ?? [];
                 <div class="rounded-2xl border border-gray-200 bg-white p-6">
                     <div class="text-[10px] uppercase tracking-[0.26em] text-gray-400 font-black mb-4">Independent proof</div>
                     <div class="space-y-3 text-sm">
-                        <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('testimonials') ?>">Client & candidate recommendations →</a>
+                        <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('testimonials') ?>">Client testimonials & placed candidate stories →</a>
                         <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('press-media') ?>">Press & expert commentary →</a>
                         <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('about/taru-shikha') ?>">Founder profile →</a>
                         <a class="block font-bold text-primary hover:text-accent" href="<?= base_url('hiring-intelligence') ?>">Hiring intelligence →</a>

@@ -25,7 +25,7 @@ class HumanAuthorityLinksFilter implements FilterInterface
         }
 
         $path = trim($request->getUri()->getPath(), '/');
-        if (!str_starts_with($path, 'guides/')) {
+        if (!str_starts_with($path, 'guides/') && $path !== 'top-recruitment-company-india') {
             return;
         }
 

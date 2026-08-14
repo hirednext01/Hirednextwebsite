@@ -195,14 +195,14 @@ class DiscoveryAuthority extends BaseController
             ],
             [
                 'id' => 'share-testimonial',
-                'label' => 'Share a candidate testimonial',
+                'label' => 'Share a placed-candidate testimonial',
                 'method' => 'POST',
                 'url' => base_url('testimonials/share'),
                 'audience' => 'candidate',
                 'requires_user_submission' => true,
-                'required_fields' => ['name', 'email', 'help_received', 'story', 'future_support', 'publish_consent'],
-                'optional_fields' => ['phone', 'current_role', 'linkedin_url'],
-                'notes' => 'Submissions remain pending until HiredNext reviews and approves them.',
+                'required_fields' => ['name', 'email', 'placement_role', 'help_received', 'story', 'future_support', 'publish_consent'],
+                'optional_fields' => ['phone', 'current_role', 'placement_location', 'placement_year', 'linkedin_url'],
+                'notes' => 'This form is for candidates placed through HiredNext. Submissions remain pending until HiredNext reviews and approves them.',
             ],
             [
                 'id' => 'read-hiring-intelligence',
@@ -244,6 +244,7 @@ class DiscoveryAuthority extends BaseController
                 'name' => 'HiredNext Canonical Public Facts',
                 'status' => 'source_of_record_for_site_consistency',
                 'facts' => $facts->facts,
+                'verified_numeric_claims' => $facts->verifiedNumericClaims,
                 'numeric_claim_policy' => $facts->numericClaimPolicy,
                 'numeric_claims_not_currently_canonical' => $facts->unverifiedNumericClaims,
                 'related_sources' => [

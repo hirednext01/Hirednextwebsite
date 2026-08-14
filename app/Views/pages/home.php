@@ -824,11 +824,11 @@
                     Proven Partnerships
                 </span>
                 <h2 class="text-3xl md:text-5xl font-bold mb-5 font-serif">
-                    ⭐ Strategic Impact
+                    What Clients & Hiring Leaders Say
                 </h2>
                 <p class="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
-                    Partnering with leadership to deliver consistent, precision-driven
-                    results worldwide.
+                    Employer-side feedback stays separate from the stories shared by
+                    candidates HiredNext has placed.
                 </p>
             </div>
 
@@ -836,6 +836,31 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-24">
                 <?php
                 $homeTestimonials = $testimonials ?? [];
+                $homeTestimonials = array_values(array_filter($homeTestimonials, static function (array $item): bool {
+                    $relationship = trim((string)($item['relationship_type'] ?? ''));
+                    $submittedVia = trim((string)($item['submitted_via'] ?? ''));
+                    $proofType = mb_strtolower(trim((string)($item['proof_type'] ?? $item['project_type'] ?? '')));
+                    if (in_array($relationship, ['placed_candidate', 'candidate_professional'], true)) {
+                        return false;
+                    }
+                    if (str_contains($submittedVia, 'candidate_')) {
+                        return false;
+                    }
+                    if (str_contains($proofType, 'candidate') || str_contains($proofType, 'career')) {
+                        return false;
+                    }
+                    if (($item['status'] ?? '') === 'external' && $relationship === '') {
+                        $explicitEmployerTypes = [
+                            'employer recruitment experience',
+                            'employer recruitment delivery',
+                            'apparel & textile recruitment',
+                            'talent evaluation',
+                            'recruitment experience',
+                        ];
+                        return in_array($proofType, $explicitEmployerTypes, true);
+                    }
+                    return true;
+                }));
                 $homeTestimonials = array_slice($homeTestimonials, 0, 3);
                 ?>
                 <?php if (!empty($homeTestimonials)): ?>
@@ -858,11 +883,15 @@
                                 </svg>
                             </div>
 
-                            <div class="flex gap-1 mb-8 text-gold">
-                                <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <?= $i <= $rating ? '★' : '☆' ?>
-                                <?php endfor; ?>
-                            </div>
+                            <?php if ($rating > 0): ?>
+                                <div class="flex gap-1 mb-8 text-gold">
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                        <?= $i <= $rating ? '★' : '☆' ?>
+                                    <?php endfor; ?>
+                                </div>
+                            <?php else: ?>
+                                <div class="text-[10px] uppercase tracking-[0.22em] text-gold font-black mb-8">Employer recommendation</div>
+                            <?php endif; ?>
 
                             <p class="text-lg md:text-xl font-serif text-gray-200 italic leading-relaxed mb-10 flex-grow">
                                 “<?= esc($quote) ?>”
@@ -892,10 +921,15 @@
             </div>
 
 <!-- CTA -->
-            <div class="text-center reveal reveal-up">
+            <div class="text-center reveal reveal-up flex flex-wrap justify-center gap-4">
                 <a href="<?= base_url('testimonials') ?>"
                     class="group inline-flex items-center px-10 py-5 bg-white text-primary rounded-2xl font-black text-xs uppercase tracking-[0.3em] hover:bg-accent hover:text-white transition-all shadow-xl shadow-primary/20">
-                    Explore All Testimonials
+                    Client Testimonials
+                    <span class="ml-3 group-hover:translate-x-2 transition-transform">→</span>
+                </a>
+                <a href="<?= base_url('testimonials#placed-candidate-stories') ?>"
+                    class="group inline-flex items-center px-10 py-5 border border-white/20 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:border-gold hover:text-gold transition-all">
+                    Placed Candidate Stories
                     <span class="ml-3 group-hover:translate-x-2 transition-transform">→</span>
                 </a>
             </div>

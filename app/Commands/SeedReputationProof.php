@@ -75,6 +75,17 @@ class SeedReputationProof extends BaseCommand
             if (isset($fields['designation'])) {
                 $payload['designation'] = $designation !== '' ? $designation : null;
             }
+            if (isset($fields['relationship_type'])) {
+                $explicitRelationship = trim((string)($item['relationship_type'] ?? ''));
+                if ($explicitRelationship !== '') {
+                    $payload['relationship_type'] = $explicitRelationship;
+                } else {
+                    $candidateProofTypes = ['Candidate Experience', 'Career & Recruitment Support'];
+                    $payload['relationship_type'] = in_array($proofType, $candidateProofTypes, true)
+                        ? 'candidate_professional'
+                        : 'employer';
+                }
+            }
 
             $matches = $db->table('reviews')
                 ->select('id, client_name, source_url')

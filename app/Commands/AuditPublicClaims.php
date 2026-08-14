@@ -25,8 +25,6 @@ class AuditPublicClaims extends BaseCommand
 
         $patterns = [
             '1500+ placements' => '/1500\s*\+|placements\s*:\s*1500\s*\+/i',
-            '98% success rate' => '/98\s*%|success\s*rate\s*:\s*98\s*%/i',
-            '21-day average hiring speed' => '/21\s*(?:day|days)/i',
             '12 sectors' => '/12\s+sectors?/i',
             '25+ industries' => '/25\s*\+\s*industr(?:y|ies)/i',
             'guaranteed success wording' => '/success\s+guaranteed|guaranteed\s+success/i',

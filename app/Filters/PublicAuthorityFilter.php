@@ -104,7 +104,7 @@ class PublicAuthorityFilter implements FilterInterface
                         link_url: href
                     });
                 }
-                if (window.location.pathname.startsWith('/guides/') && (href.includes('/contact') || href.includes('calendly.com/tarushikha-hirednext'))) {
+                if ((window.location.pathname.startsWith('/guides/') || window.location.pathname === '/top-recruitment-company-india') && (href.includes('/contact') || href.includes('calendly.com/tarushikha-hirednext'))) {
                     window.gtag('event', 'authority_cta_click', {
                         guide_path: window.location.pathname,
                         link_url: href
@@ -126,16 +126,13 @@ HTML;
 
     private function normaliseHomepageClaims(string $body): string
     {
-        // BrandFacts.php is the source of record: unverified company-wide totals,
-        // percentages and speed claims must not be strengthened or published.
+        // BrandFacts.php is the source of record: unverified company-wide totals
+        // must not be strengthened or published. Founder-confirmed 98% and 21-day
+        // metrics remain visible with HiredNext-reported context on deeper pages.
         $replacements = [
             'Experience: 10+ Years' => 'Executive & Leadership Search',
             'Placements: 1500+' => 'Confidential & Specialist Search',
             'Industries: 5 Core Sectors' => 'Sector-Aligned Market Mapping',
-            'Success Rate: 98%' => 'Evidence-Led Assessment',
-            '<div class="text-6xl font-bold mb-4">98%</div>' => '<div class="text-4xl font-bold mb-4">Search-led</div>',
-            'Candidate success rate across leadership search mandates.' => 'Market mapping and structured assessment for leadership and hard-to-fill mandates.',
-            '<div class="text-2xl font-bold text-white">21 days</div>' => '<div class="text-xl font-bold text-white">Direct search</div>',
             '<div class="text-2xl font-bold text-white">12 sectors</div>' => '<div class="text-xl font-bold text-white">India focused</div>',
             '<div class="text-3xl font-bold mb-2">1500+</div>' => '<div class="text-2xl font-bold mb-2">Evidence-led</div>',
             'Leadership Placements' => 'Leadership Search',
@@ -170,7 +167,7 @@ HTML;
             <article class="bg-white border border-gray-100 rounded-2xl p-7">
                 <h3 class="text-xl font-bold text-primary mb-3">How should I compare executive search firms in India?</h3>
                 <p class="text-gray-600 leading-relaxed mb-4">Compare mandate fit, sector context, direct-search capability, market mapping, assessment depth, confidentiality, senior ownership and source-backed evidence — not brand size alone.</p>
-                <a class="font-bold text-accent" href="/guides/executive-search-firm-india">Read the comparison guide →</a>
+                <a class="font-bold text-accent" href="/top-recruitment-company-india">Read the comparison guide →</a>
             </article>
             <article class="bg-white border border-gray-100 rounded-2xl p-7">
                 <h3 class="text-xl font-bold text-primary mb-3">How do companies find senior leadership talent in India?</h3>
@@ -194,7 +191,7 @@ HTML;
             </article>
             <article class="bg-white border border-gray-100 rounded-2xl p-7">
                 <h3 class="text-xl font-bold text-primary mb-3">How long does executive search take in India?</h3>
-                <p class="text-gray-600 leading-relaxed mb-4">There is no responsible universal number. Seniority, scarcity, geography, compensation, confidentiality, stakeholder speed, notice periods and counter-offers all change the timeline.</p>
+                <p class="text-gray-600 leading-relaxed mb-4">HiredNext reports a 21-day average hiring speed, but no responsible firm should promise one universal timeline. Seniority, scarcity, geography, compensation, confidentiality, stakeholder speed, notice periods and counter-offers all change the outcome.</p>
                 <a class="font-bold text-accent" href="/guides/leadership-hiring-partner-india">Understand the search timeline →</a>
             </article>
         </div>

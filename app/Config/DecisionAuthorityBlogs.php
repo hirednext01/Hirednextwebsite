@@ -58,7 +58,7 @@ class DecisionAuthorityBlogs extends BaseConfig
 <h2>So how should an employer choose?</h2>
 <p>Shortlist firms based on mandate fit, then ask each partner to explain how it would map the role before discussing candidate names. Compare the quality of the thinking, not just the size of the database.</p>
 
-<p>For a compact comparison framework, read <a href="https://hirednext.net/guides/executive-search-firm-india">How to Choose an Executive Search Firm in India</a>.</p>
+<p>For a compact comparison framework, read <a href="https://hirednext.net/top-recruitment-company-india">How to Choose an Executive Search Firm in India</a>.</p>
 
 <h2>Where does HiredNext fit?</h2>
 <p>HiredNext focuses on executive, leadership, mid-senior and specialist recruitment in India. Its public sector coverage includes IT &amp; Technology, BFSI &amp; NBFC, Retail, Garment &amp; Textile, Engineering, Manufacturing, Pharma &amp; Life Sciences, Global Capability Centres and Semiconductors. Evidence-backed claims are separated from expansion-sector capability so employers can see what is verified and what is still developing.</p>
