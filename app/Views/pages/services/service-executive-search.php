@@ -114,7 +114,7 @@
             </p>
         </div>
         <div class="executive-link-columns">
-            <div><h3>Sector expertise</h3><a href="<?= base_url('industry/it-recruitment-services-india') ?>">Technology & GCC</a><a href="<?= base_url('industry/bfsi-leadership-hiring') ?>">BFSI</a><a href="<?= base_url('industry/retail-executive-search') ?>">Retail & Consumer</a><a href="<?= base_url('industry/engineering-recruitment-firm') ?>">Engineering</a><a href="<?= base_url('industry/manufacturing-talent-advisory') ?>">Manufacturing</a></div>
+            <div><h3>Sector expertise</h3><a href="<?= base_url('industry/garment-textile-recruitment-india') ?>">Textile, Apparel, Fashion & Lifestyle</a><a href="<?= base_url('industry/it-recruitment-services-india') ?>">Technology & GCC</a><a href="<?= base_url('industry/bfsi-leadership-hiring') ?>">BFSI</a><a href="<?= base_url('industry/retail-executive-search') ?>">Retail & Consumer</a><a href="<?= base_url('industry/engineering-recruitment-firm') ?>">Engineering</a><a href="<?= base_url('industry/manufacturing-talent-advisory') ?>">Manufacturing</a></div>
             <div><h3>Regions supported</h3><a href="<?= base_url('regions/india') ?>">India</a><a href="<?= base_url('regions/middle-east') ?>">Middle East</a><a href="<?= base_url('regions/apac') ?>">APAC</a><a href="<?= base_url('regions/europe') ?>">Europe</a><a href="<?= base_url('regions/usa') ?>">United States</a></div>
         </div>
     </div>

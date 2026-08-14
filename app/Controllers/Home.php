@@ -26,6 +26,10 @@ class Home extends BaseController
                 'a' => 'We use competitor mapping, performance-based shortlisting, and structured interviews to identify leaders with proven P&L and omnichannel execution.',
             ],
             [
+                'q' => 'Do you recruit for textile, apparel, garment and fashion businesses?',
+                'a' => 'Yes. HiredNext recruits leadership and specialist talent for export houses, buying houses, textile and apparel manufacturers, fashion retailers and lifestyle brands across India and selected cross-border mandates.',
+            ],
+            [
                 'q' => 'What engineering leadership roles do you specialize in?',
                 'a' => 'We specialize in leadership roles across engineering, projects, quality, maintenance, operations, plant leadership, and supply chain.',
             ],
@@ -840,6 +844,11 @@ class Home extends BaseController
                     'Assessment notes designed for senior stakeholders.',
                     'Confidential process for sensitive replacements and expansion hiring.',
                 ],
+                'related_pages' => [
+                    ['label' => 'Textile, Apparel, Fashion & Lifestyle Recruitment', 'url' => base_url('industry/garment-textile-recruitment-india')],
+                    ['label' => 'Manufacturing Talent Advisory', 'url' => base_url('industry/manufacturing-talent-advisory')],
+                    ['label' => 'Executive Search & Leadership Hiring', 'url' => base_url('services/executive-search')],
+                ],
                 'cta_title' => 'Get in Touch',
                 'cta_description' => 'If you are hiring a senior retail leader, share the mandate and we will revert with a search plan.',
                 'cta_panel_heading' => 'Leadership hiring for profitable retail growth.',
@@ -927,6 +936,11 @@ class Home extends BaseController
                         'question' => 'How do you assess candidates for plant leadership roles?',
                         'answer' => 'Candidates are assessed against the operating context of the plant, including scale, throughput, quality, safety, people leadership, cost, maintenance, supply chain, transformation, and measurable business outcomes.'
                     ],
+                ],
+                'related_pages' => [
+                    ['label' => 'Textile, Apparel, Fashion & Lifestyle Recruitment', 'url' => base_url('industry/garment-textile-recruitment-india')],
+                    ['label' => 'Retail Executive Search', 'url' => base_url('industry/retail-executive-search')],
+                    ['label' => 'Executive Search & Leadership Hiring', 'url' => base_url('services/executive-search')],
                 ],
                 'cta_panel_heading' => 'Leadership hiring for plant and operations scale.',
                 'cta_panel_body' => 'For capacity ramp-ups, turnarounds, or new plant leadership mandates, share your operating metrics and constraints. We will propose a retained search plan and timelines.',

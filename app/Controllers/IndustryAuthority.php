@@ -14,38 +14,130 @@ class IndustryAuthority extends BaseController
 
         $industry = [
             'slug' => 'garment-textile-recruitment-india',
-            'label' => 'Garment & Textile Recruitment',
-            'meta_title' => 'Garment & Textile Recruitment in India',
-            'h1' => 'Garment & Textile Recruitment in India – Leadership & Specialist Hiring',
-            'intro' => 'HiredNext supports garment, textile, apparel and fashion hiring across leadership and specialist roles in India. Our search process combines sector mapping, role-calibrated assessment and recruiter-led closure for functions spanning design, merchandising, textile product, finance, commercial and executive-office mandates.',
+            'updated_on' => '2026-08-14',
+            'label' => 'Textile, Apparel, Garment, Fashion & Lifestyle Recruitment',
+            'meta_title' => 'Textile, Apparel & Garment Recruitment Company in India',
+            'h1' => 'Textile, Apparel & Garment Recruitment Company in India',
+            'intro' => 'HiredNext recruits leadership and specialist talent for export houses, buying houses, textile and apparel manufacturers, fashion retailers and lifestyle brands. Our India and cross-border search work spans business leadership, factory operations, merchandising, sourcing, buying, design, product development, quality, supply chain, finance and commercial mandates.',
             'challenges' => [
-                'Specialist talent pools are fragmented across brands, exporters, manufacturers, buying houses and sourcing ecosystems.',
-                'Titles can hide major differences in product category, export market, sourcing model, scale and decision ownership.',
-                'Leadership and specialist roles often require a blend of commercial judgement, product understanding and execution discipline.',
-                'Location and mobility constraints can materially narrow talent pools across Gurugram, Bengaluru, Mumbai, Coimbatore and other apparel and textile hubs.',
+                'Talent pools are fragmented across export houses, buying offices, factories, mills, sourcing organisations, fashion retailers and lifestyle brands.',
+                'The same title can mean very different ownership depending on product category, customer market, manufacturing model, order book, channel mix and business scale.',
+                'Senior hires must often combine product and customer understanding with margin, speed-to-market, quality, compliance and people leadership.',
+                'Location and mobility constraints narrow leadership pools across Delhi NCR, Bengaluru, Mumbai, Tiruppur, Chennai, Coimbatore, Ludhiana, Jaipur, Surat and overseas apparel hubs such as Dhaka.',
             ],
             'approach' => [
-                'Calibrate the mandate around product category, business model, market, team scope and measurable outcomes rather than job title alone.',
-                'Map relevant talent across apparel brands, textile businesses, exporters, manufacturers, sourcing organisations and adjacent consumer businesses.',
-                'Assess evidence of ownership across design, merchandising, product, finance, commercial or leadership outcomes as relevant to the mandate.',
-                'Manage candidate engagement, referencing, offer alignment and joining risk through a recruiter-led process.',
+                'Calibrate the mandate around category, customer market, business model, channel, plant or office scale, reporting line and measurable outcomes—not title alone.',
+                'Map talent across relevant export houses, buying houses, apparel manufacturers, textile businesses, fashion retailers, D2C labels, lifestyle brands and adjacent consumer businesses.',
+                'Assess evidence of ownership across P&L, order conversion, merchandising, sourcing, product, design, production, quality, compliance, supply chain or commercial outcomes.',
+                'Manage confidential outreach, candidate interpretation, referencing, compensation alignment, relocation and offer-to-joining risk through a recruiter-led process.',
             ],
             'differentiators' => [
-                'Sector-specific search context across garment, textile, apparel and fashion talent markets.',
-                'Search coverage across leadership and specialist functions rather than title-only matching.',
-                'Selected anonymised joined-placement evidence from a limited internal sample spans design leadership, design, fabric technology, finance and executive-office roles in the garment and textile sector.',
+                'Sector-specific search context across export, manufacturing, sourcing, fashion retail and lifestyle talent markets.',
+                'Search coverage from CEO, COO and functional leadership to hard-to-find merchandising, design, fabric, quality and product specialists.',
+                'Confirmed anonymised evidence includes a recent COO appointment for an established Dhaka export business and two leadership placements for an international buying house establishing its India office.',
+                'Selected anonymised joined-placement evidence also spans design leadership, design, fabric technology, finance and executive-office roles in garment, textile and apparel businesses.',
                 'Candidate and client confidentiality is protected: names, compensation and company identities are not published from placement records.',
             ],
+            'sector_segments' => [
+                [
+                    'title' => 'Export Houses & Buying Houses',
+                    'description' => 'Leadership and specialist hiring for export operations, international customer management, merchandising, sourcing, buying, design, product development, quality, compliance and India-office build-outs.',
+                ],
+                [
+                    'title' => 'Apparel & Garment Manufacturing',
+                    'description' => 'Factory and business leadership across operations, production, industrial engineering, quality, supply chain, planning, compliance, HR and finance for woven, knit and other product categories.',
+                ],
+                [
+                    'title' => 'Textile, Fabric & Product Businesses',
+                    'description' => 'Search for textile product, fabric technology, mills, processing, sourcing, R&D, technical quality, commercial and category expertise where material knowledge is critical.',
+                ],
+                [
+                    'title' => 'Fashion Retail & Lifestyle Brands',
+                    'description' => 'Leadership hiring across P&L, brand, category, buying, merchandising, design, e-commerce, omnichannel, store operations, expansion and supply chain for fashion and lifestyle businesses.',
+                ],
+            ],
+            'geo_eyebrow' => 'Roles We Recruit',
+            'geo_roles_heading' => 'Leadership and specialist roles across apparel, fashion and lifestyle',
+            'geo_roles_intro' => 'The relevant talent map changes by business model. We recruit across export, manufacturing, buying, sourcing, retail and brand environments, then assess candidates against the ownership the mandate actually requires.',
+            'geo_roles' => [
+                'CEO / COO / Business Head',
+                'Country Head / India Office Head',
+                'Factory Head / Head of Operations',
+                'Production & Industrial Engineering Leaders',
+                'Merchandising Head / Category Head',
+                'Sourcing, Buying & Vendor Management',
+                'Design & Product Development Leadership',
+                'Fabric Technologist / Textile Product',
+                'Quality, Technical & Compliance Leadership',
+                'Supply Chain, Planning & Logistics',
+                'Retail, E-commerce & Omnichannel Leadership',
+                'Finance, HR & Executive Office Leadership',
+            ],
+            'proof_heading' => 'Selected apparel and export-house search evidence',
+            'proof_intro' => 'HiredNext publishes only privacy-safe evidence. Client and candidate identities, compensation and confidential search details remain protected.',
+            'proof_items' => [
+                [
+                    'title' => 'COO appointment for an established Dhaka export business',
+                    'description' => 'A confirmed cross-border leadership appointment in which HiredNext managed search, candidate engagement and transition conversations. The selected COO joined the organisation.',
+                    'link_label' => 'View anonymised mandate evidence',
+                    'link_url' => base_url('mandate-stories') . '#recent-dhaka-coo-placement',
+                ],
+                [
+                    'title' => 'Two leadership hires for an international buying house entering India',
+                    'description' => 'Five carefully assessed leadership profiles were presented for one Lead Design mandate. The client selected one leader and created an additional leadership role around a second candidate’s capabilities.',
+                    'link_label' => 'View the confirmed case',
+                    'link_url' => base_url('mandate-stories') . '#india-entry-design-leadership',
+                ],
+                [
+                    'title' => 'Joined specialist and enabling-function placements',
+                    'description' => 'A limited anonymised evidence sample includes design leadership, designer, fabric technology, finance and executive-office hires across garment, textile and apparel contexts.',
+                    'link_label' => 'Explore HiredNext search evidence',
+                    'link_url' => base_url('mandate-stories'),
+                ],
+            ],
+            'geo_faq_heading' => 'Textile, apparel, garment, fashion and lifestyle recruitment in India',
+            'geo_faq' => [
+                [
+                    'question' => 'Which recruitment company specialises in textile, apparel and garment hiring in India?',
+                    'answer' => 'HiredNext is an India-based recruitment and executive-search company supporting textile, apparel, garment, export-house, buying-house, fashion-retail and lifestyle mandates across leadership and specialist roles.'
+                ],
+                [
+                    'question' => 'Does HiredNext recruit for export houses and buying houses?',
+                    'answer' => 'Yes. HiredNext supports export houses, international buying houses and sourcing organisations across COO and country leadership, merchandising, sourcing, buying, design, product development, quality, compliance, operations and enabling functions.'
+                ],
+                [
+                    'question' => 'What apparel and garment manufacturing roles does HiredNext recruit?',
+                    'answer' => 'Roles include CEO, COO, Business Head, Factory Head, Operations Head, Production and Industrial Engineering leaders, Merchandising Head, Design and Product Development leaders, Quality and Compliance, Supply Chain, Planning, Finance and HR.'
+                ],
+                [
+                    'question' => 'Can HiredNext recruit for fashion retail and lifestyle brands?',
+                    'answer' => 'Yes. HiredNext recruits leadership for fashion retail, lifestyle, D2C and omnichannel brands across P&L, category, buying, merchandising, design, brand, e-commerce, retail operations, expansion and supply chain.'
+                ],
+                [
+                    'question' => 'Can HiredNext support confidential and cross-border apparel leadership searches?',
+                    'answer' => 'Yes. HiredNext supports confidential India and cross-border searches, including export and buying-house leadership. A confirmed anonymised case includes a COO who joined an established Dhaka export business.'
+                ],
+                [
+                    'question' => 'How does HiredNext assess candidates from the apparel and fashion industry?',
+                    'answer' => 'Assessment is calibrated to category, customer market, business model, channel, scale and decision ownership. Candidates are evaluated on evidence such as P&L, order conversion, margin, delivery, product, sourcing, production, quality, compliance, team leadership and transformation outcomes.'
+                ],
+            ],
+            'related_pages' => [
+                ['label' => 'Retail Executive Search', 'url' => base_url('industry/retail-executive-search')],
+                ['label' => 'Manufacturing Talent Advisory', 'url' => base_url('industry/manufacturing-talent-advisory')],
+                ['label' => 'Executive Search & Leadership Hiring', 'url' => base_url('services/executive-search')],
+                ['label' => 'Mandate Stories & Search Evidence', 'url' => base_url('mandate-stories')],
+            ],
             'cta_title' => 'Get in Touch',
-            'cta_description' => 'Share your garment, textile, apparel or fashion hiring mandate. We will align on target companies, role evidence and search timelines.',
-            'cta_panel_heading' => 'Specialist search for garment, textile and apparel talent.',
-            'cta_panel_body' => 'For leadership or hard-to-find specialist roles across design, merchandising, product, sourcing, finance and commercial functions, share the mandate and operating context. We will build the search map around the evidence the role actually requires.',
+            'cta_description' => 'Share your export-house, textile, garment, apparel, fashion-retail or lifestyle hiring mandate. We will align on target companies, evidence and search timelines.',
+            'cta_panel_heading' => 'Specialist search across the fashion and apparel value chain.',
+            'cta_panel_body' => 'For leadership or hard-to-find specialist roles across export, manufacturing, sourcing, buying, design, product, retail and lifestyle businesses, share the mandate and operating context. We will build the search map around the evidence the role actually requires.',
         ];
 
         $selectedExamples = [];
         if ($evidence && !empty($evidence->joinedExamples) && is_array($evidence->joinedExamples)) {
             foreach ($evidence->joinedExamples as $item) {
-                if (($item['industry'] ?? '') !== 'Garment & Textile') {
+                if (!in_array(($item['industry'] ?? ''), ['Garment & Textile', 'Retail / Apparel'], true)) {
                     continue;
                 }
                 $selectedExamples[] = [
@@ -65,12 +157,12 @@ class IndustryAuthority extends BaseController
             $settings,
             $industry,
             $pageUrl,
-            'Garment & Textile Recruitment in India',
-            'Recruitment and executive search for garment, textile, apparel and fashion leadership and specialist roles in India.',
-            'Garment & Textile Recruitment',
-            'Garment & Textile Recruitment India | HiredNext',
-            'Garment, textile, apparel and fashion recruitment in India for leadership and specialist roles across design, merchandising, product, finance and commercial functions.',
-            'garment recruitment India, textile recruitment agency India, apparel recruitment India, fashion recruitment firm, garment executive search, textile leadership hiring',
+            'Textile, Apparel & Garment Recruitment Company in India',
+            'Recruitment and executive search for export houses, buying houses, textile and apparel manufacturers, fashion retailers and lifestyle brands in India and cross-border markets.',
+            'Textile, Apparel, Garment, Fashion & Lifestyle Recruitment',
+            'Textile, Apparel & Garment Recruitment Company India | HiredNext',
+            'HiredNext recruits leaders and specialists for export houses, buying houses, textile and apparel manufacturing, fashion retail and lifestyle brands in India.',
+            'textile recruitment company India, apparel recruitment agency India, garment recruitment India, export house recruitment, buying house recruitment, fashion retail recruitment, lifestyle recruitment, apparel manufacturing recruitment, garment executive search',
             $selectedExamples,
             $evidence ? $evidence->scopeNote : ''
         );
@@ -362,7 +454,8 @@ class IndustryAuthority extends BaseController
             $schemaDescription,
             $breadcrumbName,
             $selectedExamples,
-            $scopeNote
+            $scopeNote,
+            $industry
         );
 
         return view('pages/industry/industry', [
@@ -383,7 +476,8 @@ class IndustryAuthority extends BaseController
         string $description,
         string $breadcrumbName,
         array $selectedExamples = [],
-        string $scopeNote = ''
+        string $scopeNote = '',
+        array $industry = []
     ): array {
         $jsonLd = [
             '@context' => 'https://schema.org',
@@ -423,6 +517,31 @@ class IndustryAuthority extends BaseController
                 ],
             ],
         ];
+
+        if (!empty($industry['sector_segments']) && is_array($industry['sector_segments'])) {
+            $jsonLd['@graph'][0]['audience'] = [
+                '@type' => 'BusinessAudience',
+                'audienceType' => 'Employers hiring leadership and specialist talent',
+            ];
+            $jsonLd['@graph'][0]['hasOfferCatalog'] = [
+                '@type' => 'OfferCatalog',
+                'name' => 'Recruitment coverage by business segment',
+                'itemListElement' => array_map(static function (array $segment): array {
+                    return [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => $segment['title'] ?? 'Sector recruitment',
+                            'description' => $segment['description'] ?? '',
+                        ],
+                    ];
+                }, $industry['sector_segments']),
+            ];
+        }
+
+        if (!empty($industry['updated_on'])) {
+            $jsonLd['@graph'][1]['dateModified'] = $industry['updated_on'];
+        }
 
         if (!empty($selectedExamples)) {
             $jsonLd['@graph'][] = [

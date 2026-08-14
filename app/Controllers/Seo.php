@@ -30,7 +30,7 @@ class Seo extends BaseController
             ['loc' => base_url('services/cv-assessment'), 'changefreq' => 'monthly', 'priority' => '0.8'],
 
             // Priority commercial recruitment verticals.
-            ['loc' => base_url('industry/garment-textile-recruitment-india'), 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['loc' => base_url('industry/garment-textile-recruitment-india'), 'lastmod' => '2026-08-14', 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('industry/it-recruitment-services-india'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('industry/bfsi-leadership-hiring'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('industry/retail-executive-search'), 'changefreq' => 'monthly', 'priority' => '0.9'],
@@ -184,7 +184,7 @@ class Seo extends BaseController
             '- [Executive Search](' . base_url('services/executive-search') . '): Confidential leadership hiring, market mapping and structured assessment.',
             '- [Permanent Recruitment](' . base_url('services/permanent-hiring') . '): Mid-senior and specialist recruitment support.',
             '- [Recruitment Process Outsourcing](' . base_url('services/rpo') . '): Flexible recruiting capacity for growing organisations.',
-            '- [Garment & Textile Recruitment](' . base_url('industry/garment-textile-recruitment-india') . '): Leadership and specialist hiring for garment, textile, apparel and fashion businesses in India.',
+            '- [Textile, Apparel, Garment, Fashion & Lifestyle Recruitment](' . base_url('industry/garment-textile-recruitment-india') . '): Leadership and specialist hiring for export houses, buying houses, textile and apparel manufacturers, fashion retailers and lifestyle brands in India and selected cross-border markets.',
             '- [IT & Technology Recruitment](' . base_url('industry/it-recruitment-services-india') . '): Engineering, cybersecurity, software, product, data and specialist technology recruitment in India.',
             '- [BFSI & NBFC Recruitment](' . base_url('industry/bfsi-leadership-hiring') . '): Banking, NBFC, fintech, insurance and financial-services recruitment in India.',
             '- [Retail Executive Search](' . base_url('industry/retail-executive-search') . '): Leadership hiring for retail, omnichannel, category, marketplace and consumer-brand mandates in India.',
@@ -218,7 +218,7 @@ class Seo extends BaseController
             '',
             '## Priority recruitment verticals',
             '',
-            '- Established evidence-led focus: Garment & Textile, Retail, IT & Technology.',
+            '- Established evidence-led focus: Textile, Apparel, Garment, Fashion & Lifestyle; Retail; IT & Technology.',
             '- Expansion focus: BFSI & NBFC, Pharma & Life Sciences, Global Capability Centres, Semiconductors.',
             '- Additional leadership search coverage: Engineering and Manufacturing.',
             '- Expansion-sector pages describe HiredNext search capability and target roles; placement-history claims are added only when verified evidence is available.',

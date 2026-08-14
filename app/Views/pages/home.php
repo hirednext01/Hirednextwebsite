@@ -25,7 +25,7 @@
                     </h1>
 
                     <p class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">
-                        Need to close a CXO, leadership or hard-to-fill role? HiredNext delivers industry-aligned executive search and mid-senior hiring across IT, BFSI, Retail, Engineering and Manufacturing.
+                        Need to close a CXO, leadership or hard-to-fill role? HiredNext delivers industry-aligned executive search and mid-senior hiring across Textile & Apparel, Fashion & Lifestyle, IT, BFSI, Retail, Engineering and Manufacturing.
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-5 mb-10">
@@ -49,7 +49,7 @@
                             <span class="h-2 w-2 rounded-full bg-accent"></span> Placements: 1500+
                         </span>
                         <span class="flex items-center gap-2">
-                            <span class="h-2 w-2 rounded-full bg-white"></span> Industries: 5 Core Sectors
+                            <span class="h-2 w-2 rounded-full bg-white"></span> Industries: 6 Core Sectors
                         </span>
                         <span class="flex items-center gap-2">
                             <span class="h-2 w-2 rounded-full bg-accent"></span> Success Rate: 98%
@@ -363,14 +363,35 @@
                     </h2>
                 </div>
                 <p class="text-gray-500 max-w-sm text-lg">
-                    Five sector-focused teams, built for leadership hiring and executive search in India.
+                    Six sector-focused practices, built for leadership hiring and executive search in India.
                 </p>
             </div>
 
             <!-- Domains Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <!-- DOMAIN 1 -->
+                <!-- DOMAIN 1: FASHION & APPAREL -->
+                <a href="<?= base_url('industry/garment-textile-recruitment-india') ?>"
+                    class="group p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-2xl border border-gray-100 hover:border-accent/20 transition-all duration-500 h-full reveal reveal-up">
+                    <div
+                        class="w-16 h-16 bg-white shadow-sm rounded-2xl flex items-center justify-center text-accent mb-6 group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="M8 3l4 2 4-2 5 4-3 4-2-1v11H8V10l-2 1-3-4 5-4z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-3 leading-tight">
+                        Textile, Apparel, Fashion & Lifestyle Recruitment
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Leadership and specialist hiring for export houses, buying houses, apparel manufacturing, fashion retail and lifestyle brands.
+                    </p>
+                    <span class="inline-flex items-center text-accent font-bold">
+                        Learn More <span class="ml-2">→</span>
+                    </span>
+                </a>
+
+                <!-- DOMAIN 2 -->
                 <a href="<?= base_url('industry/it-recruitment-services-india') ?>"
                     class="group p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-2xl border border-gray-100 hover:border-accent/20 transition-all duration-500 h-full reveal reveal-up">
                     <div

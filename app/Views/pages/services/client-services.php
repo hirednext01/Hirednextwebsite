@@ -42,13 +42,15 @@
             <div>
                 <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Industry Expertise</div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-5">Recruitment shaped by sector context.</h2>
-                <p class="text-gray-600 leading-relaxed">Our core recruitment work spans Garment & Textile, Retail, Hospitality, NBFC & Financial Services, Engineering, IT & Technology, Manufacturing and other growth sectors.</p>
+                <p class="text-gray-600 leading-relaxed">Our core recruitment work spans textile, apparel, garment manufacturing, export houses, fashion and lifestyle, retail, NBFC and financial services, engineering, IT and technology, manufacturing and other growth sectors.</p>
             </div>
             <div class="grid sm:grid-cols-2 gap-4 text-sm">
+                <a href="<?= base_url('industry/garment-textile-recruitment-india') ?>" class="rounded-xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Textile, Apparel, Fashion & Lifestyle Recruitment</a>
                 <a href="<?= base_url('industry/retail-executive-search') ?>" class="rounded-xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Retail Executive Search</a>
                 <a href="<?= base_url('industry/engineering-recruitment-firm') ?>" class="rounded-xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Engineering Recruitment</a>
                 <a href="<?= base_url('industry/it-recruitment-services-india') ?>" class="rounded-xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">IT Recruitment Services</a>
                 <a href="<?= base_url('industry/bfsi-leadership-hiring') ?>" class="rounded-xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">BFSI / NBFC Leadership Hiring</a>
+                <a href="<?= base_url('industry/manufacturing-talent-advisory') ?>" class="rounded-xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Manufacturing Talent Advisory</a>
             </div>
         </div>
     </div>
