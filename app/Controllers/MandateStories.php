@@ -10,16 +10,31 @@ class MandateStories extends BaseController
     {
         $evidence = config('MandateEvidence');
         $pageUrl = base_url('mandate-stories');
+        $updatedOn = $evidence->updatedOn ?? date('Y-m-d');
 
         $caseList = [];
-        foreach (($evidence->cases ?? []) as $case) {
+        foreach (($evidence->cases ?? []) as $caseId => $case) {
             $caseList[] = [
                 '@type' => 'ListItem',
                 'position' => count($caseList) + 1,
                 'item' => [
                     '@type' => 'Article',
+                    '@id' => $pageUrl . '#' . $caseId,
+                    'url' => $pageUrl . '#' . $caseId,
                     'headline' => $case['title'] ?? 'HiredNext mandate case',
                     'description' => $case['why_it_matters'] ?? null,
+                    'dateModified' => $updatedOn,
+                    'author' => [
+                        '@type' => 'Person',
+                        '@id' => base_url('about/taru-shikha') . '#person',
+                        'name' => 'Taru Shikha',
+                    ],
+                    'publisher' => [
+                        '@type' => 'Organization',
+                        '@id' => 'https://hirednext.net/#organization',
+                        'name' => 'HiredNext Recruitment',
+                    ],
+                    'mainEntityOfPage' => $pageUrl . '#' . $caseId,
                     'about' => [
                         'Executive search',
                         'Leadership hiring',
@@ -63,15 +78,15 @@ class MandateStories extends BaseController
 
         return view('pages/mandate-stories', [
             'title' => 'Mandate Stories & Search Evidence | HiredNext Recruitment',
-            'metaDescription' => 'See how HiredNext adds value in difficult leadership and specialist hiring: mandate interpretation, candidate conviction, compensation calibration, role-level judgement, relocation and multi-round stewardship.',
+            'metaDescription' => 'Read confirmed anonymised HiredNext mandate stories, including an overlooked COO appointment and how one Lead Design requirement became two leadership placements.',
             'canonical' => $pageUrl,
             'currentPage' => 'insights',
             'settings' => $this->loadWebsiteSettings(),
-            'cases' => array_values($evidence->cases ?? []),
+            'cases' => $evidence->cases ?? [],
             'practices' => array_values($evidence->practices ?? []),
             'roleContexts' => $evidence->roleContexts ?? [],
             'scopeNote' => $evidence->scopeNote ?? '',
-            'updatedOn' => $evidence->updatedOn ?? date('Y-m-d'),
+            'updatedOn' => $updatedOn,
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
     }
@@ -95,8 +110,16 @@ class MandateStories extends BaseController
                 'mandate' => $case['mandate'] ?? null,
                 'what_hirednext_saw' => $case['what_we_saw'] ?? null,
                 'what_hirednext_did' => $case['what_we_did'] ?? null,
+                'facts' => $case['facts'] ?? [],
                 'result' => $case['result'] ?? null,
+                'confidentiality_note' => $case['confidentiality_note'] ?? null,
                 'why_it_matters' => $case['why_it_matters'] ?? null,
+                'related_pages' => array_map(static function (array $page): array {
+                    return [
+                        'label' => $page['label'] ?? null,
+                        'url' => !empty($page['path']) ? base_url($page['path']) : null,
+                    ];
+                }, $case['related_pages'] ?? []),
                 'related_guides' => array_map(static fn(string $slug): string => base_url('guides/' . $slug), $case['guide_slugs'] ?? []),
             ];
         }

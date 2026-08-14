@@ -11,7 +11,7 @@ $roleContexts = $roleContexts ?? [];
         <div class="max-w-4xl">
             <div class="text-accent text-xs font-black uppercase tracking-[0.28em] mb-4">Mandate Stories & Search Evidence</div>
             <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight mb-6">The work that happens between a CV and a joining decision.</h1>
-            <p class="text-xl text-white/75 leading-relaxed max-w-3xl">HiredNext earns its place in difficult searches by interpreting what a profile really means, challenging the brief when necessary, creating candidate conviction, protecting senior hires through complex processes and helping both sides make the better decision.</p>
+            <p class="text-xl text-white/75 leading-relaxed max-w-3xl">HiredNext Recruitment is an India-focused executive search and leadership recruitment company. These confirmed anonymised mandate stories show how HiredNext interprets what a profile really means, challenges the brief when necessary, creates candidate conviction and helps employers make better senior-hiring decisions.</p>
             <div class="mt-7 text-xs uppercase tracking-[0.18em] text-white/45">Updated <?= esc(date('d M Y', strtotime($updatedOn ?? date('Y-m-d')))) ?> · HiredNext Recruitment</div>
         </div>
     </div>
@@ -34,11 +34,11 @@ $roleContexts = $roleContexts ?? [];
 
                 <?php if (!empty($cases)): ?>
                     <section class="mb-16">
-                        <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">Confirmed anonymised case</div>
-                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-8">A real mandate where judgement changed the outcome</h2>
+                        <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">Confirmed anonymised cases</div>
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-8">Real mandates where judgement changed the outcome</h2>
 
-                        <?php foreach ($cases as $case): ?>
-                            <article class="rounded-[2rem] border border-gray-200 overflow-hidden bg-white shadow-sm">
+                        <?php foreach ($cases as $caseId => $case): ?>
+                            <article id="<?= esc($caseId, 'attr') ?>" class="scroll-mt-28 rounded-[2rem] border border-gray-200 overflow-hidden bg-white shadow-sm mb-8 last:mb-0">
                                 <div class="bg-[#071f3d] text-white p-7 md:p-10">
                                     <div class="text-[10px] uppercase tracking-[0.24em] text-gold font-black mb-3"><?= esc($case['role'] ?? 'Leadership') ?> · <?= esc($case['context'] ?? '') ?></div>
                                     <h3 class="text-3xl md:text-4xl font-serif font-bold leading-tight mb-4"><?= esc($case['title'] ?? '') ?></h3>
@@ -57,10 +57,38 @@ $roleContexts = $roleContexts ?? [];
                                         <div class="text-[10px] uppercase tracking-[0.24em] text-gray-400 font-black mb-2">What HiredNext did</div>
                                         <p class="text-gray-700 leading-relaxed text-lg"><?= esc($case['what_we_did'] ?? '') ?></p>
                                     </div>
+                                    <?php if (!empty($case['facts']) && is_array($case['facts'])): ?>
+                                        <div>
+                                            <div class="text-[10px] uppercase tracking-[0.24em] text-gray-400 font-black mb-3">Mandate at a glance</div>
+                                            <dl class="grid sm:grid-cols-2 gap-3">
+                                                <?php foreach ($case['facts'] as $label => $value): ?>
+                                                    <div class="rounded-xl border border-gray-200 bg-gray-50 p-4">
+                                                        <dt class="text-[10px] uppercase tracking-[0.18em] text-gray-400 font-black mb-1"><?= esc($label) ?></dt>
+                                                        <dd class="text-primary font-semibold leading-relaxed"><?= esc($value) ?></dd>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </dl>
+                                        </div>
+                                    <?php endif; ?>
                                     <div class="rounded-2xl border border-accent/20 bg-accent/5 p-6">
                                         <div class="text-[10px] uppercase tracking-[0.24em] text-accent font-black mb-2">Result</div>
                                         <p class="text-primary font-semibold leading-relaxed text-lg"><?= esc($case['result'] ?? '') ?></p>
                                     </div>
+                                    <?php if (!empty($case['confidentiality_note'])): ?>
+                                        <p class="text-xs text-gray-400 leading-relaxed italic"><?= esc($case['confidentiality_note']) ?></p>
+                                    <?php endif; ?>
+                                    <?php if (!empty($case['related_pages']) && is_array($case['related_pages'])): ?>
+                                        <div class="border-t border-gray-100 pt-6">
+                                            <div class="text-[10px] uppercase tracking-[0.20em] text-gray-400 font-black mb-3">Related HiredNext expertise</div>
+                                            <div class="flex flex-wrap gap-3">
+                                                <?php foreach ($case['related_pages'] as $page): ?>
+                                                    <?php if (!empty($page['path']) && !empty($page['label'])): ?>
+                                                        <a href="<?= base_url($page['path']) ?>" class="inline-flex rounded-xl border border-gray-200 px-4 py-2 text-sm font-bold text-primary hover:border-accent hover:text-accent"><?= esc($page['label']) ?> →</a>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </article>
                         <?php endforeach; ?>

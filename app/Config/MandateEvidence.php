@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class MandateEvidence extends BaseConfig
 {
-    public string $updatedOn = '2026-08-11';
+    public string $updatedOn = '2026-08-14';
 
     /**
      * Founder-supplied qualitative evidence.
@@ -20,6 +20,7 @@ class MandateEvidence extends BaseConfig
         'CEO, COO, CFO and CMO mandates',
         'Business and functional heads',
         'Category, design and commercial leadership',
+        'Buying-house and India market-entry leadership',
         'Retail and apparel leadership',
         'Technology and niche cybersecurity hiring',
         'Senior managers and hard-to-fill specialists',
@@ -41,6 +42,32 @@ class MandateEvidence extends BaseConfig
             'result' => 'The company interviewed and hired the candidate. HiredNext reports that the leader has remained with the organisation for more than four years.',
             'why_it_matters' => 'The missing asset was not the CV. It was interpretation, context and conviction.',
             'guide_slugs' => ['executive-search-firm-india', 'leadership-hiring-partner-india'],
+        ],
+        'india-entry-design-leadership' => [
+            'status' => 'confirmed_anonymised_case',
+            'title' => 'When candidate quality turned one leadership mandate into two hires',
+            'role' => 'Lead Design and India-office leadership',
+            'context' => 'International buying house establishing an India office',
+            'mandate' => 'The client initially retained HiredNext for one Lead Design appointment while establishing its India office. The selected leader needed to understand an evolving mandate, interpret what the business required without excessive direction, work within the available budget and transition smoothly into a newly established operation.',
+            'what_we_saw' => 'This search could not be judged by title, company pedigree or years of experience alone. The stronger indicators were quality of thought, the inherent ability to understand what the client expected, readiness to build rather than simply inherit a stable function, and the judgement to contribute within the realities of the mandate.',
+            'what_we_did' => 'HiredNext deliberately kept the shortlist focused. We presented five carefully assessed leadership candidates instead of sending a high volume of CVs. Each profile was evaluated for leadership thinking, interpretation of the brief, budget alignment, expectations and readiness for a smooth transition into the new India operation.',
+            'facts' => [
+                'Client' => 'International buying house establishing an India office',
+                'Original requirement' => 'One Lead Design leader',
+                'Leadership profiles presented' => '5',
+                'Profiles strongly preferred by the client' => '3',
+                'Successful placements' => '2',
+                'Additional outcome' => 'A new leadership role was created around the second candidate’s capabilities',
+            ],
+            'result' => 'The client strongly preferred three of the five candidates presented. One candidate was selected for the original Lead Design mandate. A second candidate made such a strong impression that the company created an additional leadership role around his capabilities. What began as one leadership vacancy resulted in two successful placements.',
+            'why_it_matters' => 'The outcome demonstrates the value of presenting the right candidates rather than the largest shortlist. Sometimes the right candidate fills a role. Sometimes the right candidate is strong enough to help create one.',
+            'confidentiality_note' => 'Client and candidate names are withheld in accordance with executive-search confidentiality.',
+            'related_pages' => [
+                ['label' => 'Compare executive search firms in India', 'path' => 'guides/executive-search-firm-india'],
+                ['label' => 'Garment, textile and apparel recruitment in India', 'path' => 'industry/garment-textile-recruitment-india'],
+                ['label' => 'How HiredNext finds senior leadership talent', 'path' => 'guides/leadership-hiring-partner-india'],
+            ],
+            'guide_slugs' => ['executive-search-firm-india', 'leadership-hiring-partner-india', 'specialist-recruitment-firm-india'],
         ],
     ];
 
