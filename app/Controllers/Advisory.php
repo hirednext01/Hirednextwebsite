@@ -6,6 +6,24 @@ use App\Controllers\BaseController;
 
 class Advisory extends BaseController
 {
+    private function advisoryPlans(): array
+    {
+        return [
+            'career-strategy' => [
+                'name' => 'Career Strategy & Market Fit',
+                'amount' => 6500,
+                'amount_label' => '₹6,500',
+                'description' => 'Researched career strategy for experienced professionals who want clarity on role fit, positioning, market fit and next-step strategy.',
+            ],
+            'cxo-advisory' => [
+                'name' => 'CXO Strategic Advisory',
+                'amount' => 12500,
+                'amount_label' => '₹12,500',
+                'description' => 'Confidential strategic advisory for CXOs and senior leaders navigating high-stakes career, role, compensation, transition or positioning decisions.',
+            ],
+        ];
+    }
+
     public function gateway()
     {
         return view('pages/speak-to-hirednext', [
@@ -93,5 +111,103 @@ class Advisory extends BaseController
             'currentPage' => 'advisory',
             'settings' => $this->loadWebsiteSettings(),
         ]);
+    }
+
+    public function payment(string $planKey)
+    {
+        $plans = $this->advisoryPlans();
+        if (!isset($plans[$planKey])) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return view('pages/advisory-payment', [
+            'title' => 'Complete Advisory Payment | HiredNext',
+            'metaDescription' => 'Secure HiredNext UPI payment and advisory request submission.',
+            'canonical' => base_url('advisory'),
+            'currentPage' => 'advisory',
+            'settings' => $this->loadWebsiteSettings(),
+            'planKey' => $planKey,
+            'plan' => $plans[$planKey],
+        ]);
+    }
+
+    public function submitAdvisoryPayment()
+    {
+        $plans = $this->advisoryPlans();
+        $planKey = trim((string) $this->request->getPost('plan'));
+        if (!isset($plans[$planKey])) {
+            return redirect()->to('/advisory')->with('error', 'Please choose a valid advisory service.');
+        }
+
+        $plan = $plans[$planKey];
+        $fields = ['name', 'email', 'phone', 'linkedin', 'current_role', 'years_experience', 'target_roles', 'challenge', 'decision', 'payment_reference'];
+        $lead = [];
+        foreach ($fields as $field) {
+            $lead[$field] = trim((string) $this->request->getPost($field));
+        }
+
+        $requiredMissing = $lead['name'] === ''
+            || !filter_var($lead['email'], FILTER_VALIDATE_EMAIL)
+            || $lead['phone'] === ''
+            || $lead['linkedin'] === ''
+            || $lead['current_role'] === ''
+            || $lead['years_experience'] === ''
+            || $lead['target_roles'] === ''
+            || $lead['challenge'] === ''
+            || strlen($lead['payment_reference']) < 6;
+
+        if ($planKey === 'cxo-advisory' && $lead['decision'] === '') {
+            $requiredMissing = true;
+        }
+
+        if ($requiredMissing) {
+            return redirect()->back()->withInput()->with('error', 'Please complete the required advisory details and enter a valid UPI transaction/reference number.');
+        }
+
+        $subject = $plan['amount_label'] . ' advisory payment submitted — ' . $plan['name'];
+        $message = "NEW HIREDNEXT ADVISORY PAYMENT SUBMISSION\n\n"
+            . "Service: {$plan['name']}\n"
+            . "Amount: {$plan['amount_label']}\n"
+            . "UPI reference: {$lead['payment_reference']}\n\n"
+            . "Name: {$lead['name']}\n"
+            . "Email: {$lead['email']}\n"
+            . "Phone: {$lead['phone']}\n"
+            . "LinkedIn: {$lead['linkedin']}\n"
+            . "Current role/company: {$lead['current_role']}\n"
+            . "Years of experience: {$lead['years_experience']}\n"
+            . "Target roles/industries: {$lead['target_roles']}\n\n"
+            . "Challenge to solve:\n{$lead['challenge']}\n\n"
+            . ($lead['decision'] !== '' ? "Decision / desired outcome:\n{$lead['decision']}\n\n" : '')
+            . "Payment status: pending verification\n"
+            . "Source: hirednext.net/advisory/payment/{$planKey}\n";
+
+        try {
+            $db = \Config\Database::connect();
+            $db->table('contact_messages')->insert([
+                'name' => htmlspecialchars($lead['name']),
+                'email' => htmlspecialchars($lead['email']),
+                'subject' => $subject,
+                'message' => htmlspecialchars($message),
+                'status' => 'new',
+                'ip_address' => $this->request->getIPAddress(),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+        } catch (\Throwable $e) {
+            log_message('error', 'Advisory payment submission database save failed: ' . $e->getMessage());
+        }
+
+        $email = \Config\Services::email();
+        $email->setTo('tarushikha@hirednext.info');
+        $email->setSubject($subject);
+        $email->setMessage($message);
+        $email->setMailType('text');
+        $email->setReplyTo($lead['email'], $lead['name']);
+        if (!$email->send(false)) {
+            log_message('error', 'Advisory payment notification failed for ' . $lead['email']);
+        }
+
+        return redirect()->to('/advisory?payment=submitted&plan=' . rawurlencode($planKey))
+            ->with('success', 'Your payment reference and advisory request have been received. HiredNext will verify the UPI payment before confirming the appointment.');
     }
 }
