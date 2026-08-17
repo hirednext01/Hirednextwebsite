@@ -1,0 +1,79 @@
+name: Apply booking intent routing
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-booking-intent-routing.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-booking-entry-points:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch meeting entry points
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          # Global navigation: never expose a generic Calendly button.
+          p = Path('app/Views/layouts/main.php')
+          s = p.read_text()
+          s = s.replace('href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="site-nav-cta ml-1 bg-accent text-gray-900 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Book a 30-Min Call</a>', 'href="<?= base_url(\'advisory\') ?>" class="site-nav-cta ml-1 bg-accent text-gray-900 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Request a Meeting</a>')
+          s = s.replace('href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="bg-accent text-gray-900 px-6 py-3 rounded-xl text-center font-bold">Book a 30-Min Call</a>', 'href="<?= base_url(\'advisory\') ?>" class="bg-accent text-gray-900 px-6 py-3 rounded-xl text-center font-bold">Request a Meeting</a>')
+          p.write_text(s)
+
+          # Homepage: hiring remains direct; add clearly separate advisory path.
+          p = Path('app/Views/pages/home.php')
+          s = p.read_text()
+          needle = '''                        <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center justify-center px-10 py-4 rounded-2xl font-bold border border-white/30 bg-white/10 hover:bg-white/20 transition-all">
+                            Have a Hiring Mandate? Book a Discussion
+                        </a>'''
+          replacement = needle + '''
+                        <a href="<?= base_url('advisory') ?>"
+                            class="inline-flex items-center justify-center px-10 py-4 rounded-2xl font-bold border border-gold/50 text-gold hover:bg-white/10 transition-all">
+                            Strategic Advice? Request a Paid Consultation
+                        </a>'''
+          if 'Strategic Advice? Request a Paid Consultation' not in s and needle in s:
+              s = s.replace(needle, replacement, 1)
+          p.write_text(s)
+
+          # Client page: make Calendly explicitly mandate-only and expose advisory alternative.
+          p = Path('app/Views/pages/services/client-services.php')
+          s = p.read_text()
+          s = s.replace('>Book a 30-Min Call</a>', '>Book a Hiring Mandate Discussion</a>')
+          if 'Need strategic advice instead?' not in s:
+              s = s.replace('</section>\n<?= $this->endSection() ?>', '''        <div class="mt-5 text-sm text-white/70">Need strategic advice instead? <a href="<?= base_url('advisory') ?>" class="text-gold font-bold">Request a paid consultation →</a></div>
+    </div>
+</section>
+<?= $this->endSection() ?>''', 1)
+          p.write_text(s)
+
+          # Candidate advisory CTA goes through the controlled advisory request page.
+          p = Path('app/Views/pages/services/candidate-services.php')
+          s = p.read_text()
+          s = s.replace("<?= base_url('contact') ?>?service=senior-career-advisory", "<?= base_url('advisory') ?>")
+          p.write_text(s)
+          PY
+      - name: Validate PHP
+        run: |
+          php -l app/Views/layouts/main.php
+          php -l app/Views/pages/home.php
+          php -l app/Views/pages/services/client-services.php
+          php -l app/Views/pages/services/candidate-services.php
+      - name: Commit routing changes
+        shell: bash
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "HiredNext Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add app/Views/layouts/main.php app/Views/pages/home.php app/Views/pages/services/client-services.php app/Views/pages/services/candidate-services.php
+          git commit -m "Route meeting traffic by hiring, advisory and candidate intent"
+          git push origin HEAD:main
