@@ -15,6 +15,7 @@ $routes->get('services/cv-assessment', 'CandidateServices::cvAssessment');
 $routes->get('services/(:any)', 'Home::serviceDetail/$1');
 $routes->get('speak-to-hirednext', 'Advisory::gateway');
 $routes->get('hiring-discussion', 'Advisory::hiringDiscussion');
+$routes->post('hiring-discussion/submit', 'Advisory::submitHiringDiscussion');
 $routes->get('advisory', 'Advisory::index');
 // Backward-compatible alias so existing job links/bookmarks continue to work.
 $routes->get('cv-assessment', 'CandidateServices::cvAssessment');
