@@ -13,6 +13,7 @@ $routes->get('services/clients', 'CandidateServices::clientServices');
 $routes->get('services/candidates', 'CandidateServices::candidateServices');
 $routes->get('services/cv-assessment', 'CandidateServices::cvAssessment');
 $routes->get('services/(:any)', 'Home::serviceDetail/$1');
+$routes->get('advisory', 'Home::advisory');
 // Backward-compatible alias so existing job links/bookmarks continue to work.
 $routes->get('cv-assessment', 'CandidateServices::cvAssessment');
 $routes->post('cv-assessment/submit', 'CvAssessment::submit');
