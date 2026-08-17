@@ -1,0 +1,42 @@
+name: Wire Speak to HiredNext
+on:
+  push:
+    paths:
+      - '.github/workflows/wire-speak-to-hirednext.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Route generic CTAs through intent gateway
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('app/Views/layouts/main.php')
+          s=p.read_text()
+          s=s.replace('href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="site-nav-cta ml-1 bg-accent text-gray-900 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Book a 30-Min Call</a>', 'href="<?= base_url(\'speak-to-hirednext\') ?>" class="site-nav-cta ml-1 bg-accent text-gray-900 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Speak to HiredNext</a>')
+          s=s.replace('href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="bg-accent text-gray-900 px-6 py-3 rounded-xl text-center font-bold">Book a 30-Min Call</a>', 'href="<?= base_url(\'speak-to-hirednext\') ?>" class="bg-accent text-gray-900 px-6 py-3 rounded-xl text-center font-bold">Speak to HiredNext</a>')
+          p.write_text(s)
+
+          p=Path('app/Views/pages/home.php')
+          s=p.read_text()
+          s=s.replace('href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer"', 'href="<?= base_url(\'hiring-discussion\') ?>"')
+          p.write_text(s)
+
+          p=Path('app/Views/pages/services/client-services.php')
+          s=p.read_text()
+          s=s.replace('href="https://calendly.com/tarushikha-hirednext/30min" target="_blank" rel="noopener noreferrer"', 'href="<?= base_url(\'hiring-discussion\') ?>"')
+          s=s.replace('Book a 30-Min Call', 'Discuss Your Hiring Mandate')
+          p.write_text(s)
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name "hirednext01"
+          git config user.email "tarushikha@hirednext.info"
+          git add app/Views/layouts/main.php app/Views/pages/home.php app/Views/pages/services/client-services.php
+          git diff --cached --quiet || git commit -m "Route contact traffic by intent"
+          git push origin main
