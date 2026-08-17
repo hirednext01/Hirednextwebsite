@@ -60,7 +60,7 @@
     <div class="max-w-3xl mx-auto px-4 sm:px-8">
         <h2 class="text-3xl md:text-4xl font-serif font-bold mb-5">Hiring for a critical role?</h2>
         <p class="text-white/75 mb-8">Tell us the mandate, location and business context. We’ll discuss the right search approach.</p>
-        <a href="https://calendly.com/tarushikha-hirednext/30min" target="_blank" rel="noopener noreferrer" class="inline-flex px-8 py-4 rounded-full bg-accent text-white font-bold">Book a 30-Min Call</a>
+        <a href="<?= base_url('hiring-discussion') ?>" class="inline-flex px-8 py-4 rounded-full bg-accent text-white font-bold">Discuss Your Hiring Mandate</a>
     </div>
 </section>
 <?= $this->endSection() ?>

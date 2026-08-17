@@ -188,7 +188,7 @@
                     <a href="<?= base_url('press-media') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Press & Media</a>
                     <a href="<?= base_url('blog') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Blog</a>
                     <a href="<?= base_url('jobs') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Jobs</a>
-                    <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="site-nav-cta ml-1 bg-accent text-gray-900 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Book a 30-Min Call</a>
+                    <a href="<?= base_url('speak-to-hirednext') ?>" class="site-nav-cta ml-1 bg-accent text-gray-900 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Speak to HiredNext</a>
                 </div>
 
                 <div class="site-mobile-toggle">
@@ -215,7 +215,7 @@
                 <a href="<?= base_url('press-media') ?>" class="mobile-link">Press & Media</a>
                 <a href="<?= base_url('blog') ?>" class="mobile-link">Blog</a>
                 <a href="<?= base_url('jobs') ?>" class="mobile-link">Jobs</a>
-                <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="bg-accent text-gray-900 px-6 py-3 rounded-xl text-center font-bold">Book a 30-Min Call</a>
+                <a href="<?= base_url('speak-to-hirednext') ?>" class="bg-accent text-gray-900 px-6 py-3 rounded-xl text-center font-bold">Speak to HiredNext</a>
             </div>
         </div>
     </nav>

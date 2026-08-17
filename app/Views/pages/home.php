@@ -35,7 +35,7 @@
                             <span class="ml-2">›</span>
                         </a>
 
-                        <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer"
+                        <a href="<?= base_url('hiring-discussion') ?>"
                             class="inline-flex items-center justify-center px-10 py-4 rounded-2xl font-bold border border-white/30 bg-white/10 hover:bg-white/20 transition-all">
                             Have a Hiring Mandate? Book a Discussion
                         </a>
@@ -777,7 +777,7 @@
                         View All Jobs
                         <span class="ml-3">→</span>
                     </a>
-                    <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer"
+                    <a href="<?= base_url('hiring-discussion') ?>"
                         class="inline-flex items-center px-8 py-4 border border-primary text-primary rounded-full font-bold hover:bg-primary hover:text-white transition-all">
                         Have a Hiring Mandate? Book a Discussion
                     </a>
