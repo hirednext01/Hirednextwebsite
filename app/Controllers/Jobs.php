@@ -78,9 +78,48 @@ class Jobs extends BaseController
             $pager->setPath(base_url('jobs'));
         }
 
+        $itemList = [];
+        foreach ($jobs as $index => $job) {
+            $itemList[] = [
+                '@type' => 'ListItem',
+                'position' => $index + 1,
+                'url' => base_url('jobs/' . ($job['slug'] ?? '')),
+                'name' => $job['title'] ?? 'HiredNext job opportunity',
+            ];
+        }
+
+        $jsonLd = [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'CollectionPage',
+                    '@id' => base_url('jobs') . '#collection',
+                    'url' => base_url('jobs'),
+                    'name' => 'Jobs in India – Leadership, Technology & Specialist Roles',
+                    'description' => 'Current employer mandates managed by HiredNext Recruitment across India, including leadership, technology and specialist roles.',
+                    'inLanguage' => 'en-IN',
+                    'isPartOf' => ['@id' => 'https://hirednext.net/#website'],
+                    'publisher' => ['@id' => 'https://hirednext.net/#organization'],
+                    'mainEntity' => [
+                        '@type' => 'ItemList',
+                        'numberOfItems' => count($itemList),
+                        'itemListElement' => $itemList,
+                    ],
+                ],
+                [
+                    '@type' => 'BreadcrumbList',
+                    'itemListElement' => [
+                        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => base_url('/')],
+                        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Jobs in India', 'item' => base_url('jobs')],
+                    ],
+                ],
+            ],
+        ];
+
         return view('pages/jobs', [
-            'title' => 'Jobs in India | HiredNext Recruitment',
-            'metaDescription' => 'Explore current HiredNext recruitment mandates across industries and locations in India. Filter jobs by location, industry, employment type or keyword.',
+            'title' => 'Jobs in India – Leadership, Technology & Specialist Roles | HiredNext',
+            'metaDescription' => 'Explore current employer mandates managed by HiredNext across India. Search leadership, technology and specialist jobs by location, industry, employment type or keyword.',
+            'metaKeywords' => 'jobs in India, leadership jobs India, technology jobs India, specialist jobs India, HiredNext jobs, recruitment jobs India',
             'canonical' => base_url('jobs'),
             'currentPage' => 'jobs',
             'settings' => $settings,
@@ -91,6 +130,7 @@ class Jobs extends BaseController
             'locations' => array_values($locations),
             'industries' => $industries,
             'filterQuery' => http_build_query($activeFilters),
+            'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
     }
 
