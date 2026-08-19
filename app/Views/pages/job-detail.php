@@ -111,7 +111,8 @@
 
                     <div>
                         <label for="application-linkedin" class="block text-sm font-bold text-primary mb-2">LinkedIn profile URL *</label>
-                        <input id="application-linkedin" name="linkedin" type="url" autocomplete="url" required placeholder="https://www.linkedin.com/in/..." class="w-full border border-gray-200 rounded-xl px-4 py-3" />
+                        <input id="application-linkedin" name="linkedin" type="text" inputmode="url" autocomplete="url" required placeholder="linkedin.com/in/your-profile" class="w-full border border-gray-200 rounded-xl px-4 py-3" />
+                        <p class="mt-1 text-xs text-gray-500">You may paste the address with or without https://</p>
                     </div>
 
                     <div>
