@@ -20,6 +20,7 @@ class Jobs extends BaseController
     {
         $settings = $this->loadWebsiteSettings();
         $jobModel = new JobModel();
+        $jobModel->ensurePublishedJobs();
         $perPage = max(1, (int) ($settings['jobs_per_page'] ?? 9));
 
         $query = [
