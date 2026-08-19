@@ -735,7 +735,7 @@ class Home extends BaseController
             'phone' => htmlspecialchars($this->request->getPost('phone')),
             'linkedin' => htmlspecialchars($this->request->getPost('linkedin')),
             'message' => htmlspecialchars($this->request->getPost('message')),
-            'resume_url' => base_url('uploads/resumes/' . $newName),
+            'resume_url' => base_url('candidate-resume') . '?file=' . rawurlencode($newName),
             'resume_name' => $resumeFile->getClientName(),
             'resume_size' => $resumeFile->getSize(),
             'status' => 'new',
@@ -757,6 +757,21 @@ class Home extends BaseController
 
         return redirect()->to('/jobs/' . $job['slug'] . '?applied=1')
             ->with('success', 'Your application has been submitted successfully.');
+    }
+
+    public function candidateResume()
+    {
+        $fileName = basename((string) $this->request->getGet('file'));
+        if ($fileName === '' || !preg_match('/^[A-Za-z0-9._-]+\.(pdf|doc|docx)$/i', $fileName)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        }
+
+        $path = FCPATH . 'uploads/resumes/' . $fileName;
+        if (!is_file($path)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        }
+
+        return $this->response->download($path, null)->setFileName($fileName);
     }
 
     private function industryPages()
