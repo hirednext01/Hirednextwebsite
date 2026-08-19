@@ -59,6 +59,7 @@ $routes->get('blog/(:any)', 'Home::blogPost/$1');
 $routes->get('press-media', 'Authority::pressMedia');
 $routes->get('contact', 'Home::contact');
 $routes->get('jobs', 'Jobs::index');
+$routes->get('candidate-resume', 'Home::candidateResume');
 $routes->get('jobs/(:any)', 'Home::jobDetail/$1');
 $routes->post('jobs/(:any)/apply', 'Home::applyJob/$1');
 $routes->get('testimonials', 'ReputationAuthority::testimonials');
