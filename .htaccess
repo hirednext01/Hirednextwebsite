@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# Keep historical resume links working even when the public directory is not
+# the domain document root. The controller validates and serves the file.
+RewriteRule ^uploads/resumes/([^/]+)$ public/index.php/candidate-resume?file=$1 [L,QSA,NE]
+
 # Canonicalise legacy/marketing GCC entry points to the dedicated GCC authority page.
 RewriteRule ^gcc-recruitment-india/?$ /industry/global-capability-centres-hiring-india [R=301,L,NE]
 RewriteRule ^gcc-talent-mapping-india/?$ /industry/global-capability-centres-hiring-india [R=301,L,NE]
