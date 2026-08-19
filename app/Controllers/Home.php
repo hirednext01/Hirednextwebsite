@@ -694,11 +694,26 @@ class Home extends BaseController
             'name' => 'required|min_length[3]',
             'email' => 'required|valid_email',
             'phone' => 'required|min_length[6]',
-            'linkedin' => 'required|valid_url_strict',
+            'linkedin' => 'required|min_length[10]',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        $linkedin = trim((string) $this->request->getPost('linkedin'));
+        if (!preg_match('#^https?://#i', $linkedin)) {
+            $linkedin = 'https://' . ltrim($linkedin, '/');
+        }
+
+        $linkedinHost = strtolower((string) parse_url($linkedin, PHP_URL_HOST));
+        $isLinkedInUrl = filter_var($linkedin, FILTER_VALIDATE_URL)
+            && ($linkedinHost === 'linkedin.com' || str_ends_with($linkedinHost, '.linkedin.com'));
+
+        if (!$isLinkedInUrl) {
+            return redirect()->back()->withInput()->with('errors', [
+                'linkedin' => 'Please enter a valid LinkedIn profile address.',
+            ]);
         }
 
         $resumeFile = $this->request->getFile('resume');
@@ -733,7 +748,7 @@ class Home extends BaseController
             'name' => htmlspecialchars($this->request->getPost('name')),
             'email' => htmlspecialchars($this->request->getPost('email')),
             'phone' => htmlspecialchars($this->request->getPost('phone')),
-            'linkedin' => htmlspecialchars($this->request->getPost('linkedin')),
+            'linkedin' => htmlspecialchars($linkedin),
             'message' => htmlspecialchars($this->request->getPost('message')),
             'resume_url' => base_url('candidate-resume') . '?file=' . rawurlencode($newName),
             'resume_name' => $resumeFile->getClientName(),
