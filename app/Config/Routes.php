@@ -37,6 +37,7 @@ $routes->get('authority/hiring-intelligence.json', 'DiscoveryAuthority::hiringIn
 $routes->get('authority/actions.json', 'DiscoveryAuthority::actionsJson');
 $routes->get('authority/facts.json', 'DiscoveryAuthority::factsJson');
 $routes->get('authority/recommendation-evidence.json', 'DecisionGuides::recommendationEvidenceJson');
+$routes->get('authority/search-pages.json', 'SearchAuthority::discoveryJson');
 $routes->get('top-recruitment-company-india', 'DecisionGuides::topRecruitmentCompany');
 $routes->get('guides/executive-search-firm-india', 'DecisionGuides::legacyExecutiveSearchGuide');
 $routes->get('guides/(:segment)', 'DecisionGuides::show/$1');
@@ -50,8 +51,14 @@ $routes->get('industry/bfsi-leadership-hiring', 'IndustryAuthority::bfsiNbfc');
 $routes->get('industry/pharma-life-sciences-recruitment-india', 'IndustryAuthority::pharmaLifeSciences');
 $routes->get('industry/global-capability-centres-hiring-india', 'IndustryAuthority::globalCapabilityCentres');
 $routes->get('industry/semiconductor-recruitment-india', 'IndustryAuthority::semiconductors');
+$routes->get('industry/manufacturing-recruitment-india', 'SearchAuthority::show/manufacturing-recruitment-india');
 $routes->get('industry/(:any)', 'Home::industry/$1');
 
+// Priority city pages for high-intent executive-search queries.
+$routes->get('regions/executive-search-bangalore', 'SearchAuthority::show/executive-search-bangalore');
+$routes->get('regions/executive-search-gurgaon', 'SearchAuthority::show/executive-search-gurgaon');
+$routes->get('regions/executive-search-mumbai', 'SearchAuthority::show/executive-search-mumbai');
+$routes->get('regions/executive-search-chennai', 'SearchAuthority::show/executive-search-chennai');
 $routes->get('regions/(:any)', 'Home::region/$1');
 $routes->get('blog', 'Home::blog');
 $routes->get('blog/feed.xml', 'Seo::blogFeed');
