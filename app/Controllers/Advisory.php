@@ -99,7 +99,8 @@ class Advisory extends BaseController
             log_message('error', 'Hiring lead email failed for ' . $lead['email']);
         }
 
-        return redirect()->to('https://calendly.com/tarushikha-hirednext/30min');
+        return redirect()->to('/hiring-discussion?submitted=1')
+            ->with('success', 'Your hiring requirement has been received. HiredNext will review the mandate and contact you directly if a discussion is appropriate.');
     }
 
     public function index()
