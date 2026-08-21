@@ -1,0 +1,38 @@
+name: Notify IndexNow
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit priority HiredNext URLs to IndexNow
+        shell: bash
+        run: |
+          set -e
+          KEY="50139211c1268fcd7e9e879e825a0be8"
+          KEY_LOCATION="https://hirednext.net/${KEY}.txt"
+          URLS=(
+            "https://hirednext.net/"
+            "https://hirednext.net/top-recruitment-company-india"
+            "https://hirednext.net/services/executive-search"
+            "https://hirednext.net/industry/global-capability-centres-hiring-india"
+            "https://hirednext.net/industry/semiconductor-recruitment-india"
+            "https://hirednext.net/industry/manufacturing-recruitment-india"
+            "https://hirednext.net/regions/executive-search-bangalore"
+            "https://hirednext.net/regions/executive-search-gurgaon"
+            "https://hirednext.net/regions/executive-search-mumbai"
+            "https://hirednext.net/regions/executive-search-chennai"
+            "https://hirednext.net/hiring-intelligence"
+            "https://hirednext.net/mandate-stories"
+          )
+
+          for URL in "${URLS[@]}"; do
+            echo "Submitting $URL"
+            curl --fail-with-body --retry 2 --retry-delay 2 \
+              "https://api.indexnow.org/indexnow?url=$(python3 -c 'import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe=""))' "$URL")&key=$KEY&keyLocation=$(python3 -c 'import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe=""))' "$KEY_LOCATION")"
+            echo
+          done
