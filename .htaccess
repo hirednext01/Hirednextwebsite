@@ -9,5 +9,14 @@ RewriteRule ^gcc-recruitment-india/?$ /industry/global-capability-centres-hiring
 RewriteRule ^gcc-talent-mapping-india/?$ /industry/global-capability-centres-hiring-india [R=301,L,NE]
 RewriteRule ^regions/gcc-talent-mapping-india/?$ /industry/global-capability-centres-hiring-india [R=301,L,NE]
 
+# Consolidate common high-intent recruitment URL variants into the canonical authority pages.
+# This prevents future campaign/blog links from fragmenting authority across duplicate slugs.
+RewriteRule ^retail-executive-search-india/?$ /industry/retail-executive-search [R=301,L,NE]
+RewriteRule ^it-recruitment-services-india/?$ /industry/it-recruitment-services-india [R=301,L,NE]
+RewriteRule ^pharma-recruitment-india/?$ /industry/pharma-life-sciences-recruitment-india [R=301,L,NE]
+RewriteRule ^semiconductor-recruitment-india/?$ /industry/semiconductor-recruitment-india [R=301,L,NE]
+RewriteRule ^manufacturing-recruitment-india/?$ /industry/manufacturing-recruitment-india [R=301,L,NE]
+RewriteRule ^executive-search-india/?$ /services/executive-search [R=301,L,NE]
+
 RewriteRule ^$ public/ [L]
 RewriteRule (.*) public/$1 [L]
