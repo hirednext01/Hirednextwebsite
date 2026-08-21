@@ -140,7 +140,6 @@
 </head>
 <body>
     <?php $siteName = $settings['site_name'] ?? 'HiredNext'; ?>
-    <?php $calendlyUrl = 'https://calendly.com/tarushikha-hirednext/30min'; ?>
 
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:text-primary">Skip to main content</a>
 
@@ -267,8 +266,8 @@
                 </div>
                 <div>
                     <h4 class="font-bold mb-5 uppercase tracking-widest text-sm">Let’s Talk</h4>
-                    <p class="text-white/70 mb-4">Book a private consultation with our advisors.</p>
-                    <a href="<?= esc($calendlyUrl) ?>" target="_blank" rel="noopener noreferrer" class="inline-block bg-accent text-gray-900 px-6 py-3 rounded-xl font-bold">Book a 30-Min Call</a>
+                    <p class="text-white/70 mb-4">Have a hiring mandate or need strategic guidance? Start with the appropriate HiredNext route.</p>
+                    <a href="<?= base_url('speak-to-hirednext') ?>" class="inline-block bg-accent text-gray-900 px-6 py-3 rounded-xl font-bold">Speak to HiredNext</a>
                     <a href="<?= base_url('contact') ?>" class="block mt-4 text-sm text-white/80 hover:text-white">Contact Us</a>
                 </div>
             </div>
