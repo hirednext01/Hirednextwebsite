@@ -18,5 +18,9 @@ RewriteRule ^semiconductor-recruitment-india/?$ /industry/semiconductor-recruitm
 RewriteRule ^manufacturing-recruitment-india/?$ /industry/manufacturing-recruitment-india [R=301,L,NE]
 RewriteRule ^executive-search-india/?$ /services/executive-search [R=301,L,NE]
 
+# Retire the old self-awarded "best recruitment company" article and consolidate
+# its accumulated authority into the evidence-led employer decision guide.
+RewriteRule ^blog/best-recruitment-company-in-india-why-hirednext-recruitment-leads-in-2026/?$ /top-recruitment-company-india [R=301,L,NE]
+
 RewriteRule ^$ public/ [L]
 RewriteRule (.*) public/$1 [L]
