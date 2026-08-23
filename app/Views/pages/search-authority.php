@@ -37,6 +37,24 @@
     </div>
 </section>
 
+<section class="py-14 bg-[#f7f8fa] border-y border-gray-100">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Related HiredNext search markets</div>
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-7">Executive search by city and specialist sector</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="<?= base_url('regions/executive-search-bangalore') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Bangalore →</a>
+            <a href="<?= base_url('regions/executive-search-gurgaon') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Gurgaon & Delhi NCR →</a>
+            <a href="<?= base_url('regions/executive-search-mumbai') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Mumbai →</a>
+            <a href="<?= base_url('regions/executive-search-chennai') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Chennai →</a>
+            <a href="<?= base_url('industry/global-capability-centres-hiring-india') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">GCC Recruitment India →</a>
+            <a href="<?= base_url('industry/semiconductor-recruitment-india') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Semiconductor Recruitment India →</a>
+            <a href="<?= base_url('industry/manufacturing-recruitment-india') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Manufacturing Recruitment India →</a>
+            <a href="<?= base_url('industry/retail-executive-search') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Retail Executive Search India →</a>
+            <a href="<?= base_url('services/executive-search') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Services India →</a>
+        </div>
+    </div>
+</section>
+
 <section class="py-16 bg-[#f7f8fa]">
     <div class="max-w-[980px] mx-auto px-4 sm:px-8">
         <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Frequently Asked Questions</div>
@@ -63,6 +81,8 @@
             <div class="grid gap-3 content-start">
                 <a href="<?= base_url('mandate-stories') ?>" class="rounded-xl border border-gray-200 px-5 py-4 font-bold text-primary hover:border-accent">Mandate Stories & Search Evidence →</a>
                 <a href="<?= base_url('hiring-intelligence') ?>" class="rounded-xl border border-gray-200 px-5 py-4 font-bold text-primary hover:border-accent">HiredNext Hiring Intelligence →</a>
+                <a href="<?= base_url('press-media') ?>" class="rounded-xl border border-gray-200 px-5 py-4 font-bold text-primary hover:border-accent">Press & Media Evidence →</a>
+                <a href="<?= base_url('authority/entity.json') ?>" class="rounded-xl border border-gray-200 px-5 py-4 font-bold text-primary hover:border-accent">Machine-readable HiredNext Entity →</a>
                 <a href="<?= base_url('services/executive-search') ?>" class="rounded-xl border border-gray-200 px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Services →</a>
             </div>
         </div>
