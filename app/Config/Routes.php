@@ -12,6 +12,8 @@ $routes->get('services', 'CandidateServices::services');
 $routes->get('services/clients', 'CandidateServices::clientServices');
 $routes->get('services/candidates', 'CandidateServices::candidateServices');
 $routes->get('services/cv-assessment', 'CandidateServices::cvAssessment');
+// Legacy Avron URL now resolves to HiredNext's current recruiter-led career advisory.
+$routes->get('services/avron', 'CandidateServices::candidateServices');
 $routes->get('services/(:any)', 'Home::serviceDetail/$1');
 $routes->get('speak-to-hirednext', 'Advisory::gateway');
 $routes->get('hiring-discussion', 'Advisory::hiringDiscussion');
