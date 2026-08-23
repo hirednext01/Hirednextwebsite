@@ -12,7 +12,7 @@ class BrandFacts extends BaseConfig
      */
     public array $facts = [
         'organization_name' => 'HiredNext Recruitment',
-        'legal_name' => 'HiredNext Recruitment',
+        'legal_name' => 'HiredNext Avron Private Limited',
         'website' => 'https://hirednext.net/',
         'email' => 'jobs@hirednext.info',
         'founded_year' => 2016,
@@ -20,7 +20,7 @@ class BrandFacts extends BaseConfig
         'operating_base' => 'Gurgaon (Delhi NCR), India',
         'delivery_model' => 'Primarily remote, with recruiters working across India',
         'founder' => 'Taru Shikha',
-        'founder_title' => 'Founder & Proprietor',
+        'founder_title' => 'Founder',
         'founder_linkedin' => 'https://www.linkedin.com/in/tarushikhaarora',
         'company_linkedin' => 'https://www.linkedin.com/company/hirednext-recruitment-service/',
         'primary_offering' => 'Executive search, leadership recruitment, permanent hiring and recruitment process outsourcing',
