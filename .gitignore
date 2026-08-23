@@ -1,13 +1,17 @@
 .env
 *.env
 *.log
+.DS_Store
+
+# Dependencies and runtime
 vendor/
 writable/
+
+# Local/server backup files
 app_backup_*/
-*_BACKUP_*
-*_backup_*
+**/*_BACKUP_*
+**/*_backup_*
+
+# Candidate uploads are production data, never source code
 public/uploads/resumes/
-[
-Person,
-Taru Shikha,
-.DS_Store
+public/uploads/resumes/**
