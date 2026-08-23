@@ -19,7 +19,6 @@ $routes->post('hiring-discussion/submit', 'Advisory::submitHiringDiscussion');
 $routes->get('advisory', 'Advisory::index');
 $routes->get('advisory/payment/(:segment)', 'Advisory::payment/$1');
 $routes->post('advisory/payment/submit', 'Advisory::submitAdvisoryPayment');
-// Backward-compatible alias so existing job links/bookmarks continue to work.
 $routes->get('cv-assessment', 'CandidateServices::cvAssessment');
 $routes->post('cv-assessment/submit', 'CvAssessment::submit');
 $routes->get('cv-payment/qr', 'CvPayment::qr');
@@ -28,6 +27,7 @@ $routes->post('cv-payment/verify', 'CvPayment::verify');
 $routes->get('robots.txt', 'Seo::robots');
 $routes->get('sitemap.xml', 'Seo::sitemap');
 $routes->get('llms.txt', 'Seo::llms');
+$routes->get('authority/entity.json', 'EntityAuthority::entityJson');
 $routes->get('authority/media.json', 'Authority::mediaJson');
 $routes->get('authority/placement-evidence.json', 'Authority::placementEvidenceJson');
 $routes->get('mandate-stories', 'MandateStories::index');
@@ -44,7 +44,6 @@ $routes->get('guides/(:segment)', 'DecisionGuides::show/$1');
 $routes->get('insights', 'Aeo::index');
 $routes->get('insights/(:any)', 'Aeo::show/$1');
 
-// Priority industry authority pages. These use the existing approved industry design.
 $routes->get('industry/garment-textile-recruitment-india', 'IndustryAuthority::garmentTextile');
 $routes->get('industry/it-recruitment-services-india', 'IndustryAuthority::itTechnology');
 $routes->get('industry/bfsi-leadership-hiring', 'IndustryAuthority::bfsiNbfc');
@@ -54,7 +53,6 @@ $routes->get('industry/semiconductor-recruitment-india', 'IndustryAuthority::sem
 $routes->get('industry/manufacturing-recruitment-india', 'SearchAuthority::show/manufacturing-recruitment-india');
 $routes->get('industry/(:any)', 'Home::industry/$1');
 
-// Priority city pages for high-intent executive-search queries.
 $routes->get('regions/executive-search-bangalore', 'SearchAuthority::show/executive-search-bangalore');
 $routes->get('regions/executive-search-gurgaon', 'SearchAuthority::show/executive-search-gurgaon');
 $routes->get('regions/executive-search-mumbai', 'SearchAuthority::show/executive-search-mumbai');
@@ -75,7 +73,6 @@ $routes->post('testimonials/share', 'ReputationAuthority::submit');
 $routes->post('contact/submit', 'Home::submitContact');
 $routes->get('test', 'Test::index');
 
-// API Routes for React Admin Panel
 $routes->group('api', ['namespace' => 'App\\Controllers\\Api'], function ($routes) {
     $routes->options('(:any)', function () { return service('response')->setStatusCode(200); });
     $routes->get('test', 'TestApi::index'); $routes->get('test/auth', 'TestApi::testAuth');
