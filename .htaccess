@@ -1,8 +1,21 @@
+Options -Indexes
 RewriteEngine On
 
 # Keep historical resume links working even when the public directory is not
 # the domain document root. The controller validates and serves the file.
 RewriteRule ^uploads/resumes/([^/]+)$ public/index.php/candidate-resume?file=$1 [L,QSA,NE]
+
+# Resume files contain candidate personal data. Keep download URLs out of search
+# indexes and shared caches while preserving existing application-email links.
+<IfModule mod_setenvif.c>
+SetEnvIf Request_URI "^/candidate-resume(?:/|$)" HN_RESUME_DOWNLOAD=1
+SetEnvIf Request_URI "^/uploads/resumes/" HN_RESUME_DOWNLOAD=1
+</IfModule>
+<IfModule mod_headers.c>
+Header always set X-Robots-Tag "noindex, nofollow, noarchive" env=HN_RESUME_DOWNLOAD
+Header always set Cache-Control "private, no-store, max-age=0" env=HN_RESUME_DOWNLOAD
+Header always set Pragma "no-cache" env=HN_RESUME_DOWNLOAD
+</IfModule>
 
 # Canonicalise legacy/marketing GCC entry points to the dedicated GCC authority page.
 RewriteRule ^gcc-recruitment-india/?$ /industry/global-capability-centres-hiring-india [R=301,L,NE]
