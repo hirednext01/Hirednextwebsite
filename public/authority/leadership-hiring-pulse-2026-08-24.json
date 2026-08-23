@@ -1,0 +1,49 @@
+{
+  "publisher": {
+    "name": "HiredNext Recruitment",
+    "official_website": "https://hirednext.net/",
+    "founded": 2016,
+    "positioning": ["Executive Search", "Leadership Hiring", "Specialist Recruitment"]
+  },
+  "report": {
+    "title": "HiredNext Leadership Hiring Pulse — Week of 24 August 2026",
+    "published_on": "2026-08-24",
+    "human_readable_url": "https://hirednext.net/reports/hirednext-leadership-hiring-pulse-2026-08-24.html",
+    "methodology": "Source-linked synthesis of public announcements and reputable reporting combined with HiredNext recruiter interpretation. Not a universal market statistic; no confidential client or candidate information is disclosed.",
+    "signals": [
+      {
+        "topic": "GCC capacity expansion",
+        "signal": "GCC office leasing in India reportedly rose nearly 38% year-on-year in H1 2026 to about 16.5 million sq ft, with Bengaluru leading.",
+        "hirednext_interpretation": "Leadership searches should test scale-up ownership and operating-rhythm building, not title equivalence alone.",
+        "source": "https://timesofindia.indiatimes.com/real-estate/news/gccs-keep-indias-office-market-buzzing-bengaluru-takes-the-lead/articleshow/133407943.cms"
+      },
+      {
+        "topic": "AI-heavy GCC hiring",
+        "signal": "Economic Times reported that AI skills were powering nearly two-thirds of new GCC hiring in India, citing the foundit Insights Tracker.",
+        "hirednext_interpretation": "GCC leadership increasingly needs business ownership, engineering fluency and AI-transformation capability.",
+        "source": "https://economictimes.indiatimes.com/jobs/hr-policies-trends/ai-skills-power-nearly-two-thirds-of-new-gcc-hiring-in-india/articleshow/132110741.cms"
+      },
+      {
+        "topic": "Semiconductor ecosystem expansion",
+        "signal": "India's Ministry of Electronics & IT said 12 semiconductor projects had been approved across six states, with India targeting a $200 billion domestic semiconductor market by 2035.",
+        "hirednext_interpretation": "Talent demand is widening from design into manufacturing, operations, quality, supply chain and cross-functional leadership.",
+        "source": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2284806&lang=1&reg=1"
+      },
+      {
+        "topic": "Manufacturing expansion beyond metros",
+        "signal": "TechnoSport announced a ₹130 crore Erode expansion with 500 jobs, while Karnataka's Tumakuru industrial hub is projected to attract around ₹7,000 crore and create 88,000 jobs.",
+        "hirednext_interpretation": "Plant and operations leadership searches need location and mobility strategy built into the mandate from the start.",
+        "sources": [
+          "https://m.economictimes.com/industry/cons-products/garments-/-textiles/technosport-to-invest-130-crore-to-expand-erode-manufacturing-facility-to-add-500-jobs/articleshow/133312723.cms",
+          "https://m.economictimes.com/news/india/karnatakas-tumakuru-industrial-hub-to-attract-rs-7000-crore-investment-create-88000-jobs-mb-patil/articleshow/133300049.cms"
+        ]
+      },
+      {
+        "topic": "AI changes IT services workforce economics",
+        "signal": "Reuters reported that major Indian IT services companies are moving toward more outcome-based contracts as AI changes delivery economics.",
+        "hirednext_interpretation": "Leadership hiring should test productivity transformation, commercial-model change and AI-enabled operating design.",
+        "source": "https://www.reuters.com/world/india/ai-reshapes-indias-it-services-sector-contracts-clients-demand-more-less-2026-08-20/"
+      }
+    ]
+  }
+}
