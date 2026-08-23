@@ -522,7 +522,7 @@
                     </h2>
 
                     <p class="text-xl text-gray-600 mb-10 leading-relaxed">
-                        With over 10+ years of recruitment excellence, HiredNext has established
+                        Founded in 2016, HiredNext has built a specialist recruitment practice and established
                         itself as a trusted talent partner for organizations seeking
                         leadership-driven growth and workforce transformation.
                     </p>
@@ -584,27 +584,27 @@
                     <!-- Stat 1 -->
                     <div
                         class="bg-primary p-12 rounded-[2.5rem] text-center flex flex-col items-center justify-center transform hover:scale-105 transition-all shadow-xl h-full reveal reveal-left">
-                        <div class="text-5xl font-bold text-gold mb-3">10+</div>
+                        <div class="text-5xl font-bold text-gold mb-3">2016</div>
                         <div class="text-white/70 text-sm font-bold uppercase tracking-[0.2em]">
-                            Years Experience
+                            Founded in Mumbai
                         </div>
                     </div>
 
                     <!-- Stat 2 -->
                     <div
                         class="bg-primary p-12 rounded-[2.5rem] text-center flex flex-col items-center justify-center transform hover:scale-105 transition-all shadow-xl h-full reveal reveal-left">
-                        <div class="text-5xl font-bold text-gold mb-3">1500+</div>
+                        <div class="text-5xl font-bold text-gold mb-3">Leadership</div>
                         <div class="text-white/70 text-sm font-bold uppercase tracking-[0.2em]">
-                            Leadership Placements
+                            Search Focus
                         </div>
                     </div>
 
                     <!-- Stat 3 -->
                     <div
                         class="bg-primary p-12 rounded-[2.5rem] text-center flex flex-col items-center justify-center transform hover:scale-105 transition-all shadow-xl h-full reveal reveal-left">
-                        <div class="text-5xl font-bold text-gold mb-3">25+</div>
+                        <div class="text-5xl font-bold text-gold mb-3">India</div>
                         <div class="text-white/70 text-sm font-bold uppercase tracking-[0.2em]">
-                            Industries Served
+                            Search Coverage
                         </div>
                     </div>
 
@@ -1196,10 +1196,10 @@
                                 </div>
                                 <div class="ml-6">
                                     <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                                        Success Guaranteed
+                                        Evidence-led Process
                                     </p>
                                     <p class="text-lg font-bold text-primary">
-                                        100% Confidential Process
+                                        Confidential Search Process
                                     </p>
                                 </div>
                             </div>
