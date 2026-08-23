@@ -1,4 +1,4 @@
-name: One-time evidence-first claims cleanup
+name: Evidence-first claims cleanup
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Remove unsupported headline metrics
+      - name: Remove unsupported or inconsistent public claims
         shell: python
         run: |
           from pathlib import Path
@@ -33,6 +33,15 @@ jobs:
                   ('<div class="text-white/80 uppercase tracking-[0.25em] text-[10px]">Speed</div>\n                                <div class="text-2xl font-bold text-white">21 days</div>', '<div class="text-white/80 uppercase tracking-[0.25em] text-[10px]">Search</div>\n                                <div class="text-2xl font-bold text-white">Mandate-led</div>'),
                   ('<div class="text-white/80 uppercase tracking-[0.25em] text-[10px]">Coverage</div>\n                                <div class="text-2xl font-bold text-white">12 sectors</div>', '<div class="text-white/80 uppercase tracking-[0.25em] text-[10px]">Coverage</div>\n                                <div class="text-2xl font-bold text-white">India-wide</div>'),
                   ('<div class="text-3xl font-bold mb-2">1500+</div>\n                        <div class="text-sm text-gray-500 uppercase font-extrabold tracking-widest">\n                            Leadership Placements\n                        </div>', '<div class="text-3xl font-bold mb-2">Selected</div>\n                        <div class="text-sm text-gray-500 uppercase font-extrabold tracking-widest">\n                            Search Evidence\n                        </div>'),
+                  ('With over 10+ years of recruitment excellence, HiredNext has established', 'Founded in 2016, HiredNext has built a specialist recruitment practice and established'),
+                  ('<div class="text-5xl font-bold text-gold mb-3">10+</div>', '<div class="text-5xl font-bold text-gold mb-3">2016</div>'),
+                  ('Years Experience', 'Founded in Mumbai'),
+                  ('<div class="text-5xl font-bold text-gold mb-3">1500+</div>', '<div class="text-5xl font-bold text-gold mb-3">Leadership</div>'),
+                  ('Leadership Placements', 'Search Focus'),
+                  ('<div class="text-5xl font-bold text-gold mb-3">25+</div>', '<div class="text-5xl font-bold text-gold mb-3">India</div>'),
+                  ('Industries Served', 'Search Coverage'),
+                  ('Success Guaranteed', 'Evidence-led Process'),
+                  ('100% Confidential Process', 'Confidential Search Process'),
               ],
               Path('app/Config/DecisionGuides.php'): [
                   ("['value' => '98%', 'label' => 'HiredNext-reported candidate success rate'],", "['value' => 'Evidence-led', 'label' => 'Recruiter-led search and assessment'],"),
@@ -67,5 +76,5 @@ jobs:
           git config user.name "HiredNext SEO Automation"
           git config user.email "seo-automation@users.noreply.github.com"
           git add app/Views/pages/home.php app/Config/DecisionGuides.php
-          git commit -m "SEO: replace unsupported headline metrics with evidence-led proof"
+          git commit -m "SEO: remove remaining unsupported homepage claims"
           git push origin main
