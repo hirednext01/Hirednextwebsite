@@ -107,32 +107,6 @@
     </div>
 </section>
 
-<section class="py-20 bg-gray-50">
-    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
-        <div class="grid lg:grid-cols-2 gap-12 items-center rounded-[2rem] border border-gray-200 bg-white p-7 md:p-10 shadow-sm">
-            <div>
-                <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Accelerate your career with intelligence & mentorship</div>
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">HiredNext Avron</h2>
-                <p class="text-gold text-lg italic mb-5">AI-powered career acceleration with real mentorship</p>
-                <p class="text-gray-600 leading-relaxed mb-7">Avron is an intelligent career companion that combines AI-driven skill-gap analysis, personalized learning paths and expert mentorship delivered through the UpMentorX platform — helping candidates learn from professionals who have already walked the path.</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="<?= base_url('services/avron') ?>" class="inline-flex px-7 py-3.5 rounded-full bg-primary text-white font-bold hover:bg-accent transition">Explore Avron →</a>
-                    <a href="https://www.upmentorx.com" target="_blank" rel="noopener noreferrer" class="inline-flex px-7 py-3.5 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition">Meet Your Mentors →</a>
-                </div>
-            </div>
-            <div class="rounded-[2rem] bg-primary text-white p-8">
-                <h3 class="text-2xl font-serif font-bold mb-5">What candidates can use Avron for</h3>
-                <ul class="space-y-4 text-sm text-white/80">
-                    <li>✓ Skill-gap analysis against career goals</li>
-                    <li>✓ Personalized development pathways</li>
-                    <li>✓ Expert mentorship through UpMentorX</li>
-                    <li>✓ Career direction and learning support</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
 <?php if (!empty($faq)): ?>
 <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-8">
