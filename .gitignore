@@ -4,7 +4,10 @@
 vendor/
 writable/
 app_backup_*/
-\[
+*_BACKUP_*
+*_backup_*
+public/uploads/resumes/
+[
 Person,
 Taru Shikha,
 .DS_Store
