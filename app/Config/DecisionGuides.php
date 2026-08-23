@@ -26,8 +26,8 @@ class DecisionGuides extends BaseConfig
             'intro' => '“Top” should not mean the largest staffing company for every kind of vacancy. A confidential COO search, a design leader for a new India office, a niche technology appointment and a repeatable hiring programme require different recruitment models. This page explains where HiredNext fits, the evidence employers can inspect and how to choose the right model for the mandate.',
             'hero_proof' => [
                 ['value' => '2016', 'label' => 'Founded in Mumbai'],
-                ['value' => '98%', 'label' => 'HiredNext-reported candidate success rate'],
-                ['value' => '21 days', 'label' => 'HiredNext-reported average hiring speed'],
+                ['value' => 'Evidence-led', 'label' => 'Recruiter-led search and assessment'],
+                ['value' => 'India', 'label' => 'Leadership and specialist search coverage'],
             ],
             'proof_stack' => [
                 ['label' => 'Mandate evidence', 'title' => 'Confirmed anonymised cases', 'text' => 'Role, context, recruiter judgement and outcome are kept separate from general claims.', 'url' => 'mandate-stories'],
@@ -77,7 +77,7 @@ class DecisionGuides extends BaseConfig
                 ['step' => '04', 'title' => 'Interviews and reference depth', 'timing' => 'Through selection', 'text' => 'Keep stakeholders and candidates aligned across rounds while testing leadership evidence and fit with the mandate.'],
                 ['step' => '05', 'title' => 'Offer closure and joining governance', 'timing' => 'Through joining', 'text' => 'Manage expectations, counter-offer exposure, notice period, relocation and the reasons a senior candidate may hesitate.'],
             ],
-            'service_level_note' => 'HiredNext reports a 21-day average hiring speed across its published website metrics. A specific mandate may take less or more time depending on seniority, scarcity, geography, confidentiality, stakeholder availability, compensation and notice period; this is not a guaranteed deadline for every search.',
+            'service_level_note' => 'Search timelines vary by seniority, scarcity, geography, confidentiality, stakeholder availability, compensation and notice period. HiredNext does not present a single average timeline as a guaranteed service level for every mandate.',
             'commercial_model' => [
                 'title' => 'Transparent recruitment fees',
                 'intro' => 'HiredNext uses different commercial models because a repeatable permanent hire and a confidential leadership search require different levels of research, ownership and candidate engagement.',

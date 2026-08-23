@@ -46,13 +46,13 @@
                             <span class="h-2 w-2 rounded-full bg-gold"></span> Experience: 10+ Years
                         </span>
                         <span class="flex items-center gap-2">
-                            <span class="h-2 w-2 rounded-full bg-accent"></span> Placements: 1500+
+                            <span class="h-2 w-2 rounded-full bg-accent"></span> Search Focus: Leadership
                         </span>
                         <span class="flex items-center gap-2">
                             <span class="h-2 w-2 rounded-full bg-white"></span> Industries: 6 Core Sectors
                         </span>
                         <span class="flex items-center gap-2">
-                            <span class="h-2 w-2 rounded-full bg-accent"></span> Success Rate: 98%
+                            <span class="h-2 w-2 rounded-full bg-accent"></span> Approach: Evidence-led
                         </span>
                     </div>
                 </div>
@@ -64,18 +64,18 @@
                             <div class="text-sm uppercase tracking-[0.35em] text-white/60">Talent Intelligence</div>
                             <div class="text-xs uppercase tracking-[0.3em] text-accent">Live</div>
                         </div>
-                        <div class="text-6xl font-bold mb-4">98%</div>
+                        <div class="text-4xl font-bold mb-4">Evidence-led</div>
                         <div class="text-white/70 text-lg leading-relaxed mb-8">
-                            Candidate success rate across leadership search mandates.
+                            Recruiter-led market mapping, assessment and search governance.
                         </div>
                         <div class="grid grid-cols-2 gap-6 text-sm text-white/70">
                             <div class="space-y-2">
-                                <div class="text-white/80 uppercase tracking-[0.25em] text-[10px]">Speed</div>
-                                <div class="text-2xl font-bold text-white">21 days</div>
+                                <div class="text-white/80 uppercase tracking-[0.25em] text-[10px]">Search</div>
+                                <div class="text-2xl font-bold text-white">Mandate-led</div>
                             </div>
                             <div class="space-y-2">
                                 <div class="text-white/80 uppercase tracking-[0.25em] text-[10px]">Coverage</div>
-                                <div class="text-2xl font-bold text-white">12 sectors</div>
+                                <div class="text-2xl font-bold text-white">India-wide</div>
                             </div>
                         </div>
                     </div>
@@ -83,9 +83,9 @@
                     <div
                         class="hero-card relative mt-8 bg-white text-primary p-8 rounded-[2rem] shadow-2xl border border-white/80">
                         <div class="text-xs uppercase tracking-[0.3em] text-gray-600 mb-3">Featured</div>
-                        <div class="text-3xl font-bold mb-2">1500+</div>
+                        <div class="text-3xl font-bold mb-2">Selected</div>
                         <div class="text-sm text-gray-500 uppercase font-extrabold tracking-widest">
-                            Leadership Placements
+                            Search Evidence
                         </div>
                     </div>
                 </div>
