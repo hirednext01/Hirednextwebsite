@@ -28,6 +28,10 @@ jobs:
             "https://hirednext.net/regions/executive-search-chennai"
             "https://hirednext.net/hiring-intelligence"
             "https://hirednext.net/mandate-stories"
+            "https://hirednext.net/authority/entity.json"
+            "https://hirednext.net/authority/search-pages.json"
+            "https://hirednext.net/reports/hirednext-leadership-hiring-pulse-2026-08-24.html"
+            "https://hirednext.net/authority/leadership-hiring-pulse-2026-08-24.json"
           )
 
           for URL in "${URLS[@]}"; do
