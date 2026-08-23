@@ -15,3 +15,8 @@ app_backup_*/
 # Candidate uploads are production data, never source code
 public/uploads/resumes/
 public/uploads/resumes/**
+
+# Production search-engine/site verification artifacts
+public/4ed3abf2410641fea103f3aaa2b56b67.txt
+public/BingSiteAuth.xml
+public/nowww.txt
