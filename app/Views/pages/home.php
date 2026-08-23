@@ -43,7 +43,7 @@
 
                     <div class="flex flex-wrap items-center gap-6 text-xs uppercase tracking-[0.3em] text-white/60">
                         <span class="flex items-center gap-2">
-                            <span class="h-2 w-2 rounded-full bg-gold"></span> Experience: 10+ Years
+                            <span class="h-2 w-2 rounded-full bg-gold"></span> Founded: 2016
                         </span>
                         <span class="flex items-center gap-2">
                             <span class="h-2 w-2 rounded-full bg-accent"></span> Search Focus: Leadership
