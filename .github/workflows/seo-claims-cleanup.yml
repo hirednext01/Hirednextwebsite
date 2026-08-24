@@ -58,6 +58,7 @@ jobs:
                   ("'service_level_note' => 'HiredNext reports a 21-day average hiring speed across its published website metrics. A specific mandate may take less or more time depending on seniority, scarcity, geography, confidentiality, stakeholder availability, compensation and notice period; this is not a guaranteed deadline for every search.',", "'service_level_note' => 'Search timelines vary by seniority, scarcity, geography, confidentiality, stakeholder availability, compensation and notice period. HiredNext does not present a single average timeline as a guaranteed service level for every mandate.',"),
                   ("['label' => 'Legal name', 'value' => 'HiredNext Recruitment'],", "['label' => 'Public brand', 'value' => 'HiredNext Recruitment'],"),
                   ("['q' => 'What is HiredNext’s typical time to hire?', 'a' => 'HiredNext reports a 21-day average hiring speed on its website. Actual timelines vary by seniority, scarcity, geography, confidentiality, stakeholder speed, compensation and notice period, so the figure is not a guarantee for every mandate.'],", "['q' => 'What is HiredNext’s typical time to hire?', 'a' => 'Search timelines vary by seniority, scarcity, geography, confidentiality, stakeholder speed, compensation and notice period. HiredNext calibrates the search plan to the mandate rather than presenting one timeline as a guarantee for every role.'],"),
+                  ("'url' => 'industry/manufacturing-talent-advisory'", "'url' => 'industry/manufacturing-recruitment-india'"),
               ],
               Path('app/Controllers/Seo.php'): [
                   ("['loc' => base_url(), 'changefreq' => 'weekly', 'priority' => '1.0'],", "['loc' => base_url(), 'lastmod' => '2026-08-24', 'changefreq' => 'weekly', 'priority' => '1.0'],"),
@@ -89,6 +90,7 @@ jobs:
           home = Path('app/Views/pages/home.php').read_text()
           guides = Path('app/Config/DecisionGuides.php').read_text()
           seo = Path('app/Controllers/Seo.php').read_text()
+          all_authority_copy = layout + '\n' + home + '\n' + guides + '\n' + seo
 
           expected_layout_fragments = [
               "href=\"<?= base_url('regions/executive-search-bangalore') ?>\"",
@@ -99,6 +101,7 @@ jobs:
               "base_url('contact') ?>?location=bangalore",
               "base_url('contact') ?>?location=gurgaon",
               "base_url('industry/manufacturing-talent-advisory')",
+              "'url' => 'industry/manufacturing-talent-advisory'",
               "base_url('regions/executive-search-bangalore')\"",
               "base_url('regions/executive-search-gurgaon')\"",
           ]
@@ -106,7 +109,7 @@ jobs:
           for fragment in expected_layout_fragments:
               assert fragment in layout, f'Missing valid authority anchor: {fragment}'
           for target in forbidden_targets:
-              assert target not in layout + home + seo, f'Legacy or malformed authority target still present: {target}'
+              assert target not in all_authority_copy, f'Legacy or malformed authority target still present: {target}'
 
           for target in [
               "base_url('regions/executive-search-bangalore')",
