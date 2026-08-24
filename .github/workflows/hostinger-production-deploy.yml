@@ -1,0 +1,72 @@
+name: Deploy HiredNext to Hostinger
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hostinger-production-deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hirednext-hostinger-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      HOSTINGER_SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      HOSTINGER_PRIVATE_KEY: ${{ secrets.HOSTINGER_PRIVATE_KEY }}
+      DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+      HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+    steps:
+      - name: Deploy main to production safely
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          HOST='145.79.213.68'
+          PORT='65002'
+          USER='u212644598'
+          TARGET='/home/u212644598/domains/hirednext.net/public_html'
+          REMOTE="${USER}@${HOST}"
+          SSH_ARGS=(-p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15)
+
+          KEY="${HOSTINGER_SSH_KEY:-${SSH_PRIVATE_KEY:-${HOSTINGER_PRIVATE_KEY:-${DEPLOY_PRIVATE_KEY:-}}}}"
+          PASS="${HOSTINGER_PASSWORD:-${SSH_PASSWORD:-}}"
+
+          remote_deploy='set -euo pipefail
+          cd /home/u212644598/domains/hirednext.net/public_html
+          test -d .git || { echo "Production path is not a Git checkout"; exit 20; }
+          echo "Before: $(git rev-parse --short HEAD)"
+          test -z "$(git status --porcelain)" || { echo "Production checkout has local changes; refusing to overwrite"; git status --short; exit 21; }
+          git fetch origin main
+          git merge-base --is-ancestor HEAD origin/main || { echo "Production history diverged from origin/main; refusing non-fast-forward deploy"; exit 22; }
+          git pull --ff-only origin main
+          php -l app/Views/pages/home.php
+          php -l app/Views/layouts/main.php
+          php -l app/Config/DecisionGuides.php
+          php -l app/Controllers/Seo.php
+          php spark cache:clear >/dev/null 2>&1 || true
+          echo "After: $(git rev-parse --short HEAD)"'
+
+          if [[ -n "$KEY" ]]; then
+            mkdir -p ~/.ssh
+            printf '%s\n' "$KEY" > ~/.ssh/hostinger_key
+            chmod 600 ~/.ssh/hostinger_key
+            ssh "${SSH_ARGS[@]}" -i ~/.ssh/hostinger_key "$REMOTE" "$remote_deploy"
+          elif [[ -n "$PASS" ]]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq sshpass
+            SSHPASS="$PASS" sshpass -e ssh "${SSH_ARGS[@]}" "$REMOTE" "$remote_deploy"
+          else
+            echo '::error::No supported Hostinger SSH credential secret is configured in this repository.'
+            echo 'Checked: HOSTINGER_SSH_KEY, SSH_PRIVATE_KEY, HOSTINGER_PRIVATE_KEY, DEPLOY_PRIVATE_KEY, HOSTINGER_PASSWORD, SSH_PASSWORD.'
+            exit 78
+          fi
