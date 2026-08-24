@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: hirednext-hostinger-production
@@ -26,20 +26,24 @@ jobs:
       HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
       SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
     steps:
+      - uses: actions/checkout@v4
+
       - name: Deploy main to production safely
+        id: deploy
         shell: bash
         run: |
-          set -euo pipefail
+          set +e
 
           HOST='145.79.213.68'
           PORT='65002'
           USER='u212644598'
-          TARGET='/home/u212644598/domains/hirednext.net/public_html'
           REMOTE="${USER}@${HOST}"
           SSH_ARGS=(-p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15)
 
           KEY="${HOSTINGER_SSH_KEY:-${SSH_PRIVATE_KEY:-${HOSTINGER_PRIVATE_KEY:-${DEPLOY_PRIVATE_KEY:-}}}}"
           PASS="${HOSTINGER_PASSWORD:-${SSH_PASSWORD:-}}"
+          RESULT='unknown'
+          RC=1
 
           remote_deploy='set -euo pipefail
           cd /home/u212644598/domains/hirednext.net/public_html
@@ -57,16 +61,51 @@ jobs:
           echo "After: $(git rev-parse --short HEAD)"'
 
           if [[ -n "$KEY" ]]; then
+            RESULT='ssh_key_attempted'
             mkdir -p ~/.ssh
             printf '%s\n' "$KEY" > ~/.ssh/hostinger_key
             chmod 600 ~/.ssh/hostinger_key
             ssh "${SSH_ARGS[@]}" -i ~/.ssh/hostinger_key "$REMOTE" "$remote_deploy"
+            RC=$?
           elif [[ -n "$PASS" ]]; then
-            sudo apt-get update -qq
-            sudo apt-get install -y -qq sshpass
-            SSHPASS="$PASS" sshpass -e ssh "${SSH_ARGS[@]}" "$REMOTE" "$remote_deploy"
+            RESULT='ssh_password_attempted'
+            sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+            if [[ $? -eq 0 ]]; then
+              SSHPASS="$PASS" sshpass -e ssh "${SSH_ARGS[@]}" "$REMOTE" "$remote_deploy"
+              RC=$?
+            else
+              RC=70
+            fi
           else
-            echo '::error::No supported Hostinger SSH credential secret is configured in this repository.'
-            echo 'Checked: HOSTINGER_SSH_KEY, SSH_PRIVATE_KEY, HOSTINGER_PRIVATE_KEY, DEPLOY_PRIVATE_KEY, HOSTINGER_PASSWORD, SSH_PASSWORD.'
-            exit 78
+            RESULT='credential_missing'
+            RC=78
           fi
+
+          if [[ "$RC" -eq 0 ]]; then
+            RESULT='deployed'
+          fi
+
+          printf 'result=%s\nexit_code=%s\nsource_sha=%s\nrun_id=%s\n' "$RESULT" "$RC" "$GITHUB_SHA" "$GITHUB_RUN_ID" > .github/hostinger-deploy-status.txt
+          echo "result=$RESULT" >> "$GITHUB_OUTPUT"
+          echo "exit_code=$RC" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Record deploy result
+        shell: bash
+        run: |
+          git config user.name 'HiredNext Deploy Automation'
+          git config user.email 'deploy-automation@users.noreply.github.com'
+          git add .github/hostinger-deploy-status.txt
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Deploy: record Hostinger production result"
+          git push origin HEAD:main
+
+      - name: Fail run when production was not deployed
+        if: steps.deploy.outputs.exit_code != '0'
+        shell: bash
+        run: |
+          echo "Hostinger deployment result: ${{ steps.deploy.outputs.result }}"
+          echo "Exit code: ${{ steps.deploy.outputs.exit_code }}"
+          exit 1
