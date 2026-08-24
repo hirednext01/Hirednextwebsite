@@ -45,8 +45,10 @@ jobs:
                   ("base_url('industry/manufacturing-talent-advisory')", "base_url('industry/manufacturing-recruitment-india')"),
               ],
               Path('app/Views/layouts/main.php'): [
-                  ("base_url('contact') ?>?location=bangalore", "base_url('regions/executive-search-bangalore')"),
-                  ("base_url('contact') ?>?location=gurgaon", "base_url('regions/executive-search-gurgaon')"),
+                  ("base_url('contact') ?>?location=bangalore", "base_url('regions/executive-search-bangalore') ?>"),
+                  ("base_url('contact') ?>?location=gurgaon", "base_url('regions/executive-search-gurgaon') ?>"),
+                  ("base_url('regions/executive-search-bangalore')\"", "base_url('regions/executive-search-bangalore') ?>\""),
+                  ("base_url('regions/executive-search-gurgaon')\"", "base_url('regions/executive-search-gurgaon') ?>\""),
                   ("base_url('industry/manufacturing-talent-advisory')", "base_url('industry/manufacturing-recruitment-india')"),
               ],
               Path('app/Config/DecisionGuides.php'): [
@@ -88,21 +90,23 @@ jobs:
           guides = Path('app/Config/DecisionGuides.php').read_text()
           seo = Path('app/Controllers/Seo.php').read_text()
 
-          expected_layout_targets = [
-              "base_url('regions/executive-search-bangalore')",
-              "base_url('regions/executive-search-gurgaon')",
+          expected_layout_fragments = [
+              "href=\"<?= base_url('regions/executive-search-bangalore') ?>\"",
+              "href=\"<?= base_url('regions/executive-search-gurgaon') ?>\"",
               "base_url('industry/manufacturing-recruitment-india')",
           ]
           forbidden_targets = [
               "base_url('contact') ?>?location=bangalore",
               "base_url('contact') ?>?location=gurgaon",
               "base_url('industry/manufacturing-talent-advisory')",
+              "base_url('regions/executive-search-bangalore')\"",
+              "base_url('regions/executive-search-gurgaon')\"",
           ]
 
-          for target in expected_layout_targets:
-              assert target in layout, f'Missing authority target: {target}'
+          for fragment in expected_layout_fragments:
+              assert fragment in layout, f'Missing valid authority anchor: {fragment}'
           for target in forbidden_targets:
-              assert target not in layout + home + seo, f'Legacy authority target still present: {target}'
+              assert target not in layout + home + seo, f'Legacy or malformed authority target still present: {target}'
 
           for target in [
               "base_url('regions/executive-search-bangalore')",
