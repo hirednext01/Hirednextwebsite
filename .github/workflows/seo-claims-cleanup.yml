@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Remove unsupported or inconsistent public claims
+      - name: Remove unsupported claims and consolidate authority targets
         shell: python
         run: |
           from pathlib import Path
@@ -42,13 +42,25 @@ jobs:
                   ('Industries Served', 'Search Coverage'),
                   ('Success Guaranteed', 'Evidence-led Process'),
                   ('100% Confidential Process', 'Confidential Search Process'),
+                  ("base_url('industry/manufacturing-talent-advisory')", "base_url('industry/manufacturing-recruitment-india')"),
+              ],
+              Path('app/Views/layouts/main.php'): [
+                  ("base_url('contact') ?>?location=bangalore", "base_url('regions/executive-search-bangalore')"),
+                  ("base_url('contact') ?>?location=gurgaon", "base_url('regions/executive-search-gurgaon')"),
+                  ("base_url('industry/manufacturing-talent-advisory')", "base_url('industry/manufacturing-recruitment-india')"),
               ],
               Path('app/Config/DecisionGuides.php'): [
+                  ("public string $updatedOn = '2026-08-14';", "public string $updatedOn = '2026-08-24';"),
                   ("['value' => '98%', 'label' => 'HiredNext-reported candidate success rate'],", "['value' => 'Evidence-led', 'label' => 'Recruiter-led search and assessment'],"),
                   ("['value' => '21 days', 'label' => 'HiredNext-reported average hiring speed'],", "['value' => 'India', 'label' => 'Leadership and specialist search coverage'],"),
                   ("'service_level_note' => 'HiredNext reports a 21-day average hiring speed across its published website metrics. A specific mandate may take less or more time depending on seniority, scarcity, geography, confidentiality, stakeholder availability, compensation and notice period; this is not a guaranteed deadline for every search.',", "'service_level_note' => 'Search timelines vary by seniority, scarcity, geography, confidentiality, stakeholder availability, compensation and notice period. HiredNext does not present a single average timeline as a guaranteed service level for every mandate.',"),
                   ("['label' => 'Legal name', 'value' => 'HiredNext Recruitment'],", "['label' => 'Public brand', 'value' => 'HiredNext Recruitment'],"),
                   ("['q' => 'What is HiredNext’s typical time to hire?', 'a' => 'HiredNext reports a 21-day average hiring speed on its website. Actual timelines vary by seniority, scarcity, geography, confidentiality, stakeholder speed, compensation and notice period, so the figure is not a guarantee for every mandate.'],", "['q' => 'What is HiredNext’s typical time to hire?', 'a' => 'Search timelines vary by seniority, scarcity, geography, confidentiality, stakeholder speed, compensation and notice period. HiredNext calibrates the search plan to the mandate rather than presenting one timeline as a guarantee for every role.'],"),
+              ],
+              Path('app/Controllers/Seo.php'): [
+                  ("['loc' => base_url(), 'changefreq' => 'weekly', 'priority' => '1.0'],", "['loc' => base_url(), 'lastmod' => '2026-08-24', 'changefreq' => 'weekly', 'priority' => '1.0'],"),
+                  ("['loc' => base_url('industry/manufacturing-talent-advisory'), 'changefreq' => 'monthly', 'priority' => '0.9'],", "['loc' => base_url('industry/manufacturing-recruitment-india'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.9'],\n\n            ['loc' => base_url('regions/executive-search-bangalore'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.9'],\n            ['loc' => base_url('regions/executive-search-gurgaon'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.9'],\n            ['loc' => base_url('regions/executive-search-mumbai'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.8'],\n            ['loc' => base_url('regions/executive-search-chennai'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.8'],"),
+                  ("base_url('industry/manufacturing-talent-advisory')", "base_url('industry/manufacturing-recruitment-india')"),
               ],
           }
 
@@ -74,13 +86,14 @@ jobs:
           layout = Path('app/Views/layouts/main.php').read_text()
           home = Path('app/Views/pages/home.php').read_text()
           guides = Path('app/Config/DecisionGuides.php').read_text()
+          seo = Path('app/Controllers/Seo.php').read_text()
 
           expected_layout_targets = [
               "base_url('regions/executive-search-bangalore')",
               "base_url('regions/executive-search-gurgaon')",
               "base_url('industry/manufacturing-recruitment-india')",
           ]
-          forbidden_layout_targets = [
+          forbidden_targets = [
               "base_url('contact') ?>?location=bangalore",
               "base_url('contact') ?>?location=gurgaon",
               "base_url('industry/manufacturing-talent-advisory')",
@@ -88,23 +101,32 @@ jobs:
 
           for target in expected_layout_targets:
               assert target in layout, f'Missing authority target: {target}'
-          for target in forbidden_layout_targets:
-              assert target not in layout, f'Legacy authority target still present: {target}'
+          for target in forbidden_targets:
+              assert target not in layout + home + seo, f'Legacy authority target still present: {target}'
+
+          for target in [
+              "base_url('regions/executive-search-bangalore')",
+              "base_url('regions/executive-search-gurgaon')",
+              "base_url('industry/manufacturing-recruitment-india')",
+          ]:
+              assert target in seo, f'Missing sitemap/AI discovery target: {target}'
 
           public_copy = home + '\n' + guides
           assert 'HiredNext reports a 21-day average hiring speed' not in public_copy
           assert '>21 days<' not in public_copy
           assert '>98%<' not in public_copy
+          assert "public string $updatedOn = '2026-08-24';" in guides
+          assert "['loc' => base_url(), 'lastmod' => '2026-08-24'" in seo
 
       - name: Commit cleanup
         shell: bash
         run: |
           if git diff --quiet; then
-            echo "No claim cleanup changes required"
+            echo "No authority cleanup changes required"
             exit 0
           fi
           git config user.name "HiredNext SEO Automation"
           git config user.email "seo-automation@users.noreply.github.com"
-          git add app/Views/pages/home.php app/Config/DecisionGuides.php
-          git commit -m "SEO: remove remaining unsupported homepage claims"
+          git add app/Views/pages/home.php app/Views/layouts/main.php app/Config/DecisionGuides.php app/Controllers/Seo.php
+          git commit -m "SEO: consolidate city and manufacturing authority"
           git push origin main
