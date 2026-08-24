@@ -1,0 +1,9 @@
+HiredNext authority refresh
+Date: 2026-08-24
+Purpose: trigger a fresh main-branch publication/indexing cycle after evidence-first claims cleanup and authority-link consolidation.
+Canonical targets:
+- /
+- /top-recruitment-company-india
+- /regions/executive-search-bangalore
+- /regions/executive-search-gurgaon
+- /industry/manufacturing-recruitment-india
