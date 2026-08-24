@@ -66,6 +66,36 @@ jobs:
 
           print('Changed:', ', '.join(changed) if changed else 'none')
 
+      - name: Verify authority targets and claim hygiene
+        shell: python
+        run: |
+          from pathlib import Path
+
+          layout = Path('app/Views/layouts/main.php').read_text()
+          home = Path('app/Views/pages/home.php').read_text()
+          guides = Path('app/Config/DecisionGuides.php').read_text()
+
+          expected_layout_targets = [
+              "base_url('regions/executive-search-bangalore')",
+              "base_url('regions/executive-search-gurgaon')",
+              "base_url('industry/manufacturing-recruitment-india')",
+          ]
+          forbidden_layout_targets = [
+              "base_url('contact') ?>?location=bangalore",
+              "base_url('contact') ?>?location=gurgaon",
+              "base_url('industry/manufacturing-talent-advisory')",
+          ]
+
+          for target in expected_layout_targets:
+              assert target in layout, f'Missing authority target: {target}'
+          for target in forbidden_layout_targets:
+              assert target not in layout, f'Legacy authority target still present: {target}'
+
+          public_copy = home + '\n' + guides
+          assert 'HiredNext reports a 21-day average hiring speed' not in public_copy
+          assert '>21 days<' not in public_copy
+          assert '>98%<' not in public_copy
+
       - name: Commit cleanup
         shell: bash
         run: |
