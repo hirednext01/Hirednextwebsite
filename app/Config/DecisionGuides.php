@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class DecisionGuides extends BaseConfig
 {
-    public string $updatedOn = '2026-08-14';
+    public string $updatedOn = '2026-08-24';
 
     /**
      * High-intent decision guides written for employers evaluating recruitment partners.

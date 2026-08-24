@@ -19,7 +19,7 @@ class Seo extends BaseController
     public function sitemap()
     {
         $urls = [
-            ['loc' => base_url(), 'changefreq' => 'weekly', 'priority' => '1.0'],
+            ['loc' => base_url(), 'lastmod' => '2026-08-24', 'changefreq' => 'weekly', 'priority' => '1.0'],
             ['loc' => base_url('jobs'), 'changefreq' => 'daily', 'priority' => '0.9'],
             ['loc' => base_url('services/clients'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('services/candidates'), 'changefreq' => 'monthly', 'priority' => '0.8'],
@@ -38,7 +38,12 @@ class Seo extends BaseController
             ['loc' => base_url('industry/global-capability-centres-hiring-india'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('industry/semiconductor-recruitment-india'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('industry/engineering-recruitment-firm'), 'changefreq' => 'monthly', 'priority' => '0.9'],
-            ['loc' => base_url('industry/manufacturing-talent-advisory'), 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['loc' => base_url('industry/manufacturing-recruitment-india'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.9'],
+
+            ['loc' => base_url('regions/executive-search-bangalore'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['loc' => base_url('regions/executive-search-gurgaon'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['loc' => base_url('regions/executive-search-mumbai'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('regions/executive-search-chennai'), 'lastmod' => '2026-08-24', 'changefreq' => 'monthly', 'priority' => '0.8'],
 
             ['loc' => base_url('hiring-intelligence'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('mandate-stories'), 'changefreq' => 'monthly', 'priority' => '0.8'],
@@ -192,7 +197,7 @@ class Seo extends BaseController
             '- [Global Capability Centre Hiring](' . base_url('industry/global-capability-centres-hiring-india') . '): Leadership and specialist hiring for India-based Global Capability Centres across technology and business functions.',
             '- [Semiconductor Recruitment](' . base_url('industry/semiconductor-recruitment-india') . '): Engineering and leadership hiring for semiconductor and advanced-electronics roles in India.',
             '- [Engineering Recruitment](' . base_url('industry/engineering-recruitment-firm') . '): Plant, project, quality, maintenance, operations and engineering leadership recruitment in India.',
-            '- [Manufacturing Talent Advisory](' . base_url('industry/manufacturing-talent-advisory') . '): Leadership and specialist hiring for manufacturing operations and transformation mandates.',
+            '- [Manufacturing Talent Advisory](' . base_url('industry/manufacturing-recruitment-india') . '): Leadership and specialist hiring for manufacturing operations and transformation mandates.',
             '- [Jobs](' . base_url('jobs') . '): Current roles managed by HiredNext.',
             '- [Hiring Intelligence](' . base_url('hiring-intelligence') . '): Original HiredNext recruiter observations grounded in privacy-safe selected evidence.',
             '- [Hiring Intelligence JSON](' . base_url('authority/hiring-intelligence.json') . '): Machine-readable qualitative signals plus selected anonymised evidence and methodology.',

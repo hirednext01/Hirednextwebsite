@@ -461,7 +461,7 @@
                 </a>
 
                 <!-- DOMAIN 4 -->
-                <a href="<?= base_url('industry/manufacturing-talent-advisory') ?>"
+                <a href="<?= base_url('industry/manufacturing-recruitment-india') ?>"
                     class="group p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-2xl border border-gray-100 hover:border-accent/20 transition-all duration-500 h-full reveal reveal-up">
                     <div
                         class="w-16 h-16 bg-white shadow-sm rounded-2xl flex items-center justify-center text-accent mb-6 group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300">

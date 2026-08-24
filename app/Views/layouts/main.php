@@ -277,8 +277,8 @@
                     <h4 class="font-bold mb-3 uppercase tracking-widest text-sm">Executive Search in India</h4>
                     <div class="flex flex-wrap gap-x-3 gap-y-2 text-sm text-white/70">
                         <a href="<?= base_url('services/executive-search') ?>" class="hover:text-accent">Executive Search India</a>
-                        <span>•</span><a href="<?= base_url('contact') ?>?location=bangalore" class="hover:text-accent">Leadership Hiring Bangalore</a>
-                        <span>•</span><a href="<?= base_url('contact') ?>?location=gurgaon" class="hover:text-accent">CXO Recruitment Gurgaon</a>
+                        <span>•</span><a href="<?= base_url('regions/executive-search-bangalore')" class="hover:text-accent">Leadership Hiring Bangalore</a>
+                        <span>•</span><a href="<?= base_url('regions/executive-search-gurgaon')" class="hover:text-accent">CXO Recruitment Gurgaon</a>
                     </div>
                 </div>
                 <div>
@@ -292,7 +292,7 @@
                         <span>•</span><a href="<?= base_url('industry/global-capability-centres-hiring-india') ?>" class="hover:text-accent">GCC</a>
                         <span>•</span><a href="<?= base_url('industry/semiconductor-recruitment-india') ?>" class="hover:text-accent">Semiconductors</a>
                         <span>•</span><a href="<?= base_url('industry/engineering-recruitment-firm') ?>" class="hover:text-accent">Engineering</a>
-                        <span>•</span><a href="<?= base_url('industry/manufacturing-talent-advisory') ?>" class="hover:text-accent">Manufacturing</a>
+                        <span>•</span><a href="<?= base_url('industry/manufacturing-recruitment-india') ?>" class="hover:text-accent">Manufacturing</a>
                     </div>
                 </div>
             </div>
