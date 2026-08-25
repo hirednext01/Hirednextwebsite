@@ -53,6 +53,8 @@ jobs:
               if target not in line or redirect not in line:
                   raise SystemExit(f'{name}: legacy resume links must 302 redirect to the validated controller route')
           PY
+          grep -Fq 'download($path, null, true)' app/Controllers/Home.php
+          grep -Fq -- '->inline()' app/Controllers/Home.php
 
       - name: Deploy main to production safely
         id: deploy
@@ -90,6 +92,8 @@ jobs:
           grep -Fq "RewriteRule ^uploads/resumes/" public/.htaccess
           grep -Fq "/candidate-resume?file=\$1" public/.htaccess
           grep -Fq "[R=302,L,NE]" public/.htaccess
+          grep -Fq "download(\$path, null, true)" app/Controllers/Home.php
+          grep -Fq -- "->inline()" app/Controllers/Home.php
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
 
