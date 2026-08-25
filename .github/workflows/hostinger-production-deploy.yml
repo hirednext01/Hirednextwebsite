@@ -33,6 +33,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Apply browser-safe resume response fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('app/Controllers/Home.php')
+          text = path.read_text()
+          old = "return $this->response->download($path, null)->setFileName($fileName);"
+          new = "return $this->response->download($path, null, true)->setFileName($fileName)->inline();"
+          if old in text:
+              path.write_text(text.replace(old, new, 1))
+          elif new not in text:
+              raise SystemExit('candidateResume response shape changed unexpectedly; refusing blind edit')
+          PY
+          php -l app/Controllers/Home.php
+          if git diff --quiet -- app/Controllers/Home.php; then
+            exit 0
+          fi
+          git config user.name 'HiredNext Fix Automation'
+          git config user.email 'fix-automation@users.noreply.github.com'
+          git add app/Controllers/Home.php
+          git commit -m 'Fix: serve candidate resumes inline with MIME'
+          git push origin HEAD:main
+
       - name: Verify resume-routing regression guard
         shell: bash
         run: |
