@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
     paths:
+      - '.htaccess'
+      - 'public/**'
+      - 'app/**'
+      - 'composer.json'
+      - 'composer.lock'
       - '.github/workflows/hostinger-production-deploy.yml'
   workflow_dispatch:
 
@@ -27,6 +32,21 @@ jobs:
       SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Verify resume-routing regression guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'RewriteRule ^uploads/resumes/' public/.htaccess
+          grep -Fq 'candidate-resume?file=$1' public/.htaccess
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('public/.htaccess').read_text()
+          legacy = 'RewriteRule ^uploads/resumes/'
+          pdf_bypass = r'RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|pdf)$ [NC]'
+          if text.index(legacy) >= text.index(pdf_bypass):
+              raise SystemExit('Legacy resume routing must execute before generic PDF handling')
+          PY
 
       - name: Deploy main to production safely
         id: deploy
@@ -56,7 +76,9 @@ jobs:
           php -l app/Views/pages/home.php
           php -l app/Views/layouts/main.php
           php -l app/Config/DecisionGuides.php
+          php -l app/Controllers/Home.php
           php -l app/Controllers/Seo.php
+          grep -Fq "RewriteRule ^uploads/resumes/" public/.htaccess
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
 
