@@ -39,13 +39,17 @@ jobs:
           set -euo pipefail
           grep -Fq 'RewriteRule ^uploads/resumes/' public/.htaccess
           grep -Fq 'candidate-resume?file=$1' public/.htaccess
+          grep -Fq 'RewriteCond %{REQUEST_URI} !^/uploads/resumes/' public/.htaccess
           python - <<'PY'
           from pathlib import Path
           text = Path('public/.htaccess').read_text()
           legacy = 'RewriteRule ^uploads/resumes/'
+          resume_exclusion = 'RewriteCond %{REQUEST_URI} !^/uploads/resumes/'
           pdf_bypass = r'RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|pdf)$ [NC]'
           if text.index(legacy) >= text.index(pdf_bypass):
               raise SystemExit('Legacy resume routing must execute before generic PDF handling')
+          if text.index(resume_exclusion) >= text.index(pdf_bypass):
+              raise SystemExit('Resume exclusion must immediately protect the generic PDF handling pass')
           PY
 
       - name: Deploy main to production safely
@@ -79,6 +83,7 @@ jobs:
           php -l app/Controllers/Home.php
           php -l app/Controllers/Seo.php
           grep -Fq "RewriteRule ^uploads/resumes/" public/.htaccess
+          grep -Fq "RewriteCond %{REQUEST_URI} !^/uploads/resumes/" public/.htaccess
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
 
