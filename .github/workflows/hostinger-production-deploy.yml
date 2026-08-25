@@ -37,19 +37,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          grep -Fq 'RewriteRule ^uploads/resumes/' public/.htaccess
-          grep -Fq 'candidate-resume?file=$1' public/.htaccess
-          grep -Fq 'RewriteCond %{REQUEST_URI} !^/uploads/resumes/' public/.htaccess
+          for file in .htaccess public/.htaccess; do
+            grep -Fq 'RewriteRule ^uploads/resumes/' "$file"
+            grep -Fq '/candidate-resume?file=$1' "$file"
+            grep -Fq '[R=302,L,NE]' "$file"
+          done
           python - <<'PY'
           from pathlib import Path
-          text = Path('public/.htaccess').read_text()
-          legacy = 'RewriteRule ^uploads/resumes/'
-          resume_exclusion = 'RewriteCond %{REQUEST_URI} !^/uploads/resumes/'
-          pdf_bypass = r'RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|pdf)$ [NC]'
-          if text.index(legacy) >= text.index(pdf_bypass):
-              raise SystemExit('Legacy resume routing must execute before generic PDF handling')
-          if text.index(resume_exclusion) >= text.index(pdf_bypass):
-              raise SystemExit('Resume exclusion must immediately protect the generic PDF handling pass')
+          for name in ['.htaccess', 'public/.htaccess']:
+              text = Path(name).read_text()
+              legacy = 'RewriteRule ^uploads/resumes/'
+              target = '/candidate-resume?file=$1'
+              redirect = '[R=302,L,NE]'
+              line = next((line for line in text.splitlines() if legacy in line), '')
+              if target not in line or redirect not in line:
+                  raise SystemExit(f'{name}: legacy resume links must 302 redirect to the validated controller route')
           PY
 
       - name: Deploy main to production safely
@@ -82,8 +84,12 @@ jobs:
           php -l app/Config/DecisionGuides.php
           php -l app/Controllers/Home.php
           php -l app/Controllers/Seo.php
+          grep -Fq "RewriteRule ^uploads/resumes/" .htaccess
+          grep -Fq "/candidate-resume?file=\$1" .htaccess
+          grep -Fq "[R=302,L,NE]" .htaccess
           grep -Fq "RewriteRule ^uploads/resumes/" public/.htaccess
-          grep -Fq "RewriteCond %{REQUEST_URI} !^/uploads/resumes/" public/.htaccess
+          grep -Fq "/candidate-resume?file=\$1" public/.htaccess
+          grep -Fq "[R=302,L,NE]" public/.htaccess
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
 
