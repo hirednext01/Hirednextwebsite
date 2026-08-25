@@ -1,9 +1,11 @@
 Options -Indexes
 RewriteEngine On
 
-# Keep historical resume links working even when the public directory is not
-# the domain document root. The controller validates and serves the file.
-RewriteRule ^uploads/resumes/([^/]+)$ public/index.php/candidate-resume?file=$1 [L,QSA,NE]
+# Historical job-application emails used /uploads/resumes/<file> links.
+# Redirect them to the validated application download route. An external redirect
+# avoids Apache PATH_INFO/rewrite-pass differences between Hostinger document-root
+# layouts while preserving every existing emailed resume link.
+RewriteRule ^uploads/resumes/([^/]+)$ /candidate-resume?file=$1 [R=302,L,NE]
 
 # Resume files contain candidate personal data. Keep download URLs out of search
 # indexes and shared caches while preserving existing application-email links.
