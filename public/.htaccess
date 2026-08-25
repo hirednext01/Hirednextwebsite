@@ -52,11 +52,12 @@ Options -Indexes
 	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
 	# Historical job-application emails used direct /uploads/resumes/*.pdf URLs.
-	# Force those links through candidateResume before the generic PDF asset rule
-	# so they work whether Hostinger points the domain at public_html or /public.
+	# Route them through candidateResume before generic asset handling.
 	RewriteRule ^uploads/resumes/([^/]+)$ candidate-resume?file=$1 [L,QSA,NE]
 
-	# Allow direct access to assets (CSS, JS, images, etc.)
+	# Allow direct access to ordinary assets, but never let the original PDF
+	# request URI short-circuit the second rewrite pass for candidate resumes.
+	RewriteCond %{REQUEST_URI} !^/uploads/resumes/ [NC]
 	RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|pdf)$ [NC]
 	RewriteRule ^(.*)$ $1 [L]
 
@@ -73,8 +74,8 @@ Options -Indexes
 </IfModule>
 
 <IfModule !mod_rewrite.c>
-	# If we don't have mod_rewrite installed, all 404's
-	# can be sent to index.php, and everything works as normal.
+	# If we don't have mod_rewrite installed, all 404's can be sent to index.php,
+	# and the application will handle them.
 	ErrorDocument 404 index.php
 </IfModule>
 
