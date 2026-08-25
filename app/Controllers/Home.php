@@ -786,7 +786,7 @@ class Home extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
 
-        return $this->response->download($path, null)->setFileName($fileName);
+        return $this->response->download($path, null, true)->setFileName($fileName)->inline();
     }
 
     private function industryPages()
