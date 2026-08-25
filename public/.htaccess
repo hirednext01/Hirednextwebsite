@@ -1,12 +1,24 @@
 # Disable directory browsing
 Options -Indexes
 
+# Candidate resumes contain personal data. Route both current and historical
+# resume links through the application so downloads can be validated and kept
+# out of search indexes/shared caches.
+<IfModule mod_setenvif.c>
+    SetEnvIf Request_URI "^/candidate-resume(?:/|$)" HN_RESUME_DOWNLOAD=1
+    SetEnvIf Request_URI "^/uploads/resumes/" HN_RESUME_DOWNLOAD=1
+</IfModule>
+
 # CORS Headers for API
 <IfModule mod_headers.c>
     Header always set Access-Control-Allow-Origin "*"
     Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
     Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
     Header always set Access-Control-Max-Age "86400"
+
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive" env=HN_RESUME_DOWNLOAD
+    Header always set Cache-Control "private, no-store, max-age=0" env=HN_RESUME_DOWNLOAD
+    Header always set Pragma "no-cache" env=HN_RESUME_DOWNLOAD
     
     # Handle preflight OPTIONS requests
     RewriteEngine On
@@ -38,6 +50,11 @@ Options -Indexes
 	RewriteCond %{HTTPS} !=on
 	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+
+	# Historical job-application emails used direct /uploads/resumes/*.pdf URLs.
+	# Force those links through candidateResume before the generic PDF asset rule
+	# so they work whether Hostinger points the domain at public_html or /public.
+	RewriteRule ^uploads/resumes/([^/]+)$ candidate-resume?file=$1 [L,QSA,NE]
 
 	# Allow direct access to assets (CSS, JS, images, etc.)
 	RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|pdf)$ [NC]
