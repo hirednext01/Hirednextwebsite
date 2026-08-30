@@ -313,6 +313,10 @@ class ReputationAuthority extends BaseController
             }
             if ($name !== '' && $quote !== '') {
                 $keys[] = 'content:' . hash('sha256', $name . '|' . $quote);
+                $quotePrefix = mb_substr($quote, 0, 180);
+                if (mb_strlen($quotePrefix) >= 60) {
+                    $keys[] = 'near-content:' . hash('sha256', $name . '|' . $quotePrefix);
+                }
             }
 
             $existingIndex = null;
@@ -332,7 +336,12 @@ class ReputationAuthority extends BaseController
                 continue;
             }
 
-            if ($this->testimonialProofScore($item) > $this->testimonialProofScore($unique[$existingIndex])) {
+            $itemPriority = $this->testimonialRecordPriority($item);
+            $existingPriority = $this->testimonialRecordPriority($unique[$existingIndex]);
+            if (
+                $itemPriority > $existingPriority
+                || ($itemPriority === $existingPriority && $this->testimonialProofScore($item) > $this->testimonialProofScore($unique[$existingIndex]))
+            ) {
                 $unique[$existingIndex] = $item;
             }
 
@@ -342,6 +351,42 @@ class ReputationAuthority extends BaseController
         }
 
         return array_values($unique);
+    }
+
+    private function testimonialRecordPriority(array $item): int
+    {
+        $relationship = trim((string)($item['relationship_type'] ?? ''));
+        $submittedVia = trim((string)($item['submitted_via'] ?? ''));
+        $proofType = mb_strtolower(trim((string)($item['proof_type'] ?? $item['project_type'] ?? '')));
+
+        if ($submittedVia === 'candidate_placement_testimonial_form' || $relationship === 'placed_candidate') {
+            return 300;
+        }
+
+        if ($relationship === 'employer') {
+            return 270;
+        }
+
+        $explicitEmployerTypes = [
+            'employer recruitment experience',
+            'employer recruitment delivery',
+            'apparel & textile recruitment',
+            'talent evaluation',
+            'recruitment experience',
+        ];
+        if (in_array($proofType, $explicitEmployerTypes, true)) {
+            return 260;
+        }
+
+        if ($relationship === 'candidate_professional' || $submittedVia === 'candidate_testimonial_form') {
+            return 200;
+        }
+
+        if (($item['status'] ?? '') === 'external') {
+            return 150;
+        }
+
+        return 100;
     }
 
     private function testimonialProofScore(array $item): int
@@ -375,7 +420,9 @@ class ReputationAuthority extends BaseController
     private function normalizeProofText(string $value): string
     {
         $value = mb_strtolower(trim(strip_tags($value)));
-        return preg_replace('/\s+/u', ' ', $value) ?? $value;
+        $value = preg_replace('/[^\p{L}\p{N}\s]+/u', ' ', $value) ?? $value;
+        $value = preg_replace('/\s+/u', ' ', $value) ?? $value;
+        return trim($value);
     }
 
     private function canonicalTestimonialName(string $name): string
