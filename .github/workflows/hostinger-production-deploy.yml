@@ -81,6 +81,16 @@ jobs:
           grep -Fq 'download($path, null, true)' app/Controllers/Home.php
           grep -Fq -- '->inline()' app/Controllers/Home.php
 
+      - name: Verify testimonial bucket isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          php -l app/Controllers/ReputationAuthority.php
+          grep -Fq "near-content:" app/Controllers/ReputationAuthority.php
+          grep -Fq "testimonialRecordPriority" app/Controllers/ReputationAuthority.php
+          grep -Fq "candidate_placement_testimonial_form" app/Controllers/ReputationAuthority.php
+          grep -Fq "relationship_type" app/Controllers/ReputationAuthority.php
+
       - name: Deploy main to production safely
         id: deploy
         shell: bash
@@ -111,6 +121,7 @@ jobs:
           php -l app/Config/DecisionGuides.php
           php -l app/Controllers/Home.php
           php -l app/Controllers/Seo.php
+          php -l app/Controllers/ReputationAuthority.php
           grep -Fq "RewriteRule ^uploads/resumes/" .htaccess
           grep -Fq "/candidate-resume?file=\$1" .htaccess
           grep -Fq "[R=302,L,NE]" .htaccess
@@ -119,6 +130,8 @@ jobs:
           grep -Fq "[R=302,L,NE]" public/.htaccess
           grep -Fq "download(\$path, null, true)" app/Controllers/Home.php
           grep -Fq -- "->inline()" app/Controllers/Home.php
+          grep -Fq "near-content:" app/Controllers/ReputationAuthority.php
+          grep -Fq "testimonialRecordPriority" app/Controllers/ReputationAuthority.php
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
 
