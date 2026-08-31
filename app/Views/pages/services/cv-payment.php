@@ -18,6 +18,18 @@ $qrUrl = base_url('cv-payment/qr') . '?v=20260831';
                 <p class="text-gray-600">Your CV has been received. Scan the HiredNext payment QR below, then submit the transaction/reference number.</p>
             </div>
 
+            <?php if (session('success')): ?>
+                <div class="mb-6 rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-primary">
+                    <div class="font-bold mb-1">Your CV is safely with HiredNext.</div>
+                    <div class="text-sm leading-relaxed"><?= esc(session('success')) ?></div>
+                </div>
+            <?php else: ?>
+                <div class="mb-6 rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-primary">
+                    <div class="font-bold mb-1">Watch for jobs@hirednext.info</div>
+                    <div class="text-sm leading-relaxed">Your HiredNext assessment, report and any next steps will come from <strong>jobs@hirednext.info</strong>. Please save it to your contacts and check Promotions/Spam if you do not see our message.</div>
+                </div>
+            <?php endif; ?>
+
             <?php if (session('errors')): ?>
                 <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 font-semibold"><?= esc(implode(' ', session('errors'))) ?></div>
             <?php endif; ?>
