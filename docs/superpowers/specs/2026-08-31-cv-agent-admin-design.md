@@ -6,6 +6,32 @@ Build a production CV-assessment system inside the existing HiredNext CV Reviews
 ## Core user outcome
 For every CV record, the admin must show a chronological, human-readable history of what happened: CV received, payment state, analysis state, AI reviewers used, findings, evidence, HiredNext synthesis, report approval, report sent, upgrade offered, upgrade payment, rewrite state, and final delivery.
 
+## Candidate-facing principle
+Candidate-facing output is a **HiredNext professional advisory document**, not an AI report.
+
+The report must:
+- Carry HiredNext branding/letterhead on every page.
+- Use a formal title such as `HiredNext CV Assessment Report`.
+- Show candidate name, report date, report/reference ID and confidentiality wording.
+- Use concise recruiter/advisory language, not chat-style prose.
+- Never show model names, provider names, prompts, token counts, raw JSON, chain-of-thought, or phrases such as `AI thinks` / `ChatGPT says`.
+- Never claim the report is human-only if technology assisted the analysis.
+- May describe the methodology neutrally as `HiredNext's structured recruiter assessment process`.
+- End with a restrained HiredNext recommendation and contact/next-step block.
+- Look suitable to print, email as PDF, or place in a board/recruiter pack.
+
+The full OpenAI / Claude / Gemini audit remains visible only inside authenticated admin.
+
+## Report visual system
+The candidate report must use a restrained corporate HiredNext letterhead:
+- HiredNext wordmark/logo at top.
+- White background with navy/primary typography and restrained accent use.
+- Clear page hierarchy, generous margins and compact sections.
+- Header: HiredNext Recruitment + report title.
+- Footer: `Confidential — prepared for the named recipient`, report ID, page number, hirednext.net and jobs@hirednext.info.
+- No gradients, chatbot bubbles, model badges, emojis, novelty score gauges or AI-themed graphics.
+- Scores, if used, appear as sober tables/labels with an explanation beside them.
+
 ## Existing foundations to preserve
 - Existing `cv_assessment_leads` table remains the canonical candidate/CV record.
 - Existing `/admin/cv-reviews` remains the admin surface.
@@ -22,6 +48,22 @@ For every CV record, the admin must show a chronological, human-readable history
 5. Executive CV Rebuild — ₹2,499 — senior/CXO positioning, two versions, two revision rounds, mandatory HiredNext human review.
 
 All paid services are optional and must never be represented as affecting job applications, interviews or placement.
+
+## Commercial recommendation rules
+The report must not automatically hard-sell a rebuild. It must first classify the problem:
+
+- `assessment_only`: CV is broadly usable; candidate mainly needs insight/guidance.
+- `ats_optimisation`: career content is usable but ATS structure, keywords, headings, chronology or scanability need correction. Recommend ₹999.
+- `professional_rebuild`: positioning/content hierarchy/achievement evidence is materially weak and keyword edits alone are unlikely to solve the problem. Recommend ₹1,799.
+- `executive_rebuild`: senior/CXO profile requires leadership narrative, scale, board/CEO readability and human review. Recommend ₹2,499.
+
+Every recommendation must include:
+1. Why the current CV reached this classification.
+2. Which specific findings trigger the recommendation.
+3. What the paid service would change.
+4. What it would **not** guarantee.
+
+This is intended to make the recommendation reasonable and evidence-led rather than salesy.
 
 ## Multi-AI review model
 The system uses independent reviewer roles. Each provider must form its initial opinion without seeing other providers' output.
@@ -42,7 +84,7 @@ Environment variables:
 - `ANTHROPIC_API_KEY`
 - `GEMINI_API_KEY`
 
-No provider secret is stored in GitHub, database records, logs, or admin HTML.
+No provider secret is stored in GitHub, database records, logs, report PDFs, candidate email, or admin HTML.
 
 ## Evidence and hallucination rules
 Every negative or positive conclusion must have an evidence chain:
@@ -54,25 +96,38 @@ Every negative or positive conclusion must have an evidence chain:
 
 The system must not invent employers, achievements, salaries, team sizes, dates, titles, metrics, education, certifications or business outcomes. Unknowns remain unknown. A finding may say `not evidenced in the CV`; it may not say `candidate lacks this capability` unless the CV explicitly supports that conclusion.
 
-## Report structure
-Each report stores:
+## Candidate report structure
+Each approved candidate-facing report contains:
+- HiredNext letterhead.
+- Candidate and report details.
+- Executive recruiter summary.
 - Overall recruiter verdict.
 - Shortlist risk: low / medium / high.
-- ATS readiness score with explanation.
-- Recruiter scanability score with explanation.
-- Role positioning score with explanation.
+- ATS readiness with explanation.
+- Recruiter scanability with explanation.
+- Role positioning with explanation.
 - Seniority calibration.
 - Strongest selling points.
-- Missing/weak evidence.
+- Evidence-backed gaps.
 - Quantified impact review.
-- Leadership scale review.
-- Career chronology and gaps.
+- Leadership scale review where relevant.
+- Career chronology/gap observations where evidenced.
 - Keyword/role-language gaps.
 - Formatting/parsing risks.
-- Potential red flags.
-- Top 10 changes recommended.
-- Recommended next service and reason.
-- AI disagreements.
+- Potential recruiter objections/red flags stated carefully.
+- Priority changes recommended.
+- Recommended next service, only when justified, with reason.
+- HiredNext disclaimer: assessment is based on the submitted CV and does not guarantee interviews or placement.
+
+The report does not expose raw provider disagreements. Those remain admin-only; the candidate sees the resolved HiredNext view.
+
+## Internal report/audit structure
+Internal analysis stores:
+- AI/provider output status.
+- Independent reviewer findings.
+- Disagreements between providers.
+- Usage/error metadata.
+- HiredNext synthesis JSON.
 - Human reviewer notes.
 - Final approved report text.
 
@@ -105,18 +160,20 @@ The existing `/admin/cv-reviews` page must add:
 - `Mark payment verified` action.
 - `Offer ATS ₹999`, `Offer Rebuild ₹1,799`, `Offer Executive ₹2,499` actions.
 - CV download.
-- Report preview/editor.
+- Candidate-facing letterhead report preview/editor.
+- PDF/download action for the final letterhead report.
 - Provider status panel showing OpenAI/Claude/Gemini outcome or not-configured state.
 - Evidence table for findings.
 - Timeline/audit log with timestamp, actor, event, channel and outcome.
 - Email history showing subject, recipient, event type, sent/failed and timestamp.
+- Clear distinction between `candidate-facing report` and `internal AI audit`.
 
 ## Email rules
 All candidate messages originate from `jobs@hirednext.info`.
 
 Report-delivery email includes:
 - Thank-you acknowledgement.
-- Link/attached or rendered report as implemented.
+- HiredNext letterhead report as PDF/attachment or a secure download generated by the application.
 - Clear statement that findings are based on the submitted CV.
 - Optional next-step recommendation selected by the report.
 - Link to `https://www.theprofile360.in` after a revised/rebuilt CV is available.
@@ -136,6 +193,7 @@ Create append-only event records. Important events include:
 - synthesis_completed / failed
 - human_review_started
 - report_approved
+- report_pdf_generated / pdf_failed
 - report_sent / send_failed
 - upgrade_offered
 - upgrade_payment_submitted
@@ -179,15 +237,18 @@ Recommended cron cadence after deployment: every 5 minutes. The code must functi
 - Avoid sending unnecessary PII to providers; only CV content required for assessment is sent.
 - Admin access uses existing HiredNext users/roles.
 - CSRF protection remains on state-changing admin routes.
+- Candidate reports do not expose internal provider/model audit information.
 
 ## Acceptance criteria
 1. A new CV appears in admin with `received/queued` status and a timeline entry.
 2. Admin can trigger analysis without downloading/reuploading the CV manually.
-3. Configured providers run independently; unconfigured providers are visibly marked.
+3. Configured providers run independently; unconfigured providers are visibly marked in admin only.
 4. Each finding has evidence/reason/severity/recommendation.
-5. Admin can edit and approve the final report before sending.
-6. Sending creates an email audit record and timeline event.
-7. Paid/unpaid status is never inferred merely from selected service.
-8. Upgrade offers and subsequent payment states are visible in the same candidate record.
-9. Existing CVs can be backfilled into the analysis queue.
-10. Candidate messages come from `jobs@hirednext.info`; internal action alerts go to `tarushikha@hirednext.info`.
+5. Admin can edit and approve the final HiredNext letterhead report before sending.
+6. Candidate receives a professional HiredNext-branded report without AI/provider branding.
+7. Sending creates an email audit record and timeline event.
+8. Paid/unpaid status is never inferred merely from selected service.
+9. Upgrade offers and subsequent payment states are visible in the same candidate record.
+10. Existing CVs can be backfilled into the analysis queue.
+11. Candidate messages come from `jobs@hirednext.info`; internal action alerts go to `tarushikha@hirednext.info`.
+12. A rebuild recommendation is only shown when findings justify it and includes the reason.
