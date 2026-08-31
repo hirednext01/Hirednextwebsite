@@ -13,12 +13,15 @@ on:
       - 'app/Models/CvDocumentModel.php'
       - 'app/Services/Cv/CvCreationAgent.php'
       - 'app/Services/Cv/CvDocxRenderer.php'
+      - 'app/Services/Cv/CvTextExtractor.php'
+      - 'app/Services/Cv/OpenAiCvFileExtractor.php'
       - 'app/Services/Cv/CvWriterPanel.php'
       - 'app/Services/Cv/CvWriterPrompt.php'
       - 'app/Services/Cv/CvUpgradePlans.php'
       - 'app/Views/pages/admin/cv-studio-*.php'
       - 'app/Views/pages/admin/cv-reviews.php'
       - 'app/Views/pages/services/candidate-services.php'
+      - 'app/Views/pages/services/cv-upgrade-payment.php'
       - '.github/workflows/cv-studio-ci.yml'
   workflow_dispatch:
 
@@ -31,7 +34,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: zip
+          extensions: zip, curl
           coverage: none
       - name: PHP syntax gate
         shell: bash
@@ -47,6 +50,8 @@ jobs:
             app/Models/CvDocumentModel.php
             app/Services/Cv/CvCreationAgent.php
             app/Services/Cv/CvDocxRenderer.php
+            app/Services/Cv/CvTextExtractor.php
+            app/Services/Cv/OpenAiCvFileExtractor.php
             app/Services/Cv/CvWriterPanel.php
             app/Services/Cv/CvWriterPrompt.php
             app/Services/Cv/CvUpgradePlans.php
@@ -55,6 +60,7 @@ jobs:
             app/Views/pages/admin/cv-studio-document.php
             app/Views/pages/admin/cv-reviews.php
             app/Views/pages/services/candidate-services.php
+            app/Views/pages/services/cv-upgrade-payment.php
           )
           for file in "${files[@]}"; do
             test -f "$file"
@@ -72,7 +78,12 @@ jobs:
           grep -Fq "No CV-writing AI is configured" app/Services/Cv/CvWriterPanel.php
           grep -Fq "Missing facts are flagged" app/Views/pages/admin/cv-studio-detail.php
           grep -Fq "SAMPLE PREVIEW" app/Views/pages/services/candidate-services.php
+          grep -Fq "SAMPLE PREVIEW" app/Views/pages/services/cv-upgrade-payment.php
+          grep -Fq "Why this is different from a generic AI rewrite" app/Views/pages/services/cv-upgrade-payment.php
           grep -Fq "cv_documents" app/Commands/CvDoctor.php
           grep -Fq "CV CREATION WRITERS" app/Commands/CvDoctor.php
           grep -Fq "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml" app/Services/Cv/CvDocxRenderer.php
           grep -Fq "CvDocxRenderer" app/Controllers/CvStudioDocumentController.php
+          grep -Fq "OpenAiCvFileExtractor" app/Services/Cv/CvTextExtractor.php
+          grep -Fq "purpose' => 'user_data'" app/Services/Cv/OpenAiCvFileExtractor.php
+          grep -Fq "store' => false" app/Services/Cv/OpenAiCvFileExtractor.php
