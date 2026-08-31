@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'app/Commands/CvDoctor.php'
+      - 'app/Commands/LyzrCvSetup.php'
       - 'app/Config/Routing.php'
       - 'app/Config/RoutesCvStudio.php'
       - 'app/Controllers/CvStudioAdmin.php'
@@ -15,6 +16,8 @@ on:
       - 'app/Services/Cv/CvDocxRenderer.php'
       - 'app/Services/Cv/CvTextExtractor.php'
       - 'app/Services/Cv/OpenAiCvFileExtractor.php'
+      - 'app/Services/Cv/LyzrClient.php'
+      - 'app/Services/Cv/Provider/LyzrAgentProvider.php'
       - 'app/Services/Cv/CvWriterPanel.php'
       - 'app/Services/Cv/CvWriterPrompt.php'
       - 'app/Services/Cv/CvUpgradePlans.php'
@@ -42,6 +45,7 @@ jobs:
           set -euo pipefail
           files=(
             app/Commands/CvDoctor.php
+            app/Commands/LyzrCvSetup.php
             app/Config/Routing.php
             app/Config/RoutesCvStudio.php
             app/Controllers/CvStudioAdmin.php
@@ -52,6 +56,8 @@ jobs:
             app/Services/Cv/CvDocxRenderer.php
             app/Services/Cv/CvTextExtractor.php
             app/Services/Cv/OpenAiCvFileExtractor.php
+            app/Services/Cv/LyzrClient.php
+            app/Services/Cv/Provider/LyzrAgentProvider.php
             app/Services/Cv/CvWriterPanel.php
             app/Services/Cv/CvWriterPrompt.php
             app/Services/Cv/CvUpgradePlans.php
@@ -87,3 +93,6 @@ jobs:
           grep -Fq "OpenAiCvFileExtractor" app/Services/Cv/CvTextExtractor.php
           grep -Fq "purpose' => 'user_data'" app/Services/Cv/OpenAiCvFileExtractor.php
           grep -Fq "store' => false" app/Services/Cv/OpenAiCvFileExtractor.php
+          grep -Fq "x-api-key:" app/Services/Cv/LyzrClient.php
+          grep -Fq "lyzr:cv-setup" app/Commands/LyzrCvSetup.php
+          grep -Fq "lyzr-agents.json" app/Services/Cv/Provider/LyzrAgentProvider.php
