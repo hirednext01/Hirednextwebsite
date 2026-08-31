@@ -25,14 +25,14 @@ $qrUrl = base_url('cv-payment/qr') . '?v=20260831';
                     <div class="rounded-2xl bg-primary text-white p-6 mb-6">
                         <div class="text-[10px] uppercase tracking-[0.22em] text-white/55 font-black mb-2">Amount to pay</div>
                         <div class="text-4xl font-black mb-2"><?= esc($plan['amount_label'] ?? '') ?></div>
-                        <div class="text-sm text-white/70">Pay exactly this amount using the verified HiredNext UPI QR.</div>
+                        <div class="text-sm text-white/70">Pay exactly this amount using the HiredNext payment QR below.</div>
                     </div>
 
                     <div class="flex flex-col items-center rounded-2xl border border-gray-200 bg-gray-50 p-5">
                         <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
-                            <img src="<?= esc($qrUrl) ?>" alt="Verified HiredNext UPI payment QR for <?= esc($plan['name'] ?? 'advisory') ?>" width="280" height="280" class="block w-[280px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
+                            <img src="<?= esc($qrUrl) ?>" alt="HiredNext payment QR" width="280" height="280" class="block w-[280px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
                         </div>
-                        <p class="mt-4 text-xs text-gray-600 text-center leading-relaxed">Before paying, confirm your payment app shows <strong>HIREDNEXT</strong> and UPI ID <strong>7738578358@ptaxis</strong>.</p>
+                        <div class="mt-4 text-sm font-black tracking-[0.18em] text-primary">HIREDNEXT</div>
                     </div>
                 </div>
 
