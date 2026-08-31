@@ -115,6 +115,7 @@ class CvAssessment extends BaseController
         } else {
             $ackMessage .= "Your review is in the free 7–10 day queue. We will contact you by email after review.\n\n";
         }
+        $ackMessage .= "IMPORTANT: Please look out for emails from jobs@hirednext.info. Your HiredNext assessment, report and any next steps will come from this address. Please save jobs@hirednext.info to your contacts and check Promotions/Spam if you do not see our message.\n\n";
         $ackMessage .= "Please note: CV review is a professional advisory service. HiredNext never charges candidates to apply for jobs or secure placement.\n\nRegards,\nHiredNext Jobs Team\njobs@hirednext.info\nhttps://hirednext.net\n";
         $email->setMessage($ackMessage);
         $ackSent = $email->send(false);
@@ -128,10 +129,11 @@ class CvAssessment extends BaseController
             log_message('error', 'CV assessment acknowledgement email failed for lead #' . $leadId . ': ' . $error);
         }
 
+        $candidateNotice = 'Your CV has been received. Please look out for an email from jobs@hirednext.info — your HiredNext assessment, report and any next steps will come from this address. Please save it to your contacts and check Promotions/Spam if you do not see our message.';
         if ($plan === 'priority_599') {
-            return redirect()->to('/cv-payment/' . $leadId);
+            return redirect()->to('/cv-payment/' . $leadId)->with('success', $candidateNotice);
         }
-        return redirect()->to('/services/cv-assessment?submitted=1')->with('success', 'Your CV assessment request has been received. We will email you after review.');
+        return redirect()->to('/services/cv-assessment?submitted=1')->with('success', $candidateNotice);
     }
 
     private function emailAttempt(int $leadId, string $type, string $recipient, string $subject): ?int
