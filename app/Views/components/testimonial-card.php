@@ -82,8 +82,10 @@ $borderClasses = $isDark ? 'border-white/12' : 'border-[#ece7dd]';
         <div class="mt-auto pt-6 border-t <?= $borderClasses ?> flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
             <div class="min-w-0">
                 <div class="testimonial-person-name text-xl md:text-2xl font-bold <?= $isDark ? 'text-white' : 'text-primary' ?> leading-tight"><?= esc($name) ?></div>
-                <?php if ($role !== ''): ?>
+                <?php if (!$isCandidate && $role !== ''): ?>
                     <div class="mt-2 text-[10px] md:text-[11px] uppercase tracking-[0.18em] font-extrabold <?= $isDark ? 'text-gold/85' : 'text-accent' ?> leading-relaxed"><?= esc($role) ?></div>
+                <?php elseif ($isCandidate): ?>
+                    <div class="mt-2 text-[10px] md:text-[11px] uppercase tracking-[0.18em] font-extrabold <?= $isDark ? 'text-gold/85' : 'text-accent' ?> leading-relaxed">Client name withheld</div>
                 <?php endif; ?>
                 <?php if ($company !== '' && !$isCandidate): ?>
                     <div class="mt-1.5 text-sm font-semibold <?= $isDark ? 'text-white/55' : 'text-primary/55' ?> leading-relaxed"><?= esc($company) ?></div>
