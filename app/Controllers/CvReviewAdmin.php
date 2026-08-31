@@ -56,17 +56,20 @@ class CvReviewAdmin extends BaseController
 
     public function login()
     {
-        $username = trim((string)$this->request->getPost('username'));
+        $identifier = trim((string)($this->request->getPost('identifier') ?? $this->request->getPost('username')));
         $password = (string)$this->request->getPost('password');
 
-        if ($username === '' || $password === '') {
-            return redirect()->back()->withInput()->with('error', 'Enter your website admin username and password.');
+        if ($identifier === '' || $password === '') {
+            return redirect()->back()->withInput()->with('error', 'Enter your HiredNext admin username or email and password.');
         }
 
         $model = new UserModel();
-        $user = $model->authenticate($username, $password);
+        $user = str_contains($identifier, '@')
+            ? $model->authenticateByEmail($identifier, $password)
+            : $model->authenticate($identifier, $password);
+
         if (!$user || !in_array($user['role'] ?? '', ['admin', 'manager', 'recruiter'], true)) {
-            return redirect()->back()->with('error', 'Invalid admin credentials or insufficient access.');
+            return redirect()->back()->withInput()->with('error', 'Invalid admin credentials or insufficient access.');
         }
 
         session()->regenerate();
@@ -74,6 +77,7 @@ class CvReviewAdmin extends BaseController
             'id' => $user['id'],
             'name' => $user['name'] ?? $user['username'],
             'username' => $user['username'],
+            'email' => $user['email'] ?? '',
             'role' => $user['role'],
         ]);
 
