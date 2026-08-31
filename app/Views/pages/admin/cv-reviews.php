@@ -21,10 +21,11 @@
             <div class="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800"><?= esc(session('error')) ?></div>
         <?php endif; ?>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             <div class="rounded-2xl bg-white border border-gray-200 p-5"><div class="text-xs uppercase tracking-wider text-gray-400 font-bold">Latest 250</div><div class="text-3xl font-black text-primary mt-1"><?= esc((string)($stats['total'] ?? 0)) ?></div></div>
-            <div class="rounded-2xl bg-white border border-gray-200 p-5"><div class="text-xs uppercase tracking-wider text-gray-400 font-bold">Priority ₹599</div><div class="text-3xl font-black text-primary mt-1"><?= esc((string)($stats['priority'] ?? 0)) ?></div></div>
+            <div class="rounded-2xl bg-white border border-gray-200 p-5"><div class="text-xs uppercase tracking-wider text-gray-400 font-bold">Priority requested</div><div class="text-3xl font-black text-primary mt-1"><?= esc((string)($stats['priority_requested'] ?? 0)) ?></div></div>
             <div class="rounded-2xl bg-white border border-gray-200 p-5"><div class="text-xs uppercase tracking-wider text-gray-400 font-bold">Payment submitted</div><div class="text-3xl font-black text-accent mt-1"><?= esc((string)($stats['payment_submitted'] ?? 0)) ?></div></div>
+            <div class="rounded-2xl bg-white border border-gray-200 p-5"><div class="text-xs uppercase tracking-wider text-gray-400 font-bold">Verified paid</div><div class="text-3xl font-black text-primary mt-1"><?= esc((string)($stats['paid_verified'] ?? 0)) ?></div></div>
             <div class="rounded-2xl bg-white border border-gray-200 p-5"><div class="text-xs uppercase tracking-wider text-gray-400 font-bold">New</div><div class="text-3xl font-black text-primary mt-1"><?= esc((string)($stats['new'] ?? 0)) ?></div></div>
         </div>
 
@@ -51,6 +52,21 @@
                             $isPriority = ($row['assessment_plan'] ?? '') === 'priority_599';
                             $payment = $row['payment_status'] ?? '';
                             $status = $row['status'] ?? 'new';
+                            $isSubmitted = $payment === 'pending_verification' || $status === 'payment_submitted';
+                            $isPaid = in_array($payment, ['verified', 'paid'], true);
+                            if ($isPriority && $isPaid) {
+                                $serviceLabel = 'Priority · paid';
+                                $serviceClass = 'bg-green-50 text-green-700';
+                            } elseif ($isPriority && $isSubmitted) {
+                                $serviceLabel = 'Priority · payment submitted';
+                                $serviceClass = 'bg-amber-50 text-amber-700';
+                            } elseif ($isPriority) {
+                                $serviceLabel = 'Priority requested · unpaid';
+                                $serviceClass = 'bg-gray-100 text-gray-600';
+                            } else {
+                                $serviceLabel = 'Free CV Review';
+                                $serviceClass = 'bg-gray-100 text-gray-600';
+                            }
                             ?>
                             <tr class="align-top hover:bg-gray-50/70">
                                 <td class="px-4 py-5">
@@ -60,8 +76,8 @@
                                     <div class="text-[11px] text-gray-400 mt-2">ID #<?= esc((string)($row['id'] ?? '')) ?></div>
                                 </td>
                                 <td class="px-4 py-5">
-                                    <span class="inline-flex rounded-full px-3 py-1 text-xs font-black <?= $isPriority ? 'bg-accent/10 text-accent' : 'bg-gray-100 text-gray-600' ?>"><?= $isPriority ? 'Priority CV Review' : 'Free CV Review' ?></span>
-                                    <div class="text-sm font-bold text-primary mt-2"><?= $isPriority ? '₹599 · 12 hours' : '₹0 · 7–10 days' ?></div>
+                                    <span class="inline-flex rounded-full px-3 py-1 text-xs font-black <?= esc($serviceClass) ?>"><?= esc($serviceLabel) ?></span>
+                                    <div class="text-sm font-bold text-primary mt-2"><?= $isPriority ? '₹599 · 12 hours after payment verification' : '₹0 · 7–10 days' ?></div>
                                 </td>
                                 <td class="px-4 py-5">
                                     <div class="font-bold text-primary"><?= esc($payment ?: '—') ?></div>
