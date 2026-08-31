@@ -4,6 +4,10 @@ namespace App\Services\Cv;
 
 class CvUpgradePlans
 {
+    /**
+     * Directly priced services that may create a secure checkout order.
+     * Executive/C-suite work is intentionally excluded because pricing is bespoke.
+     */
     public static function all(): array
     {
         return [
@@ -16,21 +20,29 @@ class CvUpgradePlans
             'ats_999' => [
                 'name' => 'ATS CV Optimisation',
                 'amount' => 999,
-                'delivery' => 'Existing CV optimised',
-                'description' => 'Improves ATS parsing, section structure, role language, keywords and recruiter scanability while preserving truthful career facts.',
+                'delivery' => 'HiredNext rewrites and optimises your existing CV + 1 revision round',
+                'description' => 'You give HiredNext your current CV. We improve ATS parsing, section structure, role language, keywords and recruiter scanability while preserving truthful career facts. The candidate does not build the CV themselves.',
             ],
             'rebuild_1799' => [
                 'name' => 'Professional CV Rebuild',
                 'amount' => 1799,
-                'delivery' => 'Two CV versions + two revision rounds',
-                'description' => 'A deeper rebuild for profiles where content hierarchy, achievement evidence and positioning need more than keyword edits.',
+                'delivery' => 'Choose from 3 ATS-safe design directions · receive 2 completed CV variants + 2 revision rounds',
+                'description' => 'HiredNext rebuilds the CV from the candidate’s existing document, strengthening positioning, achievement evidence, hierarchy and recruiter readability. The finished CV is created by HiredNext, not by the candidate.',
             ],
-            'executive_2499' => [
-                'name' => 'Executive CV Rebuild',
-                'amount' => 2499,
-                'delivery' => 'Two executive CV versions + two revision rounds + HiredNext human review',
-                'description' => 'Executive/CXO positioning focused on leadership scale, business impact, board/CEO readability and senior mandate relevance.',
-            ],
+        ];
+    }
+
+    /**
+     * C-suite work is consultative and must never be shown with an automated price.
+     */
+    public static function executiveInquiry(): array
+    {
+        return [
+            'tier' => 'executive_request',
+            'name' => 'C-Suite Executive CV Advisory',
+            'price_label' => 'Price on Request',
+            'delivery' => '1-to-1 positioning call + specialist executive resume expert + bespoke executive CV',
+            'description' => 'For CXO, board and senior leadership profiles where the career story, mandate relevance, leadership scale and board-level positioning require bespoke human input.',
         ];
     }
 
