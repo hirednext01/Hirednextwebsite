@@ -1,5 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
+<?php $qrUrl = base_url('cv-payment/qr') . '?v=20260831'; ?>
 <section class="relative pt-32 pb-16 bg-primary text-white overflow-hidden">
     <div class="absolute -top-24 -right-24 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
     <div class="absolute bottom-0 -left-24 w-80 h-80 bg-gold/10 rounded-full blur-3xl"></div>
@@ -50,7 +51,7 @@
 
 <section id="assessment-form" class="py-16 bg-white border-t border-gray-100">
     <div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12">
-        <div class="text-center mb-10"><h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Start your CV assessment</h2><p class="text-gray-600">Submit your details and CV first. If you choose Priority, the ₹599 QR payment page opens next.</p></div>
+        <div class="text-center mb-10"><h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Start your CV assessment</h2><p class="text-gray-600">Submit your details and CV. If you choose Priority, the HiredNext ₹599 payment QR appears immediately below.</p></div>
         <form action="<?= base_url('cv-assessment/submit') ?>" method="post" enctype="multipart/form-data" class="bg-gray-50 border border-gray-200 rounded-[2rem] p-8 md:p-10 space-y-5">
             <?= csrf_field() ?>
             <input type="hidden" name="job_slug" value="<?= esc($job['slug'] ?? '') ?>">
@@ -66,17 +67,28 @@
                 <option value="priority_599" <?= old('assessment_plan') === 'priority_599' ? 'selected' : '' ?>>Priority CV Assessment — ₹599 / 12 hours</option>
             </select>
             <div id="priorityNote" class="hidden rounded-2xl border border-accent/30 bg-orange-50 p-5 text-sm text-gray-700">
-                <strong class="text-primary">Priority payment comes next.</strong> After this form is saved, you will see the HiredNext QR and can pay ₹599 with any UPI app. Your phone-linked UPI ID is not displayed on the website.
+                <div class="grid md:grid-cols-[1fr_240px] gap-5 items-center">
+                    <div>
+                        <strong class="block text-primary text-base mb-2">Pay ₹599 for Priority Assessment</strong>
+                        <p class="leading-relaxed">Scan the HiredNext QR with any UPI app. Your phone-linked UPI ID is not displayed on the website.</p>
+                        <p class="mt-2 text-xs text-gray-500">After uploading your CV and clicking Continue, enter the transaction/reference number on the verification page.</p>
+                    </div>
+                    <div class="flex justify-center md:justify-end">
+                        <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
+                            <img src="<?= esc($qrUrl) ?>" alt="HiredNext ₹599 payment QR" width="220" height="220" class="block w-[220px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
+                        </div>
+                    </div>
+                </div>
             </div>
             <textarea name="message" rows="4" placeholder="Tell us which role you're targeting (optional)" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white"><?= esc(old('message')) ?></textarea>
             <div class="rounded-xl border border-dashed border-gray-300 bg-white px-4 py-4"><label class="block text-sm font-bold text-primary mb-2">Upload your CV</label><input name="resume" type="file" accept=".pdf,.doc,.docx" required class="w-full text-sm"><p class="text-xs text-gray-500 mt-2">PDF, DOC or DOCX. Maximum 5MB.</p></div>
             <button type="submit" class="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-accent transition">Continue</button>
-            <p class="text-xs text-gray-500 text-center">Free requests require no payment. Priority requests continue to the ₹599 QR payment page.</p>
+            <p class="text-xs text-gray-500 text-center">Free requests require no payment. Priority requests use the ₹599 HiredNext QR shown above and continue to transaction verification.</p>
         </form>
     </div>
 </section>
 
-<section class="py-14 bg-gray-50"><div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12"><h2 class="text-3xl font-serif font-bold text-primary text-center mb-8">CV Assessment FAQs</h2><div class="space-y-4"><details class="bg-white border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">What does the free CV assessment include?</summary><p class="mt-3 text-gray-600 text-sm leading-relaxed">Structure, readability, key strengths, obvious gaps and basic ATS-readiness observations, delivered within 7–10 days.</p></details><details class="bg-white border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">How do I pay for the ₹599 assessment?</summary><p class="mt-3 text-gray-600 text-sm leading-relaxed">Choose Priority and submit your details and CV. The next page shows the HiredNext QR. Scan it with any UPI app, pay ₹599, then submit the transaction/reference number for verification.</p></details><details class="bg-white border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">Does an assessment apply for a job automatically?</summary><p class="mt-3 text-gray-600 text-sm leading-relaxed">No. A CV assessment is a separate career service. Apply through the specific job page if you want to submit a job application.</p></details></div></div></section>
+<section class="py-14 bg-gray-50"><div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12"><h2 class="text-3xl font-serif font-bold text-primary text-center mb-8">CV Assessment FAQs</h2><div class="space-y-4"><details class="bg-white border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">What does the free CV assessment include?</summary><p class="mt-3 text-gray-600 text-sm leading-relaxed">Structure, readability, key strengths, obvious gaps and basic ATS-readiness observations, delivered within 7–10 days.</p></details><details class="bg-white border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">How do I pay for the ₹599 assessment?</summary><p class="mt-3 text-gray-600 text-sm leading-relaxed">Choose Priority and the HiredNext QR appears immediately in the form. Scan it with any UPI app, pay ₹599, upload your CV and continue. On the next page, submit the transaction/reference number for verification.</p></details><details class="bg-white border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">Does an assessment apply for a job automatically?</summary><p class="mt-3 text-gray-600 text-sm leading-relaxed">No. A CV assessment is a separate career service. Apply through the specific job page if you want to submit a job application.</p></details></div></div></section>
 
 <script>
 (function () {
