@@ -26,6 +26,14 @@ $routes->post('cv-assessment/submit', 'CvAssessment::submit');
 $routes->get('cv-payment/qr', 'CvPayment::qr');
 $routes->get('cv-payment/(:num)', 'CvPayment::checkout/$1');
 $routes->post('cv-payment/verify', 'CvPayment::verify');
+
+// Existing website-admin credentials protect this CV-review module.
+$routes->get('admin/cv-reviews', 'CvReviewAdmin::index');
+$routes->post('admin/cv-reviews/login', 'CvReviewAdmin::login');
+$routes->get('admin/cv-reviews/logout', 'CvReviewAdmin::logout');
+$routes->get('admin/cv-reviews/(:num)/resume', 'CvReviewAdmin::resume/$1');
+$routes->post('admin/cv-reviews/(:num)/status', 'CvReviewAdmin::updateStatus/$1');
+
 $routes->get('robots.txt', 'Seo::robots');
 $routes->get('sitemap.xml', 'Seo::sitemap');
 $routes->get('llms.txt', 'Seo::llms');
