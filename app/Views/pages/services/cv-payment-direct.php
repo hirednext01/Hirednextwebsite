@@ -15,7 +15,7 @@ $qrUrl = base_url('cv-payment/qr') . '?v=20260831';
             <div class="text-center mb-8">
                 <p class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-4">Priority CV Assessment</p>
                 <h1 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Complete your ₹599 payment</h1>
-                <p class="text-gray-600">Your CV has been received. Scan the verified HiredNext QR using any UPI app, then submit the transaction/reference number below.</p>
+                <p class="text-gray-600">Your CV has been received. Scan the HiredNext payment QR below, then submit the transaction/reference number.</p>
             </div>
 
             <?php if (session('errors')): ?>
@@ -29,19 +29,13 @@ $qrUrl = base_url('cv-payment/qr') . '?v=20260831';
                         <div class="flex justify-between gap-4 py-2"><span class="text-gray-500">Service</span><strong class="text-right">Priority CV Assessment</strong></div>
                         <div class="flex justify-between gap-4 py-2"><span class="text-gray-500">Amount</span><strong>₹599</strong></div>
                     </div>
-                    <div class="rounded-2xl border border-gray-200 bg-white p-5 text-sm text-gray-700">
-                        <div class="font-bold text-primary mb-1">Verified HiredNext UPI</div>
-                        <div>UPI ID: <strong>7738578358@ptaxis</strong></div>
-                        <div class="mt-1">Payee: <strong>HIREDNEXT</strong></div>
-                        <div class="mt-2 text-xs text-gray-500">Scan with Paytm, Google Pay, PhonePe, BHIM or another UPI app.</div>
-                    </div>
                 </div>
 
                 <div class="flex flex-col items-center justify-center">
                     <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
-                        <img src="<?= esc($qrUrl) ?>" alt="Verified HiredNext ₹599 UPI payment QR" width="280" height="280" class="block w-[280px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
+                        <img src="<?= esc($qrUrl) ?>" alt="HiredNext payment QR" width="280" height="280" class="block w-[280px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
                     </div>
-                    <p class="mt-3 text-xs text-gray-500 text-center">Before paying, confirm your payment app shows <strong>HIREDNEXT</strong> / <strong>7738578358@ptaxis</strong>.</p>
+                    <div class="mt-4 text-sm font-black tracking-[0.18em] text-primary">HIREDNEXT</div>
                 </div>
             </div>
 
