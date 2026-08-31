@@ -8,9 +8,11 @@ on:
       - 'app/Config/Routing.php'
       - 'app/Config/RoutesCvStudio.php'
       - 'app/Controllers/CvStudioAdmin.php'
+      - 'app/Controllers/CvStudioDocumentController.php'
       - 'app/Database/Migrations/2026-08-31-160000_CreateCvDocuments.php'
       - 'app/Models/CvDocumentModel.php'
       - 'app/Services/Cv/CvCreationAgent.php'
+      - 'app/Services/Cv/CvDocxRenderer.php'
       - 'app/Services/Cv/CvWriterPanel.php'
       - 'app/Services/Cv/CvWriterPrompt.php'
       - 'app/Services/Cv/CvUpgradePlans.php'
@@ -29,6 +31,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
+          extensions: zip
           coverage: none
       - name: PHP syntax gate
         shell: bash
@@ -39,9 +42,11 @@ jobs:
             app/Config/Routing.php
             app/Config/RoutesCvStudio.php
             app/Controllers/CvStudioAdmin.php
+            app/Controllers/CvStudioDocumentController.php
             app/Database/Migrations/2026-08-31-160000_CreateCvDocuments.php
             app/Models/CvDocumentModel.php
             app/Services/Cv/CvCreationAgent.php
+            app/Services/Cv/CvDocxRenderer.php
             app/Services/Cv/CvWriterPanel.php
             app/Services/Cv/CvWriterPrompt.php
             app/Services/Cv/CvUpgradePlans.php
@@ -60,7 +65,8 @@ jobs:
         run: |
           set -euo pipefail
           grep -Fq "RoutesCvStudio.php" app/Config/Routing.php
-          grep -Fq "admin/cv-studio" app/Config/RoutesCvStudio.php
+          grep -Fq "CvStudioDocumentController::downloadWord" app/Config/RoutesCvStudio.php
+          grep -Fq "CvStudioDocumentController::deliver" app/Config/RoutesCvStudio.php
           grep -Fq "Price on Request" app/Services/Cv/CvUpgradePlans.php
           ! grep -Fq "executive_2499" app/Services/Cv/CvUpgradePlans.php
           grep -Fq "No CV-writing AI is configured" app/Services/Cv/CvWriterPanel.php
@@ -68,3 +74,5 @@ jobs:
           grep -Fq "SAMPLE PREVIEW" app/Views/pages/services/candidate-services.php
           grep -Fq "cv_documents" app/Commands/CvDoctor.php
           grep -Fq "CV CREATION WRITERS" app/Commands/CvDoctor.php
+          grep -Fq "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml" app/Services/Cv/CvDocxRenderer.php
+          grep -Fq "CvDocxRenderer" app/Controllers/CvStudioDocumentController.php
