@@ -18,6 +18,9 @@ on:
       - 'app/Services/Cv/OpenAiCvFileExtractor.php'
       - 'app/Services/Cv/LyzrClient.php'
       - 'app/Services/Cv/Provider/LyzrAgentProvider.php'
+      - 'app/Services/Cv/Provider/OpenAiProvider.php'
+      - 'app/Services/Cv/Provider/AnthropicProvider.php'
+      - 'app/Services/Cv/Provider/GeminiProvider.php'
       - 'app/Services/Cv/CvWriterPanel.php'
       - 'app/Services/Cv/CvWriterPrompt.php'
       - 'app/Services/Cv/CvUpgradePlans.php'
@@ -58,6 +61,9 @@ jobs:
             app/Services/Cv/OpenAiCvFileExtractor.php
             app/Services/Cv/LyzrClient.php
             app/Services/Cv/Provider/LyzrAgentProvider.php
+            app/Services/Cv/Provider/OpenAiProvider.php
+            app/Services/Cv/Provider/AnthropicProvider.php
+            app/Services/Cv/Provider/GeminiProvider.php
             app/Services/Cv/CvWriterPanel.php
             app/Services/Cv/CvWriterPrompt.php
             app/Services/Cv/CvUpgradePlans.php
@@ -96,3 +102,6 @@ jobs:
           grep -Fq "x-api-key:" app/Services/Cv/LyzrClient.php
           grep -Fq "lyzr:cv-setup" app/Commands/LyzrCvSetup.php
           grep -Fq "lyzr-agents.json" app/Services/Cv/Provider/LyzrAgentProvider.php
+          grep -Fq "openai_recruiter" app/Services/Cv/Provider/OpenAiProvider.php
+          grep -Fq "claude_critic" app/Services/Cv/Provider/AnthropicProvider.php
+          grep -Fq "gemini_rolefit" app/Services/Cv/Provider/GeminiProvider.php
