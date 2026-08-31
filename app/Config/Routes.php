@@ -27,12 +27,26 @@ $routes->get('cv-payment/qr', 'CvPayment::qr');
 $routes->get('cv-payment/(:num)', 'CvPayment::checkout/$1');
 $routes->post('cv-payment/verify', 'CvPayment::verify');
 
+// Secure candidate checkout links created from the CV Reviews admin.
+$routes->get('cv-upgrade/(:segment)', 'CvUpgrade::checkout/$1');
+$routes->post('cv-upgrade/(:segment)', 'CvUpgrade::submit/$1');
+
 // Existing website-admin credentials protect this CV-review module.
 $routes->get('admin/cv-reviews', 'CvReviewAdmin::index');
 $routes->post('admin/cv-reviews/login', 'CvReviewAdmin::login');
 $routes->get('admin/cv-reviews/logout', 'CvReviewAdmin::logout');
 $routes->get('admin/cv-reviews/(:num)/resume', 'CvReviewAdmin::resume/$1');
+$routes->get('admin/cv-reviews/(:num)/report', 'CvReviewAdmin::printReport/$1');
+$routes->post('admin/cv-reviews/(:num)/analyse', 'CvReviewAdmin::analyse/$1');
+$routes->post('admin/cv-reviews/(:num)/payment-verified', 'CvReviewAdmin::markPaymentVerified/$1');
+$routes->post('admin/cv-reviews/(:num)/report/save', 'CvReviewAdmin::saveReport/$1');
+$routes->post('admin/cv-reviews/(:num)/report/approve', 'CvReviewAdmin::approveReport/$1');
+$routes->post('admin/cv-reviews/(:num)/report/send', 'CvReviewAdmin::sendReport/$1');
+$routes->post('admin/cv-reviews/(:num)/offer/(:segment)', 'CvReviewAdmin::offer/$1/$2');
+$routes->post('admin/cv-reviews/(:num)/orders/(:num)/verify', 'CvReviewAdmin::verifyUpgrade/$1/$2');
+$routes->post('admin/cv-reviews/(:num)/orders/(:num)/status', 'CvReviewAdmin::updateUpgradeStatus/$1/$2');
 $routes->post('admin/cv-reviews/(:num)/status', 'CvReviewAdmin::updateStatus/$1');
+$routes->get('admin/cv-reviews/(:num)', 'CvReviewAdmin::detail/$1');
 
 $routes->get('robots.txt', 'Seo::robots');
 $routes->get('sitemap.xml', 'Seo::sitemap');
