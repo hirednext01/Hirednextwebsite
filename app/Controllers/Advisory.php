@@ -72,6 +72,8 @@ class Advisory extends BaseController
             . "Source: hirednext.net/hiring-discussion\n";
 
         $email = \Config\Services::email();
+        $email->clear(true);
+        $email->setFrom('partners@hirednext.info', 'HiredNext Partnerships');
         $email->setTo('tarushikha@hirednext.info');
         $email->setSubject($subject);
         $email->setMessage($message);
@@ -165,7 +167,7 @@ class Advisory extends BaseController
             return redirect()->back()->withInput()->with('error', 'Please complete the required advisory details and enter a valid UPI transaction/reference number.');
         }
 
-        $subject = $plan['amount_label'] . ' advisory payment submitted — ' . $plan['name'];
+        $subject = 'ACTION: ' . $plan['amount_label'] . ' advisory payment submitted — ' . $plan['name'] . ' — ' . $lead['name'];
         $message = "NEW HIREDNEXT ADVISORY PAYMENT SUBMISSION\n\n"
             . "Service: {$plan['name']}\n"
             . "Amount: {$plan['amount_label']}\n"
@@ -198,14 +200,38 @@ class Advisory extends BaseController
             log_message('error', 'Advisory payment submission database save failed: ' . $e->getMessage());
         }
 
+        // Internal paid-transaction alert to Taru.
         $email = \Config\Services::email();
+        $email->clear(true);
+        $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
         $email->setTo('tarushikha@hirednext.info');
         $email->setSubject($subject);
         $email->setMessage($message);
         $email->setMailType('text');
         $email->setReplyTo($lead['email'], $lead['name']);
         if (!$email->send(false)) {
-            log_message('error', 'Advisory payment notification failed for ' . $lead['email']);
+            log_message('error', 'Advisory payment notification failed for ' . $lead['email'] . ': ' . $email->printDebugger(['headers']));
+        }
+
+        // Candidate acknowledgement from jobs@ for every paid advisory submission.
+        $email->clear(true);
+        $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
+        $email->setTo($lead['email']);
+        $email->setReplyTo('jobs@hirednext.info', 'HiredNext Jobs');
+        $email->setSubject('We have received your ' . $plan['name'] . ' request | HiredNext');
+        $email->setMessage(
+            "Dear {$lead['name']},\n\n" .
+            "Thank you for choosing HiredNext for {$plan['name']}. We have received your advisory request and UPI payment reference.\n\n" .
+            "Service: {$plan['name']}\n" .
+            "Amount: {$plan['amount_label']}\n" .
+            "Payment reference: {$lead['payment_reference']}\n" .
+            "Status: pending payment verification\n\n" .
+            "Our team will verify the transaction and review the information you submitted before the advisory appointment is confirmed.\n\n" .
+            "This advisory service is separate from recruitment consideration. HiredNext never charges candidates to apply for jobs or secure placement.\n\n" .
+            "Regards,\nHiredNext Jobs Team\njobs@hirednext.info\nhttps://hirednext.net\n"
+        );
+        if (!$email->send(false)) {
+            log_message('error', 'Advisory acknowledgement failed for ' . $lead['email'] . ': ' . $email->printDebugger(['headers']));
         }
 
         return redirect()->to('/advisory?payment=submitted&plan=' . rawurlencode($planKey))
