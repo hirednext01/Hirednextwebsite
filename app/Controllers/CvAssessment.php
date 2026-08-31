@@ -37,6 +37,7 @@ class CvAssessment extends BaseController
             mkdir($uploadDir, 0750, true);
         }
         $storedName = $resume->getRandomName();
+        $originalName = $resume->getClientName();
         $resume->move($uploadDir, $storedName);
 
         $db = \Config\Database::connect();
@@ -60,27 +61,64 @@ class CvAssessment extends BaseController
         $db->table('cv_assessment_leads')->insert($lead);
         $leadId = $db->insertID();
 
+        $serviceLabel = $plan === 'priority_599' ? '₹599 Priority CV Assessment / 12 hours' : 'Free CV Assessment / 7–10 days';
         $subject = $plan === 'priority_599'
             ? 'New ₹599 Priority CV Assessment Lead #' . $leadId . ' — awaiting payment'
             : 'New Free CV Assessment Lead #' . $leadId;
 
+        // Internal alert to Taru with the actual CV attached.
         $email = \Config\Services::email();
+        $email->clear(true);
+        $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
         $email->setTo('tarushikha@hirednext.info');
+        $email->setReplyTo($lead['email'], $lead['name']);
         $email->setSubject($subject);
         $email->setMessage(
-            "New HiredNext CV assessment lead\n\n" .
+            "NEW HIREDNEXT CV ASSESSMENT REQUEST\n\n" .
             "Name: {$lead['name']}\n" .
             "Email: {$lead['email']}\n" .
             "Phone: {$lead['phone']}\n" .
-            "Service: " . ($plan === 'priority_599' ? '₹599 Priority / 12 hours' : 'Free / 7–10 days') . "\n" .
+            "Service: {$serviceLabel}\n" .
             "Job: " . ($lead['job_title'] ?: 'Not specified') . "\n" .
             "Payment status: {$lead['payment_status']}\n" .
-            "Lead ID: {$leadId}\n\n" .
+            "Lead ID: {$leadId}\n" .
+            "Submitted: {$lead['created_at']}\n\n" .
             "Message:\n" . ($lead['message'] ?: '—')
         );
-        $email->attach($uploadDir . '/' . $storedName, 'attachment', $resume->getClientName());
-        if (!$email->send()) {
+        $email->attach($uploadDir . '/' . $storedName, 'attachment', $originalName);
+        if (!$email->send(false)) {
             log_message('error', 'CV assessment notification email failed for lead #' . $leadId . ': ' . $email->printDebugger(['headers']));
+        }
+
+        // Candidate acknowledgement from jobs@ for every CV-review request.
+        $email->clear(true);
+        $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
+        $email->setTo($lead['email']);
+        $email->setReplyTo('jobs@hirednext.info', 'HiredNext Jobs');
+        $email->setSubject('We have received your CV review request | HiredNext');
+
+        $ackMessage =
+            "Dear {$lead['name']},\n\n" .
+            "Thank you for asking HiredNext to review your CV. We have received your CV and registered your request as #{$leadId}.\n\n" .
+            "Service: {$serviceLabel}\n";
+
+        if ($plan === 'priority_599') {
+            $ackMessage .=
+                "Payment status: awaiting payment\n\n" .
+                "To activate the priority review, complete the ₹599 payment on the secure HiredNext payment page:\n" .
+                base_url('cv-payment/' . $leadId) . "\n\n";
+        } else {
+            $ackMessage .=
+                "Your review is in the free 7–10 day queue. We will contact you by email after review.\n\n";
+        }
+
+        $ackMessage .=
+            "Please note: CV review is a professional advisory service. HiredNext never charges candidates to apply for jobs or secure placement.\n\n" .
+            "Regards,\nHiredNext Jobs Team\njobs@hirednext.info\nhttps://hirednext.net\n";
+
+        $email->setMessage($ackMessage);
+        if (!$email->send(false)) {
+            log_message('error', 'CV assessment acknowledgement email failed for lead #' . $leadId . ': ' . $email->printDebugger(['headers']));
         }
 
         if ($plan === 'priority_599') {
