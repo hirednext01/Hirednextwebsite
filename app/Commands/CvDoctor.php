@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Services\Cv\CvCreationAgent;
 use App\Services\Cv\Provider\AnthropicProvider;
 use App\Services\Cv\Provider\GeminiProvider;
 use App\Services\Cv\Provider\OpenAiProvider;
@@ -12,17 +13,18 @@ class CvDoctor extends BaseCommand
 {
     protected $group = 'HiredNext';
     protected $name = 'cv:doctor';
-    protected $description = 'Check HiredNext CV agent readiness without displaying any secret values.';
+    protected $description = 'Check HiredNext CV agent and CV Studio readiness without displaying secret values.';
 
     public function run(array $params)
     {
         $db = \Config\Database::connect();
-        CLI::write('HIREDNEXT CV AGENT READINESS', 'green');
+        CLI::write('HIREDNEXT CV AGENT + STUDIO READINESS', 'green');
         CLI::write(str_repeat('-', 72));
 
         $tables = [
             'cv_assessment_leads', 'cv_analysis_runs', 'cv_analysis_findings',
-            'cv_report_versions', 'cv_review_events', 'cv_email_events', 'cv_upgrade_orders',
+            'cv_report_versions', 'cv_review_events', 'cv_email_events',
+            'cv_upgrade_orders', 'cv_documents',
         ];
         foreach ($tables as $table) {
             $ok = $db->tableExists($table);
@@ -35,17 +37,23 @@ class CvDoctor extends BaseCommand
             $path = $this->binary($binary);
             CLI::write(sprintf('%-34s %s', $binary, $path ?: 'NOT FOUND'), $path ? 'green' : 'yellow');
         }
-        CLI::write(sprintf('%-34s %s', 'PHP ZipArchive (DOCX)', class_exists(\ZipArchive::class) ? 'READY' : 'MISSING'), class_exists(\ZipArchive::class) ? 'green' : 'red');
+        CLI::write(sprintf('%-34s %s', 'PHP ZipArchive (DOCX source)', class_exists(\ZipArchive::class) ? 'READY' : 'MISSING'), class_exists(\ZipArchive::class) ? 'green' : 'red');
 
         CLI::write(str_repeat('-', 72));
-        CLI::write('REVIEWERS');
+        CLI::write('ASSESSMENT REVIEWERS');
         CLI::write(sprintf('%-34s %s', 'HiredNext deterministic rules', 'READY'), 'green');
         foreach ([new OpenAiProvider(), new AnthropicProvider(), new GeminiProvider()] as $provider) {
             CLI::write(sprintf('%-34s %s', strtoupper($provider->name()), $provider->configured() ? 'CONFIGURED' : 'NOT CONFIGURED'), $provider->configured() ? 'green' : 'yellow');
         }
 
         CLI::write(str_repeat('-', 72));
-        CLI::write('This command never prints API keys or passwords.', 'cyan');
+        CLI::write('CV CREATION WRITERS');
+        foreach ((new CvCreationAgent())->configuration() as $name => $configured) {
+            CLI::write(sprintf('%-34s %s', strtoupper($name), $configured ? 'READY' : 'NOT CONFIGURED'), $configured ? 'green' : 'yellow');
+        }
+
+        CLI::write(str_repeat('-', 72));
+        CLI::write('This command never prints API keys, model secrets or passwords.', 'cyan');
     }
 
     private function binary(string $name): ?string
@@ -56,7 +64,7 @@ class CvDoctor extends BaseCommand
             }
         }
         if (function_exists('shell_exec')) {
-            $path = trim((string)@shell_exec('command -v ' . escapeshellarg($name) . ' 2>/dev/null'));
+            $path = trim((string) @shell_exec('command -v ' . escapeshellarg($name) . ' 2>/dev/null'));
             if ($path !== '' && is_executable($path)) {
                 return $path;
             }
