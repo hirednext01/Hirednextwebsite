@@ -30,16 +30,20 @@ class CvReviewAdmin extends BaseController
 
         $stats = [
             'total' => count($rows),
-            'priority' => 0,
+            'priority_requested' => 0,
             'payment_submitted' => 0,
+            'paid_verified' => 0,
             'new' => 0,
         ];
         foreach ($rows as $row) {
             if (($row['assessment_plan'] ?? '') === 'priority_599') {
-                $stats['priority']++;
+                $stats['priority_requested']++;
             }
             if (($row['payment_status'] ?? '') === 'pending_verification' || ($row['status'] ?? '') === 'payment_submitted') {
                 $stats['payment_submitted']++;
+            }
+            if (in_array(($row['payment_status'] ?? ''), ['verified', 'paid'], true)) {
+                $stats['paid_verified']++;
             }
             if (($row['status'] ?? '') === 'new') {
                 $stats['new']++;
