@@ -1,0 +1,66 @@
+name: Verify HiredNext CV Studio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/Config/Routing.php'
+      - 'app/Config/RoutesCvStudio.php'
+      - 'app/Controllers/CvStudioAdmin.php'
+      - 'app/Database/Migrations/2026-08-31-160000_CreateCvDocuments.php'
+      - 'app/Models/CvDocumentModel.php'
+      - 'app/Services/Cv/CvCreationAgent.php'
+      - 'app/Services/Cv/CvWriterPanel.php'
+      - 'app/Services/Cv/CvWriterPrompt.php'
+      - 'app/Services/Cv/CvUpgradePlans.php'
+      - 'app/Views/pages/admin/cv-studio-*.php'
+      - 'app/Views/pages/admin/cv-reviews.php'
+      - 'app/Views/pages/services/candidate-services.php'
+      - '.github/workflows/cv-studio-ci.yml'
+  workflow_dispatch:
+
+jobs:
+  php-syntax:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+      - name: PHP syntax gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=(
+            app/Config/Routing.php
+            app/Config/RoutesCvStudio.php
+            app/Controllers/CvStudioAdmin.php
+            app/Database/Migrations/2026-08-31-160000_CreateCvDocuments.php
+            app/Models/CvDocumentModel.php
+            app/Services/Cv/CvCreationAgent.php
+            app/Services/Cv/CvWriterPanel.php
+            app/Services/Cv/CvWriterPrompt.php
+            app/Services/Cv/CvUpgradePlans.php
+            app/Views/pages/admin/cv-studio-index.php
+            app/Views/pages/admin/cv-studio-detail.php
+            app/Views/pages/admin/cv-studio-document.php
+            app/Views/pages/admin/cv-reviews.php
+            app/Views/pages/services/candidate-services.php
+          )
+          for file in "${files[@]}"; do
+            test -f "$file"
+            php -l "$file"
+          done
+      - name: Route and safety assertions
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq "RoutesCvStudio.php" app/Config/Routing.php
+          grep -Fq "admin/cv-studio" app/Config/RoutesCvStudio.php
+          grep -Fq "Price on Request" app/Services/Cv/CvUpgradePlans.php
+          ! grep -Fq "executive_2499" app/Services/Cv/CvUpgradePlans.php
+          grep -Fq "No CV-writing AI is configured" app/Services/Cv/CvWriterPanel.php
+          grep -Fq "Missing facts are flagged" app/Views/pages/admin/cv-studio-detail.php
+          grep -Fq "SAMPLE PREVIEW" app/Views/pages/services/candidate-services.php
