@@ -9,8 +9,8 @@ class GeminiProvider implements AiProviderInterface
 
     public function __construct()
     {
-        $this->apiKey = trim((string) (getenv('GEMINI_API_KEY') ?: ''));
-        $this->model = trim((string) (getenv('GEMINI_CV_MODEL') ?: 'gemini-3.7-flash'));
+        $this->apiKey = trim((string) env('GEMINI_API_KEY', ''));
+        $this->model = trim((string) env('GEMINI_CV_MODEL', 'gemini-3.7-flash'));
     }
 
     public function name(): string
@@ -20,13 +20,16 @@ class GeminiProvider implements AiProviderInterface
 
     public function configured(): bool
     {
-        return $this->apiKey !== '';
+        return $this->apiKey !== '' || $this->lyzr()->configured();
     }
 
     public function review(string $cvText, array $context = []): array
     {
-        if (!$this->configured()) {
-            throw new \RuntimeException('Gemini is not configured.');
+        if ($this->apiKey === '') {
+            if ($this->lyzr()->configured()) {
+                return $this->lyzr()->review($cvText, $context);
+            }
+            throw new \RuntimeException('Gemini reviewer is not configured.');
         }
 
         $client = service('curlrequest', ['timeout' => 40]);
@@ -72,11 +75,18 @@ class GeminiProvider implements AiProviderInterface
         $decoded = CvReviewPrompt::decodeJson($text);
         $decoded['reviewer'] = 'gemini';
         $decoded['usage'] = [
+            'via' => 'direct',
             'model' => $body['modelVersion'] ?? $this->model,
             'input_tokens' => $body['usageMetadata']['promptTokenCount'] ?? null,
             'output_tokens' => $body['usageMetadata']['candidatesTokenCount'] ?? null,
         ];
 
         return $decoded;
+    }
+
+    private function lyzr(): LyzrAgentProvider
+    {
+        $config = LyzrAgentProvider::registry()['gemini_rolefit'] ?? [];
+        return new LyzrAgentProvider('gemini_rolefit', is_array($config) ? $config : []);
     }
 }
