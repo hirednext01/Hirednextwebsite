@@ -9,6 +9,7 @@
                 <p class="text-sm text-gray-500 mt-2">Signed in as <?= esc($adminUser['name'] ?? $adminUser['username'] ?? '') ?> · see what arrived, what was analysed, what was sent, and what converted.</p>
             </div>
             <div class="flex flex-wrap gap-3">
+                <a href="<?= base_url('admin/cv-studio') ?>" class="rounded-xl bg-accent px-4 py-2.5 text-sm font-black text-white">Open CV Studio →</a>
                 <a href="<?= base_url('services/cv-assessment') ?>" target="_blank" class="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-bold text-primary">Candidate CV Page ↗</a>
                 <a href="<?= base_url('admin/cv-reviews/logout') ?>" class="rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white">Sign out</a>
             </div>
@@ -79,7 +80,7 @@
                             <td class="px-4 py-5 max-w-[260px]"><div class="font-bold text-primary"><?= esc(($row['job_title'] ?? '') ?: 'No job specified') ?></div><div class="text-xs text-gray-500 mt-1 line-clamp-2"><?= esc(($row['message'] ?? '') ?: 'No candidate note') ?></div></td>
                             <td class="px-4 py-5 text-xs text-gray-600 whitespace-nowrap"><?= esc($row['last_action_at'] ?? $row['created_at'] ?? '') ?></td>
                             <td class="px-4 py-5"><?php if (!empty($row['resume_path'])): ?><a href="<?= base_url('admin/cv-reviews/' . (int)$row['id'] . '/resume') ?>" class="inline-flex rounded-xl border border-gray-200 bg-white px-4 py-2 text-xs font-black text-primary">Download</a><?php else: ?><span class="text-xs text-gray-400">No file</span><?php endif; ?></td>
-                            <td class="px-4 py-5"><a href="<?= base_url('admin/cv-reviews/' . (int)$row['id']) ?>" class="inline-flex rounded-xl bg-primary px-4 py-2.5 text-xs font-black text-white">Open record →</a></td>
+                            <td class="px-4 py-5"><div class="flex flex-col gap-2"><a href="<?= base_url('admin/cv-reviews/' . (int)$row['id']) ?>" class="inline-flex justify-center rounded-xl bg-primary px-4 py-2.5 text-xs font-black text-white">Assessment →</a><a href="<?= base_url('admin/cv-studio/' . (int)$row['id']) ?>" class="inline-flex justify-center rounded-xl border border-accent px-4 py-2.5 text-xs font-black text-accent">Create CV →</a></div></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
