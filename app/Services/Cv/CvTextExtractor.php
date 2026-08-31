@@ -25,20 +25,24 @@ class CvTextExtractor
 
             case 'pdf':
                 $binary = $this->findBinary('pdftotext');
-                if (!$binary) {
-                    throw new \RuntimeException('PDF text extraction requires pdftotext on the server. The CV remains stored and can still be downloaded from admin.');
+                if ($binary) {
+                    $text = $this->runCommand($binary, ['-layout', '-nopgbrk', $absolutePath, '-']);
+                    $meta['method'] = 'pdftotext';
+                } else {
+                    [$text, $method] = $this->openAiFallback($absolutePath, 'PDF text extraction requires pdftotext or a configured OpenAI CV file reader.');
+                    $meta['method'] = $method;
                 }
-                $text = $this->runCommand($binary, ['-layout', '-nopgbrk', $absolutePath, '-']);
-                $meta['method'] = 'pdftotext';
                 break;
 
             case 'doc':
                 $binary = $this->findBinary('antiword') ?: $this->findBinary('catdoc');
-                if (!$binary) {
-                    throw new \RuntimeException('DOC text extraction requires antiword or catdoc on the server. The CV remains stored and can still be downloaded from admin.');
+                if ($binary) {
+                    $text = $this->runCommand($binary, [$absolutePath]);
+                    $meta['method'] = basename($binary);
+                } else {
+                    [$text, $method] = $this->openAiFallback($absolutePath, 'DOC text extraction requires antiword/catdoc or a configured OpenAI CV file reader.');
+                    $meta['method'] = $method;
                 }
-                $text = $this->runCommand($binary, [$absolutePath]);
-                $meta['method'] = basename($binary);
                 break;
 
             case 'txt':
@@ -51,6 +55,18 @@ class CvTextExtractor
         }
 
         $text = $this->normalise($text);
+
+        // A scanned or image-heavy PDF may technically run through pdftotext but
+        // still yield almost nothing. When OpenAI is configured, retry the source
+        // file as a document input instead of failing the candidate record.
+        if (mb_strlen($text) < 120 && in_array($ext, ['pdf', 'doc'], true)) {
+            $fallback = new OpenAiCvFileExtractor();
+            if ($fallback->configured()) {
+                $text = $this->normalise($fallback->extract($absolutePath));
+                $meta['method'] = 'openai_file_fallback';
+            }
+        }
+
         $meta['characters'] = mb_strlen($text);
         $meta['words'] = preg_match_all('/\b[\pL\pN][\pL\pN\-+.&\/]*\b/u', $text) ?: 0;
 
@@ -59,6 +75,15 @@ class CvTextExtractor
         }
 
         return ['text' => $text, 'meta' => $meta];
+    }
+
+    private function openAiFallback(string $path, string $unavailableMessage): array
+    {
+        $fallback = new OpenAiCvFileExtractor();
+        if (!$fallback->configured()) {
+            throw new \RuntimeException($unavailableMessage . ' The CV remains stored and can still be downloaded from admin.');
+        }
+        return [$fallback->extract($path), 'openai_file_fallback'];
     }
 
     private function extractDocx(string $path): string
