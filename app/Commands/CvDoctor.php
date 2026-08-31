@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Services\Cv\CvCreationAgent;
+use App\Services\Cv\OpenAiCvFileExtractor;
 use App\Services\Cv\Provider\AnthropicProvider;
 use App\Services\Cv\Provider\GeminiProvider;
 use App\Services\Cv\Provider\OpenAiProvider;
@@ -38,6 +39,9 @@ class CvDoctor extends BaseCommand
             CLI::write(sprintf('%-34s %s', $binary, $path ?: 'NOT FOUND'), $path ? 'green' : 'yellow');
         }
         CLI::write(sprintf('%-34s %s', 'PHP ZipArchive (DOCX source)', class_exists(\ZipArchive::class) ? 'READY' : 'MISSING'), class_exists(\ZipArchive::class) ? 'green' : 'red');
+        CLI::write(sprintf('%-34s %s', 'PHP cURL', function_exists('curl_init') ? 'READY' : 'MISSING'), function_exists('curl_init') ? 'green' : 'red');
+        $fileFallback = new OpenAiCvFileExtractor();
+        CLI::write(sprintf('%-34s %s', 'OpenAI PDF/DOC fallback', $fileFallback->configured() ? 'READY' : 'NOT CONFIGURED'), $fileFallback->configured() ? 'green' : 'yellow');
 
         CLI::write(str_repeat('-', 72));
         CLI::write('ASSESSMENT REVIEWERS');
