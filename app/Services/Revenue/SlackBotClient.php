@@ -10,7 +10,7 @@ class SlackBotClient
 
     public function __construct(?string $token = null)
     {
-        $this->token = trim((string) ($token ?? getenv('SLACK_BOT_TOKEN') ?: ''));
+        $this->token = trim((string) ($token ?? (function_exists('env') ? env('SLACK_BOT_TOKEN', '') : getenv('SLACK_BOT_TOKEN'))));
     }
 
     public function postMessage(string $channel, string $text, ?string $threadTs = null): void
