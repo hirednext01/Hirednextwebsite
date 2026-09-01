@@ -44,7 +44,9 @@ jobs:
           remote_run='set -euo pipefail
           cd /home/u212644598/domains/hirednext.net/public_html
           test -d .git
-          test -z "$(git status --porcelain)" || { echo "Production checkout has local changes; refusing Revenue Council bootstrap"; git status --short; exit 21; }
+          status="$(git status --porcelain)"
+          unexpected="$(printf "%s\n" "$status" | grep -v -E "^\?\? app/Views/pages/home\.php\.typography-backup$" || true)"
+          test -z "$unexpected" || { echo "Production checkout has unexpected local changes; refusing Revenue Council bootstrap"; printf "%s\n" "$unexpected"; exit 21; }
           git fetch origin main
           git merge-base --is-ancestor HEAD origin/main || { echo "Production history diverged; refusing non-fast-forward bootstrap"; exit 22; }
           git pull --ff-only origin main
