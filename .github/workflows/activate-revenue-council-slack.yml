@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: hirednext-revenue-council-slack-activation
-  cancel-in-progress: false
+  cancel-in_progress: false
 
 jobs:
   activate:
@@ -45,73 +45,50 @@ jobs:
           REMOTE="${USER}@${HOST}"
           SSH_ARGS=(-p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15)
 
-          umask 077
-          cat > /tmp/hn-remote-activate.sh <<EOF
-          set -euo pipefail
+          remote_run="set -euo pipefail
           cd /home/u212644598/domains/hirednext.net/public_html
           test -f .env || touch .env
           chmod 600 .env || true
-
-          php <<'PHP'
-          <?php
-          \$target = '.env';
+          php -r '\''
+          \$target = \".env\";
           \$updates = [
-              'SLACK_BOT_TOKEN' => '${SLACK_BOT_TOKEN}',
-              'SLACK_SIGNING_SECRET' => '${SLACK_SIGNING_SECRET}',
-              'SLACK_REVENUE_CHANNEL_IDS' => 'C0BTXLQDHEF,C0BTZP75LRK,C0BU7JC1WJ0,C0BU5RF1N7K',
+            \"SLACK_BOT_TOKEN\" => \"${SLACK_BOT_TOKEN}\",
+            \"SLACK_SIGNING_SECRET\" => \"${SLACK_SIGNING_SECRET}\",
+            \"SLACK_REVENUE_CHANNEL_IDS\" => \"C0BTXLQDHEF,C0BTZP75LRK,C0BU7JC1WJ0,C0BU5RF1N7K\",
           ];
           \$lines = is_file(\$target) ? file(\$target, FILE_IGNORE_NEW_LINES) : [];
-          \$out = [];
-          \$seen = [];
+          \$out=[]; \$seen=[];
           foreach (\$lines as \$line) {
-              \$matched = false;
-              foreach (\$updates as \$key => \$value) {
-                  if (preg_match('/^\\s*' . preg_quote(\$key, '/') . '\\s*=/', \$line)) {
-                      \$out[] = \$key . ' = ' . \$value;
-                      \$seen[\$key] = true;
-                      \$matched = true;
-                      break;
-                  }
+            \$matched=false;
+            foreach (\$updates as \$key=>\$value) {
+              if (preg_match(\"/^\\\\s*\".preg_quote(\$key, \"/\").\"\\\\s*=/\", \$line)) {
+                \$out[] = \$key.\" = \".\$value; \$seen[\$key]=true; \$matched=true; break;
               }
-              if (!\$matched) \$out[] = \$line;
+            }
+            if (!\$matched) \$out[] = \$line;
           }
-          foreach (\$updates as \$key => \$value) {
-              if (!isset(\$seen[\$key])) \$out[] = \$key . ' = ' . \$value;
-          }
-          file_put_contents(\$target, implode(PHP_EOL, \$out) . PHP_EOL);
-          @chmod(\$target, 0600);
-          PHP
-
+          foreach (\$updates as \$key=>\$value) if (!isset(\$seen[\$key])) \$out[] = \$key.\" = \".\$value;
+          file_put_contents(\$target, implode(PHP_EOL, \$out).PHP_EOL); @chmod(\$target,0600);
+          '\''
           php spark cache:clear >/dev/null 2>&1 || true
+          php -r '\''
+          \$token=trim((string)env(\"SLACK_BOT_TOKEN\", \"\"));
+          if (\$token===\"\") { fwrite(STDERR,\"SLACK_BOT_TOKEN not readable by app\\n\"); exit(2); }
+          \$ch=curl_init(\"https://slack.com/api/auth.test\");
+          curl_setopt_array(\$ch,[CURLOPT_RETURNTRANSFER=>true,CURLOPT_HTTPHEADER=>[\"Authorization: Bearer \".\$token]]);
+          \$raw=curl_exec(\$ch); \$err=curl_error(\$ch); curl_close(\$ch); \$j=json_decode((string)\$raw,true);
+          if (\$raw===false || \$err!==\"\" || !is_array(\$j) || !(\$j[\"ok\"]??false)) { fwrite(STDERR,\"Slack auth.test failed\\n\"); exit(4); }
+          echo \"SLACK_BOT_AUTH=READY\\n\"; echo \"SLACK_BOT_USER_ID=\".(\$j[\"user_id\"]??\"\").\"\\n\"; echo \"SLACK_TEAM_ID=\".(\$j[\"team_id\"]??\"\").\"\\n\";
+          '\''
+          php -r '\''
+          \$secret=trim((string)env(\"SLACK_SIGNING_SECRET\", \"\"));
+          if (\$secret===\"\") { fwrite(STDERR,\"SLACK_SIGNING_SECRET not readable by app\\n\"); exit(5); }
+          \$body=json_encode([\"type\"=>\"url_verification\",\"challenge\"=>\"hn-revenue-council-ready\"]); \$ts=(string)time(); \$sig=\"v0=\".hash_hmac(\"sha256\",\"v0:\".\$ts.\":\".\$body,\$secret);
+          \$ch=curl_init(\"https://hirednext.net/webhooks/slack/revenue-council\");
+          curl_setopt_array(\$ch,[CURLOPT_POST=>true,CURLOPT_RETURNTRANSFER=>true,CURLOPT_HTTPHEADER=>[\"Content-Type: application/json\",\"X-Slack-Request-Timestamp: \".\$ts,\"X-Slack-Signature: \".\$sig],CURLOPT_POSTFIELDS=>\$body,CURLOPT_TIMEOUT=>20]);
+          \$raw=curl_exec(\$ch); \$http=(int)curl_getinfo(\$ch,CURLINFO_HTTP_CODE); \$err=curl_error(\$ch); curl_close(\$ch); \$j=json_decode((string)\$raw,true);
+          if (\$err!==\"\" || \$http<200 || \$http>=300 || (\$j[\"challenge\"]??\"\")!==\"hn-revenue-council-ready\") { fwrite(STDERR,\"SIGNED_WEBHOOK_TEST=FAILED HTTP=\".\$http.\"\\n\"); exit(6); }
+          echo \"SIGNED_WEBHOOK_TEST=READY\\n\";
+          '\''"
 
-          php -r '
-          \$token=trim((string)env("SLACK_BOT_TOKEN", ""));
-          if (\$token === "") { fwrite(STDERR, "SLACK_BOT_TOKEN not readable by app\\n"); exit(2); }
-          \$ch=curl_init("https://slack.com/api/auth.test");
-          curl_setopt_array(\$ch,[CURLOPT_RETURNTRANSFER=>true,CURLOPT_HTTPHEADER=>["Authorization: Bearer ".\$token]]);
-          \$raw=curl_exec(\$ch); \$err=curl_error(\$ch); curl_close(\$ch);
-          if (\$raw===false || \$err!=="") { fwrite(STDERR,"Slack auth transport failed\\n"); exit(3); }
-          \$j=json_decode(\$raw,true);
-          if (!is_array(\$j) || !(\$j["ok"]??false)) { fwrite(STDERR,"Slack auth.test failed\\n"); exit(4); }
-          echo "SLACK_BOT_AUTH=READY\\n";
-          echo "SLACK_BOT_USER_ID=".(\$j["user_id"]??"")."\\n";
-          echo "SLACK_TEAM_ID=".(\$j["team_id"]??"")."\\n";
-          '
-
-          php -r '
-          \$secret=trim((string)env("SLACK_SIGNING_SECRET", ""));
-          if (\$secret === "") { fwrite(STDERR,"SLACK_SIGNING_SECRET not readable by app\\n"); exit(5); }
-          \$body=json_encode(["type"=>"url_verification","challenge"=>"hn-revenue-council-ready"]);
-          \$ts=(string)time();
-          \$sig="v0=".hash_hmac("sha256","v0:".\$ts.":".\$body,\$secret);
-          \$ch=curl_init("https://hirednext.net/webhooks/slack/revenue-council");
-          curl_setopt_array(\$ch,[CURLOPT_POST=>true,CURLOPT_RETURNTRANSFER=>true,CURLOPT_HTTPHEADER=>["Content-Type: application/json","X-Slack-Request-Timestamp: ".\$ts,"X-Slack-Signature: ".\$sig],CURLOPT_POSTFIELDS=>\$body,CURLOPT_TIMEOUT=>20]);
-          \$raw=curl_exec(\$ch); \$http=(int)curl_getinfo(\$ch,CURLINFO_HTTP_CODE); \$err=curl_error(\$ch); curl_close(\$ch);
-          \$j=json_decode((string)\$raw,true);
-          if (\$err!=="" || \$http<200 || \$http>=300 || (\$j["challenge"]??"")!=="hn-revenue-council-ready") { fwrite(STDERR,"SIGNED_WEBHOOK_TEST=FAILED HTTP=".\$http."\\n"); exit(6); }
-          echo "SIGNED_WEBHOOK_TEST=READY\\n";
-          '
-          EOF
-
-          SSHPASS="$HOSTINGER_PASSWORD" sshpass -e ssh "${SSH_ARGS[@]}" "$REMOTE" 'bash -s' < /tmp/hn-remote-activate.sh
-          rm -f /tmp/hn-remote-activate.sh
+          SSHPASS="$HOSTINGER_PASSWORD" sshpass -e ssh "${SSH_ARGS[@]}" "$REMOTE" "$remote_run"
