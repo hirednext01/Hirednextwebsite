@@ -5,7 +5,7 @@ namespace App\Services\Cv;
 class CvUpgradePlans
 {
     /**
-     * Directly priced services that may create a secure checkout order.
+     * Directly priced candidate career services that may create a secure checkout order.
      * Executive/C-suite work is intentionally excluded because pricing is bespoke.
      */
     public static function all(): array
@@ -28,6 +28,12 @@ class CvUpgradePlans
                 'amount' => 1799,
                 'delivery' => 'Choose from 3 ATS-safe design directions · receive 2 completed CV variants + 2 revision rounds',
                 'description' => 'HiredNext rebuilds the CV from the candidate’s existing document, strengthening positioning, achievement evidence, hierarchy and recruiter readability. The finished CV is created by HiredNext, not by the candidate.',
+            ],
+            'career_strategy_4500' => [
+                'name' => '1:1 Career Strategy Consultation',
+                'amount' => 4500,
+                'delivery' => 'One 60-minute consultation covering interview preparation, resume review and salary benchmarking',
+                'description' => 'A focused one-to-one HiredNext career strategy session covering interview preparation, a senior review of the current resume and practical salary benchmarking for the candidate’s level, function and target move.',
             ],
         ];
     }
