@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: hirednext-revenue-council-slack-activation
-  cancel-in_progress: false
+  cancel-in-progress: false
 
 jobs:
   activate:
