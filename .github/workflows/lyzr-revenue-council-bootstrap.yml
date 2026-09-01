@@ -1,0 +1,71 @@
+name: Bootstrap HiredNext Lyzr Revenue Council
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/Commands/LyzrRevenueSetup.php'
+      - 'app/Commands/LyzrRevenueProbe.php'
+      - 'app/Services/Revenue/RevenueCouncilAgentRegistry.php'
+      - 'app/Services/Revenue/RevenueCouncilRouter.php'
+      - '.github/workflows/lyzr-revenue-council-bootstrap.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hirednext-hostinger-production
+  cancel-in-progress: false
+
+jobs:
+  bootstrap-and-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      HOSTINGER_SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      HOSTINGER_PRIVATE_KEY: ${{ secrets.HOSTINGER_PRIVATE_KEY }}
+      DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+      HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+    steps:
+      - name: Bootstrap and live-probe Revenue Council on Hostinger
+        shell: bash
+        run: |
+          set -euo pipefail
+          HOST='145.79.213.68'
+          PORT='65002'
+          USER='u212644598'
+          REMOTE="${USER}@${HOST}"
+          SSH_ARGS=(-p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15)
+          KEY="${HOSTINGER_SSH_KEY:-${SSH_PRIVATE_KEY:-${HOSTINGER_PRIVATE_KEY:-${DEPLOY_PRIVATE_KEY:-}}}}"
+          PASS="${HOSTINGER_PASSWORD:-${SSH_PASSWORD:-}}"
+          remote_run='set -euo pipefail
+          cd /home/u212644598/domains/hirednext.net/public_html
+          test -d .git
+          test -z "$(git status --porcelain)" || { echo "Production checkout has local changes; refusing Revenue Council bootstrap"; git status --short; exit 21; }
+          git fetch origin main
+          git merge-base --is-ancestor HEAD origin/main || { echo "Production history diverged; refusing non-fast-forward bootstrap"; exit 22; }
+          git pull --ff-only origin main
+          php -l app/Commands/LyzrRevenueSetup.php
+          php -l app/Commands/LyzrRevenueProbe.php
+          php -l app/Services/Revenue/RevenueCouncilAgentRegistry.php
+          php -l app/Services/Revenue/RevenueCouncilRouter.php
+          php spark cache:clear >/dev/null 2>&1 || true
+          php spark lyzr:revenue-setup
+          php spark lyzr:revenue-probe'
+
+          if [[ -n "$KEY" ]]; then
+            mkdir -p ~/.ssh
+            printf '%s\n' "$KEY" > ~/.ssh/hostinger_key
+            chmod 600 ~/.ssh/hostinger_key
+            ssh "${SSH_ARGS[@]}" -i ~/.ssh/hostinger_key "$REMOTE" "$remote_run"
+          elif [[ -n "$PASS" ]]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq sshpass
+            SSHPASS="$PASS" sshpass -e ssh "${SSH_ARGS[@]}" "$REMOTE" "$remote_run"
+          else
+            echo 'No Hostinger deployment credential is available to this workflow.'
+            exit 78
+          fi
