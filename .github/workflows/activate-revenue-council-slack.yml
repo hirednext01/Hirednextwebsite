@@ -65,8 +65,9 @@ jobs:
           php spark cache:clear >/dev/null 2>&1 || true
 
           AUTH=\$(curl -fsS -H "Authorization: Bearer \$TOKEN" https://slack.com/api/auth.test)
-          BOT_USER_ID=\$(printf '%s' "\$AUTH" | python3 -c 'import json,sys; j=json.load(sys.stdin); assert j.get("ok"); print(j.get("user_id", ""))')
-          TEAM_ID=\$(printf '%s' "\$AUTH" | python3 -c 'import json,sys; j=json.load(sys.stdin); assert j.get("ok"); print(j.get("team_id", ""))')
+          printf '%s' "\$AUTH" | grep -Fq '"ok":true'
+          BOT_USER_ID=\$(printf '%s' "\$AUTH" | sed -n 's/.*"user_id":"\([^"]*\)".*/\1/p')
+          TEAM_ID=\$(printf '%s' "\$AUTH" | sed -n 's/.*"team_id":"\([^"]*\)".*/\1/p')
           test -n "\$BOT_USER_ID"
           test -n "\$TEAM_ID"
           echo "SLACK_BOT_AUTH=READY"
@@ -81,7 +82,7 @@ jobs:
             -H "X-Slack-Request-Timestamp: \$TS" \
             -H "X-Slack-Signature: v0=\$HASH" \
             --data "\$BODY")
-          printf '%s' "\$RESP" | python3 -c 'import json,sys; j=json.load(sys.stdin); assert j.get("challenge") == "hn-revenue-council-ready"'
+          printf '%s' "\$RESP" | grep -Fq '"challenge":"hn-revenue-council-ready"'
           echo "SIGNED_WEBHOOK_TEST=READY"
           EOF
           )
