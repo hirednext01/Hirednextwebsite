@@ -8,8 +8,10 @@ on:
       - 'app/Commands/LyzrCvSetup.php'
       - 'app/Config/Routing.php'
       - 'app/Config/RoutesCvStudio.php'
+      - 'app/Config/Routes.php'
       - 'app/Controllers/CvStudioAdmin.php'
       - 'app/Controllers/CvStudioDocumentController.php'
+      - 'app/Controllers/CvServiceCheckout.php'
       - 'app/Database/Migrations/2026-08-31-160000_CreateCvDocuments.php'
       - 'app/Models/CvDocumentModel.php'
       - 'app/Services/Cv/CvCreationAgent.php'
@@ -28,6 +30,8 @@ on:
       - 'app/Views/pages/admin/cv-reviews.php'
       - 'app/Views/pages/services/candidate-services.php'
       - 'app/Views/pages/services/cv-upgrade-payment.php'
+      - 'app/Views/pages/services/cv-service-start.php'
+      - 'tests/cv_public_checkout_test.php'
       - '.github/workflows/cv-studio-ci.yml'
   workflow_dispatch:
 
@@ -42,6 +46,8 @@ jobs:
           php-version: '8.2'
           extensions: zip, curl
           coverage: none
+      - name: Public checkout contract test
+        run: php tests/cv_public_checkout_test.php
       - name: PHP syntax gate
         shell: bash
         run: |
