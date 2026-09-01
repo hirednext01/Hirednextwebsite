@@ -10,7 +10,9 @@ class Home extends BaseController
     {
         $settings = $this->loadWebsiteSettings();
         $jobModel = new \App\Models\JobModel();
-        $brand = config('BrandFacts')->facts ?? [];
+        $brandFacts = config('BrandFacts');
+        $brand = $brandFacts->facts ?? [];
+        $schemaIdentity = $brandFacts->organizationSchemaIdentity();
 
         $faq = [
             [
@@ -57,7 +59,8 @@ class Home extends BaseController
                     '@type' => 'EmploymentAgency',
                     '@id' => 'https://hirednext.net/#organization',
                     'name' => $brand['organization_name'] ?? 'HiredNext Recruitment',
-                    'legalName' => $brand['legal_name'] ?? 'HiredNext Recruitment',
+                    'legalName' => $schemaIdentity['legalName'],
+                    'taxID' => $schemaIdentity['taxID'],
                     'url' => $brand['website'] ?? 'https://hirednext.net/',
                     'email' => $brand['email'] ?? 'jobs@hirednext.info',
                     'foundingDate' => (string)($brand['founded_year'] ?? 2016),

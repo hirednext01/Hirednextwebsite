@@ -299,7 +299,7 @@
 
             <div class="border-t border-white/10 mt-10 pt-8 text-center">
                 <p class="text-[10px] font-bold text-white/70 uppercase tracking-[0.35em]">&copy; <?= esc(date('Y')) ?> HiredNext Recruitment. Precision in Every Placement.</p>
-                <p class="mt-3 text-[11px] text-white/50 normal-case tracking-normal">HiredNext Recruitment is operated by HiredNext Avron Private Limited · CIN U62091DL2025PTC452020.</p>
+                <p class="mt-3 text-[11px] text-white/50 normal-case tracking-normal"><?= esc(config('BrandFacts')->legalDisclosure()) ?></p>
             </div>
         </div>
     </footer>

@@ -12,7 +12,9 @@ class BrandFacts extends BaseConfig
      */
     public array $facts = [
         'organization_name' => 'HiredNext Recruitment',
-        'legal_name' => 'HiredNext Avron Private Limited',
+        'legal_name' => 'HiredNext Recruitment',
+        'business_structure' => 'Proprietorship firm',
+        'gstin' => '06AIJPA3944J1ZB',
         'website' => 'https://hirednext.net/',
         'email' => 'jobs@hirednext.info',
         'founded_year' => 2016,
@@ -67,4 +69,22 @@ class BrandFacts extends BaseConfig
     ];
 
     public string $numericClaimPolicy = 'Do not publish or strengthen company-wide totals, percentages, speed claims or averages unless a current source of record has been verified and the same figure can be used consistently across the site.';
+
+    public function legalDisclosure(): string
+    {
+        return sprintf(
+            '%s is a %s · GSTIN %s.',
+            $this->facts['legal_name'],
+            strtolower($this->facts['business_structure']),
+            $this->facts['gstin']
+        );
+    }
+
+    public function organizationSchemaIdentity(): array
+    {
+        return [
+            'legalName' => $this->facts['legal_name'],
+            'taxID' => $this->facts['gstin'],
+        ];
+    }
 }
