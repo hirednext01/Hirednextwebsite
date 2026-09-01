@@ -9,8 +9,18 @@ class RevenueCouncilRouter
     public function agentsFor(string $text): array
     {
         $text = strtolower($text);
-        $isCv = preg_match('/\b(cv|resume|candidate|ats|599|assessment)\b/', $text) === 1;
-        if ($isCv) {
+
+        $isCandidateRevenue = preg_match('/\b(599|signup|signups|checkout|conversion|candidate revenue|paid assessment|sales)\b/', $text) === 1;
+        if ($isCandidateRevenue) {
+            $candidateRevenue = $this->fromEnv('Candidate Revenue', 'LYZR_CANDIDATE_REVENUE_AGENT_ID');
+            if ($candidateRevenue !== []) {
+                return $candidateRevenue;
+            }
+        }
+
+        $mentionsCv = preg_match('/\b(cv|resume)\b/', $text) === 1;
+        $asksForReview = preg_match('/\b(review|assess|assessment|ats|analyse|analyze|score)\b/', $text) === 1;
+        if ($mentionsCv && $asksForReview) {
             $registry = LyzrAgentProvider::registry();
             $cvAgents = [];
             foreach ([
@@ -26,7 +36,6 @@ class RevenueCouncilRouter
             if ($cvAgents !== []) {
                 return $cvAgents;
             }
-            return $this->fromEnv('Candidate Revenue', 'LYZR_CANDIDATE_REVENUE_AGENT_ID');
         }
 
         $isSignal = preg_match('/\b(funding|funded|gcc|semiconductor|expansion|plant|office|leadership|ipo|signal)\b/', $text) === 1;
