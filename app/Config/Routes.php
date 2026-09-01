@@ -99,6 +99,9 @@ $routes->post('testimonials/share', 'ReputationAuthority::submit');
 $routes->post('contact/submit', 'Home::submitContact');
 $routes->get('test', 'Test::index');
 
+// Slack Events API -> HiredNext Revenue Council -> Lyzr -> Slack thread.
+$routes->post('webhooks/slack/revenue-council', 'Api\\RevenueCouncilWebhook::handle');
+
 $routes->group('api', ['namespace' => 'App\\Controllers\\Api'], function ($routes) {
     $routes->options('(:any)', function () { return service('response')->setStatusCode(200); });
     $routes->get('test', 'TestApi::index'); $routes->get('test/auth', 'TestApi::testAuth');
