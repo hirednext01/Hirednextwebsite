@@ -44,6 +44,7 @@ jobs:
           USER='u212644598'
           REMOTE="${USER}@${HOST}"
           SSH_ARGS=(-p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15)
+          SCP_ARGS=(-P "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15)
 
           umask 077
           cat > /tmp/hn-slack-secrets.env <<EOF
@@ -52,7 +53,7 @@ jobs:
           SLACK_REVENUE_CHANNEL_IDS=C0BTXLQDHEF,C0BTZP75LRK,C0BU7JC1WJ0,C0BU5RF1N7K
           EOF
 
-          SSHPASS="$HOSTINGER_PASSWORD" sshpass -e scp "${SSH_ARGS[@]}" /tmp/hn-slack-secrets.env "$REMOTE:/tmp/hn-slack-secrets.env"
+          SSHPASS="$HOSTINGER_PASSWORD" sshpass -e scp "${SCP_ARGS[@]}" /tmp/hn-slack-secrets.env "$REMOTE:/tmp/hn-slack-secrets.env"
 
           SSHPASS="$HOSTINGER_PASSWORD" sshpass -e ssh "${SSH_ARGS[@]}" "$REMOTE" 'bash -s' <<'REMOTE'
           set -euo pipefail
