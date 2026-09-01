@@ -56,7 +56,9 @@ Invite the app to these private channels:
 
 ## Routing behaviour
 
-Messages containing `cv`, `resume`, `candidate`, `ats`, `599`, or `assessment` are routed to all configured existing CV Lyzr reviewers.
+Commercial candidate-service messages containing terms such as `599`, `signup`, `checkout`, `conversion`, `candidate revenue`, `paid assessment`, or `sales` route to `LYZR_CANDIDATE_REVENUE_AGENT_ID` once that agent is configured.
+
+Actual CV-review requests must mention `cv` or `resume` together with a review action such as `review`, `assess`, `assessment`, `ATS`, `analyse`, or `score`. Those requests are routed to the three existing CV Lyzr reviewers from the production registry.
 
 Messages containing funding/GCC/semiconductor/expansion/leadership/IPO signal terms route to `LYZR_SIGNALS_AGENT_ID` once configured.
 
@@ -77,6 +79,6 @@ If a Revenue Council agent is not configured, Slack receives a clear configurati
 
 After deployment and Slack installation, send this in `#hn-revenue-war-room`:
 
-`CV assessment test — can the three HiredNext reviewers answer here?`
+`Please review this CV/resume and assess it for ATS quality.`
 
 Expected result: one threaded Slack response with labelled sections for the configured OpenAI Recruiter / ATS Reviewer, Claude Critical Career Reviewer, and Gemini Role-Fit Reviewer.
