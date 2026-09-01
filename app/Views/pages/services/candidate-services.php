@@ -65,16 +65,23 @@
 </section>
 
 <section class="py-20 bg-gray-50">
-<div class="max-w-[1180px] mx-auto px-4 sm:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-12"><div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Choose the depth you need</div><h2 class="text-3xl md:text-5xl font-serif font-bold text-primary">Assessment first. Rebuild only when the evidence justifies it.</h2></div>
-    <div class="grid md:grid-cols-2 xl:grid-cols-5 gap-5">
-        <article class="rounded-2xl border border-gray-200 bg-white p-6"><div class="text-sm font-black text-accent">FREE · 7–10 DAYS</div><h3 class="text-xl font-serif font-bold text-primary mt-2">CV Assessment</h3><p class="text-sm text-gray-600 mt-3">A concise HiredNext report on the strengths, gaps and obvious shortlisting risks in the current CV.</p></article>
-        <article class="rounded-2xl border-2 border-accent bg-white p-6"><div class="text-sm font-black text-accent">₹599 · 12 HOURS</div><h3 class="text-xl font-serif font-bold text-primary mt-2">Priority Assessment</h3><p class="text-sm text-gray-600 mt-3">A faster, deeper evidence-backed review before an application, recruiter conversation or interview.</p></article>
-        <article class="rounded-2xl border border-gray-200 bg-white p-6"><div class="text-sm font-black text-accent">₹999</div><h3 class="text-xl font-serif font-bold text-primary mt-2">ATS CV Optimisation</h3><p class="text-sm text-gray-600 mt-3">HiredNext rewrites and optimises the existing CV for structure, keywords, role language and recruiter scanability, with one revision round.</p></article>
-        <article class="rounded-2xl border border-gray-200 bg-white p-6"><div class="text-sm font-black text-accent">₹1,799</div><h3 class="text-xl font-serif font-bold text-primary mt-2">Professional CV Rebuild</h3><p class="text-sm text-gray-600 mt-3">Choose from three ATS-safe design directions; receive two completed CV variants and two revision rounds.</p></article>
-        <article class="rounded-2xl border-2 border-primary bg-white p-6"><div class="text-sm font-black text-accent">PRICE ON REQUEST</div><h3 class="text-xl font-serif font-bold text-primary mt-2">C-Suite Executive CV Advisory</h3><p class="text-sm text-gray-600 mt-3">Bespoke executive service including a 1-to-1 positioning call and specialist executive resume expert. Built for CXO, board and high-stakes leadership moves.</p></article>
+<div class="max-w-[1040px] mx-auto px-4 sm:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-10"><div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Start here</div><h2 class="text-3xl md:text-5xl font-serif font-bold text-primary">Two simple ways to begin.</h2><p class="text-gray-600 mt-4">You do not need to choose from a long list. Start with an assessment, or ask HiredNext to rebuild the CV for you.</p></div>
+    <div class="grid md:grid-cols-2 gap-6">
+        <article class="rounded-[1.75rem] border-2 border-accent bg-white p-8 shadow-sm"><div class="text-sm font-black text-accent">₹599 · PRIORITY</div><h3 class="text-3xl font-serif font-bold text-primary mt-2">Get Your CV Assessed</h3><p class="text-gray-600 mt-4 leading-relaxed">A detailed HiredNext recruiter assessment covering ATS readiness, positioning, evidence gaps, shortlisting risks and the changes that matter most.</p><a href="<?= base_url('services/cv-assessment') ?>" class="mt-6 inline-flex rounded-full bg-accent px-6 py-3 font-black text-white">Get assessed →</a></article>
+        <article class="rounded-[1.75rem] border-2 border-primary bg-white p-8 shadow-sm"><div class="text-sm font-black text-accent">₹1,799 · DONE FOR YOU</div><h3 class="text-3xl font-serif font-bold text-primary mt-2">Get a New CV Made</h3><p class="text-gray-600 mt-4 leading-relaxed">HiredNext assesses your current CV, rebuilds the content and positioning, and creates two finished CV variants with two revision rounds.</p><a href="<?= base_url('services/cv-assessment') ?>" class="mt-6 inline-flex rounded-full bg-primary px-6 py-3 font-black text-white">Upload my current CV →</a></article>
     </div>
-    <div class="text-center mt-10"><a href="<?= base_url('services/cv-assessment') ?>" class="inline-flex rounded-full bg-primary px-8 py-4 font-black text-white">Upload my current CV →</a><p class="text-xs text-gray-500 mt-4">Paid services improve positioning and document quality; they do not guarantee interviews, hiring or placement.</p></div>
+
+    <details class="group mt-8 rounded-[1.5rem] border border-gray-200 bg-white overflow-hidden">
+        <summary class="cursor-pointer list-none px-6 md:px-8 py-5 flex items-center justify-between gap-4 font-black text-primary"><span>See more career services</span><span class="text-accent text-xl group-open:rotate-45 transition">+</span></summary>
+        <div class="border-t border-gray-100 px-6 md:px-8 py-7 grid md:grid-cols-3 gap-5">
+            <article class="rounded-2xl border border-gray-200 p-6"><div class="text-sm font-black text-accent">₹999</div><h3 class="text-xl font-serif font-bold text-primary mt-2">ATS CV Optimisation</h3><p class="text-sm text-gray-600 mt-3 leading-relaxed">For a CV that is fundamentally sound but needs stronger ATS structure, keywords, role language and recruiter scanability. Includes one revision round.</p></article>
+            <article class="rounded-2xl border border-gray-200 p-6"><div class="text-sm font-black text-accent">₹4,500 · 60 MINUTES</div><h3 class="text-xl font-serif font-bold text-primary mt-2">1:1 Career Strategy Consultation</h3><p class="text-sm text-gray-600 mt-3 leading-relaxed">One focused session covering interview preparation, resume review and salary benchmarking for your level, function and target move.</p></article>
+            <article class="rounded-2xl border border-primary p-6"><div class="text-sm font-black text-accent">PRICE ON REQUEST</div><h3 class="text-xl font-serif font-bold text-primary mt-2">C-Suite Executive CV Advisory</h3><p class="text-sm text-gray-600 mt-3 leading-relaxed">Bespoke CXO/board service with a 1-to-1 positioning call and specialist executive resume expert.</p></article>
+        </div>
+    </details>
+
+    <p class="text-xs text-gray-500 text-center mt-6">Paid career services improve positioning and document quality; they do not guarantee interviews, hiring or placement.</p>
 </div>
 </section>
 
