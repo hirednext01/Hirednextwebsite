@@ -45,50 +45,45 @@ jobs:
           REMOTE="${USER}@${HOST}"
           SSH_ARGS=(-p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15)
 
-          remote_run="set -euo pipefail
+          TOKEN_Q=$(printf '%q' "$SLACK_BOT_TOKEN")
+          SECRET_Q=$(printf '%q' "$SLACK_SIGNING_SECRET")
+
+          remote_run=$(cat <<EOF
+          set -euo pipefail
           cd /home/u212644598/domains/hirednext.net/public_html
+          TOKEN=$TOKEN_Q
+          SECRET=$SECRET_Q
           test -f .env || touch .env
           chmod 600 .env || true
-          php -r '\''
-          \$target = \".env\";
-          \$updates = [
-            \"SLACK_BOT_TOKEN\" => \"${SLACK_BOT_TOKEN}\",
-            \"SLACK_SIGNING_SECRET\" => \"${SLACK_SIGNING_SECRET}\",
-            \"SLACK_REVENUE_CHANNEL_IDS\" => \"C0BTXLQDHEF,C0BTZP75LRK,C0BU7JC1WJ0,C0BU5RF1N7K\",
-          ];
-          \$lines = is_file(\$target) ? file(\$target, FILE_IGNORE_NEW_LINES) : [];
-          \$out=[]; \$seen=[];
-          foreach (\$lines as \$line) {
-            \$matched=false;
-            foreach (\$updates as \$key=>\$value) {
-              if (preg_match(\"/^\\\\s*\".preg_quote(\$key, \"/\").\"\\\\s*=/\", \$line)) {
-                \$out[] = \$key.\" = \".\$value; \$seen[\$key]=true; \$matched=true; break;
-              }
-            }
-            if (!\$matched) \$out[] = \$line;
-          }
-          foreach (\$updates as \$key=>\$value) if (!isset(\$seen[\$key])) \$out[] = \$key.\" = \".\$value;
-          file_put_contents(\$target, implode(PHP_EOL, \$out).PHP_EOL); @chmod(\$target,0600);
-          '\''
+          sed -i '/^[[:space:]]*SLACK_BOT_TOKEN[[:space:]]*=/d' .env
+          sed -i '/^[[:space:]]*SLACK_SIGNING_SECRET[[:space:]]*=/d' .env
+          sed -i '/^[[:space:]]*SLACK_REVENUE_CHANNEL_IDS[[:space:]]*=/d' .env
+          printf 'SLACK_BOT_TOKEN = %s\n' "\$TOKEN" >> .env
+          printf 'SLACK_SIGNING_SECRET = %s\n' "\$SECRET" >> .env
+          printf 'SLACK_REVENUE_CHANNEL_IDS = %s\n' 'C0BTXLQDHEF,C0BTZP75LRK,C0BU7JC1WJ0,C0BU5RF1N7K' >> .env
+          chmod 600 .env || true
           php spark cache:clear >/dev/null 2>&1 || true
-          php -r '\''
-          \$token=trim((string)env(\"SLACK_BOT_TOKEN\", \"\"));
-          if (\$token===\"\") { fwrite(STDERR,\"SLACK_BOT_TOKEN not readable by app\\n\"); exit(2); }
-          \$ch=curl_init(\"https://slack.com/api/auth.test\");
-          curl_setopt_array(\$ch,[CURLOPT_RETURNTRANSFER=>true,CURLOPT_HTTPHEADER=>[\"Authorization: Bearer \".\$token]]);
-          \$raw=curl_exec(\$ch); \$err=curl_error(\$ch); curl_close(\$ch); \$j=json_decode((string)\$raw,true);
-          if (\$raw===false || \$err!==\"\" || !is_array(\$j) || !(\$j[\"ok\"]??false)) { fwrite(STDERR,\"Slack auth.test failed\\n\"); exit(4); }
-          echo \"SLACK_BOT_AUTH=READY\\n\"; echo \"SLACK_BOT_USER_ID=\".(\$j[\"user_id\"]??\"\").\"\\n\"; echo \"SLACK_TEAM_ID=\".(\$j[\"team_id\"]??\"\").\"\\n\";
-          '\''
-          php -r '\''
-          \$secret=trim((string)env(\"SLACK_SIGNING_SECRET\", \"\"));
-          if (\$secret===\"\") { fwrite(STDERR,\"SLACK_SIGNING_SECRET not readable by app\\n\"); exit(5); }
-          \$body=json_encode([\"type\"=>\"url_verification\",\"challenge\"=>\"hn-revenue-council-ready\"]); \$ts=(string)time(); \$sig=\"v0=\".hash_hmac(\"sha256\",\"v0:\".\$ts.\":\".\$body,\$secret);
-          \$ch=curl_init(\"https://hirednext.net/webhooks/slack/revenue-council\");
-          curl_setopt_array(\$ch,[CURLOPT_POST=>true,CURLOPT_RETURNTRANSFER=>true,CURLOPT_HTTPHEADER=>[\"Content-Type: application/json\",\"X-Slack-Request-Timestamp: \".\$ts,\"X-Slack-Signature: \".\$sig],CURLOPT_POSTFIELDS=>\$body,CURLOPT_TIMEOUT=>20]);
-          \$raw=curl_exec(\$ch); \$http=(int)curl_getinfo(\$ch,CURLINFO_HTTP_CODE); \$err=curl_error(\$ch); curl_close(\$ch); \$j=json_decode((string)\$raw,true);
-          if (\$err!==\"\" || \$http<200 || \$http>=300 || (\$j[\"challenge\"]??\"\")!==\"hn-revenue-council-ready\") { fwrite(STDERR,\"SIGNED_WEBHOOK_TEST=FAILED HTTP=\".\$http.\"\\n\"); exit(6); }
-          echo \"SIGNED_WEBHOOK_TEST=READY\\n\";
-          '\''"
+
+          AUTH=\$(curl -fsS -H "Authorization: Bearer \$TOKEN" https://slack.com/api/auth.test)
+          BOT_USER_ID=\$(printf '%s' "\$AUTH" | python3 -c 'import json,sys; j=json.load(sys.stdin); assert j.get("ok"); print(j.get("user_id", ""))')
+          TEAM_ID=\$(printf '%s' "\$AUTH" | python3 -c 'import json,sys; j=json.load(sys.stdin); assert j.get("ok"); print(j.get("team_id", ""))')
+          test -n "\$BOT_USER_ID"
+          test -n "\$TEAM_ID"
+          echo "SLACK_BOT_AUTH=READY"
+          echo "SLACK_BOT_USER_ID=\$BOT_USER_ID"
+          echo "SLACK_TEAM_ID=\$TEAM_ID"
+
+          BODY='{"type":"url_verification","challenge":"hn-revenue-council-ready"}'
+          TS=\$(date +%s)
+          HASH=\$(php -r 'echo hash_hmac("sha256", \$argv[1], \$argv[2]);' "v0:\$TS:\$BODY" "\$SECRET")
+          RESP=\$(curl -fsS -X POST https://hirednext.net/webhooks/slack/revenue-council \
+            -H 'Content-Type: application/json' \
+            -H "X-Slack-Request-Timestamp: \$TS" \
+            -H "X-Slack-Signature: v0=\$HASH" \
+            --data "\$BODY")
+          printf '%s' "\$RESP" | python3 -c 'import json,sys; j=json.load(sys.stdin); assert j.get("challenge") == "hn-revenue-council-ready"'
+          echo "SIGNED_WEBHOOK_TEST=READY"
+          EOF
+          )
 
           SSHPASS="$HOSTINGER_PASSWORD" sshpass -e ssh "${SSH_ARGS[@]}" "$REMOTE" "$remote_run"
