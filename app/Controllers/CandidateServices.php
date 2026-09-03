@@ -94,7 +94,7 @@ class CandidateServices extends BaseController
             ],
         ];
 
-        return view('pages/services/candidate-services', [
+        $html = view('pages/services/candidate-services', [
             'title' => 'Career Advisory for Senior Professionals in India | HiredNext',
             'metaDescription' => 'Recruiter-informed career advisory for senior professionals in India: role positioning, CV strategy, career transitions, leadership interview preparation and practical next-step guidance.',
             'metaKeywords' => 'career advisory senior professionals India, senior career coach India, leadership career advice, executive interview strategy, senior professional CV, career transition India',
@@ -104,6 +104,23 @@ class CandidateServices extends BaseController
             'faq' => $faq,
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
+
+        $proof = static function (string $key): string {
+            return view('pages/services/_candidate-success', ['successKey' => $key]);
+        };
+
+        $replacements = [
+            '<a href="' . base_url('services/cv-assessment') . '" class="mt-6 inline-flex rounded-full bg-accent px-6 py-3 font-black text-white">Get assessed →</a></article>'
+                => '<a href="' . base_url('services/cv-assessment') . '" class="mt-6 inline-flex rounded-full bg-accent px-6 py-3 font-black text-white">Get assessed →</a>' . $proof('assessment') . '</article>',
+            '<a href="' . base_url('career-services/start/rebuild_1799') . '" class="mt-6 inline-flex rounded-full bg-primary px-6 py-3 font-black text-white">Get a new CV made →</a></article>'
+                => '<a href="' . base_url('career-services/start/rebuild_1799') . '" class="mt-6 inline-flex rounded-full bg-primary px-6 py-3 font-black text-white">Get a new CV made →</a>' . $proof('rebuild') . '</article>',
+            '<a href="' . base_url('career-services/start/ats_999') . '" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Start ATS optimisation →</a></article>'
+                => '<a href="' . base_url('career-services/start/ats_999') . '" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Start ATS optimisation →</a>' . $proof('ats') . '</article>',
+            '<a href="' . base_url('career-services/start/career_4500') . '" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Book the 60-minute consultation →</a></article>'
+                => '<a href="' . base_url('career-services/start/career_4500') . '" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Book the 60-minute consultation →</a>' . $proof('strategy') . '</article>',
+        ];
+
+        return strtr($html, $replacements);
     }
 
     public function cvAssessment()
