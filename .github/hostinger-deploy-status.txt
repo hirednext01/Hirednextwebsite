@@ -1,4 +1,4 @@
-result=credential_missing
-exit_code=78
-source_sha=d2266244c4992b42bb6930d9c59953c85ab9313d
-run_id=33507544724
+result=ssh_password_attempted
+exit_code=21
+source_sha=89363efbf2d635c959b2c96ab84fa06c888e0cce
+run_id=33767873949
