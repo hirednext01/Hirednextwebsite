@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <?php
-$qrUrl = base_url('cv-payment/qr') . '?v=20260831';
+$qrUrl = base_url('cv-payment/qr') . '?v=20260903';
 ?>
 
 <style>
@@ -15,7 +15,7 @@ $qrUrl = base_url('cv-payment/qr') . '?v=20260831';
             <div class="text-center mb-8">
                 <p class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-4">Priority CV Assessment</p>
                 <h1 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Complete your ₹599 payment</h1>
-                <p class="text-gray-600">Your CV has been received. Scan the HiredNext payment QR below, then submit the transaction/reference number.</p>
+                <p class="text-gray-600">Your CV has been received. Scan the HiredNext payment QR below, pay exactly ₹599, then submit the transaction/reference number.</p>
             </div>
 
             <?php if (session('success')): ?>
@@ -44,10 +44,11 @@ $qrUrl = base_url('cv-payment/qr') . '?v=20260831';
                 </div>
 
                 <div class="flex flex-col items-center justify-center">
+                    <div class="text-sm font-black tracking-[0.18em] text-primary mb-3">HIREDNEXT</div>
                     <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
                         <img src="<?= esc($qrUrl) ?>" alt="HiredNext payment QR" width="280" height="280" class="block w-[280px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
                     </div>
-                    <div class="mt-4 text-sm font-black tracking-[0.18em] text-primary">HIREDNEXT</div>
+                    <div class="mt-4 text-xl font-black text-primary">PAY ₹599</div>
                 </div>
             </div>
 
