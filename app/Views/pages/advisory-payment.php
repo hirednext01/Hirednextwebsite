@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <?php
-$qrUrl = base_url('cv-payment/qr') . '?v=20260831';
+$qrUrl = base_url('cv-payment/qr') . '?v=20260903';
 ?>
 
 <style>
@@ -29,10 +29,11 @@ $qrUrl = base_url('cv-payment/qr') . '?v=20260831';
                     </div>
 
                     <div class="flex flex-col items-center rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                        <div class="text-sm font-black tracking-[0.18em] text-primary mb-3">HIREDNEXT</div>
                         <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
                             <img src="<?= esc($qrUrl) ?>" alt="HiredNext payment QR" width="280" height="280" class="block w-[280px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
                         </div>
-                        <div class="mt-4 text-sm font-black tracking-[0.18em] text-primary">HIREDNEXT</div>
+                        <div class="mt-4 text-xl font-black text-primary">PAY <?= esc($plan['amount_label'] ?? '') ?></div>
                     </div>
                 </div>
 
