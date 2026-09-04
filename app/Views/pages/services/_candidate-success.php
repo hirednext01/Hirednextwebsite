@@ -2,7 +2,7 @@
 $key = (string)($successKey ?? '');
 $stories = [
     'assessment' => [
-        'quote' => 'I had been applying for months with almost no response. The assessment showed me that my scope and impact were buried. Once I corrected the CV, I started getting interview conversations.',
+        'quote' => 'I had been applying for months with almost no response. The assessment showed me what recruiters were missing. After correcting the CV, I started getting interview conversations.',
         'role' => 'Marketing Manager',
         'industry' => 'FMCG',
         'avatar' => 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAoHCAkIBgoJCAkMCwoMDxoRDw4ODx8WGBMaJSEnJiQhJCMpLjsyKSw4LCMkM0Y0OD0/QkNCKDFITUhATTtBQj//2wBDAQsMDA8NDx4RER4/KiQqPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz//wAARCABIAEgDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAYDBQcEAQL/xAA0EAABAwMCAwYEBAcAAAAAAAABAgMEAAUREiEGE0EHIjFRcYEUYcHRFjKh8BUzQmJykrH/xAAYAQADAQEAAAAAAAAAAAAAAAAAAgMBBP/EAB4RAAMBAAIDAQEAAAAAAAAAAAABAhESIQMxQiJB/9oADAMBAAIRAxEAPwDZaKK8JABJOAKAPaKqpl3DagiK3zcnBVnYfekS+dpcSDIWxHW5LeQcKDRCEA/5dfas0DUKKx2L2qqLg50N1KCdyh/UR7ECnW0cTu3GO3IhIEmOo4UVd0p8x60abg20VCxJbfTlJwrqk+IqbxrTAooooAKXL7NU6pUZpRDadlkf1Hy9KtrxJVEtch1s4cCCEHyJ8KS46ZLjCFKf3IydqWn/AA1IouObi7buE3FMrcSt5xLOpJ8Ac5/QY96zWDarhPQHI7AKSO6ScVpnHMJb3CcoOO6iClSE6fFQP2zS1Huf8G5bCIZeDSACrVgkeY2+tTdNLorEqn+vRTDhG8BvmrLSf7SrJpi7NJcqLfpFnkKKULQpak9UqTjf3H0rtn39TK2WUwCrmpCtRJ2B9BXNaoZ/FZnNrUyJMXO2+FE4I9MJpZt/Q9+JfJoUlSorrbrTqgtO4OaYrNckXKCl4AJcHdcR5H7Vnb8d0oUVzHMAVa8Eq+HuSyH1rbeSEEK8M9D+/Omm9ZJziH/NFeUVYmVPEY1QEo6KV9KoWEhEdCNsgdKteMy2ixlx5wtoQsZUDjGdqzi33eLCnuqcuKnWSNgo5xSP2ahkv0f4uzSWR+ZSe7vjekd3iGOITCERua84nHdRknHQU2SLpFmxWnGnQlvUCVHaszkSTBujslhGmG46sIA35eFHb9Km1yZeKcoY5HEnJXHU7a3mW8JQeajZfp6Vd2GWzNukqXshDCUsgE9Tk0kLv8mayqK28qVId7qe7jSP31pp4Zbh/h5yK4UCWJSwpZP807bj22x8qXjg78jfWjxc34i7atLaka9NVNkcSyQVqSlWpJGDU15gsM2Ja0tjVo8ai4djtOMxUlrvrUkb+tbrbJcUlpo4or2iugicV4tzV1tMmC/+R9BST5HofY4NYdNsSYClsyG21yWl6XELdCAPbxxW/UocccJC+MGTB0N3FGN1bB0DOx+e+xoxNhuIyOSH/iylSWmY8delCkLACAQT4Db3rlgKblSpDbCuaw44SNuvp5GrOXZZLcq4sSQyHEEEpURkeua5H7U6iBFdaShDideFtrSCQT50tJUsGluXp1JimCwtaGcOHYbYqG2PRFw0pYkOcxKlB4A94kk7gdfWpHYtznTo6JauY2033UlQAOx3V5mo4NulswnnGw2laSMEKRkb74NLEcV2+x/JfJ4l0WluukhMFMQrlvsrQTko7uw6CnngNmTJdVLcSUxGk6WgoYJUfsP+0p8NcN3m8LilTxZhYUHXgoHAO2B5mtft8Ji3QWokVOlppOlIzk+pPU07lN6TVNLDpooorTAooooArrrZLdd2lInRkOEp06x3VgfIjeku59l8d+MlqDcXGkpJIDyNfj8xiiigCFrswdMkuP3RvTo0YSyc9fM/Ormy9nlotrWJKnZys5IdOE/6j65oooAb2mm2WktstpQ2kYSlIwAPkK+6KKACiiigD//Z',
@@ -33,10 +33,10 @@ if (!$story) { return; }
     <div class="flex items-start gap-3">
         <img src="<?= esc($story['avatar']) ?>" alt="Representative portrait" class="h-11 w-11 shrink-0 rounded-full object-cover border border-white shadow-sm">
         <div class="min-w-0">
-            <div class="text-[10px] font-black uppercase tracking-[0.16em] text-accent">Anonymised candidate outcome</div>
+            <div class="text-[10px] font-black uppercase tracking-[0.16em] text-accent">Success story</div>
             <p class="mt-1.5 text-sm leading-relaxed text-gray-700">“<?= esc($story['quote']) ?>”</p>
             <div class="mt-2 text-xs font-bold text-primary"><?= esc($story['role']) ?> <span class="font-normal text-gray-400">· <?= esc($story['industry']) ?></span></div>
         </div>
     </div>
-    <div class="mt-2 pl-14 text-[10px] leading-relaxed text-gray-400">Representative portrait. Outcome wording is anonymised and does not imply guaranteed results.</div>
+    <div class="mt-2 pl-14 text-[10px] leading-relaxed text-gray-400">Stories are shared without identifying details to protect candidate privacy. Individual outcomes vary.</div>
 </div>
