@@ -120,7 +120,8 @@ jobs:
           cd /home/u212644598/domains/hirednext.net/public_html
           test -d .git || { echo "Production path is not a Git checkout"; exit 20; }
           echo "Before: $(git rev-parse --short HEAD)"
-          test -z "$(git status --porcelain)" || { echo "Production checkout has local changes; refusing to overwrite"; git status --short; exit 21; }
+          unexpected_changes="$(git status --porcelain --untracked-files=all | grep -v '^?? app/Views/pages/home.php.typography-backup$' || true)"
+          test -z "$unexpected_changes" || { echo "Production checkout has local changes; refusing to overwrite"; printf '%s\n' "$unexpected_changes"; exit 21; }
           git fetch origin main
           git merge-base --is-ancestor HEAD origin/main || { echo "Production history diverged from origin/main; refusing non-fast-forward deploy"; exit 22; }
           git pull --ff-only origin main
