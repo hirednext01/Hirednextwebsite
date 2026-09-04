@@ -1,4 +1,4 @@
-result=ssh_password_attempted
-exit_code=21
-source_sha=feaecbc7f436b5f59d13fc3250b1dacdceb34c46
-run_id=33824948153
+result=deployed
+exit_code=0
+source_sha=3066c7bd577baa049cca98409deb910a24b68b7b
+run_id=33825043789
