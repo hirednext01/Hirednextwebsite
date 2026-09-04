@@ -15,13 +15,13 @@ class CvAssessment extends BaseController
             'name' => 'required|min_length[3]',
             'email' => 'required|valid_email',
             'phone' => 'required|min_length[6]',
-            'assessment_plan' => 'required|in_list[free,priority_599]',
+            'assessment_plan' => 'permit_empty|in_list[priority_599]',
         ]);
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
-        $plan = (string) $this->request->getPost('assessment_plan');
+        $plan = 'priority_599';
         $resume = $this->request->getFile('resume');
         if (!$resume || !$resume->isValid() || $resume->hasMoved()) {
             return redirect()->back()->withInput()->with('errors', ['resume' => 'Please upload a valid CV.']);
@@ -51,6 +51,14 @@ class CvAssessment extends BaseController
             'job_slug' => trim((string) $this->request->getPost('job_slug')) ?: null,
             'job_title' => trim((string) $this->request->getPost('job_title')) ?: null,
             'message' => trim((string) $this->request->getPost('message')) ?: null,
+            'first_touch_source' => trim((string) $this->request->getPost('first_touch_source')) ?: null,
+            'first_touch_medium' => trim((string) $this->request->getPost('first_touch_medium')) ?: null,
+            'first_touch_campaign' => trim((string) $this->request->getPost('first_touch_campaign')) ?: null,
+            'first_touch_content' => trim((string) $this->request->getPost('first_touch_content')) ?: null,
+            'latest_touch_source' => trim((string) $this->request->getPost('latest_touch_source')) ?: null,
+            'latest_touch_medium' => trim((string) $this->request->getPost('latest_touch_medium')) ?: null,
+            'latest_touch_campaign' => trim((string) $this->request->getPost('latest_touch_campaign')) ?: null,
+            'latest_touch_content' => trim((string) $this->request->getPost('latest_touch_content')) ?: null,
             'resume_path' => 'writable/uploads/cv-assessments/' . $storedName,
             'amount' => $plan === 'priority_599' ? 599 : 0,
             'payment_status' => $plan === 'free' ? 'not_required' : 'awaiting_payment',
@@ -68,12 +76,18 @@ class CvAssessment extends BaseController
             'job_title' => $lead['job_title'],
             'resume_name' => $originalName,
             'resume_stored' => true,
+            'first_touch' => [
+                'source' => $lead['first_touch_source'], 'medium' => $lead['first_touch_medium'],
+                'campaign' => $lead['first_touch_campaign'], 'content' => $lead['first_touch_content'],
+            ],
+            'latest_touch' => [
+                'source' => $lead['latest_touch_source'], 'medium' => $lead['latest_touch_medium'],
+                'campaign' => $lead['latest_touch_campaign'], 'content' => $lead['latest_touch_content'],
+            ],
         ], null, 'web', 'received');
 
-        $serviceLabel = $plan === 'priority_599' ? '₹599 Priority CV Assessment / 12 hours' : 'Free CV Assessment / 7–10 days';
-        $subject = $plan === 'priority_599'
-            ? 'New ₹599 Priority CV Assessment Lead #' . $leadId . ' — awaiting payment'
-            : 'New Free CV Assessment Lead #' . $leadId;
+        $serviceLabel = '₹599 Priority CV Assessment / 12 hours';
+        $subject = 'New ₹599 Priority CV Assessment Lead #' . $leadId . ' — awaiting payment';
 
         $internalEvent = $this->emailAttempt($leadId, 'internal_cv_received', 'tarushikha@hirednext.info', $subject);
         $email = \Config\Services::email();
@@ -110,11 +124,7 @@ class CvAssessment extends BaseController
         $email->setSubject($ackSubject);
 
         $ackMessage = "Dear {$lead['name']},\n\nThank you for asking HiredNext to review your CV. We have received your CV and registered your request as #{$leadId}.\n\nService: {$serviceLabel}\n";
-        if ($plan === 'priority_599') {
-            $ackMessage .= "Payment status: awaiting payment\n\nTo activate the priority review, complete the ₹599 payment on the secure HiredNext payment page:\n" . base_url('cv-payment/' . $leadId) . "\n\n";
-        } else {
-            $ackMessage .= "Your review is in the free 7–10 day queue. We will contact you by email after review.\n\n";
-        }
+        $ackMessage .= "Payment status: awaiting payment\n\nTo activate the priority review, complete the ₹599 payment on the secure HiredNext payment page:\n" . base_url('cv-payment/' . $leadId) . "\n\n";
         $ackMessage .= "IMPORTANT: Please look out for emails from jobs@hirednext.info. Your HiredNext assessment, report and any next steps will come from this address. Please save jobs@hirednext.info to your contacts and check Promotions/Spam if you do not see our message.\n\n";
         $ackMessage .= "Please note: CV review is a professional advisory service. HiredNext never charges candidates to apply for jobs or secure placement.\n\nRegards,\nHiredNext Jobs Team\njobs@hirednext.info\nhttps://hirednext.net\n";
         $email->setMessage($ackMessage);
@@ -130,10 +140,7 @@ class CvAssessment extends BaseController
         }
 
         $candidateNotice = 'Your CV has been received. Please look out for an email from jobs@hirednext.info — your HiredNext assessment, report and any next steps will come from this address. Please save it to your contacts and check Promotions/Spam if you do not see our message.';
-        if ($plan === 'priority_599') {
-            return redirect()->to('/cv-payment/' . $leadId)->with('success', $candidateNotice);
-        }
-        return redirect()->to('/services/cv-assessment?submitted=1')->with('success', $candidateNotice);
+        return redirect()->to('/cv-payment/' . $leadId)->with('success', $candidateNotice);
     }
 
     private function emailAttempt(int $leadId, string $type, string $recipient, string $subject): ?int
