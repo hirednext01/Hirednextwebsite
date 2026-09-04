@@ -54,10 +54,10 @@
                 <div class="flex gap-3 items-start">
                     <div class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 font-black text-sm">CXO</div>
                     <div>
-                        <div class="text-[10px] font-black uppercase tracking-[0.16em] text-accent">Anonymised executive outcome</div>
+                        <div class="text-[10px] font-black uppercase tracking-[0.16em] text-accent">Success story</div>
                         <p class="text-sm text-gray-700 leading-relaxed mt-2">“My experience was strong, but the CV positioned me one level below my actual scope. The advisory rebuilt the story around scale, commercial ownership and transformation impact before senior-level conversations.”</p>
                         <div class="text-xs font-black text-primary mt-3">Business Unit Head <span class="font-normal text-gray-400">· Manufacturing</span></div>
-                        <div class="text-[10px] text-gray-400 mt-2">Outcome anonymised; individual results vary.</div>
+                        <div class="text-[10px] text-gray-400 mt-2">Stories are shared without identifying details to protect candidate privacy. Individual outcomes vary.</div>
                     </div>
                 </div>
             </div>
