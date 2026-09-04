@@ -138,7 +138,7 @@ class CandidateServices extends BaseController
 
         return view('pages/services/cv-assessment', [
             'title' => 'CV Assessment | HiredNext',
-            'metaDescription' => 'Get your CV assessed by recruitment experts. Choose a free review or a priority 12-hour assessment for ₹599.',
+            'metaDescription' => 'Get a detailed 12-hour, role-focused CV assessment for ₹599 from HiredNext recruitment experts.',
             'currentPage' => 'services',
             'job' => $job,
         ]);
