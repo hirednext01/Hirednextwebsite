@@ -44,6 +44,19 @@ class CvCreationAgent
             throw new \RuntimeException('CV review request #' . $leadId . ' was not found.');
         }
 
+        $order = null;
+        if ($orderId) {
+            $order = (new CvUpgradeOrderModel())->find($orderId);
+            if (!$order || (int) ($order['lead_id'] ?? 0) !== $leadId) {
+                throw new \RuntimeException('The selected CV service order does not belong to this candidate.');
+            }
+            if (!in_array((string) ($order['status'] ?? ''), ['verified', 'in_fulfilment', 'delivered'], true)) {
+                throw new \RuntimeException('Payment must be verified before HiredNext can generate this paid CV service.');
+            }
+        } elseif (in_array((string) ($lead['assessment_plan'] ?? ''), ['ats_999', 'rebuild_1799'], true)) {
+            throw new \RuntimeException('Payment must be verified before HiredNext can generate this paid CV service.');
+        }
+
         $runModel = new CvAnalysisRunModel();
         $run = $runModel->where('lead_id', $leadId)->orderBy('id', 'DESC')->first();
         if (!$run || trim((string) ($run['extracted_text'] ?? '')) === '') {
@@ -52,14 +65,6 @@ class CvCreationAgent
         }
         if (!$run || trim((string) ($run['extracted_text'] ?? '')) === '') {
             throw new \RuntimeException('The uploaded CV could not be converted into usable text.');
-        }
-
-        $order = null;
-        if ($orderId) {
-            $order = (new CvUpgradeOrderModel())->find($orderId);
-            if (!$order || (int) ($order['lead_id'] ?? 0) !== $leadId) {
-                throw new \RuntimeException('The selected CV service order does not belong to this candidate.');
-            }
         }
 
         $reportVersion = (new CvReportVersionModel())

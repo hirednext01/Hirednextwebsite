@@ -319,6 +319,9 @@ class CvReviewAdmin extends BaseController
         if (!$order || (int)$order['lead_id'] !== (int)$id) {
             return redirect()->to('/admin/cv-reviews/' . (int)$id)->with('error', 'Upgrade order not found.');
         }
+        if ($status !== 'cancelled' && !in_array((string) ($order['status'] ?? ''), ['verified', 'in_fulfilment', 'delivered'], true)) {
+            return redirect()->to('/admin/cv-reviews/' . (int)$id)->with('error', 'Payment must be verified before fulfilment can begin.');
+        }
         $update = ['status' => $status, 'updated_at' => date('Y-m-d H:i:s')];
         if ($status === 'delivered') {
             $update['delivered_at'] = date('Y-m-d H:i:s');
