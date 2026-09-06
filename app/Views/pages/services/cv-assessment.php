@@ -52,8 +52,8 @@
             <input name="phone" required minlength="6" value="<?= esc(old('phone')) ?>" placeholder="Phone number" class="w-full border border-gray-200 rounded-xl px-4 py-3">
             <textarea name="message" rows="4" placeholder="Which role are you targeting? (optional)" class="w-full border border-gray-200 rounded-xl px-4 py-3"><?= esc(old('message')) ?></textarea>
             <div class="rounded-xl border border-dashed border-gray-300 px-4 py-4"><label class="block text-sm font-bold text-primary mb-2">Upload your CV</label><input name="resume" type="file" accept=".pdf,.doc,.docx" required class="w-full text-sm"><p class="text-xs text-gray-500 mt-2">PDF, DOC or DOCX. Maximum 5MB.</p></div>
-            <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-black">Get My CV Assessed — ₹599</button>
-            <p class="text-xs text-gray-500 text-center">Pay using the HiredNext UPI QR on the next step. This service does not guarantee interviews, shortlisting or placement.</p>
+            <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-black">Continue to ₹599 payment</button>
+            <p class="text-xs text-gray-500 text-center">Your assessment request is submitted only after you enter your payment reference on the next step. No submission email is sent before that. This service does not guarantee interviews, shortlisting or placement.</p>
         </form>
     </div>
 </section>
