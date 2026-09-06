@@ -7,7 +7,7 @@
       <h1 class="text-3xl md:text-5xl font-serif font-bold text-primary"><?= esc($plan['name']) ?></h1>
       <div class="mt-3 text-2xl font-black text-primary">₹<?= number_format((int)$plan['amount']) ?></div>
       <p class="text-gray-600 mt-5 leading-relaxed"><?= esc($plan['description']) ?></p>
-      <div class="rounded-2xl bg-primary/5 border border-primary/10 p-5 mt-6 text-sm text-gray-700"><strong class="text-primary">What happens next:</strong> Upload the CV you already use. HiredNext works from that document; you are not asked to build a CV yourself. After this step you will be taken to secure payment. Please look out for all service communication from <strong>jobs@hirednext.info</strong>.</div>
+      <div class="rounded-2xl bg-primary/5 border border-primary/10 p-5 mt-6 text-sm text-gray-700"><strong class="text-primary">What happens next:</strong> Upload the CV you already use, then continue to secure payment. Your service request is submitted only after you pay and enter the transaction reference. No request email is sent before payment. Once submitted, please look out for communication from <strong>jobs@hirednext.info</strong>.</div>
 
       <?php if (session('errors')): ?><div class="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800"><?= esc(implode(' ', session('errors'))) ?></div><?php endif; ?>
 
