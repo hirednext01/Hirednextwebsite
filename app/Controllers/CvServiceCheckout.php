@@ -72,7 +72,7 @@ class CvServiceCheckout extends BaseController
             'amount' => (int) $plan['amount'],
             'payment_status' => 'awaiting_payment',
             'payment_id' => null,
-            'status' => 'new',
+            'status' => 'checkout_started',
             'created_at' => $now,
             'updated_at' => $now,
         ];
@@ -92,7 +92,7 @@ class CvServiceCheckout extends BaseController
             'updated_at' => $now,
         ], true);
 
-        (new CvAuditService())->record($leadId, 'public_service_started', [
+        (new CvAuditService())->record($leadId, 'public_service_checkout_started', [
             'order_id' => $orderId,
             'tier' => $tier,
             'service_name' => $plan['name'],
@@ -100,30 +100,6 @@ class CvServiceCheckout extends BaseController
             'resume_name' => $originalName,
         ], null, 'web', 'awaiting_payment');
 
-        $this->sendStartEmails($lead, $plan, $leadId, $token, $uploadDir . '/' . $storedName);
-
         return redirect()->to('/cv-upgrade/' . $token);
-    }
-
-    private function sendStartEmails(array $lead, array $plan, int $leadId, string $token, string $resumePath): void
-    {
-        $checkout = base_url('cv-upgrade/' . $token);
-        $email = \Config\Services::email();
-        $email->clear(true);
-        $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
-        $email->setTo($lead['email']);
-        $email->setReplyTo('jobs@hirednext.info', 'HiredNext Jobs');
-        $email->setSubject('Your HiredNext career service request | ' . $plan['name']);
-        $email->setMessage("Dear {$lead['name']},\n\nWe have received your current CV and your request for {$plan['name']} (₹" . number_format((int)$plan['amount']) . ").\n\nComplete the secure HiredNext payment step here:\n{$checkout}\n\nPlease save jobs@hirednext.info to your contacts. All communication about this service will come from this address.\n\nRegards,\nHiredNext Jobs Team\n");
-        $email->send(false);
-
-        $email->clear(true);
-        $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
-        $email->setTo('tarushikha@hirednext.info');
-        $email->setReplyTo($lead['email'], $lead['name']);
-        $email->setSubject('NEW PAID SERVICE REQUEST — ' . $plan['name'] . ' — ' . $lead['name']);
-        $email->setMessage("Candidate: {$lead['name']}\nEmail: {$lead['email']}\nPhone: {$lead['phone']}\nService: {$plan['name']}\nAmount: ₹" . number_format((int)$plan['amount']) . "\nLead ID: {$leadId}\nStatus: awaiting payment\n");
-        if (is_file($resumePath)) $email->attach($resumePath);
-        $email->send(false);
     }
 }
