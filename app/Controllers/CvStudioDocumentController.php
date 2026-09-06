@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\CvDocumentModel;
 use App\Models\CvEmailEventModel;
+use App\Models\CvUpgradeOrderModel;
 use App\Services\Cv\CvAuditService;
 use App\Services\Cv\CvDocxRenderer;
 
@@ -44,6 +45,16 @@ class CvStudioDocumentController extends BaseController
             if (($document['status'] ?? '') === 'clarification_needed') {
                 return redirect()->to('/admin/cv-studio/' . (int) $leadId)
                     ->with('error', 'Resolve the factual clarification flags before delivering this CV.');
+            }
+            $orderId = (int) ($document['upgrade_order_id'] ?? 0);
+            if ($orderId) {
+                $order = (new CvUpgradeOrderModel())->find($orderId);
+                if (!$order || (int) ($order['lead_id'] ?? 0) !== (int) $leadId
+                    || !in_array((string) ($order['status'] ?? ''), ['verified', 'in_fulfilment', 'delivered'], true)) {
+                    throw new \RuntimeException('Payment must be verified before this paid CV can be delivered.');
+                }
+            } elseif (in_array((string) ($lead['assessment_plan'] ?? ''), ['ats_999', 'rebuild_1799'], true)) {
+                throw new \RuntimeException('Payment must be verified before this paid CV can be delivered.');
             }
 
             $path = $this->renderDocx($lead, $document, $content);
