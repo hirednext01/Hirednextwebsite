@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\CvEmailEventModel;
 use App\Services\Cv\CvAuditService;
 
 class CvAssessment extends BaseController
@@ -63,7 +62,9 @@ class CvAssessment extends BaseController
             'amount' => $plan === 'priority_599' ? 599 : 0,
             'payment_status' => $plan === 'free' ? 'not_required' : 'awaiting_payment',
             'payment_id' => null,
-            'status' => 'new',
+            // This is a checkout draft only. The assessment is submitted and
+            // notifications are sent after a payment reference is supplied.
+            'status' => 'checkout_started',
             'created_at' => $now,
             'updated_at' => $now,
         ];
@@ -71,7 +72,7 @@ class CvAssessment extends BaseController
         $leadId = (int)$db->insertID();
 
         $audit = new CvAuditService();
-        $audit->record($leadId, 'cv_received', [
+        $audit->record($leadId, 'checkout_started', [
             'assessment_plan' => $plan,
             'job_title' => $lead['job_title'],
             'resume_name' => $originalName,
@@ -84,77 +85,11 @@ class CvAssessment extends BaseController
                 'source' => $lead['latest_touch_source'], 'medium' => $lead['latest_touch_medium'],
                 'campaign' => $lead['latest_touch_campaign'], 'content' => $lead['latest_touch_content'],
             ],
-        ], null, 'web', 'received');
+        ], null, 'web', 'awaiting_payment');
 
-        $serviceLabel = '₹599 Priority CV Assessment / 12 hours';
-        $subject = 'New ₹599 Priority CV Assessment Lead #' . $leadId . ' — awaiting payment';
-
-        $internalEvent = $this->emailAttempt($leadId, 'internal_cv_received', 'tarushikha@hirednext.info', $subject);
-        $email = \Config\Services::email();
-        $email->clear(true);
-        $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
-        $email->setTo('tarushikha@hirednext.info');
-        $email->setReplyTo($lead['email'], $lead['name']);
-        $email->setSubject($subject);
-        $email->setMessage(
-            "NEW HIREDNEXT CV ASSESSMENT REQUEST\n\n" .
-            "Name: {$lead['name']}\nEmail: {$lead['email']}\nPhone: {$lead['phone']}\n" .
-            "Service: {$serviceLabel}\nJob: " . ($lead['job_title'] ?: 'Not specified') . "\n" .
-            "Payment status: {$lead['payment_status']}\nLead ID: {$leadId}\nSubmitted: {$lead['created_at']}\n\n" .
-            "Message:\n" . ($lead['message'] ?: '—')
+        return redirect()->to('/cv-payment/' . $leadId)->with(
+            'success',
+            'Your CV is held securely for checkout. Your assessment request will be submitted only after you pay ₹599 and enter the UPI transaction/reference number.'
         );
-        $email->attach($uploadDir . '/' . $storedName, 'attachment', $originalName);
-        $internalSent = $email->send(false);
-        if ($internalSent) {
-            $this->emailSent($internalEvent);
-            $audit->record($leadId, 'internal_cv_alert_sent', ['recipient' => 'tarushikha@hirednext.info'], null, 'email', 'sent');
-        } else {
-            $error = $email->printDebugger(['headers']);
-            $this->emailFailed($internalEvent, $error);
-            $audit->record($leadId, 'internal_cv_alert_failed', ['error' => mb_substr($error, 0, 800)], null, 'email', 'failed');
-            log_message('error', 'CV assessment notification email failed for lead #' . $leadId . ': ' . $error);
-        }
-
-        $ackSubject = 'We have received your CV review request | HiredNext';
-        $ackEvent = $this->emailAttempt($leadId, 'candidate_acknowledgement', $lead['email'], $ackSubject);
-        $email->clear(true);
-        $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
-        $email->setTo($lead['email']);
-        $email->setReplyTo('jobs@hirednext.info', 'HiredNext Jobs');
-        $email->setSubject($ackSubject);
-
-        $ackMessage = "Dear {$lead['name']},\n\nThank you for asking HiredNext to review your CV. We have received your CV and registered your request as #{$leadId}.\n\nService: {$serviceLabel}\n";
-        $ackMessage .= "Payment status: awaiting payment\n\nTo activate the priority review, complete the ₹599 payment on the secure HiredNext payment page:\n" . base_url('cv-payment/' . $leadId) . "\n\n";
-        $ackMessage .= "IMPORTANT: Please look out for emails from jobs@hirednext.info. Your HiredNext assessment, report and any next steps will come from this address. Please save jobs@hirednext.info to your contacts and check Promotions/Spam if you do not see our message.\n\n";
-        $ackMessage .= "Please note: CV review is a professional advisory service. HiredNext never charges candidates to apply for jobs or secure placement.\n\nRegards,\nHiredNext Jobs Team\njobs@hirednext.info\nhttps://hirednext.net\n";
-        $email->setMessage($ackMessage);
-        $ackSent = $email->send(false);
-        if ($ackSent) {
-            $this->emailSent($ackEvent);
-            $audit->record($leadId, 'acknowledgement_sent', ['recipient' => $lead['email']], null, 'email', 'sent');
-        } else {
-            $error = $email->printDebugger(['headers']);
-            $this->emailFailed($ackEvent, $error);
-            $audit->record($leadId, 'acknowledgement_failed', ['error' => mb_substr($error, 0, 800)], null, 'email', 'failed');
-            log_message('error', 'CV assessment acknowledgement email failed for lead #' . $leadId . ': ' . $error);
-        }
-
-        $candidateNotice = 'Your CV has been received. Please look out for an email from jobs@hirednext.info — your HiredNext assessment, report and any next steps will come from this address. Please save it to your contacts and check Promotions/Spam if you do not see our message.';
-        return redirect()->to('/cv-payment/' . $leadId)->with('success', $candidateNotice);
-    }
-
-    private function emailAttempt(int $leadId, string $type, string $recipient, string $subject): ?int
-    {
-        try { return (new CvEmailEventModel())->recordAttempt($leadId, $type, $recipient, $subject); } catch (\Throwable $e) { return null; }
-    }
-
-    private function emailSent(?int $id): void
-    {
-        if ($id) { (new CvEmailEventModel())->markSent($id); }
-    }
-
-    private function emailFailed(?int $id, string $error): void
-    {
-        if ($id) { (new CvEmailEventModel())->markFailed($id, $error); }
     }
 }
