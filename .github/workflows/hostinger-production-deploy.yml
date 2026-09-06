@@ -107,6 +107,18 @@ jobs:
           php -l app/Views/pages/services/cv-assessment.php
           php tests/cv_assessment_payment_gate_test.php
 
+      - name: Verify every paid candidate service gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          php -l app/Controllers/CvServiceCheckout.php
+          php -l app/Controllers/CvUpgrade.php
+          php -l app/Controllers/CvReviewAdmin.php
+          php -l app/Controllers/CvStudioDocumentController.php
+          php -l app/Services/Cv/CvCreationAgent.php
+          php -l app/Views/pages/services/cv-service-start.php
+          php tests/all_paid_candidate_services_gate_test.php
+
       - name: Deploy main to production safely
         id: deploy
         shell: bash
