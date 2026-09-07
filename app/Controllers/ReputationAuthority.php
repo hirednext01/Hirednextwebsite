@@ -41,7 +41,7 @@ class ReputationAuthority extends BaseController
 
         $sourceItems = [];
         foreach ($items as $item) {
-            $sourceUrl = trim((string)($item['source_url'] ?? ''));
+            $sourceUrl = trim((string)($item['source_url'] ?? $item['linkedin_url'] ?? ''));
             if ($sourceUrl === '') {
                 continue;
             }
@@ -52,7 +52,7 @@ class ReputationAuthority extends BaseController
                 'item' => [
                     '@type' => 'WebPage',
                     'url' => $sourceUrl,
-                    'name' => trim((string)($item['client_name'] ?? $item['name'] ?? 'External recommendation')) . ' — ' . trim((string)($item['proof_type'] ?? $item['project_type'] ?? 'Recruitment recommendation')),
+                    'name' => trim((string)($item['client_name'] ?? $item['name'] ?? 'Recommendation')) . ' — ' . trim((string)($item['proof_type'] ?? $item['project_type'] ?? 'Recruitment recommendation')),
                     'about' => [
                         ['@id' => 'https://hirednext.net/#organization'],
                         ['@id' => base_url('about/taru-shikha') . '#person'],
@@ -146,6 +146,7 @@ class ReputationAuthority extends BaseController
         if ($placementYear !== '' && (!preg_match('/^20\d{2}$/', $placementYear) || (int)$placementYear < 2016 || (int)$placementYear > (int)date('Y'))) {
             $errors[] = 'Please enter a valid placement year.';
         }
+
         $allowedHelpOptions = [
             'Matched me with the right opportunity',
             'Understood my experience beyond the CV',
@@ -188,6 +189,7 @@ class ReputationAuthority extends BaseController
             'client_name' => $name,
             'name' => $name,
             'comment' => $story,
+            'original_comment' => $story,
             'rating' => 0,
             'project_type' => 'Candidate Journey',
             'location' => $currentRole ?: null,
@@ -211,8 +213,6 @@ class ReputationAuthority extends BaseController
             'updated_at' => $now,
         ];
 
-        // The page remains usable during a rolling deployment even if the
-        // additive relationship-field migration has not run yet.
         $reviewFields = array_flip($db->getFieldNames('reviews'));
         $data = array_intersect_key($data, $reviewFields);
 
@@ -225,11 +225,12 @@ class ReputationAuthority extends BaseController
         }
 
         try {
+            $approvalUrl = base_url('/admin/testimonials/' . $submissionId);
             $emailService = \Config\Services::email();
             $emailService->setTo('tarushikha@hirednext.info');
-            $emailService->setSubject('New candidate testimonial submission #' . $submissionId);
+            $emailService->setSubject('New candidate testimonial — approve to display #' . $submissionId);
             $emailService->setMessage(
-                "A new candidate testimonial is awaiting review.\n\n" .
+                "A new candidate testimonial is awaiting your approval.\n\n" .
                 "Name: {$name}\n" .
                 "Email: {$email}\n" .
                 "Phone: {$phone}\n" .
@@ -241,6 +242,7 @@ class ReputationAuthority extends BaseController
                 "Future support: {$futureSupport}\n" .
                 "LinkedIn/public identity: {$linkedinUrl}\n\n" .
                 "Story:\n{$story}\n\n" .
+                "Review and approve to display:\n{$approvalUrl}\n\n" .
                 "Status: pending review\n"
             );
             if (!$emailService->send()) {
@@ -263,7 +265,7 @@ class ReputationAuthority extends BaseController
 
         $submittedVia = trim((string)($item['submitted_via'] ?? ''));
         $helpReceived = trim((string)($item['help_received'] ?? ''));
-        if ($submittedVia === 'candidate_placement_testimonial_form') {
+        if ($submittedVia === 'candidate_placement_testimonial_form' || $submittedVia === 'legacy_candidate_testimonial_form') {
             return 'placed_candidate';
         }
         if ($submittedVia === 'candidate_testimonial_form') {
@@ -283,9 +285,7 @@ class ReputationAuthority extends BaseController
                 'talent evaluation',
                 'recruitment experience',
             ];
-            return in_array($proofType, $explicitEmployerTypes, true)
-                ? 'employer'
-                : 'candidate_professional';
+            return in_array($proofType, $explicitEmployerTypes, true) ? 'employer' : 'candidate_professional';
         }
 
         return 'employer';
@@ -300,11 +300,13 @@ class ReputationAuthority extends BaseController
             $sourceUrl = $this->normalizeSourceUrl((string)($item['source_url'] ?? ''));
             $name = $this->canonicalTestimonialName($this->normalizeProofText((string)($item['client_name'] ?? $item['name'] ?? '')));
             $quote = $this->normalizeProofText((string)($item['comment'] ?? $item['review'] ?? $item['review_text'] ?? $item['content'] ?? $item['testimonial'] ?? $item['message'] ?? ''));
+            $email = mb_strtolower(trim((string)($item['submitter_email'] ?? '')));
             $isExternalProof = $sourceUrl !== '' || (($item['status'] ?? '') === 'external');
 
             $keys = [];
-            // Many LinkedIn recommendations intentionally point to the same public
-            // recommendations page. Dedupe by person identity, not by URL alone.
+            if ($email !== '') {
+                $keys[] = 'email:' . hash('sha256', $email);
+            }
             if ($isExternalProof && $name !== '') {
                 $keys[] = 'external-person:' . $name;
             }
@@ -338,10 +340,7 @@ class ReputationAuthority extends BaseController
 
             $itemPriority = $this->testimonialRecordPriority($item);
             $existingPriority = $this->testimonialRecordPriority($unique[$existingIndex]);
-            if (
-                $itemPriority > $existingPriority
-                || ($itemPriority === $existingPriority && $this->testimonialProofScore($item) > $this->testimonialProofScore($unique[$existingIndex]))
-            ) {
+            if ($itemPriority > $existingPriority || ($itemPriority === $existingPriority && $this->testimonialProofScore($item) > $this->testimonialProofScore($unique[$existingIndex]))) {
                 $unique[$existingIndex] = $item;
             }
 
@@ -359,10 +358,9 @@ class ReputationAuthority extends BaseController
         $submittedVia = trim((string)($item['submitted_via'] ?? ''));
         $proofType = mb_strtolower(trim((string)($item['proof_type'] ?? $item['project_type'] ?? '')));
 
-        if ($submittedVia === 'candidate_placement_testimonial_form' || $relationship === 'placed_candidate') {
+        if (in_array($submittedVia, ['candidate_placement_testimonial_form', 'legacy_candidate_testimonial_form'], true) || $relationship === 'placed_candidate') {
             return 300;
         }
-
         if ($relationship === 'employer') {
             return 270;
         }
@@ -377,15 +375,12 @@ class ReputationAuthority extends BaseController
         if (in_array($proofType, $explicitEmployerTypes, true)) {
             return 260;
         }
-
         if ($relationship === 'candidate_professional' || $submittedVia === 'candidate_testimonial_form') {
             return 200;
         }
-
         if (($item['status'] ?? '') === 'external') {
             return 150;
         }
-
         return 100;
     }
 
@@ -398,10 +393,13 @@ class ReputationAuthority extends BaseController
         if (($item['status'] ?? '') === 'external') {
             $score += 4;
         }
-        if (trim((string)($item['designation'] ?? $item['location'] ?? '')) !== '') {
+        if (trim((string)($item['company'] ?? $item['designation'] ?? $item['location'] ?? '')) !== '') {
             $score += 2;
         }
         if (trim((string)($item['linkedin_url'] ?? '')) !== '') {
+            $score += 2;
+        }
+        if (trim((string)($item['placement_date'] ?? '')) !== '') {
             $score += 1;
         }
         return $score;
@@ -432,7 +430,6 @@ class ReputationAuthority extends BaseController
             'manoj d.' => 'manoj dimri',
             'manoj dimri' => 'manoj dimri',
         ];
-
         return $aliases[$name] ?? $name;
     }
 }
