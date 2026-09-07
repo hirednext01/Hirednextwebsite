@@ -11,8 +11,9 @@ $reputation = file_get_contents($root . '/app/Controllers/ReputationAuthority.ph
 $checks = [
     [$routes, "admin/testimonials", 'Admin testimonial route is missing.'],
     [$controller, 'cv_review_admin_user', 'Testimonials admin must reuse the existing admin session.'],
-    [$controller, "status' => 'active'", 'Testimonials admin must support publishing.'],
-    [$controller, "status' => 'rejected'", 'Testimonials admin must support rejection.'],
+    [$controller, "'active'", 'Testimonials admin must support publishing.'],
+    [$controller, "'rejected'", 'Testimonials admin must support rejection.'],
+    [$controller, 'approved and published', 'Publishing must have an explicit success state.'],
     [$publicView, 'Client & hiring leader proof', 'Premium employer testimonial section is missing.'],
     [$publicView, 'Placed candidate stories', 'Placed candidate section is missing.'],
     [$card, 'LinkedIn profile', 'LinkedIn authenticity link is missing.'],
