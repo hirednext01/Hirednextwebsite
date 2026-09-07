@@ -91,13 +91,21 @@ jobs:
           grep -Fq "candidate_placement_testimonial_form" app/Controllers/ReputationAuthority.php
           grep -Fq "relationship_type" app/Controllers/ReputationAuthority.php
 
-      - name: Verify placed-candidate client confidentiality
+      - name: Verify testimonial admin and authenticity UX
         shell: bash
         run: |
           set -euo pipefail
+          php -l app/Controllers/TestimonialAdmin.php
+          php -l app/Views/pages/admin/testimonials.php
+          php -l app/Views/pages/admin/testimonial-detail.php
+          php -l app/Views/pages/testimonials.php
           php -l app/Views/components/testimonial-card.php
-          grep -Fq 'Client name withheld' app/Views/components/testimonial-card.php
-          grep -Fq "if (!\$isCandidate && \$role !== '')" app/Views/components/testimonial-card.php
+          php -l app/Config/HistoricalTestimonials.php
+          php -l app/Database/Migrations/2026-09-07-190000_ImportHistoricalCandidateTestimonials.php
+          php tests/testimonial_admin_publish_test.php
+          grep -Fq 'LinkedIn profile' app/Views/components/testimonial-card.php
+          grep -Fq 'Placement through HiredNext' app/Views/components/testimonial-card.php
+          grep -Fq 'admin/testimonials' app/Config/Routes.php
 
       - name: Verify paid CV assessment submission gate
         shell: bash
@@ -151,7 +159,13 @@ jobs:
           php -l app/Controllers/Home.php
           php -l app/Controllers/Seo.php
           php -l app/Controllers/ReputationAuthority.php
+          php -l app/Controllers/TestimonialAdmin.php
+          php -l app/Views/pages/testimonials.php
+          php -l app/Views/pages/admin/testimonials.php
+          php -l app/Views/pages/admin/testimonial-detail.php
           php -l app/Views/components/testimonial-card.php
+          php -l app/Config/HistoricalTestimonials.php
+          php -l app/Database/Migrations/2026-09-07-190000_ImportHistoricalCandidateTestimonials.php
           grep -Fq "RewriteRule ^uploads/resumes/" .htaccess
           grep -Fq "/candidate-resume?file=\$1" .htaccess
           grep -Fq "[R=302,L,NE]" .htaccess
@@ -162,7 +176,9 @@ jobs:
           grep -Fq -- "->inline()" app/Controllers/Home.php
           grep -Fq "near-content:" app/Controllers/ReputationAuthority.php
           grep -Fq "testimonialRecordPriority" app/Controllers/ReputationAuthority.php
-          grep -Fq "Client name withheld" app/Views/components/testimonial-card.php
+          grep -Fq "Placement through HiredNext" app/Views/components/testimonial-card.php
+          grep -Fq "admin/testimonials" app/Config/Routes.php
+          php tests/testimonial_admin_publish_test.php
           php spark migrate
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
