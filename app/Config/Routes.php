@@ -50,6 +50,12 @@ $routes->post('admin/cv-reviews/(:num)/orders/(:num)/status', 'CvReviewAdmin::up
 $routes->post('admin/cv-reviews/(:num)/status', 'CvReviewAdmin::updateStatus/$1');
 $routes->get('admin/cv-reviews/(:num)', 'CvReviewAdmin::detail/$1');
 
+// Testimonials reuse the same signed-in website-admin session.
+$routes->get('admin/testimonials', 'TestimonialAdmin::index');
+$routes->get('admin/testimonials/(:num)', 'TestimonialAdmin::detail/$1');
+$routes->post('admin/testimonials/(:num)/save', 'TestimonialAdmin::save/$1');
+$routes->post('admin/testimonials/(:num)/status', 'TestimonialAdmin::status/$1');
+
 $routes->get('robots.txt', 'Seo::robots');
 $routes->get('sitemap.xml', 'Seo::sitemap');
 $routes->get('llms.txt', 'Seo::llms');
