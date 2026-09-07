@@ -6,6 +6,7 @@ use CodeIgniter\Database\Migration;
 use Config\HistoricalTestimonials;
 
 // Approved historical testimonials are published idempotently by email/name.
+// Deployment retry after testimonial admin contract verification.
 class ImportHistoricalCandidateTestimonials extends Migration
 {
     public function up()
