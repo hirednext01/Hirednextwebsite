@@ -8,7 +8,7 @@
             <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight mb-5">Your experience may be strong. Is your CV proving it?</h1>
             <p class="text-lg md:text-xl text-white/80 leading-relaxed">Get a detailed, role-focused review of the evidence recruiters see, the gaps that weaken shortlisting, and the corrections that matter most.</p>
             <?php if (!empty($job)): ?><div class="mt-7 inline-flex flex-wrap items-center gap-3 rounded-2xl bg-white/10 border border-white/15 px-5 py-4 text-sm"><span class="text-white/60">For the role:</span><strong><?= esc($job['title']) ?></strong><span>· <?= esc($job['location'] ?? '') ?></span></div><?php endif; ?>
-            <a href="#assessment-form" class="inline-flex mt-8 rounded-xl bg-accent px-7 py-4 font-black text-white">Get My CV Assessed — ₹599</a>
+            <a href="#assessment-form" class="inline-flex mt-8 rounded-xl bg-accent px-7 py-4 font-black text-white">Get My CV Assessed — ₹599 <span class="ml-1 text-xs font-bold opacity-80">(inclusive of GST)</span></a>
             <p class="mt-3 text-xs text-white/55">Pay by HiredNext UPI QR after CV upload. Job applications and placements remain free.</p>
         </div>
         <aside class="rounded-[2rem] border border-white/15 bg-white/10 p-7">
@@ -41,7 +41,7 @@
 
 <section id="assessment-form" class="py-16 bg-gray-50 border-t border-gray-100">
     <div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12">
-        <div class="text-center mb-10"><h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Start your ₹599 assessment</h2><p class="text-gray-600">Upload your CV first. You will then see the HiredNext UPI QR and submit your transaction reference.</p></div>
+        <div class="text-center mb-10"><h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Start your ₹599 assessment <span class="block mt-2 text-sm font-sans font-semibold text-gray-500">Inclusive of GST</span></h2><p class="text-gray-600">Upload your CV first. You will then see the HiredNext UPI QR and submit your transaction reference.</p></div>
         <form action="<?= base_url('cv-assessment/submit') ?>" method="post" enctype="multipart/form-data" class="bg-white border border-gray-200 rounded-[2rem] p-8 md:p-10 space-y-5">
             <?= csrf_field() ?>
             <input type="hidden" name="assessment_plan" value="priority_599"><input type="hidden" name="job_slug" value="<?= esc($job['slug'] ?? '') ?>"><input type="hidden" name="job_title" value="<?= esc($job['title'] ?? '') ?>">
@@ -52,13 +52,13 @@
             <input name="phone" required minlength="6" value="<?= esc(old('phone')) ?>" placeholder="Phone number" class="w-full border border-gray-200 rounded-xl px-4 py-3">
             <textarea name="message" rows="4" placeholder="Which role are you targeting? (optional)" class="w-full border border-gray-200 rounded-xl px-4 py-3"><?= esc(old('message')) ?></textarea>
             <div class="rounded-xl border border-dashed border-gray-300 px-4 py-4"><label class="block text-sm font-bold text-primary mb-2">Upload your CV</label><input name="resume" type="file" accept=".pdf,.doc,.docx" required class="w-full text-sm"><p class="text-xs text-gray-500 mt-2">PDF, DOC or DOCX. Maximum 5MB.</p></div>
-            <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-black">Continue to ₹599 payment</button>
+            <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-black">Continue to ₹599 payment <span class="text-xs opacity-80">(GST included)</span></button>
             <p class="text-xs text-gray-500 text-center">Your assessment request is submitted only after you enter your payment reference on the next step. No submission email is sent before that. This service does not guarantee interviews, shortlisting or placement.</p>
         </form>
     </div>
 </section>
 
-<section class="py-14 bg-white"><div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12"><h2 class="text-3xl font-serif font-bold text-primary text-center mb-8">Questions before you begin</h2><div class="space-y-4"><details class="bg-gray-50 border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">How do I pay?</summary><p class="mt-3 text-gray-600 text-sm">Upload your CV and continue. Scan the HiredNext QR with any UPI app, pay ₹599 and submit the transaction/reference number.</p></details><details class="bg-gray-50 border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">What happens after payment?</summary><p class="mt-3 text-gray-600 text-sm">After HiredNext verifies the payment, your role-focused assessment enters the 12-hour delivery window.</p></details><details class="bg-gray-50 border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">Does buying this apply me for a job?</summary><p class="mt-3 text-gray-600 text-sm">No. CV assessment is separate. Applying through HiredNext and securing placement always remain free.</p></details></div></div></section>
+<section class="py-14 bg-white"><div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12"><h2 class="text-3xl font-serif font-bold text-primary text-center mb-8">Questions before you begin</h2><div class="space-y-4"><details class="bg-gray-50 border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">How do I pay?</summary><p class="mt-3 text-gray-600 text-sm">Upload your CV and continue. Scan the HiredNext QR with any UPI app, pay ₹599 (inclusive of GST) and submit the transaction/reference number.</p></details><details class="bg-gray-50 border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">What happens after payment?</summary><p class="mt-3 text-gray-600 text-sm">After HiredNext verifies the payment, your role-focused assessment enters the 12-hour delivery window.</p></details><details class="bg-gray-50 border border-gray-200 rounded-2xl p-5"><summary class="font-bold text-primary cursor-pointer">Does buying this apply me for a job?</summary><p class="mt-3 text-gray-600 text-sm">No. CV assessment is separate. Applying through HiredNext and securing placement always remain free.</p></details></div></div></section>
 
 <script>
 (function () {
