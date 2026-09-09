@@ -1,0 +1,138 @@
+name: Concentrate search authority by query owner
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/query-owner-routing.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: RED - prove owner pages still use the broad cross-category link lattice
+        shell: bash
+        run: |
+          set +e
+          php -r '
+            $s=file_get_contents("app/Views/pages/search-authority.php");
+            $broad = str_contains($s,"Executive Search Bangalore") && str_contains($s,"Executive Search Gurgaon & Delhi NCR") && str_contains($s,"GCC Recruitment India") && str_contains($s,"Semiconductor Recruitment India") && str_contains($s,"Manufacturing Recruitment India");
+            $dynamic = str_contains($s,"related_links");
+            if ($broad && !$dynamic) { echo "Expected RED confirmed: broad lattice is still hard-coded.\n"; exit(1); }
+            exit(0);
+          '
+          rc=$?
+          if [ "$rc" -eq 1 ]; then exit 0; fi
+          echo "Owner routing may already be fixed; continuing with idempotent patch."
+
+      - name: Replace broad lattice with contextual owner links
+        shell: python
+        run: |
+          from pathlib import Path
+
+          controller = Path('app/Controllers/SearchAuthority.php')
+          c = controller.read_text()
+          marker = "        $page = $this->pages[$slug];\n"
+          if marker not in c:
+              raise SystemExit('SearchAuthority page marker not found')
+
+          if '$relatedLinksByOwner' not in c:
+              addition = marker + r'''        // Keep query ownership concentrated: each authority page links only to its parent hub
+        // and genuinely adjacent specialist pages instead of repeating every city/sector exact-match anchor.
+        $relatedLinksByOwner = [
+            'executive-search-bangalore' => [
+                ['path' => 'regions/india', 'label' => 'Executive Search India'],
+                ['path' => 'industry/global-capability-centres-hiring-india', 'label' => 'GCC Recruitment India'],
+                ['path' => 'industry/semiconductor-recruitment-india', 'label' => 'Semiconductor Recruitment India'],
+                ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+            ],
+            'executive-search-gurgaon' => [
+                ['path' => 'regions/india', 'label' => 'Executive Search India'],
+                ['path' => 'industry/global-capability-centres-hiring-india', 'label' => 'GCC Recruitment India'],
+                ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+            ],
+            'executive-search-mumbai' => [
+                ['path' => 'regions/india', 'label' => 'Executive Search India'],
+                ['path' => 'industry/retail-executive-search', 'label' => 'Retail Executive Search India'],
+                ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+            ],
+            'executive-search-chennai' => [
+                ['path' => 'regions/india', 'label' => 'Executive Search India'],
+                ['path' => 'industry/manufacturing-recruitment-india', 'label' => 'Manufacturing Recruitment India'],
+                ['path' => 'industry/global-capability-centres-hiring-india', 'label' => 'GCC Recruitment India'],
+                ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+            ],
+            'manufacturing-recruitment-india' => [
+                ['path' => 'industry/engineering-recruitment-firm', 'label' => 'Engineering Recruitment India'],
+                ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+                ['path' => 'services/permanent-hiring', 'label' => 'Permanent Hiring Services'],
+            ],
+        ];
+        $page['related_links'] = $relatedLinksByOwner[$slug] ?? [];
+'''
+              c = c.replace(marker, addition, 1)
+              controller.write_text(c)
+
+          view = Path('app/Views/pages/search-authority.php')
+          v = view.read_text()
+          start = v.find('<section class="py-14 bg-[#f7f8fa] border-y border-gray-100">')
+          end = v.find('<section class="py-16 bg-[#f7f8fa]">', start)
+          if start == -1 or end == -1:
+              raise SystemExit('Related markets section markers not found')
+
+          replacement = r'''<?php if (!empty($page['related_links'])): ?>
+<section class="py-14 bg-[#f7f8fa] border-y border-gray-100">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Related HiredNext expertise</div>
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-7">Explore the closest related search markets</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <?php foreach ($page['related_links'] as $link): ?>
+                <a href="<?= base_url($link['path']) ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent"><?= esc($link['label']) ?> →</a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+'''
+          if 'foreach ($page[\'related_links\'] as $link)' not in v:
+              v = v[:start] + replacement + v[end:]
+              view.write_text(v)
+
+      - name: GREEN - verify focused owner routing and syntax
+        shell: bash
+        run: |
+          php -l app/Controllers/SearchAuthority.php
+          php -l app/Views/pages/search-authority.php
+          php -r '
+            $c=file_get_contents("app/Controllers/SearchAuthority.php");
+            $v=file_get_contents("app/Views/pages/search-authority.php");
+            foreach (["$relatedLinksByOwner", "executive-search-bangalore", "executive-search-gurgaon", "manufacturing-recruitment-india"] as $needle) {
+              if (!str_contains($c,$needle)) { fwrite(STDERR,"Missing routing contract: $needle\n"); exit(1); }
+            }
+            if (!str_contains($v,"foreach ($page['\''related_links'\''] as $link)")) { fwrite(STDERR,"Dynamic related-links loop missing\n"); exit(1); }
+            $hardcoded = substr_count($v,"Executive Search Bangalore") + substr_count($v,"GCC Recruitment India") + substr_count($v,"Semiconductor Recruitment India") + substr_count($v,"Manufacturing Recruitment India");
+            if ($hardcoded > 0) { fwrite(STDERR,"Broad exact-match lattice still hard-coded in shared view\n"); exit(1); }
+            echo "Query-owner routing contract: PASS\n";
+          '
+
+      - name: Commit focused routing
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No source changes required"
+            exit 0
+          fi
+          git config user.name "HiredNext SEO Automation"
+          git config user.email "seo-automation@users.noreply.github.com"
+          git add app/Controllers/SearchAuthority.php app/Views/pages/search-authority.php
+          git commit -m "SEO: concentrate query ownership across authority pages"
+          git push origin HEAD:main
