@@ -7,7 +7,7 @@
 
     <div class="grid md:grid-cols-2 gap-6">
         <article class="rounded-[1.75rem] border-2 border-accent bg-white p-8 shadow-sm">
-            <div class="text-sm font-black text-accent">₹599 · PRIORITY</div>
+            <div class="text-sm font-black text-accent">₹599 · GST INCLUDED · PRIORITY</div>
             <h3 class="text-3xl font-serif font-bold text-primary mt-2">Get Your CV Assessed</h3>
             <p class="text-gray-600 mt-4 leading-relaxed">A detailed HiredNext recruiter assessment covering ATS readiness, positioning, evidence gaps, shortlisting risks and the changes that matter most.</p>
             <a href="<?= base_url('services/cv-assessment') ?>" class="mt-6 inline-flex rounded-full bg-accent px-6 py-3 font-black text-white">Get assessed →</a>
@@ -15,7 +15,7 @@
         </article>
 
         <article class="rounded-[1.75rem] border-2 border-primary bg-white p-8 shadow-sm">
-            <div class="text-sm font-black text-accent">₹1,799 · DONE FOR YOU</div>
+            <div class="text-sm font-black text-accent">₹1,799 · GST INCLUDED · DONE FOR YOU</div>
             <h3 class="text-3xl font-serif font-bold text-primary mt-2">Get a New CV Made</h3>
             <p class="text-gray-600 mt-4 leading-relaxed">HiredNext assesses your current CV, rebuilds the content and positioning, and creates two finished CV variants with two revision rounds.</p>
             <a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="mt-6 inline-flex rounded-full bg-primary px-6 py-3 font-black text-white">Get a new CV made →</a>
