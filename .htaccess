@@ -1,6 +1,12 @@
 Options -Indexes
 RewriteEngine On
 
+# Revenue safeguard: route the public contact form through the lead handler that
+# persists the inquiry and notifies tarushikha@hirednext.info. HTTP 307 preserves
+# the original POST method and form body before CodeIgniter handles /api/contact/submit.
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^contact/submit/?$ /api/contact/submit [R=307,L,NE]
+
 # Historical job-application emails used /uploads/resumes/<file> links.
 # Redirect them to the validated application download route. An external redirect
 # avoids Apache PATH_INFO/rewrite-pass differences between Hostinger document-root
