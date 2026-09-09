@@ -4,6 +4,7 @@
 $qrUrl = base_url('cv-payment/qr') . '?v=20260903';
 $tier = (string)($order['tier'] ?? '');
 $showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_1799'], true);
+$gstInclusive = ((int) ($order['amount'] ?? 0)) === 1799;
 ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
@@ -72,7 +73,7 @@ $showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_1799'], true);
                     <p class="text-gray-600 leading-relaxed mb-6"><?= esc($plan['description'] ?? '') ?></p>
                     <div class="rounded-2xl bg-primary text-white p-6 mb-6">
                         <div class="text-[10px] uppercase tracking-[0.22em] text-white/55 font-black mb-2">Amount to pay</div>
-                        <div class="text-4xl font-black">₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?></div>
+                        <div class="text-4xl font-black">₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?></div><?php if ($gstInclusive): ?><div class="text-sm text-white/70 mt-2">Inclusive of GST</div><?php endif; ?>
                         <div class="text-sm text-white/70 mt-2"><?= esc($plan['delivery'] ?? '') ?></div>
                     </div>
                     <div class="flex flex-col items-center rounded-2xl border border-gray-200 bg-gray-50 p-5">
@@ -80,7 +81,7 @@ $showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_1799'], true);
                         <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
                             <img src="<?= esc($qrUrl) ?>" alt="HiredNext payment QR" width="280" height="280" class="block w-[280px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
                         </div>
-                        <div class="mt-4 text-xl font-black text-primary">PAY ₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?></div>
+                        <div class="mt-4 text-xl font-black text-primary">PAY ₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?></div><?php if ($gstInclusive): ?><div class="mt-1 text-xs font-semibold text-gray-500">Inclusive of GST</div><?php endif; ?>
                     </div>
                 </div>
                 <div>
