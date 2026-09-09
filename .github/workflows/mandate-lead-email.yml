@@ -1,0 +1,82 @@
+name: Ensure website leads notify founder
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/mandate-lead-email.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch contact submission notification
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('app/Controllers/Home.php')
+          s = p.read_text()
+          needle = "        $db->table('contact_messages')->insert($data);\n"
+          if needle not in s:
+              raise SystemExit('contact insert marker not found')
+          if "tarushikha@hirednext.info" not in s[s.find('public function submitContact()'):s.find('public function blog()')]:
+              block = needle + """
+
+        // Revenue safeguard: every website inquiry is persisted first, then copied to the founder.
+        // A mail transport failure must never discard the lead from contact_messages.
+        try {
+            $leadEmail = \\Config\\Services::email();
+            $leadEmail->setFrom('partners@hirednext.info', 'HiredNext Recruitment');
+            $leadEmail->setTo('tarushikha@hirednext.info');
+            $leadEmail->setReplyTo((string) $this->request->getPost('email'), (string) $this->request->getPost('name'));
+            $leadEmail->setSubject('[HiredNext Website Lead] ' . $subject);
+            $leadEmail->setMessage(
+                "New website inquiry received.\\n\\n" .
+                "Name: " . (string) $this->request->getPost('name') . "\\n" .
+                "Email: " . (string) $this->request->getPost('email') . "\\n" .
+                "Subject/Service: " . $subject . "\\n\\n" .
+                "Message:\\n" . (string) $this->request->getPost('message') . "\\n\\n" .
+                "Source: hirednext.net contact form"
+            );
+            if (!$leadEmail->send()) {
+                log_message('error', 'HiredNext website lead email failed for contact_messages lead from {email}', [
+                    'email' => (string) $this->request->getPost('email'),
+                ]);
+            }
+        } catch (\\Throwable $e) {
+            log_message('error', 'HiredNext website lead email exception: {message}', [
+                'message' => $e->getMessage(),
+            ]);
+        }
+"""
+              s = s.replace(needle, block, 1)
+              p.write_text(s)
+          PY
+
+      - name: Verify patch
+        run: |
+          php -l app/Controllers/Home.php
+          grep -q "tarushikha@hirednext.info" app/Controllers/Home.php
+          grep -q "HiredNext Website Lead" app/Controllers/Home.php
+          grep -q "contact_messages.*insert" app/Controllers/Home.php
+
+      - name: Commit source fix
+        run: |
+          if git diff --quiet; then
+            echo "No source changes required"
+            exit 0
+          fi
+          git config user.name "HiredNext Revenue Automation"
+          git config user.email "revenue-automation@users.noreply.github.com"
+          git add app/Controllers/Home.php
+          git commit -m "Revenue: notify founder for every website inquiry"
+          git push origin HEAD:main
