@@ -1,0 +1,108 @@
+name: Ensure employer contact leads notify founder
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/contact-mandate-notification-fix.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: RED - prove generic employer contact path lacks founder notification
+        shell: bash
+        run: |
+          set +e
+          php -r '
+            $s=file_get_contents("app/Controllers/Home.php");
+            $start=strpos($s,"public function submitContact()");
+            $end=strpos($s,"public function blog()",$start);
+            $block=substr($s,$start,$end-$start);
+            $ok=str_contains($block,"tarushikha@hirednext.info") && str_contains($block,"->send(false)");
+            exit($ok ? 0 : 1);
+          '
+          rc=$?
+          if [ "$rc" -eq 0 ]; then
+            echo "Contract already satisfied; no failing RED state remains."
+            exit 0
+          fi
+          echo "Expected RED confirmed: contact submit path does not yet notify Taru."
+          exit 0
+
+      - name: Patch employer contact notification
+        shell: python
+        run: |
+          from pathlib import Path
+
+          p = Path('app/Controllers/Home.php')
+          s = p.read_text()
+          marker = "        $db->table('contact_messages')->insert($data);\n"
+          if marker not in s:
+              raise SystemExit('Expected contact insert marker not found')
+
+          if "Website employer contact notification failed" not in s:
+              addition = marker + "\n" + r'''        // Revenue safeguard: employer-intent contact submissions must reach Taru immediately.
+        $serviceInterest = trim((string) $this->request->getPost('service'));
+        $employerServices = ['Executive Search', 'Permanent Hiring', 'RPO Solutions'];
+        if (in_array($serviceInterest, $employerServices, true)) {
+            $leadSubject = 'WEBSITE EMPLOYER LEAD: ' . $serviceInterest . ' — ' . ($data['subject'] ?: 'HiredNext inquiry');
+            $leadMessage = "NEW HIREDNEXT WEBSITE EMPLOYER LEAD\n\n"
+                . "Name: {$data['name']}\n"
+                . "Work email: {$data['email']}\n"
+                . "Organization: {$data['subject']}\n"
+                . "Service interest: {$serviceInterest}\n\n"
+                . "Hiring brief:\n{$data['message']}\n\n"
+                . "Source: hirednext.net/contact\n";
+
+            $email = \Config\Services::email();
+            $email->clear(true);
+            $email->setFrom('partners@hirednext.info', 'HiredNext Partnerships');
+            $email->setTo('tarushikha@hirednext.info');
+            $email->setReplyTo((string) $this->request->getPost('email'), (string) $this->request->getPost('name'));
+            $email->setSubject($leadSubject);
+            $email->setMessage($leadMessage);
+            $email->setMailType('text');
+            if (!$email->send(false)) {
+                log_message('error', 'Website employer contact notification failed for ' . (string) $this->request->getPost('email'));
+            }
+        }
+'''
+              s = s.replace(marker, addition, 1)
+              p.write_text(s)
+
+      - name: GREEN - verify founder notification contract and PHP syntax
+        shell: bash
+        run: |
+          php -r '
+            $s=file_get_contents("app/Controllers/Home.php");
+            $start=strpos($s,"public function submitContact()");
+            $end=strpos($s,"public function blog()",$start);
+            $block=substr($s,$start,$end-$start);
+            foreach (["tarushikha@hirednext.info","Executive Search","Permanent Hiring","RPO Solutions","->send(false)","hirednext.net/contact"] as $needle) {
+              if (!str_contains($block,$needle)) { fwrite(STDERR,"Missing contract fragment: $needle\n"); exit(1); }
+            }
+            echo "Employer contact notification contract: PASS\n";
+          '
+          php -l app/Controllers/Home.php
+
+      - name: Commit verified fix
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No source change required"
+            exit 0
+          fi
+          git config user.name "HiredNext Revenue Automation"
+          git config user.email "revenue-automation@users.noreply.github.com"
+          git add app/Controllers/Home.php
+          git commit -m "Revenue: notify founder on employer contact leads"
+          git push origin HEAD:main
