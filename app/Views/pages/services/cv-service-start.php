@@ -1,11 +1,12 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
+<?php $gstInclusive = in_array($tier, ['priority_599', 'rebuild_1799'], true); ?>
 <section class="pt-32 pb-20 bg-gray-50 min-h-[70vh]">
   <div class="max-w-[820px] mx-auto px-4 sm:px-8">
     <div class="bg-white border border-gray-200 rounded-[2rem] p-8 md:p-12 shadow-sm">
       <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">HiredNext Career Services</div>
       <h1 class="text-3xl md:text-5xl font-serif font-bold text-primary"><?= esc($plan['name']) ?></h1>
-      <div class="mt-3 text-2xl font-black text-primary">₹<?= number_format((int)$plan['amount']) ?></div>
+      <div class="mt-3 text-2xl font-black text-primary">₹<?= number_format((int)$plan['amount']) ?><?php if ($gstInclusive): ?><span class="ml-2 text-sm font-semibold text-gray-500">(inclusive of GST)</span><?php endif; ?></div>
       <p class="text-gray-600 mt-5 leading-relaxed"><?= esc($plan['description']) ?></p>
       <div class="rounded-2xl bg-primary/5 border border-primary/10 p-5 mt-6 text-sm text-gray-700"><strong class="text-primary">What happens next:</strong> Upload the CV you already use, then continue to secure payment. Your service request is submitted only after you pay and enter the transaction reference. No request email is sent before payment. Once submitted, please look out for communication from <strong>jobs@hirednext.info</strong>.</div>
 
