@@ -37,20 +37,54 @@
     </div>
 </section>
 
+<?php
+$relatedLinks = [
+    ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+];
+
+if (($page['city'] ?? '') === 'Bengaluru (Bangalore)') {
+    $relatedLinks = [
+        ['path' => 'regions/india', 'label' => 'Executive Search India'],
+        ['path' => 'industry/global-capability-centres-hiring-india', 'label' => 'GCC Recruitment India'],
+        ['path' => 'industry/semiconductor-recruitment-india', 'label' => 'Semiconductor Recruitment India'],
+        ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+    ];
+} elseif (($page['city'] ?? '') === 'Gurgaon / Delhi NCR') {
+    $relatedLinks = [
+        ['path' => 'regions/india', 'label' => 'Executive Search India'],
+        ['path' => 'industry/global-capability-centres-hiring-india', 'label' => 'GCC Recruitment India'],
+        ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+    ];
+} elseif (($page['city'] ?? '') === 'Mumbai') {
+    $relatedLinks = [
+        ['path' => 'regions/india', 'label' => 'Executive Search India'],
+        ['path' => 'industry/retail-executive-search', 'label' => 'Retail Executive Search India'],
+        ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+    ];
+} elseif (($page['city'] ?? '') === 'Chennai') {
+    $relatedLinks = [
+        ['path' => 'regions/india', 'label' => 'Executive Search India'],
+        ['path' => 'industry/manufacturing-recruitment-india', 'label' => 'Manufacturing Recruitment India'],
+        ['path' => 'industry/global-capability-centres-hiring-india', 'label' => 'GCC Recruitment India'],
+        ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+    ];
+} elseif (($page['title'] ?? '') === 'Manufacturing Recruitment Company in India') {
+    $relatedLinks = [
+        ['path' => 'industry/engineering-recruitment-firm', 'label' => 'Engineering Recruitment India'],
+        ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+        ['path' => 'services/permanent-hiring', 'label' => 'Permanent Hiring Services'],
+    ];
+}
+?>
+
 <section class="py-14 bg-[#f7f8fa] border-y border-gray-100">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
-        <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Related HiredNext search markets</div>
-        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-7">Executive search by city and specialist sector</h2>
+        <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Related HiredNext expertise</div>
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-7">Explore the closest related search markets</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <a href="<?= base_url('regions/executive-search-bangalore') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Bangalore →</a>
-            <a href="<?= base_url('regions/executive-search-gurgaon') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Gurgaon & Delhi NCR →</a>
-            <a href="<?= base_url('regions/executive-search-mumbai') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Mumbai →</a>
-            <a href="<?= base_url('regions/executive-search-chennai') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Chennai →</a>
-            <a href="<?= base_url('industry/global-capability-centres-hiring-india') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">GCC Recruitment India →</a>
-            <a href="<?= base_url('industry/semiconductor-recruitment-india') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Semiconductor Recruitment India →</a>
-            <a href="<?= base_url('industry/manufacturing-recruitment-india') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Manufacturing Recruitment India →</a>
-            <a href="<?= base_url('industry/retail-executive-search') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Retail Executive Search India →</a>
-            <a href="<?= base_url('services/executive-search') ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent">Executive Search Services India →</a>
+            <?php foreach ($relatedLinks as $link): ?>
+                <a href="<?= base_url($link['path']) ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary hover:border-accent"><?= esc($link['label']) ?> →</a>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
