@@ -127,6 +127,14 @@ jobs:
           php -l app/Views/pages/services/cv-service-start.php
           php tests/all_paid_candidate_services_gate_test.php
 
+      - name: Verify Hubli woven job campaign
+        shell: bash
+        run: |
+          set -euo pipefail
+          php -l app/Models/JobModel.php
+          php -l app/Database/Migrations/2026-09-10-193000_PublishHubliWovenManufacturingRoles.php
+          node tests/hubli_woven_jobs_test.js
+
       - name: Deploy main to production safely
         id: deploy
         shell: bash
@@ -166,6 +174,8 @@ jobs:
           php -l app/Views/components/testimonial-card.php
           php -l app/Config/HistoricalTestimonials.php
           php -l app/Database/Migrations/2026-09-07-190000_ImportHistoricalCandidateTestimonials.php
+          php -l app/Models/JobModel.php
+          php -l app/Database/Migrations/2026-09-10-193000_PublishHubliWovenManufacturingRoles.php
           grep -Fq "RewriteRule ^uploads/resumes/" .htaccess
           grep -Fq "/candidate-resume?file=\$1" .htaccess
           grep -Fq "[R=302,L,NE]" .htaccess
