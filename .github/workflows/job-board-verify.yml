@@ -1,0 +1,22 @@
+name: Job Board Verify
+on:
+  push:
+    branches:
+      - jobs/professional-job-board-redesign-2026-09-10
+  pull_request:
+    paths:
+      - 'app/Views/pages/jobs.php'
+      - 'app/Views/pages/job-detail.php'
+      - 'tests/job_board_presentation_test.php'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - run: php -l app/Views/pages/jobs.php
+      - run: php -l app/Views/pages/job-detail.php
+      - run: php -l tests/job_board_presentation_test.php
+      - run: php tests/job_board_presentation_test.php
