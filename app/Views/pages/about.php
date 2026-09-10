@@ -143,7 +143,7 @@
             <div class="relative grid lg:grid-cols-[0.82fr_1.18fr] items-stretch">
                 <div class="p-5 md:p-7 lg:p-8">
                     <div class="relative h-full min-h-[360px] md:min-h-[440px] rounded-[1.65rem] overflow-hidden ring-1 ring-white/10 bg-white/5">
-                        <img src="<?= base_url('theme/about.png') ?>" alt="Taru Shikha, Founder of HiredNext" class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy">
+                        <img src="<?= base_url('theme/taru-shikha-founder.svg') ?>" alt="Taru Shikha, Founder of HiredNext" class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy">
                         <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-primary/80 to-transparent"></div>
                         <div class="absolute left-5 bottom-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-primary/70 backdrop-blur-md px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-white">
                             Founder · HiredNext
