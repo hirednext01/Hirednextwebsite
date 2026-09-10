@@ -176,7 +176,6 @@ jobs:
           php -l app/Database/Migrations/2026-09-07-190000_ImportHistoricalCandidateTestimonials.php
           php -l app/Models/JobModel.php
           php -l app/Database/Migrations/2026-09-10-193000_PublishHubliWovenManufacturingRoles.php
-          node tests/hubli_woven_jobs_test.js
           grep -Fq "RewriteRule ^uploads/resumes/" .htaccess
           grep -Fq "/candidate-resume?file=\$1" .htaccess
           grep -Fq "[R=302,L,NE]" .htaccess

@@ -1,0 +1,66 @@
+{
+  "dgm-operations-woven-manufacturing-hubli.svg": {
+    "type": "svg",
+    "sha256": "c5765fef3bbf7d499d64be7fad97b593fd41462ffc91ea593f81238869003303"
+  },
+  "dgm-operations-woven-manufacturing-hubli.png": {
+    "type": "png",
+    "sha256": "97e5fe1fdeb7bdfaecb5c882de2563974f228c9067a069594017a6c9a1bbef6e"
+  },
+  "manager-industrial-engineering-woven-hubli.svg": {
+    "type": "svg",
+    "sha256": "01fe26fbf2238b7835efdff310d3e3211d7ecf6980f6ab84139f520426199e71"
+  },
+  "manager-industrial-engineering-woven-hubli.png": {
+    "type": "png",
+    "sha256": "6dc49d4219cc25510ab2ff5d4d1305c90dfa6e44570ce883c8851bdec2ea72b6"
+  },
+  "manager-planning-woven-manufacturing-hubli.svg": {
+    "type": "svg",
+    "sha256": "af5caabac1d89c2f98f85b29401a5480ad61cc2b7067db62b1c9c5d0ef043878"
+  },
+  "manager-planning-woven-manufacturing-hubli.png": {
+    "type": "png",
+    "sha256": "ba68c7a0dc5c1beaf14114518a707ff59dacff72eb8db2591cd367949f65bc7a"
+  },
+  "manager-quality-woven-manufacturing-hubli.svg": {
+    "type": "svg",
+    "sha256": "e66604aee81f554a631b073064202c98d24f8065f3fdd5ab4a768fefd1197c67"
+  },
+  "manager-quality-woven-manufacturing-hubli.png": {
+    "type": "png",
+    "sha256": "c991b61ae625496ee4e168ce1a0ff536879197bf93f1132ac31acbe63166f4c1"
+  },
+  "dispatch-executive-woven-manufacturing-hubli.svg": {
+    "type": "svg",
+    "sha256": "002a6edfb27b72fb5fd10e9f16cd9015e04fcb29685e63ae451b50fa0c927fc7"
+  },
+  "dispatch-executive-woven-manufacturing-hubli.png": {
+    "type": "png",
+    "sha256": "c6462aab24ec9fd5c2ad17f7fa079c07f71bc0678827694bd73e04765f1da170"
+  },
+  "assistant-quality-manager-woven-hubli.svg": {
+    "type": "svg",
+    "sha256": "a43da7f645a7a928e64c9bab226ef4a471d25bdc2887a6bc79e258e92ac50466"
+  },
+  "assistant-quality-manager-woven-hubli.png": {
+    "type": "png",
+    "sha256": "24b8860126ebd14b03081e017288462120a47bdbd2ccb610706b0f0fa983227f"
+  },
+  "assistant-production-manager-woven-hubli.svg": {
+    "type": "svg",
+    "sha256": "a1a38ef830c2aeaff6e8db396c87e51d593c91aeb33a309bcb2ece33e3c75fd6"
+  },
+  "assistant-production-manager-woven-hubli.png": {
+    "type": "png",
+    "sha256": "89c6cc54f06634a8f8ac1d8ff852e3c1740a8261af74acc438814eae7a98fcaf"
+  },
+  "assistant-manager-industrial-engineering-woven-hubli.svg": {
+    "type": "svg",
+    "sha256": "f70873ed2a4e5c75b8f496f4c6b56fc7decd2ae9a696dac057e2ace2a024b0ca"
+  },
+  "assistant-manager-industrial-engineering-woven-hubli.png": {
+    "type": "png",
+    "sha256": "b278901377400cc0716dbe61c01cb5919b3f3f453064766e59025fb57637a23c"
+  }
+}

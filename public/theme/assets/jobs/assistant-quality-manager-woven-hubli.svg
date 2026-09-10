@@ -18,9 +18,9 @@
 <rect x="64" y="198" width="530" height="58" rx="16" fill="#ff5a1f"/>
 <text x="329" y="236" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" letter-spacing="1" fill="#ffffff">APPAREL / GARMENT MANUFACTURER</text>
 <text x="64" y="298" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" letter-spacing="3" fill="#5b687b">CONFIDENTIAL SEARCH</text>
-<text x="64" y="350" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="800" fill="#071d3d">ASSISTANT QUALITY</text>
-<text x="64" y="436" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="800" fill="#071d3d">MANAGER</text>
-<rect x="64" y="472" width="160" height="8" fill="#ff5a1f"/>
+<text x="64" y="375" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="800" fill="#071d3d">ASSISTANT QUALITY</text>
+<text x="64" y="461" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="800" fill="#071d3d">MANAGER</text>
+<rect x="64" y="497" width="160" height="8" fill="#ff5a1f"/>
 
 <!-- woven manufacturing visual -->
 <rect x="700" y="190" width="436" height="340" rx="28" fill="#071d3d"/>

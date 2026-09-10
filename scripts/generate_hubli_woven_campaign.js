@@ -1,12 +1,14 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const { execFileSync } = require('child_process');
 
 const root = path.resolve(__dirname, '..');
 const assetDir = path.join(root, 'public/theme/assets/jobs');
 const campaignDir = path.join(root, 'docs/hiring-campaigns');
 
 const roles = [
-  { code: 'HN-HBL-0910-01', title: 'DGM – Operations', lines: ['DGM – OPERATIONS'], experience: '15–20 years', salary: '₹2.5–3.5 lakh / month', positions: 1, qualification: 'BE in Textile or any BE graduate', slug: 'dgm-operations-woven-manufacturing-hubli' },
+  { code: 'HN-HBL-0910-01', title: 'DGM – Operations', lines: ['DGM –', 'OPERATIONS'], experience: '15–20 years', salary: '₹2.5–3.5 lakh / month', positions: 1, qualification: 'BE in Textile or any BE graduate', slug: 'dgm-operations-woven-manufacturing-hubli' },
   { code: 'HN-HBL-0910-02', title: 'Manager – IE', lines: ['MANAGER – IE'], experience: '10–15 years', salary: '₹1.5–1.75 lakh / month', positions: 2, qualification: 'BE in Textile or any BE graduate', slug: 'manager-industrial-engineering-woven-hubli' },
   { code: 'HN-HBL-0910-03', title: 'Manager – Planning', lines: ['MANAGER –', 'PLANNING'], experience: '10–15 years', salary: '₹1–1.25 lakh / month', positions: 1, qualification: 'BE in Textile or any BE graduate', slug: 'manager-planning-woven-manufacturing-hubli' },
   { code: 'HN-HBL-0910-04', title: 'Manager – Quality', lines: ['MANAGER –', 'QUALITY'], experience: '10–15 years', salary: '₹1–1.25 lakh / month', positions: 2, qualification: 'BE in Textile or any BE graduate', slug: 'manager-quality-woven-manufacturing-hubli' },
@@ -31,7 +33,7 @@ function poster(role) {
     ? (longestTitleLine > 15 ? 70 : 78)
     : (longestTitleLine >= 18 ? 50 : longestTitleLine > 15 ? 56 : 68);
   const titleLines = role.lines.map((line, index) =>
-    `<text x="64" y="${350 + index * 86}" font-family="Arial,Helvetica,sans-serif" font-size="${titleSize}" font-weight="800" fill="#071d3d">${xml(line)}</text>`
+    `<text x="64" y="${375 + index * 86}" font-family="Arial,Helvetica,sans-serif" font-size="${titleSize}" font-weight="800" fill="#071d3d">${xml(line)}</text>`
   ).join('\n');
   const positions = role.positions === 1 ? '1 POSITION' : `${role.positions} POSITIONS`;
   const url = `hirednext.net/jobs/${role.slug}`;
@@ -57,7 +59,7 @@ function poster(role) {
 <text x="329" y="236" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" letter-spacing="1" fill="#ffffff">APPAREL / GARMENT MANUFACTURER</text>
 <text x="64" y="298" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" letter-spacing="3" fill="#5b687b">CONFIDENTIAL SEARCH</text>
 ${titleLines}
-<rect x="64" y="${role.lines.length === 1 ? 385 : 472}" width="160" height="8" fill="#ff5a1f"/>
+<rect x="64" y="${role.lines.length === 1 ? 410 : 497}" width="160" height="8" fill="#ff5a1f"/>
 
 <!-- woven manufacturing visual -->
 <rect x="700" y="190" width="436" height="340" rx="28" fill="#071d3d"/>
@@ -98,15 +100,40 @@ fs.mkdirSync(assetDir, { recursive: true });
 fs.mkdirSync(campaignDir, { recursive: true });
 
 for (const role of roles) {
-  fs.writeFileSync(path.join(assetDir, `${role.slug}.svg`), poster(role));
+  const svgPath = path.join(assetDir, `${role.slug}.svg`);
+  const pngPath = path.join(assetDir, `${role.slug}.png`);
+  fs.writeFileSync(svgPath, poster(role));
+  execFileSync('inkscape', [
+    svgPath,
+    '--export-type=png',
+    `--export-filename=${pngPath}`,
+    '--export-width=1200',
+    '--export-height=1200',
+  ], { stdio: 'ignore' });
 }
 
-const intro = `# Hubli Woven Manufacturing Hiring Campaign\n\nConfidential employer. Established apparel / garment manufacturer at Rayapura Industrial Area on National Highway, Hubli. The woven facility has operated since 2018, has approximately 1,500 machines, serves export customers including Levi's, Columbia, H&M, Duluth and Target, and produces shorts, pants, jeans/denim and jackets for women, men and children.\n\n`;
+const intro = `# Hubli Woven Manufacturing Hiring Campaign\n\nPublication channel: HiredNext Recruitment company page only.\n\nConfidential employer. Established apparel / garment manufacturer at Rayapura Industrial Area on National Highway, Hubli. The woven facility has operated since 2018, has approximately 1,500 machines, serves export customers including Levi's, Columbia, H&M, Duluth and Target, and produces shorts, pants, jeans/denim and jackets for women, men and children.\n\n`;
 const posts = roles.map((role) => {
   const positions = role.positions === 1 ? '1 position' : `${role.positions} positions`;
-  return `## ${role.code} | ${role.title}\n\nHiring: **${role.title}** for an established Apparel / Garment Manufacturer.  \nHubli / Dharwad | ${role.experience} | ${role.salary}.  \n${role.qualification} | Minimum 5 years in woven manufacturing | English, Kannada and Hindi.  \n${positions} | Notice period: One to two months.  \nApply: https://hirednext.net/jobs/${role.slug} | Email subject: **${role.code} | ${role.title}**\n`;
+  return `## ${role.code} | ${role.title}\n\nHiring: ${role.title} for an established Apparel / Garment Manufacturer.\nHubli / Dharwad | ${role.experience} | ${role.salary}.\n${role.qualification} | Minimum 5 years in woven manufacturing | English, Kannada and Hindi.\n${positions} | Notice period: One to two months.\nApply: https://hirednext.net/jobs/${role.slug} | Email subject: ${role.code} | ${role.title}\n`;
 }).join('\n');
 
 fs.writeFileSync(path.join(campaignDir, '2026-09-10-hubli-woven-roles.md'), intro + posts);
 
-console.log(`Generated ${roles.length} SVG posters and ${roles.length} five-line posts.`);
+const manifest = {};
+for (const role of roles) {
+  for (const type of ['svg', 'png']) {
+    const fileName = `${role.slug}.${type}`;
+    const contents = fs.readFileSync(path.join(assetDir, fileName));
+    manifest[fileName] = {
+      type,
+      sha256: crypto.createHash('sha256').update(contents).digest('hex'),
+    };
+  }
+}
+fs.writeFileSync(
+  path.join(campaignDir, '2026-09-10-hubli-woven-assets.json'),
+  `${JSON.stringify(manifest, null, 2)}\n`
+);
+
+console.log(`Generated ${roles.length} SVG/PNG posters and ${roles.length} five-line posts.`);

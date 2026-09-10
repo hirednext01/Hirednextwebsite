@@ -90,10 +90,9 @@ class PublishHubliWovenManufacturingRoles extends Migration
 
     public function down()
     {
-        $db = \Config\Database::connect();
-        if ($db->tableExists('jobs')) {
-            $db->table('jobs')->whereIn('slug', array_keys(self::JOBS))->delete();
-        }
+        // Intentionally non-destructive. These public jobs can receive candidate
+        // applications, and deleting a job would cascade-delete those records.
+        // Close roles through the admin workflow instead of rolling them back.
     }
 
     private function description(string $slug, array $role): string
