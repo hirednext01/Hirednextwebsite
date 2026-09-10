@@ -20,9 +20,75 @@
             </p>
             <div class="flex flex-wrap gap-x-7 gap-y-3 text-xs uppercase tracking-[0.18em] text-white/65 font-bold">
                 <span>10+ years</span>
-                <span>1500+ placements</span>
-                <span>25+ industries</span>
                 <span>Human-led decisions</span>
+                <span>India-focused search</span>
+                <span>Technology-enabled delivery</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 md:py-24 bg-[#f6f0e7]">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="grid lg:grid-cols-[1.08fr_0.92fr] gap-12 lg:gap-16 items-center">
+            <div>
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="h-px w-10 bg-accent"></span>
+                    <span class="text-accent text-xs font-black uppercase tracking-[0.28em]">Our Founder</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary leading-[1.05] mb-7">Built on Experience.<br><span class="text-accent">Driven by People.</span></h2>
+                <p class="text-gray-700 text-lg leading-relaxed mb-5 max-w-3xl">
+                    HiredNext was built on a simple belief: recruitment works best when people are understood beyond keywords, titles and databases. Every mandate needs context, judgement and a clear view of what success actually looks like.
+                </p>
+                <p class="text-gray-700 leading-relaxed mb-8 max-w-3xl">
+                    With more than a decade of recruitment and leadership-search experience, Taru Shikha has worked across specialist, senior and confidential hiring assignments while continuing to build HiredNext around human judgement, sector understanding and practical use of technology.
+                </p>
+                <blockquote class="border-l-4 border-accent pl-6 py-1 mb-7 text-xl md:text-2xl font-serif italic text-primary leading-relaxed max-w-3xl">
+                    “Every CV tells a story. Our job is to understand the person behind it and the business that needs them.”
+                </blockquote>
+                <div class="flex flex-wrap items-end justify-between gap-5 max-w-3xl">
+                    <div>
+                        <div class="text-2xl font-serif font-bold text-primary">Taru Shikha</div>
+                        <div class="text-sm text-gray-500 mt-1">Founder &amp; CEO, HiredNext Recruitment</div>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="<?= base_url('about/taru-shikha') ?>" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-primary text-white font-extrabold text-sm hover:bg-accent transition-colors">Founder profile</a>
+                        <?php if ($mediaAuthority): ?>
+                            <a href="<?= esc($mediaAuthority->founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-primary/20 bg-white/60 text-primary font-bold text-sm hover:border-primary transition-colors">Taru on LinkedIn ↗</a>
+                            <a href="<?= esc($mediaAuthority->companyLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-primary/20 bg-white/60 text-primary font-bold text-sm hover:border-primary transition-colors">HiredNext on LinkedIn ↗</a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-[2rem] overflow-hidden border border-primary/10 shadow-2xl shadow-primary/10 bg-white">
+                <img src="<?= base_url('theme/taru-shikha-founder.webp') ?>" alt="Taru Shikha, Founder and CEO of HiredNext Recruitment" class="w-full h-auto block" loading="eager">
+            </div>
+        </div>
+
+        <div class="mt-14 pt-8 border-t border-primary/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div><div class="text-2xl md:text-3xl font-serif font-bold text-primary">10+ years</div><div class="text-xs uppercase tracking-widest text-gray-500 mt-2">Recruitment experience</div></div>
+            <div><div class="text-2xl md:text-3xl font-serif font-bold text-primary">Executive Search</div><div class="text-xs uppercase tracking-widest text-gray-500 mt-2">Leadership mandates</div></div>
+            <div><div class="text-2xl md:text-3xl font-serif font-bold text-primary">India</div><div class="text-xs uppercase tracking-widest text-gray-500 mt-2">Specialist market focus</div></div>
+            <div><div class="text-2xl md:text-3xl font-serif font-bold text-primary">Human + AI</div><div class="text-xs uppercase tracking-widest text-gray-500 mt-2">Responsible delivery</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="py-0 bg-white">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="rounded-[2rem] overflow-hidden border border-gray-200 shadow-xl shadow-primary/5">
+            <img src="<?= base_url('theme/taru-shikha-founder.webp') ?>" alt="Taru Shikha in a HiredNext office setting" class="w-full h-auto block" loading="lazy">
+            <div class="bg-primary text-white px-6 py-5 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                    <div class="text-xl font-serif font-bold">Taru Shikha</div>
+                    <div class="text-sm text-white/60 mt-1">Founder &amp; CEO · HiredNext Recruitment</div>
+                </div>
+                <div class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.18em] font-bold text-white/55">
+                    <span>Executive Search</span>
+                    <span>Leadership Hiring</span>
+                    <span>Human-led · AI-assisted</span>
+                </div>
             </div>
         </div>
     </div>
@@ -73,7 +139,7 @@
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             <article class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm">
-                <h3 class="text-xl font-bold text-primary mb-3">AI screening & role matching</h3>
+                <h3 class="text-xl font-bold text-primary mb-3">AI screening &amp; role matching</h3>
                 <p class="text-sm text-gray-600 leading-relaxed">Structured CV review, skill and experience extraction, keyword and role-fit signals, followed by recruiter validation.</p>
             </article>
             <article class="bg-white border border-gray-200 rounded-2xl p-7 shadow-sm">
@@ -130,57 +196,6 @@
                     <p class="text-sm text-gray-600 leading-relaxed"><?= esc($step[2]) ?></p>
                 </article>
             <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-
-<section class="py-14 md:py-16 bg-[#f4f6f8]">
-    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
-        <div class="relative overflow-hidden rounded-[2.25rem] bg-primary border border-primary/10 shadow-2xl shadow-primary/10">
-            <div class="absolute -top-24 -right-20 w-72 h-72 rounded-full bg-accent/10 blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-28 left-1/3 w-80 h-80 rounded-full bg-gold/10 blur-3xl pointer-events-none"></div>
-
-            <div class="relative grid lg:grid-cols-[0.82fr_1.18fr] items-stretch">
-                <div class="p-5 md:p-7 lg:p-8">
-                    <div class="relative h-full min-h-[360px] md:min-h-[440px] rounded-[1.65rem] overflow-hidden ring-1 ring-white/10 bg-white/5">
-                        <img src="<?= base_url('theme/taru-shikha-founder.svg') ?>" alt="Taru Shikha, Founder of HiredNext" class="absolute inset-0 w-full h-full object-cover object-top" loading="lazy">
-                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-primary/80 to-transparent"></div>
-                        <div class="absolute left-5 bottom-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-primary/70 backdrop-blur-md px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-white">
-                            Founder · HiredNext
-                        </div>
-                    </div>
-                </div>
-
-                <div class="relative flex flex-col justify-center p-8 md:p-12 lg:p-14 xl:p-16">
-                    <div class="flex items-center gap-3 mb-5">
-                        <span class="h-px w-10 bg-gold"></span>
-                        <span class="text-gold text-[11px] font-black uppercase tracking-[0.3em]">Founder perspective</span>
-                    </div>
-
-                    <h2 class="text-3xl md:text-4xl lg:text-[2.75rem] font-serif font-bold text-white leading-[1.08] mb-6">Recruitment is still a judgement business.</h2>
-                    <p class="text-lg md:text-xl text-white/72 leading-relaxed mb-7 max-w-3xl">“Technology should help us see more clearly and move faster. It should not replace the responsibility a recruiter has when recommending one person over another.”</p>
-
-                    <div class="flex items-end justify-between gap-6 flex-wrap border-b border-white/10 pb-6 mb-6">
-                        <div>
-                            <div class="text-lg font-extrabold text-white">Taru Shikha</div>
-                            <div class="text-sm text-white/55 mt-1">Founder, HiredNext Recruitment</div>
-                        </div>
-                        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.18em] font-bold text-white/45">
-                            <span>Executive Search</span>
-                            <span>Recruitment Intelligence</span>
-                            <span>Human-led · AI-assisted</span>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap gap-3">
-                        <a href="<?= base_url('about/taru-shikha') ?>" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-accent text-white font-extrabold text-sm shadow-lg shadow-accent/10 hover:-translate-y-0.5 transition-transform">Founder profile</a>
-                        <?php if ($mediaAuthority): ?>
-                            <a href="<?= esc($mediaAuthority->founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-white/20 bg-white/5 text-white font-bold text-sm hover:bg-white/10 transition-colors">Taru on LinkedIn ↗</a>
-                            <a href="<?= esc($mediaAuthority->companyLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-white/20 bg-white/5 text-white font-bold text-sm hover:bg-white/10 transition-colors">HiredNext on LinkedIn ↗</a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
