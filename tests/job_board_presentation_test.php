@@ -6,9 +6,9 @@ $list = file_get_contents($root . '/app/Views/pages/jobs.php');
 $detail = file_get_contents($root . '/app/Views/pages/job-detail.php');
 
 $checks = [
-    'job listing route unchanged' => strpos($routes, "$routes->get('jobs', 'Jobs::index')") !== false,
-    'job detail route unchanged' => strpos($routes, "$routes->get('jobs/(:any)', 'Home::jobDetail/$1')") !== false,
-    'job apply route unchanged' => strpos($routes, "$routes->post('jobs/(:any)/apply', 'Home::applyJob/$1')") !== false,
+    'job listing route unchanged' => strpos($routes, '$routes->get(\'jobs\', \'Jobs::index\')') !== false,
+    'job detail route unchanged' => strpos($routes, '$routes->get(\'jobs/(:any)\', \'Home::jobDetail/$1\')') !== false,
+    'job apply route unchanged' => strpos($routes, '$routes->post(\'jobs/(:any)/apply\', \'Home::applyJob/$1\')') !== false,
     'application insert remains' => strpos($home, '$applicationModel->insert($data);') !== false,
     'resume field preserved' => strpos($detail, 'name="resume"') !== false,
     'linkedin field preserved' => strpos($detail, 'name="linkedin"') !== false,
