@@ -133,6 +133,7 @@ jobs:
           set -euo pipefail
           php tests/cv_automatic_fulfilment_test.php
           php tests/cv_fulfilment_delivery_test.php
+          php tests/cv_fulfilment_attachment_test.php
           php -l app/Controllers/Api/CvFulfilmentApi.php
           php -l app/Commands/CvAutomationSelfTest.php
 

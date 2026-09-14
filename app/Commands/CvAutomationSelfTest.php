@@ -17,7 +17,7 @@ class CvAutomationSelfTest extends BaseCommand
     {
         $store=new CvFulfilmentStore();
         $store->locked(function() use ($store): void {
-            $fixture=$store->read('fixture:v1');
+            $fixture=$store->read('fixture:v2');
             if (($fixture['email_sent'] ?? false)===true) { CLI::write('Internal CV automation fixture already issued: '.$fixture['order_key']); return; }
             $db=db_connect();
             foreach (['cv_assessment_leads','cv_report_versions','cv_review_events','cv_email_events'] as $table) {
@@ -30,19 +30,19 @@ class CvAutomationSelfTest extends BaseCommand
                 $name='internal-automation-'.bin2hex(random_bytes(8)).'.txt';
                 if (file_put_contents($directory.'/'.$name,$source)!==strlen($source)) { throw new \RuntimeException('CV fixture write failed.'); }
                 $now=date('Y-m-d H:i:s');
-                $ok=$db->table('cv_assessment_leads')->insert(['name'=>'HiredNext Internal Automation Test','email'=>'jobs@hirednext.info','phone'=>'0000000000','assessment_plan'=>'automation_test_599','job_title'=>'Operations Head','message'=>'INTERNAL TEST ONLY. Exclude from demand, sales and revenue. No real payment.','resume_path'=>'writable/uploads/cv-assessments/'.$name,'amount'=>0,'payment_status'=>'internal_test','payment_id'=>'HNTEST-AUTOMATION-V1','status'=>'internal_test','created_at'=>$now,'updated_at'=>$now]);
+                $ok=$db->table('cv_assessment_leads')->insert(['name'=>'HiredNext Internal Automation Test','email'=>'jobs@hirednext.info','phone'=>'0000000000','assessment_plan'=>'automation_test_599','job_title'=>'Operations Head','message'=>'INTERNAL TEST ONLY. Exclude from demand, sales and revenue. No real payment.','resume_path'=>'writable/uploads/cv-assessments/'.$name,'amount'=>0,'payment_status'=>'internal_test','payment_id'=>'HNTEST-AUTOMATION-V2','status'=>'internal_test','created_at'=>$now,'updated_at'=>$now]);
                 if (!$ok) { throw new \RuntimeException('CV fixture record failed.'); }
                 $fixture=['order_key'=>'assessment:'.(int)$db->insertID(),'email_sent'=>false,'created_at'=>gmdate('c')];
-                $store->write('fixture:v1',$fixture);
+                $store->write('fixture:v2',$fixture);
             }
             $order=(new CvFulfilmentOrders())->load($fixture['order_key']);
             $email=\Config\Services::email(); $email->clear(true);
             $email->setFrom('jobs@hirednext.info','HiredNext Automation'); $email->setTo('jobs@hirednext.info');
             $email->setSubject('INTERNAL TEST: HiredNext CV automation handoff | '.$order['key']); $email->setMailType('text');
-            $email->setMessage("INTERNAL TEST ONLY. Zero money received; exclude from sales, demand and revenue.\nOrder: ".$order['key']."\nService: Priority CV Assessment test\nAmount: INR 0\nReference: HNTEST-AUTOMATION-V1\n".CvFulfilmentAccess::notice($order));
+            $email->setMessage("INTERNAL TEST ONLY. Zero money received; exclude from sales, demand and revenue.\nOrder: ".$order['key']."\nService: Priority CV Assessment test\nAmount: INR 0\nReference: HNTEST-AUTOMATION-V2\n".CvFulfilmentAccess::notice($order));
             $email->attach(ROOTPATH.$order['resume_path']);
             if (!$email->send(false)) { throw new \RuntimeException('Internal CV handoff email unconfirmed.'); }
-            $fixture['email_sent']=true; $store->write('fixture:v1',$fixture);
+            $fixture['email_sent']=true; $store->write('fixture:v2',$fixture);
             CLI::write('Internal CV automation fixture issued to jobs: '.$fixture['order_key'].'. No payment or customer send.');
         });
     }
