@@ -19,11 +19,12 @@ class CvFulfilmentMailer
         $email->setTo($order['email']);
         if ($order['email']!=='jobs@hirednext.info') { $email->setBCC('jobs@hirednext.info'); }
         $email->setReplyTo('jobs@hirednext.info','HiredNext Recruitment');
-        $email->setSubject($subject); $email->setMailType('text');
+        $email->setSubject($subject);
         $body="Dear ".$order['name'].",\n\nYour three-page CV assessment is attached. It covers your positioning, evidence and role language, followed by the priority improvements.\n\nIf a detail needs correcting, reply to this email and identify the section. Please retain the report reference: ".$deliveryId.".\n\nThis professional CV service is optional and does not guarantee a job, interview or shortlist.\n\nRegards,\nHiredNext Recruitment\nhttps://hirednext.net\n";
         if ($order['is_test']) { $body="INTERNAL AUTOMATION TEST. No payment was received. Exclude this order from sales, demand and revenue counts.\n\n".$body; }
         // With an explicit MIME type CodeIgniter expects buffered bytes, not a path.
-        $email->setMessage($body); $email->attach($pdf,'attachment',$deliveryId.'.pdf','application/pdf');
+        \App\Services\HiredNextEmail::applyText($email,'Your CV assessment is ready',$body);
+        $email->attach($pdf,'attachment',$deliveryId.'.pdf','application/pdf');
         $accepted=$email->send(false);
         if (!$accepted) {
             (new CvEmailEventModel())->markFailed($event,'SMTP result unconfirmed; reconcile the delivery reference before any retry.');

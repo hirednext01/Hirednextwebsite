@@ -1,5 +1,6 @@
 <?php
 function log_message(...$args) {}
+require __DIR__ . '/../app/Services/HiredNextEmail.php';
 require __DIR__ . '/../app/Services/Revenue/PilotInterestService.php';
 class FakeRequest {
     public array $data;

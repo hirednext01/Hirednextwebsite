@@ -15,6 +15,7 @@ namespace Config {
 }
 namespace {
     require __DIR__.'/../system/Email/Email.php';
+    require __DIR__.'/../app/Services/HiredNextEmail.php';
     require __DIR__.'/../app/Services/Cv/Automation/CvFulfilmentMailer.php';
     class AttachmentCaptureEmail extends \CodeIgniter\Email\Email {
         public function __construct($config=null) { $this->validate=false; }
