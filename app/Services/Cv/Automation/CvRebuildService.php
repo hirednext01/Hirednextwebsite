@@ -4,6 +4,7 @@ namespace App\Services\Cv\Automation;
 
 class CvRebuildService
 {
+    private string $transport='smtp';
     public function __construct(private CvFulfilmentStore $store,private CvFulfilmentOrders $orders,private ?CvRebuildMailer $mailer=null)
     { $this->mailer ??=new CvRebuildMailer(); }
 
@@ -14,6 +15,8 @@ class CvRebuildService
             $key=$order['key']; $state=$this->store->read('order:'.$key);
             $state+=['order_key'=>$key,'status'=>'awaiting_payment','round'=>0,'is_test'=>$order['is_test'],'templates'=>['ats_classic','executive_ats'],'answers'=>[],'reply_ids'=>[],'messages'=>[],'external_api_cash_cost_inr'=>0];
             $action=(string)($request['action'] ?? 'inspect');
+            $this->transport=(string)($request['transport'] ?? 'smtp');
+            if (!in_array($this->transport,['smtp','gmail'],true)) { throw new \DomainException('unsupported_mail_transport'); }
             if ($action==='inspect') { return $this->snapshot($order,$state); }
             if ($action==='exception') {
                 if (!preg_match('/^[a-z_]{4,60}$/',(string)($request['code'] ?? ''))) { throw new \DomainException('exception_code_required'); }
@@ -131,7 +134,14 @@ class CvRebuildService
     {
         if (isset($state['messages'][$stage])) { return $this->snapshot($order,$state); }
         $attachments=array_map(static fn($f)=>['name'=>$f['name'],'bytes'=>strlen($f['bytes']),'sha256'=>hash('sha256',$f['bytes'])],$files);
-        $state['pending']=['stage_id'=>$stage,'kind'=>$kind,'next'=>$next,'attachments'=>$attachments,'attempted_at'=>gmdate('c')];
+        $state['pending']=['stage_id'=>$stage,'kind'=>$kind,'next'=>$next,'attachments'=>$attachments,'transport'=>$this->transport,'attempted_at'=>gmdate('c')];
+        if ($this->transport==='gmail') {
+            $message=$this->mailer->prepare($order,$stage,$title,$body,$files);
+            $state['pending']['email_event_id']=$this->mailer->recordExternalAttempt($order,$message);
+            $this->store->write('rebuild-outbound:'.$stage,$message);
+            $state['status']='delivery_uncertain'; $this->save($state);
+            return $this->snapshot($order,$state)+['outbound'=>$message];
+        }
         $state['status']='delivery_uncertain'; $this->save($state);
         try { $receipt=$this->mailer->send($order,$stage,$title,$body,$files); return $this->finish($order,$state,$receipt); }
         catch (\Throwable $e) { $this->orders->event($order,'rebuild_message_uncertain',['stage_id'=>$stage,'kind'=>$kind]); throw new \DomainException('delivery_reconciliation_required'); }
@@ -139,6 +149,10 @@ class CvRebuildService
     private function finish(array $order,array $state,array $receipt): array
     {
         $pending=$state['pending'];
+        if (($pending['transport'] ?? '')==='gmail') {
+            $receipt['email_event_id']=$pending['email_event_id'];
+            $this->mailer->recordExternalReceipt((int)$pending['email_event_id'],(string)$receipt['gmail_message_id']);
+        }
         if ($pending['kind']==='delivery') {
             $bundle=$this->store->read('rebuild-bundle:'.$order['key'].':'.$state['round']);
             $receipt['document_ids']=$this->orders->rebuildDelivered($order,$bundle,$receipt,(int)$state['round']);

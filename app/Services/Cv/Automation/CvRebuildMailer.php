@@ -7,6 +7,27 @@ use App\Services\HiredNextEmail;
 
 class CvRebuildMailer
 {
+    public function prepare(array $order,string $stageId,string $title,string $body,array $files=[]): array
+    {
+        if (!filter_var($order['email'],FILTER_VALIDATE_EMAIL) || ($order['is_test'] && $order['email']!=='jobs@hirednext.info')) { throw new \DomainException('recipient_invalid'); }
+        $base='HN-CV-REBUILD-'.strtoupper(str_replace(':','-',$order['key']));
+        $subject=($order['is_test']?'INTERNAL TEST | ':'').'Your HiredNext CV Rebuild | '.$base;
+        $text='Dear '.$order['name'].",\n\n".$body."\n\nReference: ".$stageId."\n\nRegards,\nHiredNext Recruitment";
+        if ($order['is_test']) { $text.="\n\nINTERNAL AUTOMATION TEST ONLY. No real candidate, payment or sale."; }
+        $attachments=[];
+        foreach ($files as $file) {
+            if (!preg_match('/^HN-CV-[A-Z0-9-]+\.(pdf|docx)$/',$file['name'])) { throw new \DomainException('attachment_name_invalid'); }
+            $attachments[]=['filename'=>$file['name'],'mime_type'=>$file['mime'],'base64'=>base64_encode($file['bytes'])];
+        }
+        return ['stage_id'=>$stageId,'from'=>'jobs@hirednext.info','to'=>$order['email'],'bcc'=>$order['email']==='jobs@hirednext.info'?[]:['jobs@hirednext.info'],'reply_to'=>'jobs@hirednext.info','subject'=>$subject,'text'=>$text,'html'=>HiredNextEmail::fromText($title,$text),'attachments'=>$attachments];
+    }
+    public function recordExternalAttempt(array $order,array $message): int
+    {
+        $id=(new CvEmailEventModel())->recordAttempt($order['lead_id'],'automatic_rebuild_gmail',$order['email'],$message['subject']);
+        if (!$id) { throw new \RuntimeException('email_audit_unavailable'); }
+        return (int)$id;
+    }
+    public function recordExternalReceipt(int $eventId,string $gmailId): void { (new CvEmailEventModel())->markSent($eventId,$gmailId); }
     public function send(array $order,string $stageId,string $title,string $body,array $files=[]): array
     {
         if (!filter_var($order['email'],FILTER_VALIDATE_EMAIL) || ($order['is_test'] && $order['email']!=='jobs@hirednext.info')) { throw new \DomainException('recipient_invalid'); }
