@@ -217,6 +217,7 @@ jobs:
           php spark cv:automation-self-test
           php spark cv:email-style-preview
           php spark cv:rebuild-self-test sealed
+          php spark cv:native-capture-self-test
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
 

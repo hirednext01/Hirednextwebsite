@@ -8,6 +8,12 @@ $o=['name'=>$bundle['candidate_name'],'email'=>'jobs@hirednext.info','phone'=>'0
 $s=['round'=>0,'answers_sha256'=>$bundle['answers_sha256'],'current_delivery_id'=>$bundle['delivery_id'],'templates'=>['ats_classic','executive_ats'],'answers'=>[['text'=>$fixture['answers']]]];
 $src=['sha256'=>$bundle['source_sha256'],'text'=>$fixture['bundle']['source_text']];
 check(count(Rebuild::bundle($o,$s,$bundle,$src))===3,'actual locally rendered PDFs satisfy delivery policy');
+$reordered=$bundle;
+foreach ($reordered['variants'] as &$variant) {
+    $variant['content']=array_reverse($variant['content'],true);
+    foreach ($variant['content']['experience'] as &$role) { $role=array_reverse($role,true); } unset($role);
+} unset($variant);
+check(count(Rebuild::bundle($o,$s,$reordered,$src))===3,'transport reordering of object keys does not alter the CV digest');
 $bad=$bundle; $bad['variants'][0]['content']['summary'].=' Managed 999 people.';
 rejects(fn()=>Rebuild::bundle($o,$s,$bad,$src),'unsupported_numeric_claim');
 $bad=$bundle; $bad['candidate_email']='wrong@example.test';

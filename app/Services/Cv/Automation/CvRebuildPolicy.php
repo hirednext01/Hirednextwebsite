@@ -71,7 +71,7 @@ final class CvRebuildPolicy
             foreach (array_unique($numbers[0]) as $number) { if (!preg_match('/(?<![0-9])'.preg_quote(str_replace(',','',$number),'/').'(?![0-9])/u',$numericSource)) { throw new \DomainException('unsupported_numeric_claim'); } }
             $pdf=base64_decode((string)($v['pdf_base64'] ?? ''),true);
             if ($pdf===false || strlen($pdf)>1000000 || !str_starts_with($pdf,'%PDF-') || !str_contains($pdf,'%%EOF') || !in_array(preg_match_all('~/Type\s*/Page\b~',$pdf),[1,2,3,4],true) || preg_match('~/(?:JavaScript|JS|Launch|EmbeddedFile)\b~',$pdf)) { throw new \DomainException('valid_cv_pdf_required'); }
-            $manifest=[$order['name'],$order['email'],$order['phone'] ?? '',$v['template_key'],$bundle['delivery_id'],$source['sha256'],$state['answers_sha256'],$content];
+            $manifest=[$order['name'],$order['email'],$order['phone'] ?? '',$v['template_key'],$bundle['delivery_id'],$source['sha256'],$state['answers_sha256'],self::canonical($content)];
             $digest=hash('sha256',json_encode($manifest,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR));
             if (!str_contains($pdf,'HN_CV_SHA256:'.$digest)) { throw new \DomainException('pdf_content_mismatch'); }
             $files[]=['name'=>$bundle['delivery_id'].'-'.($index+1).'.pdf','mime'=>'application/pdf','bytes'=>$pdf];
@@ -86,6 +86,13 @@ final class CvRebuildPolicy
             $files[]=['name'=>$report['delivery_id'].'.pdf','mime'=>'application/pdf','bytes'=>$pdf];
         }
         return $files;
+    }
+    private static function canonical($value)
+    {
+        if (!is_array($value)) { return $value; }
+        if (!array_is_list($value)) { ksort($value,SORT_STRING); }
+        foreach ($value as $key=>$item) { $value[$key]=self::canonical($item); }
+        return $value;
     }
     private static function normal(string $value): string { return mb_strtolower(trim(preg_replace('/\s+/u',' ',str_replace("\xC2\xA0",' ',$value)) ?? '')); }
 }
