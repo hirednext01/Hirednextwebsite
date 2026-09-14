@@ -4,7 +4,7 @@
 
 **Goal:** Fulfil the existing ₹1,799 rebuild from confirmed order through questions, two CV variants and two versioned revision rounds without routine founder work.
 
-**Architecture:** Extend the deployed scoped order API and private locked order journal. Reuse CV Studio's document table and DOCX renderer; the existing ChatGPT task writes from the source CV and customer answers and renders PDF locally. The website alone sends the branded questionnaire, reminders and completed files.
+**Architecture:** Extend the deployed scoped order API and private locked order journal. Reuse CV Studio's document table and DOCX renderer; the existing ChatGPT task writes from the source CV and customer answers and renders PDF locally. The website prepares and reserves branded messages and files; the existing task sends the exact native Gmail packet, verifies it and reconciles the receipt. Existing assessment delivery retains its verified mailer.
 
 **Tech Stack:** CodeIgniter PHP, existing MySQL tables, local Python/ReportLab, existing jobs mail, existing n8n bridge and ChatGPT event task.
 
@@ -23,9 +23,9 @@ Files: `CvFulfilmentPolicy.php`, `CvFulfilmentOrders.php`, new `CvRebuildPolicy.
 
 Interfaces: `CvRebuildPolicy::templates(array): array`; `CvRebuildPolicy::reply(array $order,array $request): array`; `CvRebuildPolicy::bundle(array $order,array $state,array $bundle,array $source): array`; `CvFulfilmentOrders::hasExistingRebuild(array): bool`; `CvFulfilmentOrders::rebuildDelivered(array,array,array,int): array`.
 
-- [ ] Add failing behaviour cases for unpaid work, exact ₹1,799 confirmation, wrong sender, duplicate customer reply, two distinct template directions, missing evidence/assessment, altered source/answers, duplicate delivery and a third revision.
-- [ ] Map approved fixed prices in the shared payment policy. Rebuild document ownership is scoped to its upgrade order, so an earlier assessment report does not block a separately purchased rebuild.
-- [ ] Save each delivered variant in `cv_documents` with its template, revision round, delivery ID and original source/answer hashes; preserve prior versions.
+- [x] Add failing behaviour cases for unpaid work, exact ₹1,799 confirmation, wrong sender, duplicate customer reply, two distinct template directions, missing evidence/assessment, altered source/answers, duplicate delivery and a third revision.
+- [x] Map approved fixed prices in the shared payment policy. Rebuild document ownership is scoped to its upgrade order, so an earlier assessment report does not block a separately purchased rebuild.
+- [x] Save each delivered variant in `cv_documents` with its template, revision round, delivery ID and original source/answer hashes; preserve prior versions.
 
 ```php
 $price = ['priority_599'=>599,'rebuild_1799'=>1799][$order['service']] ?? null;
@@ -40,11 +40,11 @@ Files: new `CvRebuildService.php`, `CvRebuildMailer.php`; route through `CvFulfi
 
 Interfaces: `dispatch(array $order,array $request): array`; actions `inspect`, `confirm_owner`, `confirm_test`, `source`, `intake`, `answers`, `claim`, `deliver`, `request_revision`, `remind`, `reconcile`, `exception`.
 
-- [ ] Implement awaiting-payment → ready → awaiting-answers → ready → processing → delivered. Retain a one-hour exclusive lease and a pre-send uncertain state.
-- [ ] Send tailored questions once. Accept a reply only with canonical sender and real Gmail message provenance; hash the answer set. Offer the existing three design directions and produce the selected two, defaulting only when the customer has no preference.
-- [ ] Send at most two unanswered-question reminders, after 24 and 72 hours. Store their attempt IDs before sending.
-- [ ] Require exactly two distinct finished variants; initial delivery also includes the three-page assessment. Generate the DOCX files with the existing renderer, persist all files privately and deliver PDF/DOCX pairs with clear variant explanations.
-- [ ] Permit revision rounds 1 and 2 only on a new genuine customer request. Use a new delivery ID per round and never reopen a sent version. Reconciliation checks a real recipient/message/operation receipt and never blindly resends.
+- [x] Implement awaiting-payment → ready → awaiting-answers → ready → processing → delivered. Retain a one-hour exclusive lease and a pre-send uncertain state.
+- [x] Send tailored questions once. Accept a reply only with canonical sender and real Gmail message provenance; hash the answer set. Offer the existing three design directions and produce the selected two, defaulting only when the customer has no preference.
+- [x] Send at most two unanswered-question reminders, after 24 and 72 hours. Store their attempt IDs before sending.
+- [x] Require exactly two distinct finished variants; initial delivery also includes the three-page assessment. Generate the DOCX files with the existing renderer, persist all files privately and deliver PDF/DOCX pairs with clear variant explanations.
+- [x] Permit revision rounds 1 and 2 only on a new genuine customer request. Use a new delivery ID per round and never reopen a sent version. Reconciliation checks a real recipient/message/operation receipt and never blindly resends.
 
 ```php
 if (isset($state['reply_ids'][$request['gmail_message_id']])) { return $this->snapshot($order,$state); }
@@ -55,12 +55,12 @@ if (($state['round'] ?? 0) >= 2) { throw new DomainException('included_revisions
 
 Files: `scripts/render_cv_rebuild.py`, synthetic fixture JSON, new `CvRebuildSelfTest.php`; relevant Hostinger test step.
 
-- [ ] Render standard linear CV content in two selected existing directions with visible company spacing, no fabricated facts, and no HiredNext marketing inside the candidate's CV.
-- [ ] Include source/answer/content fingerprints in PDF metadata; reject overflow rather than clipping. Inspect both designs and verify extracted text.
-- [ ] Exercise one zero-value upgrade order through questions, answer capture, delivery and duplicate suppression. Verify the actual received attachment bytes and document contents. Verify revision counters and uncertainty locally without sending extra customer mail.
+- [x] Render standard linear CV content in two selected existing directions with visible company spacing, no fabricated facts, and no HiredNext marketing inside the candidate's CV.
+- [x] Include source/answer/content fingerprints in PDF metadata; reject overflow rather than clipping. Inspect both designs and verify extracted text.
+- [x] Exercise one zero-value upgrade order through questions, answer capture, delivery and duplicate suppression. Verify the actual received attachment bytes and document contents. Verify revision counters and uncertainty locally without sending extra customer mail.
 
 ## Task 4 — Existing event owner and follow-ups
 
-- [ ] Extend the existing Fulfil CV Assessments task to own the rebuild states and HN-CV-REBUILD threads. Keep existing triggers and branding rules, and exclude existing candidate-specific delivery work.
-- [ ] Update Operations Control's existing daily run to route due reminders through the same website journal, not a second sender.
-- [ ] Record live evidence and unfinished/unverified commercial outcomes accurately; no test sale or guaranteed income.
+- [x] Extend the existing Fulfil CV Assessments task to own the rebuild states and HN-CV-REBUILD threads. Keep existing triggers and branding rules, and exclude existing candidate-specific delivery work.
+- [x] Update Operations Control's existing daily run to route due reminders through the same website journal, not a second sender.
+- [x] Record live evidence and unfinished/unverified commercial outcomes accurately; no test sale or guaranteed income.
