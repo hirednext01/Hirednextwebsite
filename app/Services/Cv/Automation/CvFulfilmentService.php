@@ -13,6 +13,7 @@ class CvFulfilmentService
         $key=(string)($request['order_key'] ?? '');
         $order=$this->orders->load($key);
         if (!CvFulfilmentAccess::valid($order,(string)($request['access'] ?? ''),$this->store->secret(),time())) { throw new \DomainException('access_denied'); }
+        if ($order['service']==='rebuild_1799') { return (new CvRebuildService($this->store,$this->orders))->dispatch($order,$request); }
         return $this->store->locked(function() use ($request,$order,$key): array {
             $state=$this->store->read('order:'.$key);
             $state += ['order_key'=>$key,'status'=>'awaiting_payment','is_test'=>$order['is_test'],'external_api_cash_cost_inr'=>0];

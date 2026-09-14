@@ -1,0 +1,219 @@
+{
+  "answers": "The 18 people were direct reports. I reported to the Plant Director. I do not have a confirmed measurement period or budget figure. Keep the stated 82% to 94% dispatch result without claiming a cause. Use the Classic and Leadership directions.",
+  "bundle": {
+    "candidate_name": "HiredNext Internal Automation Test",
+    "candidate_email": "jobs@hirednext.info",
+    "candidate_phone": "0000000000",
+    "delivery_id": "HN-CV-REBUILD-UPGRADE-999999-R0",
+    "source_sha256": "bca248702caf14a9db7d2be414679bf41bc5b1b65bbb05fefadfd81ebb9fbaf7",
+    "source_text": "INTERNAL TEST ONLY - FICTIONAL CV - NO CUSTOMER OR SALE\nHiredNext Internal Automation Test\nTarget: Operations Head\n\nOperations Manager, Example Manufacturing, April 2021 - present. Led a team of 18 people across two production sites. Improved on-time dispatch from 82% to 94%. Responsible for production scheduling, vendor coordination and weekly reporting. Introduced a daily dispatch review.\n\nProduction Coordinator, Sample Textiles, June 2017 - March 2021. Prepared production plans and followed up with vendors. Maintained weekly production and quality reports.\n\nEducation: Bachelor of Commerce, 2017. Skills: Excel, production planning, vendor coordination, reporting.\n\nNo budget size, cost reduction value, ERP platform, or management reporting line is stated. These details must not be invented.\n",
+    "answers_sha256": "5094198125bc8d658a12178df2aec7944f0a1ae6a9ea7f3d2bd44b913941fcf5",
+    "external_api_cost_inr": 0,
+    "quality": {
+      "facts_checked": true,
+      "no_invented_claims": true,
+      "layout_checked": true
+    },
+    "variants": [
+      {
+        "template_key": "ats_classic",
+        "content": {
+          "target_title": "Target: Operations Head",
+          "core_skills": [
+            "Production scheduling",
+            "Vendor coordination",
+            "Production reporting",
+            "Excel"
+          ],
+          "education": [
+            "Bachelor of Commerce, 2017"
+          ],
+          "certifications": [],
+          "tools": [
+            "Excel"
+          ],
+          "board_highlights": [],
+          "clarifications": [],
+          "summary": "Operations Manager with experience in production scheduling, vendor coordination and weekly reporting across two production sites. Leads 18 direct reports and reports to the Plant Director. Track record includes improving on-time dispatch from 82% to 94%. Seeking an Operations Head opportunity.",
+          "selected_achievements": [
+            "Improved on-time dispatch from 82% to 94%."
+          ],
+          "experience": [
+            {
+              "company": "Example Manufacturing",
+              "title": "Operations Manager",
+              "dates": "April 2021 – present",
+              "bullets": [
+                "Lead 18 direct reports across two production sites, reporting to the Plant Director.",
+                "Coordinate production schedules and vendors, and prepare weekly operating reports.",
+                "Improved on-time dispatch from 82% to 94%.",
+                "Introduced a daily dispatch review."
+              ]
+            },
+            {
+              "company": "Sample Textiles",
+              "title": "Production Coordinator",
+              "dates": "June 2017 – March 2021",
+              "bullets": [
+                "Prepared production plans and followed up with vendors.",
+                "Maintained weekly production and quality reports."
+              ]
+            }
+          ]
+        },
+        "explanation": "A direct, chronological version that brings operating scope and the dispatch result into the opening summary.",
+        "source_quotes": [
+          "Led a team of 18 people across two production sites.",
+          "Improved on-time dispatch from 82% to 94%."
+        ]
+      },
+      {
+        "template_key": "executive_ats",
+        "content": {
+          "target_title": "Target: Operations Head",
+          "core_skills": [
+            "Production scheduling",
+            "Vendor coordination",
+            "Production reporting",
+            "Excel"
+          ],
+          "education": [
+            "Bachelor of Commerce, 2017"
+          ],
+          "certifications": [],
+          "tools": [
+            "Excel"
+          ],
+          "board_highlights": [],
+          "clarifications": [],
+          "summary": "Production operations professional progressing from Production Coordinator to Operations Manager. Current scope covers two production sites and a team of 18 direct reports, with reporting to the Plant Director. Brings experience in dispatch performance, production planning, vendor follow-up and operating reports.",
+          "selected_achievements": [
+            "Raised on-time dispatch from 82% to 94%.",
+            "Introduced a daily review of dispatch."
+          ],
+          "experience": [
+            {
+              "company": "Example Manufacturing",
+              "title": "Operations Manager",
+              "dates": "April 2021 – present",
+              "bullets": [
+                "Oversee production scheduling, vendor coordination and weekly reporting across two production sites.",
+                "Manage 18 direct reports and report to the Plant Director.",
+                "On-time dispatch improved from 82% to 94%."
+              ]
+            },
+            {
+              "company": "Sample Textiles",
+              "title": "Production Coordinator",
+              "dates": "June 2017 – March 2021",
+              "bullets": [
+                "Developed production plans and coordinated vendor follow-up.",
+                "Kept weekly production and quality reporting up to date."
+              ]
+            }
+          ]
+        },
+        "explanation": "A leadership direction with a more prominent profile and selected impact, while preserving the actual job titles and stated facts.",
+        "source_quotes": [
+          "The 18 people were direct reports.",
+          "I reported to the Plant Director."
+        ]
+      }
+    ],
+    "assessment": {
+      "report": {
+        "candidate_name": "HiredNext Internal Automation Test",
+        "target_role": "Operations Head",
+        "delivery_id": "HN-CV-REBUILD-UPGRADE-999999-R0-ASSESSMENT",
+        "source_sha256": "bca248702caf14a9db7d2be414679bf41bc5b1b65bbb05fefadfd81ebb9fbaf7",
+        "source_text": "INTERNAL TEST ONLY - FICTIONAL CV - NO CUSTOMER OR SALE\nHiredNext Internal Automation Test\nTarget: Operations Head\n\nOperations Manager, Example Manufacturing, April 2021 - present. Led a team of 18 people across two production sites. Improved on-time dispatch from 82% to 94%. Responsible for production scheduling, vendor coordination and weekly reporting. Introduced a daily dispatch review.\n\nProduction Coordinator, Sample Textiles, June 2017 - March 2021. Prepared production plans and followed up with vendors. Maintained weekly production and quality reports.\n\nEducation: Bachelor of Commerce, 2017. Skills: Excel, production planning, vendor coordination, reporting.\n\nNo budget size, cost reduction value, ERP platform, or management reporting line is stated. These details must not be invented.\n",
+        "external_api_cost_inr": 0,
+        "is_test": true,
+        "quality": {
+          "facts_checked": true,
+          "no_invented_claims": true,
+          "layout_checked": true
+        },
+        "pages": [
+          {
+            "title": "Positioning and first impression",
+            "sections": [
+              {
+                "heading": "What the CV currently demonstrates",
+                "text": "This assessment reviews the original submitted CV. The accompanying rebuilt CVs also use the candidate answers recorded for this order. The CV supports an operations management profile with responsibility for production planning, vendor coordination and dispatch reporting. It contains two useful indicators of scale: leadership of 18 people and coverage of two production sites. The improvement in on-time dispatch from 82% to 94% is the clearest achievement. These facts should be visible in the opening section because they help a hiring manager understand the operating environment quickly."
+              },
+              {
+                "heading": "Fit for the stated Operations Head target",
+                "text": "The target is a step beyond the current Operations Manager title. The CV needs to establish decision authority, cross-functional ownership and commercial accountability before a reader can assess that step. Those details are not stated. This is a gap in the evidence available to the reader; it does not establish that the candidate lacks the experience. With no specific employer job description supplied, this assessment cannot determine suitability for an individual vacancy."
+              },
+              {
+                "heading": "Strengths to preserve",
+                "text": "Keep the team size, two-site scope and measured dispatch improvement. The chronology shows a move from Production Coordinator to Operations Manager and should remain clear. Production scheduling, vendor coordination, reporting and the daily dispatch review are useful descriptions of actual work. Preserve these concrete activities rather than replacing them with broad claims such as strategic visionary or transformational leader."
+              },
+              {
+                "heading": "A stronger opening direction",
+                "text": "A truthful opening can lead with operations management across two production sites, a team of 18 and improved on-time dispatch. It should then identify the type of operation and the responsibilities the candidate can substantiate. Do not present budget ownership, profit responsibility or a larger team as established facts: the submitted source does not provide them."
+              }
+            ]
+          },
+          {
+            "title": "Evidence and shortlist barriers",
+            "sections": [
+              {
+                "heading": "Make the dispatch achievement explainable",
+                "text": "The source says: Improved on-time dispatch from 82% to 94%. That is an increase of 12 percentage points. Add the measurement period, how dispatch was measured and the actions that produced the improvement if those facts can be confirmed. A daily dispatch review is mentioned, but the CV does not explicitly establish that it caused the entire improvement. Do not convert the result into a cost saving or customer revenue figure without supporting evidence."
+              },
+              {
+                "heading": "Clarify leadership and decision authority",
+                "text": "The source says: Led a team of 18 people across two production sites. This establishes scale, but leaves the reporting structure and authority unclear. State the functions involved, direct versus indirect reports and the decisions owned. A hiring manager considering an Operations Head needs to distinguish coordination from accountability for the overall operating result. Supply those facts before strengthening the leadership claim."
+              },
+              {
+                "heading": "Give earlier experience a clear contribution",
+                "text": "The Production Coordinator role lists production plans, vendor follow-up and weekly production and quality reports. These activities show relevant foundations. Where evidence exists, add one example of a planning problem resolved or a reporting improvement adopted. An earlier role does not need invented metrics to look credible. Keep it concise and preserve the stated dates of June 2017 to March 2021."
+              },
+              {
+                "heading": "Role language and readability",
+                "text": "Production planning, vendor coordination and reporting are supported terms. ERP platforms, budget ownership and cost reduction values are not supplied and should not be added as keywords. Use conventional section headings, readable text and a simple chronology. This fixture is a text source, so it does not establish how a customer PDF or DOCX parses in employer software; no universal ATS score is assigned."
+              }
+            ]
+          },
+          {
+            "title": "Priority improvements",
+            "sections": [
+              {
+                "heading": "First: improve the opening evidence",
+                "text": "Place the operating scope and dispatch result near the top. Use a concise summary followed by two or three evidenced highlights. Keep the actual job title as Operations Manager and describe Operations Head as the target. This makes the intended move clear without implying that the candidate already holds the target position."
+              },
+              {
+                "heading": "Second: answer the missing-fact questions",
+                "text": "Which functions made up the team of 18, and how many were direct reports? Who did the candidate report to? What decisions could they make independently? What period does the 82% to 94% dispatch comparison cover? What actions were taken and how was the result measured? Was any budget or vendor commercial decision owned? Add the answers only when accurate and supportable; mark uncertain facts for clarification."
+              },
+              {
+                "heading": "Third: strengthen the career narrative",
+                "text": "For the current role, separate operating scope from achievements so the reader can see both responsibility and results. For the earlier coordinator role, retain a short scope statement and one substantive contribution if available. Keep the 2017 qualification, dates and skills consistent throughout. Remove repetition and unsupported leadership adjectives. Review the resulting document visually for spacing, page breaks and a clear first-page hierarchy."
+              },
+              {
+                "heading": "Recommended next step",
+                "text": "The useful next step is an evidence-led edit of the existing CV after the missing details are answered. The available source already contains material worth preserving. A rebuild may be helpful if the candidate wants that work completed for them, but this assessment does not require another paid purchase. Any CV service remains separate from recruitment consideration and cannot guarantee a job, interview or shortlist."
+              }
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "quote": "Led a team of 18 people across two production sites.",
+            "finding": "Team and site scale are stated; reporting lines and decision authority require clarification."
+          },
+          {
+            "quote": "Improved on-time dispatch from 82% to 94%.",
+            "finding": "The result is a 12-percentage-point increase; the timeframe and causal actions need evidence."
+          },
+          {
+            "quote": "Prepared production plans and followed up with vendors.",
+            "finding": "Earlier coordination duties can be condensed and supported by a genuine contribution if available."
+          }
+        ]
+      }
+    }
+  }
+}

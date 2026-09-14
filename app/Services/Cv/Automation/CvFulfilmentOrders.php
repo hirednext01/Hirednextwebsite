@@ -19,10 +19,11 @@ class CvFulfilmentOrders
         $leadId=$upgrade ? (int)$upgrade['lead_id'] : (int)$parts[2];
         $lead=$db->table('cv_assessment_leads')->where('id',$leadId)->get()->getRowArray();
         if (!$lead) { throw new \DomainException('access_denied'); }
-        $isTest=($lead['assessment_plan'] ?? '')==='automation_test_599' && strtolower($lead['email'] ?? '')==='jobs@hirednext.info' && (int)$lead['amount']===0 && !$upgrade;
+        $fixtureService=['automation_test_599'=>'priority_599','automation_test_1799'=>'rebuild_1799'][$lead['assessment_plan'] ?? ''] ?? null;
+        $isTest=$fixtureService!==null && strtolower($lead['email'] ?? '')==='jobs@hirednext.info' && (int)$lead['amount']===0 && (!$upgrade || ((int)$upgrade['amount']===0 && $upgrade['tier']===$fixtureService));
         return ['key'=>$key,'lead_id'=>$leadId,'upgrade_id'=>$upgrade ? (int)$upgrade['id'] : null,
-            'service'=>$isTest ? 'priority_599' : ($upgrade['tier'] ?? $lead['assessment_plan']),
-            'name'=>(string)$lead['name'],'email'=>strtolower(trim((string)$lead['email'])),
+            'service'=>$isTest ? $fixtureService : ($upgrade['tier'] ?? $lead['assessment_plan']),
+            'name'=>(string)$lead['name'],'email'=>strtolower(trim((string)$lead['email'])),'phone'=>(string)($lead['phone'] ?? ''),
             'amount'=>(int)($upgrade['amount'] ?? $lead['amount']),
             'reference'=>(string)($upgrade['payment_reference'] ?? $lead['payment_id'] ?? ''),
             'payment_status'=>(string)($upgrade['status'] ?? $lead['payment_status']),
@@ -73,6 +74,34 @@ class CvFulfilmentOrders
             if (!$db->table('cv_assessment_leads')->where('id',$order['lead_id'])->update(['payment_status'=>$status,'status'=>$order['is_test']?'internal_test':'in_review','updated_at'=>$now])) { throw new \RuntimeException('payment_record_failed'); }
         }
         $this->event($order,'automation_payment_confirmed',['order_key'=>$order['key'],'proof'=>$proof]);
+    }
+
+    public function hasExistingRebuild(array $order): bool
+    {
+        $db=db_connect();
+        if (!$db->tableExists('cv_documents')) { throw new \RuntimeException('cv_studio_unavailable'); }
+        if (in_array($order['order_status'],['completed','closed','in_fulfilment','delivered'],true)) { return true; }
+        $query=$db->table('cv_documents')->where('lead_id',$order['lead_id']);
+        $query->where('upgrade_order_id',$order['upgrade_id'] ?: null);
+        return $query->countAllResults()>0;
+    }
+
+    public function rebuildDelivered(array $order,array $bundle,array $receipt,int $round): array
+    {
+        $db=db_connect(); $now=date('Y-m-d H:i:s'); $ids=[];
+        $provenance=json_encode(['delivery_id'=>$bundle['delivery_id'],'source_sha256'=>$bundle['source_sha256'],'answers_sha256'=>$bundle['answers_sha256'],'external_api_cost_inr'=>0],JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR);
+        foreach ($bundle['variants'] as $variant) {
+            $model=new \App\Models\CvDocumentModel();
+            $existing=$model->where('lead_id',$order['lead_id'])->where('upgrade_order_id',$order['upgrade_id'] ?: null)->where('template_key',$variant['template_key'])->where('revision_round',$round)->where('writer_panel_json',$provenance)->first();
+            $id=$existing['id'] ?? $model->insert(['lead_id'=>$order['lead_id'],'upgrade_order_id'=>$order['upgrade_id'] ?: null,'analysis_run_id'=>null,'template_key'=>$variant['template_key'],'status'=>'delivered','content_json'=>json_encode($variant['content'],JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'writer_panel_json'=>$provenance,'clarifications_json'=>'[]','branding_mode'=>'remove','revision_round'=>$round,'created_by'=>null,'created_at'=>$now,'updated_at'=>$now,'delivered_at'=>$now],true);
+            if (!$id) { throw new \RuntimeException('cv_document_record_failed'); }
+            $ids[]=(int)$id;
+        }
+        if ($round===0) { $this->delivered($order,$bundle['assessment']['report'],$receipt); }
+        $table=$order['upgrade_id']?'cv_upgrade_orders':'cv_assessment_leads';
+        if (!$db->table($table)->where('id',$order['upgrade_id'] ?: $order['lead_id'])->update(['status'=>$order['is_test']?'internal_test':'completed','updated_at'=>$now])) { throw new \RuntimeException('rebuild_order_record_failed'); }
+        $this->event($order,'automatic_rebuild_delivered',['order_key'=>$order['key'],'round'=>$round,'document_ids'=>$ids,'receipt'=>$receipt,'is_test'=>$order['is_test']]);
+        return $ids;
     }
 
     public function delivered(array $order,array $report,array $receipt): void

@@ -12,7 +12,8 @@ final class CvFulfilmentPolicy
     public static function payment(array $order, array $proof, ?string $usedBy): array
     {
         $isTest = ($order['is_test'] ?? false) === true;
-        if (($order['service'] ?? '') !== 'priority_599' || (int)$order['amount'] !== ($isTest ? 0 : 599)) { throw new \DomainException('existing_service_owner_required'); }
+        $price=['priority_599'=>599,'rebuild_1799'=>1799][$order['service'] ?? ''] ?? null;
+        if ($price===null || (int)$order['amount'] !== ($isTest ? 0 : $price)) { throw new \DomainException('existing_service_owner_required'); }
         $type = $isTest ? 'internal_test' : 'owner_confirmed';
         if (($proof['type'] ?? '') !== $type || strlen(trim((string)($proof['source'] ?? ''))) < 8) {
             throw new \DomainException('owner_confirmation_required');
