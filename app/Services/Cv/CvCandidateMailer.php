@@ -249,10 +249,7 @@ class CvCandidateMailer
 
     private function simpleLetterheadHtml(string $title, string $body): string
     {
-        return '<div style="max-width:720px;margin:0 auto;background:#fff;border:1px solid #e0e6ee;font-family:Arial,Helvetica,sans-serif;color:#172033">' .
-            '<div style="padding:24px 30px;border-bottom:2px solid #0c3466"><div style="font-size:26px;font-weight:800;color:#0c3466">HIRED<span style="color:#ff4e16">NEXT</span></div><div style="font-size:10px;letter-spacing:2px;font-weight:700;color:#0c3466">RECRUITMENT</div></div>' .
-            '<div style="padding:30px"><h1 style="font-family:Georgia,serif;font-size:24px;color:#0c3466;margin:0 0 20px">' . esc($title) . '</h1><div style="font-size:14px;line-height:1.65">' . $body . '</div></div>' .
-            '<div style="padding:12px 30px;border-top:1px solid #e0e6ee;font-size:11px;color:#667085">Confidential · HiredNext Recruitment · hirednext.net · jobs@hirednext.info</div></div>';
+        return \App\Services\HiredNextEmail::render($title, $body);
     }
 
     private function emailAttempt(int $leadId, string $eventType, string $recipient, string $subject, ?int $reportVersionId): ?int

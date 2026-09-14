@@ -109,7 +109,7 @@ class CvPayment extends BaseController
         $email->setTo($lead['email']);
         $email->setReplyTo('jobs@hirednext.info', 'HiredNext Jobs');
         $email->setSubject($ackSubject);
-        $email->setMessage(
+        \App\Services\HiredNextEmail::applyText($email, 'Payment reference received',
             "Dear " . ($lead['name'] ?? 'Candidate') . ",\n\nThank you for asking HiredNext to review your CV. We have received your ₹599 Priority CV Assessment request and UPI transaction reference.\n\n" .
             "Your payment is now pending verification. Once verified, the priority review will be taken up for the 12-hour review window.\n\nReference: {$paymentReference}\nRequest ID: {$leadId}\n\n" .
             "Please note: this is a paid professional CV-review service. HiredNext never charges candidates to apply for jobs or secure placement.\n\nRegards,\nHiredNext Jobs Team\njobs@hirednext.info\nhttps://hirednext.net\n"

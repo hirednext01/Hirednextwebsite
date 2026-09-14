@@ -62,8 +62,7 @@ class PilotInterestService
             }
             $mailer->setReplyTo('jobs@hirednext.info', 'HiredNext');
             $mailer->setSubject('HiredNext Interview Ready interest recorded | ' . $receipt);
-            $mailer->setMailType('text');
-            $mailer->setMessage(
+            \App\Services\HiredNextEmail::applyText($mailer, 'Your interest is recorded',
                 "Hello " . strip_tags($name) . ",\n\n" .
                 "Your interest in the proposed INR 999 Interview Ready service is recorded.\n" .
                 "Reference: " . $receipt . "\n\n" .

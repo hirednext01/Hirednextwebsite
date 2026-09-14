@@ -72,14 +72,14 @@ class CvStudioDocumentController extends BaseController
             $email->setReplyTo('jobs@hirednext.info', 'HiredNext Jobs');
             $email->setSubject($subject);
             $email->setMailType('html');
-            $email->setMessage(
+            $email->setMessage(\App\Services\HiredNextEmail::render('Your CV draft is ready',
                 '<p>Dear ' . esc($lead['name'] ?? 'Candidate') . ',</p>' .
                 '<p>Your HiredNext professional CV draft is attached as an editable DOCX for review.</p>' .
                 '<p>Please check names, dates, titles, qualifications and quantified achievements carefully. Reply to this email with any factual corrections or revision requests included in your service.</p>' .
                 '<p>Once finalised, you can also add the upgraded CV to your professional profile at <a href="https://www.theprofile360.in">TheProfile360.in</a>.</p>' .
                 '<p style="font-size:12px;color:#667085">This professional CV service is optional and has no bearing on HiredNext recruitment consideration, interviews or placement.</p>' .
                 '<p>Regards,<br>HiredNext Jobs Team</p>'
-            );
+            ));
             $email->attach($path, 'attachment', $filename);
             $sent = $email->send(false);
 

@@ -18,7 +18,7 @@ $next = $report['recommended_next_step'] ?? [];
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title><?= esc($report['report_title'] ?? 'HiredNext CV Assessment Report') ?></title>
 <style>
-    *{box-sizing:border-box} body{margin:0;background:#eef2f7;color:#172033;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.55}
+    *{box-sizing:border-box} body{margin:0;background:#eef2f7;color:#172033;font-family:Aptos,'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.7}
     .sheet{max-width:900px;margin:24px auto;background:#fff;box-shadow:0 12px 36px rgba(12,52,102,.10);position:relative;padding:118px 54px 76px}
     .letterhead{position:absolute;left:54px;right:54px;top:34px;border-bottom:2px solid #0c3466;padding-bottom:15px;display:flex;justify-content:space-between;align-items:flex-end}
     .brand-main{font-size:27px;font-weight:800;letter-spacing:-1px;color:#0c3466}.brand-main span{color:#ff4e16}.brand-sub{font-size:10px;font-weight:700;letter-spacing:2.1px;color:#0c3466;margin-top:5px}

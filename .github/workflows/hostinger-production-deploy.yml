@@ -201,6 +201,7 @@ jobs:
           php tests/testimonial_admin_publish_test.php
           php spark migrate
           php spark cv:automation-self-test
+          php spark cv:email-style-preview
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
 
