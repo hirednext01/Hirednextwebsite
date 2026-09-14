@@ -5,9 +5,11 @@
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8 relative z-10">
         <div class="max-w-4xl">
             <div class="text-gold text-xs font-black uppercase tracking-[0.28em] mb-5">HiredNext Career Services</div>
-            <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight mb-6">Give us the CV you have. We rebuild the CV you should be sending.</h1>
-            <p class="text-lg md:text-xl text-white/78 leading-relaxed max-w-3xl">Your experience may be strong while the document undersells it. HiredNext reviews the evidence in your current CV, identifies what a recruiter or ATS may miss, rewrites the career story and creates the finished CV for you.</p>
-            <div class="flex flex-col sm:flex-row gap-3 mt-8"><a href="<?= base_url('services/cv-assessment') ?>" class="inline-flex justify-center rounded-full bg-accent px-7 py-3.5 font-black text-white">Upload my current CV</a><a href="#cv-creation" class="inline-flex justify-center rounded-full border border-white/25 bg-white/5 px-7 py-3.5 font-black text-white">See how HiredNext rebuilds it</a></div>
+            <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight mb-6">Not getting shortlisted? Start with the CV you are sending.</h1>
+            <p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl">Your experience may be stronger than your CV shows. Find what needs attention with a written ₹599 assessment, or get HiredNext to rebuild it for ₹1,799.</p>
+            <div class="flex flex-col sm:flex-row gap-3 mt-8"><a href="<?= base_url('services/cv-assessment') ?>" class="inline-flex justify-center rounded-full bg-accent px-7 py-3.5 font-black text-white">Get My CV Assessed — ₹599</a><a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="inline-flex justify-center rounded-full border border-white/25 bg-white/5 px-7 py-3.5 font-black text-white">Get My CV Rebuilt — ₹1,799</a></div>
+            <p class="mt-4 text-sm text-white/70">GST included. Rebuild includes assessment, two CV variants and two revision rounds.</p>
+            <a href="#cv-questions" class="inline-block mt-4 text-sm text-white underline underline-offset-4">Questions before buying? Get instant answers</a>
         </div>
     </div>
 </section>
@@ -21,7 +23,11 @@
     </div>
 </section>
 
-<section id="cv-creation" class="py-20 bg-gray-50">
+<section id="cv-offers" class="py-16 bg-gray-50">
+    <?= view('pages/services/_candidate-offers', ['primaryOnly' => true]) ?>
+</section>
+
+<section id="cv-creation" class="py-20 bg-white">
 <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
     <div class="grid lg:grid-cols-12 gap-10 items-start">
         <div class="lg:col-span-5"><div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-4">Managed CV Creation</div><h2 class="text-3xl md:text-5xl font-serif font-bold text-primary">You do not fill a template. HiredNext builds the document.</h2><p class="text-gray-600 text-lg leading-relaxed mt-5">Start by uploading the CV you already use. We extract the career facts, review strengths and gaps, rewrite weak responsibilities into clearer evidence-led statements where the source supports them, and create the finished document in an ATS-safe HiredNext design direction.</p></div>
@@ -64,10 +70,6 @@
 </div>
 </section>
 
-<section class="py-20 bg-gray-50">
-<?= view('pages/services/_candidate-offers') ?>
-</section>
-
 <section class="py-20 bg-primary text-white">
 <div class="max-w-[1180px] mx-auto px-4 sm:px-8 grid lg:grid-cols-2 gap-12 items-start">
     <div><div class="text-gold text-xs font-black uppercase tracking-[0.24em] mb-4">For senior professionals</div><h2 class="text-3xl md:text-4xl font-serif font-bold">The CV should make the scale of your career easier to understand.</h2><p class="text-white/70 mt-5 leading-relaxed">For experienced professionals, the issue is rarely a missing buzzword alone. It is often that responsibility, scale, progression and outcomes are buried inside dense job descriptions. HiredNext restructures the document so the reader can see the career logic faster.</p></div>
@@ -75,4 +77,5 @@
 </div>
 </section>
 
+<?= view('pages/services/_cv-service-faq') ?>
 <?= $this->endSection() ?>
