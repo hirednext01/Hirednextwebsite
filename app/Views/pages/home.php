@@ -41,6 +41,8 @@
                         </a>
                     </div>
 
+                    <p class="mb-7"><a href="#career-services" class="inline-flex items-center gap-2 text-white underline underline-offset-4 font-semibold">Looking for your next role? Explore CV support <span aria-hidden="true">→</span></a></p>
+
                     <div class="flex flex-wrap items-center gap-6 text-xs uppercase tracking-[0.3em] text-white/60">
                         <span class="flex items-center gap-2">
                             <span class="h-2 w-2 rounded-full bg-gold"></span> Founded: 2016
@@ -93,6 +95,39 @@
         </div>
     </section>
 
+
+
+    <section id="career-services" aria-labelledby="career-services-title" class="py-16 md:py-20 bg-[#f6f0e7] scroll-mt-24">
+        <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+            <p class="text-accent text-xs font-black uppercase tracking-[0.2em] mb-3">For your next career move</p>
+            <h2 id="career-services-title" class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Not getting shortlisted? Start with your CV.</h2>
+            <p class="text-gray-600 max-w-3xl mb-8">See what your CV communicates about your fit for the role, choose a rebuild if you need one, or explore interview preparation.</p>
+            <div class="grid md:grid-cols-3 gap-5">
+                <article class="rounded-2xl bg-primary text-white p-7 flex flex-col">
+                    <p class="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">Start here</p>
+                    <h3 class="text-2xl font-serif font-bold mb-2">CV assessment</h3>
+                    <p class="text-3xl font-bold mb-4">₹599 <span class="text-sm font-normal text-white/70">GST included</span></p>
+                    <p class="text-white/80 leading-relaxed mb-6">Understand where your CV could explain your experience and target-role fit more clearly. Get a prioritised improvement report.</p>
+                    <a href="<?= base_url('services/cv-assessment?utm_source=website&utm_medium=homepage&utm_campaign=cv_assessment') ?>" class="mt-auto inline-flex justify-center rounded-xl bg-accent text-gray-900 px-5 py-3 font-bold">See the ₹599 assessment</a>
+                </article>
+                <article class="rounded-2xl border border-primary/15 bg-white p-7 flex flex-col">
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Ready for a rewrite</p>
+                    <h3 class="text-2xl font-serif font-bold text-primary mb-2">CV rebuild</h3>
+                    <p class="text-3xl font-bold text-primary mb-4">₹1,799 <span class="text-sm font-normal text-gray-500">GST included</span></p>
+                    <p class="text-gray-600 leading-relaxed mb-6">Turn the experience you already have into a clearer, structured CV. Explore the existing service and what is included.</p>
+                    <a href="<?= base_url('services/candidates?utm_source=website&utm_medium=homepage&utm_campaign=cv_rebuild') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Explore CV rebuild</a>
+                </article>
+                <article class="rounded-2xl border border-primary/15 bg-white p-7 flex flex-col">
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">New service preview</p>
+                    <h3 class="text-2xl font-serif font-bold text-primary mb-2">Interview Ready</h3>
+                    <p class="text-3xl font-bold text-primary mb-4">₹999 <span class="text-sm font-normal text-gray-500">proposed one-time price</span></p>
+                    <p class="text-gray-600 leading-relaxed mb-6">See a sample of role questions, career examples and written-answer feedback. Register interest; no payment is taken.</p>
+                    <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=homepage&utm_campaign=interview_ready') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Preview Interview Ready</a>
+                </article>
+            </div>
+            <p class="text-sm text-gray-600 mt-6">Career services are optional. Buying a service does not affect job consideration or guarantee an interview or job.</p>
+        </div>
+    </section>
 
     <!-- ================= HOW WE CAN HELP ================= -->
     <section class="py-32 bg-white">
