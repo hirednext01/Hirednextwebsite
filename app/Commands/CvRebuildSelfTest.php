@@ -16,8 +16,18 @@ class CvRebuildSelfTest extends BaseCommand
     public function run(array $params)
     {
         $store=new CvFulfilmentStore();
-        $store->locked(function() use ($store): void {
+        $store->locked(function() use ($store,$params): void {
             $fixture=$store->read('rebuild-fixture:v1');
+            if (in_array('sealed',$params,true) && isset($fixture['order_key']) && !isset($fixture['sealed_test_access_at'])) {
+                $testOrder=(new CvFulfilmentOrders())->load($fixture['order_key']);
+                if (!$testOrder['is_test'] || $testOrder['amount']!==0 || $testOrder['service']!=='rebuild_1799' || $testOrder['email']!=='jobs@hirednext.info') { throw new \RuntimeException('Only the zero-value internal rebuild fixture may use diagnostic transport.'); }
+                $publicKey=(string)file_get_contents(ROOTPATH.'tests/fixtures/rebuild-test-public.pem');
+                $payload=json_encode(['order_key'=>$testOrder['key'],'access'=>CvFulfilmentAccess::issue($testOrder)],JSON_THROW_ON_ERROR);
+                if (!openssl_public_encrypt($payload,$sealed,$publicKey,OPENSSL_PKCS1_OAEP_PADDING)) { throw new \RuntimeException('Encrypted fixture transport unavailable.'); }
+                CLI::write('INTERNAL_FIXTURE_SEALED:'.base64_encode($sealed));
+                CLI::write('Configured mail transport: '.\Config\Services::email()->protocol);
+                $fixture['sealed_test_access_at']=gmdate('c'); $store->write('rebuild-fixture:v1',$fixture);
+            }
             if (isset($fixture['email_attempted_at'])) { CLI::write('Internal rebuild fixture already attempted: '.$fixture['order_key']); return; }
             if (!class_exists(\ZipArchive::class)) { throw new \RuntimeException('Rebuild DOCX export unavailable.'); }
             $db=db_connect();
