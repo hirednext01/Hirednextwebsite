@@ -21,7 +21,7 @@ class PublicAuthorityFilter implements FilterInterface
         }
 
         // Only mutate full HTML documents. API, JSON, XML, feeds and text endpoints stay untouched.
-        if (stripos($body, '<html') === false && stripos($body, '<!DOCTYPE html') === false) {
+        if (!preg_match('/^\s*(?:<!doctype html[^>]*>\s*)?<html\b/i', $body)) {
             return;
         }
 

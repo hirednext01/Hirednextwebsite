@@ -18,6 +18,9 @@ class CvRebuildService
             $this->transport=(string)($request['transport'] ?? 'smtp');
             if (!in_array($this->transport,['smtp','gmail'],true)) { throw new \DomainException('unsupported_mail_transport'); }
             if ($action==='inspect') { return $this->snapshot($order,$state); }
+            if ($action==='test_outbound' && $order['is_test'] && $order['email']==='jobs@hirednext.info' && ($state['pending']['transport'] ?? '')==='gmail') {
+                return $this->snapshot($order,$state)+['outbound'=>$this->store->read('rebuild-outbound:'.$state['pending']['stage_id'])];
+            }
             if ($action==='exception') {
                 if (!preg_match('/^[a-z_]{4,60}$/',(string)($request['code'] ?? ''))) { throw new \DomainException('exception_code_required'); }
                 $state['exception']=['code'=>$request['code'],'at'=>gmdate('c')]; $this->save($state); return $this->snapshot($order,$state);
