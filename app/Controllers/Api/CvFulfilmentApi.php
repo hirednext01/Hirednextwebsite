@@ -10,7 +10,7 @@ class CvFulfilmentApi extends \App\Controllers\BaseController
     {
         $this->response->setHeader('Cache-Control','private, no-store')->setHeader('X-Robots-Tag','noindex, nofollow');
         $body=$this->request->getBody();
-        if (strlen($body)>3000000) { return $this->response->setStatusCode(413)->setJSON(['ok'=>false,'error'=>'request_too_large']); }
+        if (strlen($body)>6000000) { return $this->response->setStatusCode(413)->setJSON(['ok'=>false,'error'=>'request_too_large']); }
         try {
             $data=json_decode($body,true,32,JSON_THROW_ON_ERROR);
             if (!is_array($data) || !preg_match('/^(assessment|upgrade):[1-9][0-9]{0,9}$/',(string)($data['order_key'] ?? '')) || !preg_match('/^[0-9]{10}\.[a-f0-9]{64}$/',(string)($data['access'] ?? ''))) { throw new \DomainException('access_denied'); }

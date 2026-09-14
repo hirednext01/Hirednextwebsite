@@ -5,7 +5,7 @@ namespace App\Services\Cv;
 class CvDocxRenderer
 {
     private const NAVY = '0C3466';
-    private const ORANGE = 'C96B09';
+    private const ORANGE = 'FF4E16';
     private const TEXT = '172033';
     private const MUTED = '556070';
 
