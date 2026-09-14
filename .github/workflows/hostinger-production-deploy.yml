@@ -214,7 +214,7 @@ jobs:
           php spark migrate
           php spark cv:automation-self-test
           php spark cv:email-style-preview
-          php spark cv:rebuild-self-test
+          php spark cv:rebuild-self-test sealed
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
 
@@ -251,6 +251,14 @@ jobs:
       - name: Record deploy result
         shell: bash
         run: |
+          set -euo pipefail
+          result_file="$(mktemp)"
+          cp .github/hostinger-deploy-status.txt "$result_file"
+          git restore .github/hostinger-deploy-status.txt
+          git fetch origin main
+          git checkout -B deploy-result origin/main
+          cp "$result_file" .github/hostinger-deploy-status.txt
+          rm "$result_file"
           git config user.name 'HiredNext Deploy Automation'
           git config user.email 'deploy-automation@users.noreply.github.com'
           git add .github/hostinger-deploy-status.txt
