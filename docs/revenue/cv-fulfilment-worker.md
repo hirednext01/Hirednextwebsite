@@ -1,6 +1,6 @@
 # Automatic assessment worker
 
-Owner: the existing Capture CV Orders task, coordinated by HiredNext Operations Control. No second inbox reviewer or sender. Ordinary questions and delivery need no Taru approval. Unverified payment, conflicting source facts, exhausted capacity or unresolved delivery failure are exceptions.
+Owner: the existing Fulfil CV Assessments task (formerly Capture CV Orders), coordinated by HiredNext Operations Control. No second inbox reviewer or sender. Ordinary questions and delivery need no Taru approval. Unverified payment, conflicting source facts, exhausted capacity or unresolved delivery failure are exceptions.
 
 ## Authenticated connection
 
@@ -62,6 +62,6 @@ The example illustrates shape; never send its example strings. Include multiple 
 
 ## Completion and incoming replies
 
-Completion requires a website `delivered` receipt and a matching jobs mailbox copy with the PDF. Inspect the actual attachment: its byte count and SHA-256 must match the returned receipt and its content must parse as the expected three-page report. Email arrival alone does not establish valid PDF delivery. Log the source alert, owner-confirmation evidence, order key, report ID, delivery/email receipt and actual cash amount. Track delivery and receipt separately if Gmail indexing is delayed. Candidate replies to the fixed report subject should be answered in that existing thread by the same service owner. Factual corrections to an already delivered PDF remain a versioned revision; never bypass the existing delivery lock to resend the original order.
+Completion requires a website `delivered` receipt and a matching jobs mailbox copy with the PDF. Inspect the actual attachment: its byte count and SHA-256 must match the returned receipt and its content must parse as the expected three-page report. If a connector download URL is unavailable, authorised Gmail `read_email(format: "raw")` supplies the MIME message; decode the exact attachment locally and verify its bytes. Do not repeatedly retry a denied download URL. Email arrival alone does not establish valid PDF delivery. Log the source alert, owner-confirmation evidence, order key, report ID, delivery/email receipt and actual cash amount. Track delivery and receipt separately if Gmail indexing is delayed. Candidate replies to the fixed report subject should be answered in that existing thread by the same service owner. Factual corrections to an already delivered PDF remain a versioned revision; never bypass the existing delivery lock to resend the original order.
 
 No real customer has been processed by the deployment self-test. It sends only to jobs and has zero receipts. No bank feed is established by this implementation.
