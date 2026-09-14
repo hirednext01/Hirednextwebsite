@@ -1,6 +1,6 @@
 # Automatic assessment worker
 
-Owner: the existing Fulfil CV Assessments task (formerly Capture CV Orders), coordinated by HiredNext Operations Control. No second inbox reviewer or sender. Ordinary questions and delivery need no Taru approval. Unverified payment, conflicting source facts, exhausted capacity or unresolved delivery failure are exceptions.
+Owner: the existing Fulfil CV Services task (formerly Fulfil CV Assessments / Capture CV Orders), coordinated by HiredNext Operations Control. No second inbox reviewer or sender. Ordinary questions and delivery need no Taru approval. Unverified payment, conflicting source facts, exhausted capacity or unresolved delivery failure are exceptions.
 
 ## Authenticated connection
 
