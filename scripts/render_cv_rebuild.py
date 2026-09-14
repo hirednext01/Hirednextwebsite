@@ -21,6 +21,14 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, KeepTogethe
 from render_cv_assessment import render as render_assessment
 
 
+def canonical(value):
+    if isinstance(value, dict):
+        return {key: canonical(value[key]) for key in sorted(value)} if value else []
+    if isinstance(value, list):
+        return [canonical(item) for item in value]
+    return value
+
+
 def render_cv(bundle: dict, variant: dict, output: Path) -> None:
     fonts = Path('/usr/share/fonts/truetype/dejavu')
     for name, filename in [('CVBody', 'DejaVuSans.ttf'), ('CVBold', 'DejaVuSans-Bold.ttf'), ('CVTitle', 'DejaVuSerif.ttf')]:
@@ -74,7 +82,7 @@ def render_cv(bundle: dict, variant: dict, output: Path) -> None:
     section('EDUCATION', content.get('education', []), False)
     section('CERTIFICATIONS', content.get('certifications', []), False)
     section('TOOLS / PLATFORMS', [' | '.join(content.get('tools', []))] if content.get('tools') else [], False)
-    manifest = [bundle['candidate_name'], bundle['candidate_email'], bundle.get('candidate_phone', ''), template, bundle['delivery_id'], bundle['source_sha256'], bundle['answers_sha256'], content]
+    manifest = [bundle['candidate_name'], bundle['candidate_email'], bundle.get('candidate_phone', ''), template, bundle['delivery_id'], bundle['source_sha256'], bundle['answers_sha256'], canonical(content)]
     digest = hashlib.sha256(json.dumps(manifest, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
     pages = []
 
