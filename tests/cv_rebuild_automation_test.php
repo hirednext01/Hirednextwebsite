@@ -29,6 +29,9 @@ class RebuildTestOrders extends \App\Services\Cv\Automation\CvFulfilmentOrders {
 }
 class RebuildTestMailer extends \App\Services\Cv\Automation\CvRebuildMailer {
     public int $calls=0; public bool $fail=false;
+    public int $externalReceipts=0;
+    public function recordExternalAttempt(array $order,array $message): int { return 900; }
+    public function recordExternalReceipt(int $eventId,string $gmailId): void { $this->externalReceipts++; }
     public function send(array $order,string $stageId,string $title,string $body,array $files=[]): array {
         $this->calls++; if ($this->fail) { throw new RuntimeException('Simulated SMTP timeout'); }
         return ['accepted'=>true,'stage_id'=>$stageId,'recipient'=>$order['email'],'attachments'=>[]];
@@ -70,3 +73,16 @@ foreach ([0,1] as $round) {
 $state=$rs->read('order:'.$ro['key']); $state['status']='delivered'; $rs->write('order:'.$ro['key'],$state);
 rejects(fn()=>$svc->dispatch($ro,['action'=>'request_revision','sender_email'=>$ro['email'],'gmail_message_id'=>'abcdef123469','text'=>'One more revision please.']),'included_revisions_exhausted');
 echo "All rebuild state and delivery behaviour checks passed.\n";
+require_once __DIR__.'/../app/Services/HiredNextEmail.php';
+$ro3=array_replace($ro,['key'=>'upgrade:95','reference'=>'UPI192837465']);
+$rm3=new RebuildTestMailer(); $svc3=new \App\Services\Cv\Automation\CvRebuildService($rs,$rr,$rm3);
+$svc3->dispatch($ro3,['action'=>'confirm_owner','proof'=>['type'=>'owner_confirmed','reference'=>$ro3['reference'],'amount'=>1799,'source'=>'chat:exact-owner-confirmation']]);
+$prepared=$svc3->dispatch($ro3,$intake+['transport'=>'gmail']);
+check($prepared['fulfilment']['status']==='delivery_uncertain' && $rm3->calls===0 && $prepared['outbound']['to']===$ro3['email'],'native Gmail reservation does not also send SMTP');
+check(str_contains($prepared['outbound']['html'],'font-size:16px') && str_contains($prepared['outbound']['html'],'#ff4e16'),'native message uses shared HiredNext typography');
+rejects(fn()=>$svc3->dispatch($ro3,$intake+['transport'=>'gmail']),'delivery_reconciliation_required');
+$receipt=$svc3->dispatch($ro3,['action'=>'reconcile','stage_id'=>$prepared['outbound']['stage_id'],'recipient'=>$ro3['email'],'gmail_message_id'=>'abcdef123499']);
+check($receipt['fulfilment']['status']==='awaiting_answers' && $rm3->externalReceipts===1,'genuine native receipt completes the reserved stage');
+$svc3->dispatch($ro3,$intake+['transport'=>'gmail']);
+check($rm3->calls===0 && $rm3->externalReceipts===1,'completed native intake cannot send again');
+echo "All native Gmail ownership checks passed.\n";
