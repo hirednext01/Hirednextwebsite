@@ -309,6 +309,22 @@ class Home extends BaseController
 
     public function submitContact()
     {
+        if ($this->request->getPost('subject') === \App\Services\Revenue\PilotInterestService::SUBJECT) {
+            try {
+                $result = (new \App\Services\Revenue\PilotInterestService())->capture(
+                    $this->request, \Config\Database::connect(), \Config\Services::email()
+                );
+            } catch (\Throwable $e) {
+                log_message('error', 'Interview Ready interest intake failed.');
+                $result = ['status' => 'error', 'message' => 'We could not save your interest. Please try again later.'];
+            }
+            if ($this->request->isAJAX()) {
+                return $this->response->setStatusCode($result['status'] === 'success' ? 200 : 422)->setJSON($result);
+            }
+            return redirect()->to('/pilots/interview-ready.html#interest')
+                ->with($result['status'], $result['message'] ?? 'Your interest is recorded. No payment has been taken.');
+        }
+
         $validation = \Config\Services::validation();
 
         $validation->setRules([
