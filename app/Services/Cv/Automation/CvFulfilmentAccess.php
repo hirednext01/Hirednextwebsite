@@ -25,7 +25,13 @@ final class CvFulfilmentAccess
     }
     public static function noticeForKey(string $key): string
     {
-        try { return self::notice((new CvFulfilmentOrders())->load($key)); }
+        try {
+            $order=(new CvFulfilmentOrders())->load($key);
+            $notice=self::notice($order);
+            try { CvFulfilmentCapture::relay($order); }
+            catch (\Throwable $e) { log_message('error','Native CV order handoff unconfirmed for '.$key); }
+            return $notice;
+        }
         catch (\Throwable $e) {
             // A bridge issue must not break the established payment capture or
             // customer acknowledgement. The internal owner receives the exception.

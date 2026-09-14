@@ -149,6 +149,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          php tests/authority_api_response_test.php
+          php tests/cv_order_capture_test.php
           php tests/cv_rebuild_automation_test.php
           php tests/cv_fulfilment_delivery_test.php
           php tests/cv_fulfilment_attachment_test.php

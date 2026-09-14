@@ -20,7 +20,7 @@ class HumanAuthorityLinksFilter implements FilterInterface
             return;
         }
 
-        if (stripos($body, '<html') === false && stripos($body, '<!DOCTYPE html') === false) {
+        if (!preg_match('/^\s*(?:<!doctype html[^>]*>\s*)?<html\b/i', $body)) {
             return;
         }
 
