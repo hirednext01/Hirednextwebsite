@@ -53,6 +53,10 @@ class CvPayment extends BaseController
             return redirect()->to('/services/cv-assessment?payment=failed')->with('errors', ['payment' => 'We could not find this CV assessment request.']);
         }
 
+        if (in_array((string)($lead['payment_status'] ?? ''), ['verified', 'paid', 'captured', 'owner_confirmed'], true)) {
+            return redirect()->to('/services/cv-assessment?payment=verification_pending')->with('success', 'This payment is already recorded. Your existing assessment request remains in its delivery process.');
+        }
+
         $db->table('cv_assessment_leads')->where('id', $leadId)->update([
             'payment_id' => $paymentReference,
             'payment_status' => 'pending_verification',
@@ -74,13 +78,15 @@ class CvPayment extends BaseController
         $email->clear(true);
         $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
         $email->setTo('tarushikha@hirednext.info');
+        $email->setBCC('jobs@hirednext.info');
         $email->setReplyTo($lead['email'] ?? 'jobs@hirednext.info', $lead['name'] ?? 'Candidate');
         $email->setSubject($internalSubject);
         $email->setMessage(
-            "PAID HIREDNEXT CV REVIEW — QUICK ACTION REQUIRED\n\n" .
+            "HIREDNEXT CV REVIEW — PAYMENT REFERENCE SUBMITTED\n\n" .
             "Lead ID: {$leadId}\nName: " . ($lead['name'] ?? '') . "\nEmail: " . ($lead['email'] ?? '') . "\nPhone: " . ($lead['phone'] ?? '') . "\n" .
             "Service: Priority CV Assessment / 12 hours\nAmount: ₹599\nUPI reference: {$paymentReference}\nPayment status: pending verification\n" .
-            "Submitted: " . ($lead['created_at'] ?? '') . "\n\nMessage:\n" . (($lead['message'] ?? '') ?: '—') . "\n"
+            "Submitted: " . ($lead['created_at'] ?? '') . "\n\nMessage:\n" . (($lead['message'] ?? '') ?: '—') . "\n" .
+            \App\Services\Cv\Automation\CvFulfilmentAccess::noticeForKey('assessment:' . $leadId)
         );
         if ($resumePath !== ROOTPATH && is_file($resumePath) && is_readable($resumePath)) {
             $email->attach($resumePath);

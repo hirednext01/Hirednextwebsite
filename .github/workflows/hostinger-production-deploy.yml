@@ -127,6 +127,15 @@ jobs:
           php -l app/Views/pages/services/cv-service-start.php
           php tests/all_paid_candidate_services_gate_test.php
 
+      - name: Verify automatic CV fulfilment controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          php tests/cv_automatic_fulfilment_test.php
+          php tests/cv_fulfilment_delivery_test.php
+          php -l app/Controllers/Api/CvFulfilmentApi.php
+          php -l app/Commands/CvAutomationSelfTest.php
+
       - name: Verify Hubli woven job campaign
         shell: bash
         run: |
@@ -190,6 +199,7 @@ jobs:
           grep -Fq "admin/testimonials" app/Config/Routes.php
           php tests/testimonial_admin_publish_test.php
           php spark migrate
+          php spark cv:automation-self-test
           php spark cache:clear >/dev/null 2>&1 || true
           echo "After: $(git rev-parse --short HEAD)"'
 

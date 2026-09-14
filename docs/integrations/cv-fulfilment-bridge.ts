@@ -1,0 +1,4 @@
+import { workflow, node, trigger, expr } from '@n8n/workflow-sdk';
+const start=trigger({type:'n8n-nodes-base.webhook',version:2.1,config:{name:'CV Order Request',parameters:{httpMethod:'POST',path:'hirednext-cv-fulfilment',authentication:'headerAuth',responseMode:'lastNode',responseData:'firstEntryJson',options:{}},credentials:{httpHeaderAuth:{id:'6jphnK4dICHArlOm',name:'Header Auth account'}}}});
+const request=node({type:'n8n-nodes-base.httpRequest',version:4.5,config:{name:'HiredNext Order API',parameters:{method:'POST',url:'https://hirednext.net/api/cv-fulfilment',sendBody:true,contentType:'json',specifyBody:'json',jsonBody:expr('{{ $json.body }}'),options:{timeout:45000,redirect:{redirect:{followRedirects:false}},response:{response:{responseFormat:'json',neverError:true,fullResponse:true}}}}}});
+export default workflow('hirednext-cv-fulfilment-bridge','HiredNext CV Fulfilment Bridge').add(start).to(request);

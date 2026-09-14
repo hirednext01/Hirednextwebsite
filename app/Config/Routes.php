@@ -109,6 +109,7 @@ $routes->get('test', 'Test::index');
 $routes->post('webhooks/slack/revenue-council', 'Api\\RevenueCouncilWebhook::handle');
 
 $routes->group('api', ['namespace' => 'App\\Controllers\\Api'], function ($routes) {
+    $routes->post('cv-fulfilment', 'CvFulfilmentApi::handle');
     $routes->options('(:any)', function () { return service('response')->setStatusCode(200); });
     $routes->get('test', 'TestApi::index'); $routes->get('test/auth', 'TestApi::testAuth');
     $routes->post('auth/login', 'AuthApi::login'); $routes->post('auth/logout', 'AuthApi::logout'); $routes->get('auth/me', 'AuthApi::me'); $routes->post('auth/change-password', 'AuthApi::changePassword');

@@ -38,6 +38,10 @@ class CvUpgrade extends BaseController
             return redirect()->back()->withInput()->with('error', 'Please enter the UPI transaction/reference number shown by your payment app.');
         }
 
+        if (in_array((string)($order['status'] ?? ''), ['verified', 'paid', 'captured', 'owner_confirmed', 'in_fulfilment', 'completed'], true)) {
+            return redirect()->to('/cv-upgrade/' . rawurlencode($token) . '?submitted=1')->with('success', 'This payment is already recorded. Your existing service order remains in its delivery process.');
+        }
+
         $now = date('Y-m-d H:i:s');
         $model = new CvUpgradeOrderModel();
         $model->update((int) $order['id'], [
