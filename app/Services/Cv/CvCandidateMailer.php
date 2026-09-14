@@ -173,6 +173,7 @@ class CvCandidateMailer
         $email->clear(true);
         $email->setFrom('jobs@hirednext.info', 'HiredNext Jobs');
         $email->setTo('tarushikha@hirednext.info');
+        $email->setBCC('jobs@hirednext.info');
         $email->setReplyTo($lead['email'] ?? 'jobs@hirednext.info', $lead['name'] ?? 'Candidate');
         $email->setSubject('ACTION: CV service payment reference — ' . ($order['service_name'] ?? '') . ' — ' . ($lead['name'] ?? 'Candidate'));
         $email->setMailType('text');
@@ -185,7 +186,9 @@ class CvCandidateMailer
             "Amount: ₹" . number_format((int) ($order['amount'] ?? 0)) . "\n" .
             "UPI reference: " . ($order['payment_reference'] ?? '') . "\n" .
             "Status: pending verification\n" .
-            "CV Review ID: " . ($lead['id'] ?? '') . "\n"
+            "CV Review ID: " . ($lead['id'] ?? '') . "\n" .
+            "CV Order ID: " . ($order['id'] ?? '') . "\n" .
+            \App\Services\Cv\Automation\CvFulfilmentAccess::noticeForKey('upgrade:' . (int)$order['id'])
         );
         $resume = ROOTPATH . ltrim((string) ($lead['resume_path'] ?? ''), '/');
         if (is_file($resume) && is_readable($resume)) {

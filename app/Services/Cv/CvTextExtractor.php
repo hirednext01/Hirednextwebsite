@@ -4,7 +4,7 @@ namespace App\Services\Cv;
 
 class CvTextExtractor
 {
-    public function extract(string $absolutePath): array
+    public function extract(string $absolutePath, bool $allowApiFallback = true): array
     {
         if (!is_file($absolutePath) || !is_readable($absolutePath)) {
             throw new \RuntimeException('CV file is missing or unreadable.');
@@ -29,6 +29,7 @@ class CvTextExtractor
                     $text = $this->runCommand($binary, ['-layout', '-nopgbrk', $absolutePath, '-']);
                     $meta['method'] = 'pdftotext';
                 } else {
+                    if (!$allowApiFallback) { throw new \RuntimeException('Local PDF extraction unavailable.'); }
                     [$text, $method] = $this->openAiFallback($absolutePath, 'PDF text extraction requires pdftotext or a configured OpenAI CV file reader.');
                     $meta['method'] = $method;
                 }
@@ -40,6 +41,7 @@ class CvTextExtractor
                     $text = $this->runCommand($binary, [$absolutePath]);
                     $meta['method'] = basename($binary);
                 } else {
+                    if (!$allowApiFallback) { throw new \RuntimeException('Local DOC extraction unavailable.'); }
                     [$text, $method] = $this->openAiFallback($absolutePath, 'DOC text extraction requires antiword/catdoc or a configured OpenAI CV file reader.');
                     $meta['method'] = $method;
                 }
@@ -59,7 +61,7 @@ class CvTextExtractor
         // A scanned or image-heavy PDF may technically run through pdftotext but
         // still yield almost nothing. When OpenAI is configured, retry the source
         // file as a document input instead of failing the candidate record.
-        if (mb_strlen($text) < 120 && in_array($ext, ['pdf', 'doc'], true)) {
+        if ($allowApiFallback && mb_strlen($text) < 120 && in_array($ext, ['pdf', 'doc'], true)) {
             $fallback = new OpenAiCvFileExtractor();
             if ($fallback->configured()) {
                 $text = $this->normalise($fallback->extract($absolutePath));
