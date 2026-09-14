@@ -1,28 +1,30 @@
 <div class="max-w-[1040px] mx-auto px-4 sm:px-8">
     <div class="text-center max-w-3xl mx-auto mb-10">
         <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Start here</div>
-        <h2 class="text-3xl md:text-5xl font-serif font-bold text-primary">Two simple ways to begin.</h2>
-        <p class="text-gray-600 mt-4">Start with an assessment, or ask HiredNext to rebuild the CV for you.</p>
+        <h2 class="text-3xl md:text-5xl font-serif font-bold text-primary">Find the gaps. Or get the rewrite done.</h2>
+        <p class="text-gray-600 mt-4">Start with the assessment when you want clarity. Choose the rebuild when you want a finished CV.</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-6">
         <article class="rounded-[1.75rem] border-2 border-accent bg-white p-8 shadow-sm">
-            <div class="text-sm font-black text-accent">₹599 · GST INCLUDED · PRIORITY</div>
+            <div class="text-sm font-black text-accent">₹599 · GST INCLUDED · START WITH CLARITY</div>
             <h3 class="text-3xl font-serif font-bold text-primary mt-2">Get Your CV Assessed</h3>
-            <p class="text-gray-600 mt-4 leading-relaxed">A detailed HiredNext recruiter assessment covering ATS readiness, positioning, evidence gaps, shortlisting risks and the changes that matter most.</p>
-            <a href="<?= base_url('services/cv-assessment') ?>" class="mt-6 inline-flex rounded-full bg-accent px-6 py-3 font-black text-white">Get assessed →</a>
-            <div class="mt-6"><?= view('pages/services/_candidate-success', ['successKey' => 'assessment']) ?></div>
+            <p class="text-gray-600 mt-4 leading-relaxed">See what your CV may be failing to show for the role you want. Get a written assessment of its positioning, readability and evidence, with corrections in priority order.</p>
+            <a href="<?= base_url('services/cv-assessment') ?>" class="mt-6 inline-flex rounded-full bg-accent px-6 py-3 font-black text-white">Get My CV Assessed — ₹599</a>
+            <p class="mt-5 text-sm text-gray-600">Written report by email · 12 hours after payment verification · No full rewrite included</p>
         </article>
 
         <article class="rounded-[1.75rem] border-2 border-primary bg-white p-8 shadow-sm">
             <div class="text-sm font-black text-accent">₹1,799 · GST INCLUDED · DONE FOR YOU</div>
-            <h3 class="text-3xl font-serif font-bold text-primary mt-2">Get a New CV Made</h3>
+            <h3 class="text-3xl font-serif font-bold text-primary mt-2">Get Your CV Rebuilt</h3>
             <p class="text-gray-600 mt-4 leading-relaxed">HiredNext assesses your current CV, rebuilds the content and positioning, and creates two finished CV variants with two revision rounds.</p>
-            <a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="mt-6 inline-flex rounded-full bg-primary px-6 py-3 font-black text-white">Get a new CV made →</a>
-            <div class="mt-6"><?= view('pages/services/_candidate-success', ['successKey' => 'rebuild']) ?></div>
+            <a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="mt-6 inline-flex rounded-full bg-primary px-6 py-3 font-black text-white">Get My CV Rebuilt — ₹1,799</a>
+            <p class="mt-5 text-sm text-gray-600">Assessment included · Two CV variants · Two revision rounds</p>
         </article>
     </div>
+    <p class="mt-6 text-center text-sm font-semibold text-primary">You do not have to buy both. The rebuild already includes an assessment.</p>
 
+    <?php if (empty($primaryOnly)): ?>
     <div class="mt-12 mb-6">
         <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-2">More ways HiredNext can help</div>
         <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">Choose only if this is the problem you need solved.</h2>
@@ -64,5 +66,6 @@
         </article>
     </div>
 
-    <p class="text-xs text-gray-500 text-center mt-6">Paid career services improve positioning and document quality; they do not guarantee interviews, hiring or placement.</p>
+    <?php endif; ?>
+    <p class="text-xs text-gray-500 text-center mt-6">Paid career services address positioning and document quality; they do not guarantee interviews, hiring or placement.</p>
 </div>

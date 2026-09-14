@@ -9,7 +9,7 @@ $checks = [
     'free offer removed from landing page' => !str_contains($view, 'Get Free Assessment') && !str_contains($view, 'value="free"'),
     'priority plan fixed by form' => str_contains($view, 'type="hidden" name="assessment_plan" value="priority_599"'),
     'sample assessment proof' => str_contains($view, 'Preview the assessment you will receive') && str_contains($view, 'Recruiter’s first impression'),
-    'privacy safe success story' => str_contains($view, 'SUCCESS STORY') && str_contains($view, 'Individual outcomes vary'),
+    'sample is not presented as a customer outcome' => str_contains($view, 'ILLUSTRATIVE ASSESSMENT EXAMPLE') && str_contains($view, 'not a customer testimonial'),
     'campaign attribution fields' => str_contains($view, 'name="utm_source"') && str_contains($view, 'name="utm_medium"') && str_contains($view, 'name="utm_campaign"') && str_contains($view, 'name="utm_content"'),
     'paid plan enforced server side' => str_contains($controller, "'assessment_plan' => 'permit_empty|in_list[priority_599]'") && str_contains($controller, '$plan = \'priority_599\';'),
     'paid only metadata' => str_contains($pageController, '12-hour, role-focused CV assessment for ₹599') && !str_contains($pageController, 'Choose a free review or a priority'),
