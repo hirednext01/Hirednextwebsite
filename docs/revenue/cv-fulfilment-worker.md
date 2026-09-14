@@ -8,6 +8,8 @@ Use the connected n8n workflow `Svp6SvP0C1R4iI4X` (HiredNext CV Fulfilment Bridg
 
 Read `Automation order:` and `Automation access:` only from the verified internal website alert in jobs or Taru's mailbox. Never forward the alert, include the capability in a URL, print it, or put it in a document, repository, user-facing message or candidate email. Candidate acknowledgement emails do not contain it. The exact order key distinguishes `assessment:<lead id>` from `upgrade:<order id>`.
 
+The live n8n tool accepts `{workflowId, executionMode, triggerNodeName: "CV Order Request", inputs: {webhookData: {method: "POST", body: {action, order_key, access, ...}}}}`. Despite the generated metadata, omit `inputs.type`; the live validator rejects it. Always include the top-level `triggerNodeName`. This shape was exercised against the published bridge.
+
 The n8n execution tool returns an execution ID. Retrieve `HiredNext Order API` output with get_workflow_execution; inspect HTTP status and the JSON body's `ok` field. An n8n success status alone does not prove the website operation succeeded. Run test requests in manual mode, real authorized processing in production mode. Do not call a bank integration or AI API.
 
 ## Order operations
@@ -22,7 +24,7 @@ Every body includes `order_key`, `access`, `action`.
 6. On `delivery_reconciliation_required`, search jobs for the exact delivery ID and inspect the actual attachment and recipient. If a matching genuine copy exists, `reconcile` takes `delivery_id`, `recipient` and `gmail_message_id`. Never use a guessed message ID. If receipt cannot be established, record an exception once; do not replay SMTP.
 7. `exception` takes a concise machine-readable `code`, such as `unreadable_cv` or `delivery_receipt_missing`. It records the issue without reopening payment or delivery. Resume only after the cause is resolved. Routine successes stay internal.
 
-`confirm_test` is restricted on the server to the zero-value internal fixture. Its proof type is `internal_test`, amount 0 and reference `HNTEST-AUTOMATION-V1`. Never use it for real customers or count it as revenue.
+`confirm_test` is restricted on the server to the zero-value internal fixture. Its proof type is `internal_test`, amount 0 and the exact fixture reference returned by `inspect` (current fixture `HNTEST-AUTOMATION-V2`). Never use it for real customers or count it as revenue.
 
 ## Assessment content and cost
 
@@ -60,6 +62,6 @@ The example illustrates shape; never send its example strings. Include multiple 
 
 ## Completion and incoming replies
 
-Completion requires a website `delivered` receipt and a matching jobs mailbox copy with the PDF. Log the source alert, owner-confirmation evidence, order key, report ID, delivery/email receipt and actual cash amount. Track delivery and receipt separately if Gmail indexing is delayed. Candidate replies to the fixed report subject should be answered in that existing thread by the same service owner. Factual corrections to an already delivered PDF remain a versioned revision; never bypass the existing delivery lock to resend the original order.
+Completion requires a website `delivered` receipt and a matching jobs mailbox copy with the PDF. Inspect the actual attachment: its byte count and SHA-256 must match the returned receipt and its content must parse as the expected three-page report. Email arrival alone does not establish valid PDF delivery. Log the source alert, owner-confirmation evidence, order key, report ID, delivery/email receipt and actual cash amount. Track delivery and receipt separately if Gmail indexing is delayed. Candidate replies to the fixed report subject should be answered in that existing thread by the same service owner. Factual corrections to an already delivered PDF remain a versioned revision; never bypass the existing delivery lock to resend the original order.
 
 No real customer has been processed by the deployment self-test. It sends only to jobs and has zero receipts. No bank feed is established by this implementation.
