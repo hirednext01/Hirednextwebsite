@@ -102,12 +102,12 @@ $knownRoleCompany = [
       <div class="lg:col-span-2"><div class="text-6xl md:text-7xl font-serif text-accent">03</div></div>
       <div class="lg:col-span-6">
         <div class="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-3">Interview Ready · Service preview</div>
-        <h2 class="text-3xl md:text-5xl font-serif font-bold text-primary leading-tight">Build the answers your CV cannot speak for you.</h2>
-        <p class="mt-4 text-gray-600 leading-relaxed max-w-2xl">Explore role-specific practice questions, the career examples worth preparing, written answer development and structured feedback for your next interview.</p>
+        <h2 class="text-3xl md:text-5xl font-serif font-bold text-primary leading-tight">Interview coming up? Know what to say.</h2>
+        <p class="mt-4 text-gray-600 leading-relaxed max-w-2xl">See our planned interview preparation pack: 10 practice questions for the job you want, help choosing examples from your work, and AI feedback on 5 answers you write.</p>
       </div>
       <div class="lg:col-span-4 lg:text-right">
-        <a href="<?= base_url('pilots/interview-ready.html?utm_source=testimonials&utm_medium=website&utm_campaign=interview_ready') ?>" class="inline-flex items-center justify-center px-7 py-4 bg-primary text-white font-black hover:bg-accent transition">Explore Interview Ready <span class="ml-3">→</span></a>
-        <p class="mt-3 text-xs text-gray-500">Preview the sample and register interest in the ₹999 pilot. No payment is taken.</p>
+        <a href="<?= base_url('pilots/interview-ready.html?utm_source=testimonials&utm_medium=website&utm_campaign=interview_ready') ?>" class="inline-flex items-center justify-center px-7 py-4 bg-primary text-white font-black hover:bg-accent transition">See the ₹999 preparation pack <span class="ml-3">→</span></a>
+        <p class="mt-3 text-xs text-gray-500">See the example and register interest. Proposed price: ₹999. The service is not open yet; no payment is taken.</p>
       </div>
     </div>
   </div>
