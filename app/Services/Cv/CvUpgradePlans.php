@@ -30,10 +30,10 @@ class CvUpgradePlans
                 'description' => 'HiredNext rebuilds the CV from the candidate’s existing document, strengthening positioning, achievement evidence, hierarchy and recruiter readability. The finished CV is created by HiredNext, not by the candidate.',
             ],
             'career_4500' => [
-                'name' => '1:1 Career Strategy Consultation',
+                'name' => '1:1 Interview Coaching with Taru Shikha',
                 'amount' => 4500,
-                'delivery' => '60-minute 1:1 session · interview preparation + resume review + salary benchmarking',
-                'description' => 'A focused one-hour career strategy session covering interview preparation, recruiter-level resume review and salary benchmarking for the candidate’s level, function and target move.',
+                'delivery' => '30-minute private session · role and company-specific interview preparation',
+                'description' => 'A focused 30-minute interview coaching session with Taru Shikha covering how to position your experience, likely interview themes, practical tips and company-specific insights where sufficient information is available.',
             ],
         ];
     }

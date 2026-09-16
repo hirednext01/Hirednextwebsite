@@ -6,6 +6,7 @@ $types = $types ?? [];
 $locations = $locations ?? [];
 $industries = $industries ?? [];
 $jobs = $jobs ?? [];
+$applicationInterest = $applicationInterest ?? [];
 $hasFilters = !empty(array_filter($filters, static fn($value) => $value !== ''));
 $activeLabels = [];
 if (!empty($filters['q'])) $activeLabels['q'] = 'Keyword: ' . $filters['q'];
@@ -20,7 +21,7 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
             <div class="max-w-3xl">
                 <div class="text-[11px] uppercase tracking-[0.24em] text-gold font-black mb-3">HiredNext Jobs</div>
                 <h1 class="text-3xl md:text-5xl font-serif font-bold leading-tight">Find your next opportunity</h1>
-                <p class="mt-3 text-sm md:text-base text-white/70 max-w-2xl">Search current employer mandates across leadership, technology, manufacturing, retail, finance and specialist functions.</p>
+                <p class="mt-3 text-sm md:text-base text-white/70 max-w-2xl">Search current employer mandates across leadership, technology, manufacturing, retail, finance and specialist functions. Active shortlists can move quickly, so apply with a CV that presents your fit clearly.</p>
             </div>
             <a href="#job-results" class="inline-flex items-center justify-center rounded-xl bg-white text-primary px-5 py-3 text-sm font-bold hover:bg-gold transition">Browse open roles ↓</a>
         </div>
@@ -95,6 +96,7 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             <?php if (!empty($jobs)): ?>
                 <?php foreach ($jobs as $job): ?>
+                    <?php $interestCount = (int) ($applicationInterest[(int) ($job['id'] ?? 0)] ?? 0); ?>
                     <article class="group bg-white border border-gray-200 rounded-2xl p-5 hover:border-primary/30 hover:shadow-lg transition-all flex flex-col min-h-[250px]">
                         <div class="flex items-start justify-between gap-3 mb-4">
                             <div class="flex flex-wrap gap-1.5">
@@ -109,6 +111,7 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
                             <?php if (!empty($job['experience'])): ?><div class="flex items-center gap-2"><span class="text-gray-400">◷</span><span><?= esc($job['experience']) ?> experience</span></div><?php endif; ?>
                         </div>
                         <div class="text-sm text-gray-500 line-clamp-2 leading-relaxed mb-5"><?= esc(trim(strip_tags($job['description'] ?? ''))) ?></div>
+                        <?php if ($interestCount > 0): ?><div class="mb-4 inline-flex items-center gap-2 rounded-lg bg-orange-50 px-3 py-2 text-xs font-bold text-orange-800"><span class="h-2 w-2 rounded-full bg-accent"></span><?= esc($interestCount) ?>+ candidates in the application pipeline</div><?php endif; ?>
                         <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
                             <span class="text-xs text-gray-400">HiredNext mandate</span>
                             <a href="<?= base_url('jobs/' . ($job['slug'] ?? '')) ?>" class="inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:text-accent transition">View job <span aria-hidden="true">→</span></a>
@@ -125,6 +128,22 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
         </div>
 
         <?php if (!empty($pager)): ?><div class="mt-10"><?= $pager->links('default', 'pager_jobs') ?></div><?php endif; ?>
+
+        <section class="mt-10 overflow-hidden rounded-2xl bg-primary text-white">
+            <div class="grid lg:grid-cols-12">
+                <div class="lg:col-span-7 p-7 md:p-9">
+                    <div class="text-[11px] uppercase tracking-[0.22em] font-black text-gold mb-3">Your CV speaks before you do</div>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold leading-tight">Make your first representation count.</h2>
+                    <p class="mt-4 text-white/75 leading-relaxed max-w-2xl">Your CV presents your experience, achievements and strengths before you meet a recruiter. A clear, well-positioned CV can improve your chances of being shortlisted. Get it assessed first, then use the score and feedback to decide whether refinement or a complete rebuild will create stronger impact.</p>
+                </div>
+                <div class="lg:col-span-5 bg-white/5 p-7 md:p-9 flex flex-col justify-center gap-3">
+                    <a href="<?= base_url('services/cv-assessment?utm_source=jobs&utm_medium=job_board&utm_campaign=cv_readiness') ?>" class="inline-flex justify-center rounded-xl bg-accent px-5 py-3.5 font-black text-white">Assess my CV — ₹599</a>
+                    <a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="inline-flex justify-center rounded-xl border border-white/30 px-5 py-3.5 font-black text-white hover:bg-white/10">Get my CV rebuilt — ₹1,799</a>
+                    <a href="<?= base_url('career-services/start/career_4500') ?>" class="inline-flex justify-center rounded-xl border border-white/30 px-5 py-3.5 font-black text-white hover:bg-white/10">1:1 interview coaching — ₹4,500</a>
+                    <p class="text-center text-xs text-white/55">30-minute private session with Taru Shikha.</p>
+                </div>
+            </div>
+        </section>
 
         <div class="mt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 bg-white border border-gray-200 rounded-2xl p-6">
             <div><div class="text-[11px] uppercase tracking-widest font-black text-accent mb-2">Not seeing the right role?</div><h3 class="text-xl font-bold text-primary">Keep exploring HiredNext opportunities.</h3><p class="text-sm text-gray-500 mt-1">Browse all current mandates or get your CV assessed before your next application.</p></div>

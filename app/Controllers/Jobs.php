@@ -74,6 +74,24 @@ class Jobs extends BaseController
         $jobs = $builder->orderBy('created_at', 'DESC')->paginate($perPage);
         $pager = $jobModel->pager;
 
+        $applicationInterest = [];
+        if ($db->tableExists('job_applications') && !empty($jobs)) {
+            $jobIds = array_values(array_filter(array_map(static fn($job) => (int) ($job['id'] ?? 0), $jobs)));
+            if (!empty($jobIds)) {
+                $applicationRows = $db->table('job_applications')
+                    ->select('job_id, COUNT(DISTINCT LOWER(email)) AS website_count', false)
+                    ->whereIn('job_id', $jobIds)
+                    ->groupBy('job_id')
+                    ->get()
+                    ->getResultArray();
+                foreach ($applicationRows as $row) {
+                    $websiteCount = (int) ($row['website_count'] ?? 0);
+                    // Naukri, WhatsApp, calls and referrals are estimated at 50% of website volume.
+                    $applicationInterest[(int) $row['job_id']] = (int) ceil($websiteCount * 1.5);
+                }
+            }
+        }
+
         $activeFilters = array_filter($query, static fn($value) => $value !== '');
         if ($pager && $activeFilters) {
             $pager->setPath(base_url('jobs'));
@@ -125,6 +143,7 @@ class Jobs extends BaseController
             'currentPage' => 'jobs',
             'settings' => $settings,
             'jobs' => $jobs,
+            'applicationInterest' => $applicationInterest,
             'pager' => $pager,
             'filters' => $query,
             'types' => array_values(array_filter(array_map(static fn($row) => trim((string) ($row['type'] ?? '')), $typeRows))),

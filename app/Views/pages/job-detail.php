@@ -6,6 +6,7 @@ $shareText = 'HiredNext opportunity: ' . ($job['title'] ?? 'Job') . (!empty($job
 $whatsAppUrl = 'https://wa.me/?text=' . rawurlencode($shareText);
 $emailUrl = 'mailto:?subject=' . rawurlencode('Job opportunity: ' . ($job['title'] ?? 'HiredNext role')) . '&body=' . rawurlencode("Thought this role may be relevant to you:\n\n" . $shareText);
 $linkedinUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode($jobUrl);
+$estimatedApplicationInterest = (int) ($estimatedApplicationInterest ?? 0);
 
 // Presentation-only related roles: read open jobs, never mutate job/application data.
 $similarJobs = [];
@@ -52,6 +53,7 @@ try {
                     <?php if (!empty($job['experience'])): ?><span>◷ <?= esc($job['experience']) ?> experience</span><?php endif; ?>
                     <?php if (!empty($job['created_at'])): ?><span>Posted <?= esc(date('d M Y', strtotime($job['created_at']))) ?></span><?php endif; ?>
                 </div>
+                <?php if ($estimatedApplicationInterest > 0): ?><div class="mt-4 inline-flex items-center gap-2 rounded-full border border-orange-300/30 bg-orange-400/10 px-4 py-2 text-sm font-bold text-orange-100"><span class="h-2 w-2 rounded-full bg-gold"></span><?= esc($estimatedApplicationInterest) ?>+ candidates are already in the application pipeline</div><?php endif; ?>
             </div>
             <div class="lg:col-span-4 lg:text-right">
                 <a href="#apply" class="inline-flex w-full lg:w-auto justify-center px-7 py-3.5 rounded-xl bg-white text-primary font-black hover:bg-gold transition">Apply for this role</a>
@@ -108,6 +110,16 @@ try {
                     <a href="#apply" class="mt-5 inline-flex w-full justify-center px-5 py-3 rounded-xl bg-primary text-white font-black hover:bg-accent transition">Apply now</a>
                 </div>
 
+                <div class="overflow-hidden rounded-2xl border border-orange-200 bg-white shadow-sm">
+                    <div class="bg-orange-50 px-5 py-4"><div class="text-[11px] uppercase tracking-widest font-black text-accent">Before you apply</div><h3 class="mt-1 text-xl font-bold text-primary">Your CV is your first representative.</h3></div>
+                    <div class="p-5"><p class="text-sm leading-relaxed text-gray-600">It presents your experience, achievements and strengths before you meet a recruiter. A clear, well-positioned CV can improve your chances of being shortlisted.</p><p class="mt-3 text-sm font-semibold text-primary">Get it assessed first, then use the score and feedback to decide whether refinement or a complete rebuild will create stronger impact.</p>
+                    <div class="mt-5 grid gap-2"><a href="<?= base_url('services/cv-assessment?job=' . rawurlencode((string) ($job['slug'] ?? '')) . '&utm_source=job_detail&utm_medium=website&utm_campaign=cv_readiness') ?>" class="rounded-xl bg-accent px-4 py-3 text-center text-sm font-black text-white">Assess my CV — ₹599</a><a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="rounded-xl border border-primary/20 px-4 py-3 text-center text-sm font-black text-primary">Get my CV rebuilt — ₹1,799</a></div></div>
+                </div>
+
+                <div class="rounded-2xl bg-primary p-5 text-white">
+                    <div class="text-[11px] uppercase tracking-widest font-black text-gold">Interview shortlisted?</div><h3 class="mt-2 text-xl font-bold">Prepare with Taru, 1:1.</h3><p class="mt-2 text-sm leading-relaxed text-white/70">A focused 30-minute coaching session on how to position your experience, likely interview themes, practical tips and company insights where available.</p><a href="<?= base_url('career-services/start/career_4500') ?>" class="mt-4 inline-flex w-full justify-center rounded-xl bg-white px-4 py-3 text-sm font-black text-primary">Book coaching — ₹4,500</a>
+                </div>
+
                 <div class="bg-white border border-gray-200 rounded-2xl p-5">
                     <div class="text-[11px] uppercase tracking-widest font-black text-accent mb-2">Know someone suitable?</div>
                     <h3 class="text-lg font-bold text-primary mb-2">Send them this job</h3>
@@ -124,7 +136,7 @@ try {
 
         <section id="apply" class="scroll-mt-24 mt-8 bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
             <div class="max-w-3xl mx-auto">
-                <div class="text-center mb-7"><div class="text-[11px] uppercase tracking-widest font-black text-accent mb-2">Confidential application</div><h2 id="apply-heading" class="text-2xl md:text-3xl font-bold text-primary">Apply for <?= esc($job['title'] ?? 'this role') ?></h2><p class="text-sm text-gray-500 mt-2">Your application is submitted only for this exact role.</p></div>
+                <div class="text-center mb-7"><div class="text-[11px] uppercase tracking-widest font-black text-accent mb-2">Confidential application</div><h2 id="apply-heading" class="text-2xl md:text-3xl font-bold text-primary">Apply for <?= esc($job['title'] ?? 'this role') ?></h2><p class="text-sm text-gray-500 mt-2">Your application is submitted only for this exact role. Make sure your CV presents the experience and impact most relevant to this mandate.</p></div>
                 <?php if (session('success')): ?><div role="status" class="rounded-xl border border-green-200 bg-green-50 text-green-700 px-5 py-4 text-sm font-semibold mb-5"><?= esc(session('success')) ?></div><?php endif; ?>
                 <?php if (session('errors')): ?><div role="alert" class="rounded-xl border border-red-200 bg-red-50 text-red-700 px-5 py-4 text-sm font-semibold mb-5"><?= esc(implode(' ', session('errors'))) ?></div><?php endif; ?>
 

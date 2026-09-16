@@ -40,10 +40,10 @@
         </article>
 
         <article class="rounded-[1.5rem] border border-gray-200 bg-white p-6 shadow-sm flex flex-col">
-            <div class="text-sm font-black text-accent">₹4,500 · 60 MINUTES</div>
-            <h3 class="text-2xl font-serif font-bold text-primary mt-2">1:1 Career Strategy Consultation</h3>
-            <p class="text-sm text-gray-600 mt-3 leading-relaxed">One focused session covering interview preparation, resume review and salary benchmarking for your level, function and target move.</p>
-            <a href="<?= base_url('career-services/start/career_4500') ?>" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Book the 60-minute consultation →</a>
+            <div class="text-sm font-black text-accent">₹4,500 · 30 MINUTES</div>
+            <h3 class="text-2xl font-serif font-bold text-primary mt-2">1:1 Interview Coaching with Taru</h3>
+            <p class="text-sm text-gray-600 mt-3 leading-relaxed">Prepare for a specific interview with sharper positioning, likely interview themes, practical tips and company insights where sufficient information is available.</p>
+            <a href="<?= base_url('career-services/start/career_4500') ?>" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Book private interview coaching →</a>
             <div class="mt-auto pt-6"><?= view('pages/services/_candidate-success', ['successKey' => 'strategy']) ?></div>
         </article>
 

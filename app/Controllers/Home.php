@@ -703,9 +703,32 @@ class Home extends BaseController
             'currentPage' => 'jobs',
             'settings' => $settings,
             'job' => $job,
+            'estimatedApplicationInterest' => $this->estimatedApplicationInterest((int) ($job['id'] ?? 0)),
         ];
 
         return view('pages/job-detail', $data);
+    }
+
+    private function estimatedApplicationInterest(int $jobId): int
+    {
+        if ($jobId < 1) return 0;
+
+        try {
+            $db = \Config\Database::connect();
+            if (!$db->tableExists('job_applications')) return 0;
+            $countRow = $db->table('job_applications')
+                ->select('COUNT(DISTINCT LOWER(email)) AS website_count', false)
+                ->where('job_id', $jobId)
+                ->get()
+                ->getRowArray();
+            $websiteCount = (int) ($countRow['website_count'] ?? 0);
+
+            // Include an explicit 50% estimate for applications received via
+            // Naukri, WhatsApp, calls and referrals outside this website.
+            return (int) ceil($websiteCount * 1.5);
+        } catch (\Throwable $e) {
+            return 0;
+        }
     }
 
     public function applyJob($slug = null)

@@ -118,14 +118,14 @@
                     <a href="<?= base_url('services/candidates?utm_source=website&utm_medium=homepage&utm_campaign=cv_rebuild') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Explore CV rebuild</a>
                 </article>
                 <article class="rounded-2xl border border-primary/15 bg-white p-7 flex flex-col">
-                    <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">New service preview</p>
-                    <h3 class="text-2xl font-serif font-bold text-primary mb-2">Interview Ready</h3>
-                    <p class="text-3xl font-bold text-primary mb-4">₹999 <span class="text-sm font-normal text-gray-500">proposed one-time price</span></p>
-                    <p class="text-gray-600 leading-relaxed mb-6">See a sample of role questions, career examples and written-answer feedback. Register interest; no payment is taken.</p>
-                    <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=homepage&utm_campaign=interview_ready') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Preview Interview Ready</a>
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Interview shortlisted?</p>
+                    <h3 class="text-2xl font-serif font-bold text-primary mb-2">1:1 Interview Coaching</h3>
+                    <p class="text-3xl font-bold text-primary mb-4">₹4,500 <span class="text-sm font-normal text-gray-500">30 minutes</span></p>
+                    <p class="text-gray-600 leading-relaxed mb-6">Prepare with Taru Shikha on how to position your experience, likely interview themes, practical tips and company insights where available.</p>
+                    <a href="<?= base_url('career-services/start/career_4500') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Book private coaching</a>
                 </article>
             </div>
-            <p class="text-sm text-gray-600 mt-6">Career services are optional. Buying a service does not affect job consideration or guarantee an interview or job.</p>
+            <p class="text-sm text-gray-600 mt-6">Career services are optional and do not buy preference in recruitment. Stronger presentation and preparation can improve how clearly your fit is understood, but no service guarantees shortlisting, an interview or a job.</p>
         </div>
     </section>
 

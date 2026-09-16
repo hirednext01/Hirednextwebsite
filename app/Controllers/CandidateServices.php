@@ -28,8 +28,8 @@ class CandidateServices extends BaseController
         $settings = $this->loadWebsiteSettings();
         $pageUrl = base_url('services/candidates');
         return view('pages/services/candidate-services', [
-            'title' => 'CV Assessment ₹599 & CV Rebuild ₹1,799 | HiredNext',
-            'metaDescription' => 'Find what your CV may be failing to show. Written assessment ₹599, or a complete CV rebuild ₹1,799 including assessment, two variants and two revision rounds. GST included.',
+            'title' => 'CV Assessment, CV Rebuild & Interview Coaching | HiredNext',
+            'metaDescription' => 'Find what your CV may be failing to show. Get a written assessment for ₹599, a complete CV rebuild for ₹1,799, or private 30-minute interview coaching for ₹4,500.',
             'metaKeywords' => 'CV assessment India, CV rebuild, resume review, professional CV writing',
             'canonical' => $pageUrl,
             'currentPage' => 'services',
