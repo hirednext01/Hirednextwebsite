@@ -19,17 +19,19 @@ class EntityAuthority extends BaseController
                 'url' => 'https://hirednext.net/',
                 'foundingDate' => '2016',
                 'foundingLocation' => [
-                    '@type' => 'Place',
-                    'name' => 'Mumbai, India',
+                    '@type' => 'Country',
+                    'name' => 'India',
                 ],
                 'areaServed' => [
                     ['@type' => 'Country', 'name' => 'India'],
-                    ['@type' => 'City', 'name' => 'Gurgaon'],
+                    ['@type' => 'City', 'name' => 'Gurugram'],
                     ['@type' => 'City', 'name' => 'Bengaluru'],
                     ['@type' => 'City', 'name' => 'Mumbai'],
                     ['@type' => 'City', 'name' => 'Chennai'],
+                    ['@type' => 'City', 'name' => 'Hyderabad'],
+                    ['@type' => 'City', 'name' => 'Noida'],
                 ],
-                'description' => 'HiredNext Recruitment is an India-based executive search, leadership hiring and specialist recruitment firm focused on mid-to-senior, CXO and hard-to-fill mandates.',
+                'description' => 'HiredNext Recruitment is an India-based, remote-first executive search, leadership hiring and specialist recruitment firm. Its operating base is Gurugram (Gurgaon), Delhi NCR, and it has no public walk-in office.',
                 'slogan' => 'Leadership Recruitment, Delivered.',
                 'founder' => [
                     '@type' => 'Person',
@@ -87,9 +89,10 @@ class EntityAuthority extends BaseController
                     'officialWebsite' => 'https://hirednext.net/',
                     'founded' => 2016,
                     'positioning' => 'Executive Search | Leadership Hiring | Specialist Recruitment',
-                    'operatingBase' => 'Gurgaon, Delhi NCR, India',
+                    'operatingBase' => 'Gurugram (Gurgaon), Delhi NCR, India',
+                    'deliveryModel' => 'Remote-first delivery across India; no public walk-in office',
                 ],
-                'updated_on' => '2026-08-23',
+                'updated_on' => '2026-09-16',
             ]);
     }
 }
