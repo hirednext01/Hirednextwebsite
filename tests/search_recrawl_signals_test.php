@@ -1,4 +1,5 @@
 <?php
+// Regression gate for Google/AI recrawl freshness and discovery signals.
 $root = dirname(__DIR__);
 $failures = [];
 $require = static function (bool $condition, string $message) use (&$failures): void {
