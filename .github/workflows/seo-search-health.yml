@@ -9,6 +9,7 @@ on:
       - 'app/Config/BrandFacts.php'
       - 'app/Controllers/EntityAuthority.php'
       - 'tests/search_entity_consistency_test.php'
+      - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   pull_request:
     paths:
@@ -18,6 +19,7 @@ on:
       - 'app/Config/BrandFacts.php'
       - 'app/Controllers/EntityAuthority.php'
       - 'tests/search_entity_consistency_test.php'
+      - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   workflow_dispatch:
 
