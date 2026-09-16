@@ -6,6 +6,10 @@ use App\Controllers\BaseController;
 
 class Seo extends BaseController
 {
+    private const REDIRECTED_BLOG_SLUGS = [
+        'best-recruitment-company-in-india-why-hirednext-recruitment-leads-in-2026',
+    ];
+
     public function robots()
     {
         $body = "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin/\n\n";
@@ -28,6 +32,7 @@ class Seo extends BaseController
             ['loc' => base_url('services/rpo'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/avron'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => base_url('services/cv-assessment'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('pilots/interview-ready.html'), 'lastmod' => '2026-09-17', 'changefreq' => 'weekly', 'priority' => '0.7'],
 
             // Priority commercial recruitment verticals.
             ['loc' => base_url('industry/garment-textile-recruitment-india'), 'lastmod' => '2026-08-14', 'changefreq' => 'monthly', 'priority' => '0.9'],
@@ -76,6 +81,9 @@ class Seo extends BaseController
         }
         if ($db->tableExists('blog_posts')) {
             foreach ($db->table('blog_posts')->select('slug, title, featured_image, published_at, updated_at')->where('status', 'published')->get()->getResultArray() as $row) {
+                if (in_array((string)($row['slug'] ?? ''), self::REDIRECTED_BLOG_SLUGS, true)) {
+                    continue;
+                }
                 $image = trim((string)($row['featured_image'] ?? ''));
                 if ($image !== '' && !preg_match('#^https?://#i', $image)) {
                     $image = base_url(ltrim($image, '/'));
