@@ -101,8 +101,8 @@
         <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
             <p class="text-accent text-xs font-black uppercase tracking-[0.2em] mb-3">For your next career move</p>
             <h2 id="career-services-title" class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Not getting shortlisted? Start with your CV.</h2>
-            <p class="text-gray-600 max-w-3xl mb-8">See what your CV communicates about your fit for the role, choose a rebuild if you need one, or explore interview preparation.</p>
-            <div class="grid md:grid-cols-3 gap-5">
+            <p class="text-gray-600 max-w-3xl mb-8">Assess your CV, have it rebuilt, practise interview answers or prepare 1-to-1 with Taru Shikha.</p>
+            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
                 <article class="rounded-2xl bg-primary text-white p-7 flex flex-col">
                     <p class="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">Start here</p>
                     <h3 class="text-2xl font-serif font-bold mb-2">CV assessment</h3>
@@ -118,11 +118,20 @@
                     <a href="<?= base_url('services/candidates?utm_source=website&utm_medium=homepage&utm_campaign=cv_rebuild') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Explore CV rebuild</a>
                 </article>
                 <article class="rounded-2xl border border-primary/15 bg-white p-7 flex flex-col">
-                    <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Interview shortlisted?</p>
-                    <h3 class="text-2xl font-serif font-bold text-primary mb-2">1:1 Interview Coaching</h3>
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Practise your answers</p>
+                    <h3 class="text-2xl font-serif font-bold text-primary mb-2">Interview Ready</h3>
+                    <p class="text-3xl font-bold text-primary mb-4">₹999 <span class="text-sm font-normal text-gray-500">proposed price</span></p>
+                    <p class="text-gray-600 leading-relaxed mb-4">10 practice questions for your target job, help choosing work examples, and AI feedback on 5 answers you write.</p>
+                    <p class="text-xs text-gray-500 mb-6">Preview the planned pack. Register interest only; no payment today.</p>
+                    <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=homepage&utm_campaign=interview_ready') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Explore Interview Ready</a>
+                </article>
+                <article class="rounded-2xl border border-primary/15 bg-white p-7 flex flex-col">
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Speak with Taru Shikha</p>
+                    <h3 class="text-2xl font-serif font-bold text-primary mb-2">1-to-1 consultation</h3>
                     <p class="text-3xl font-bold text-primary mb-4">₹4,500 <span class="text-sm font-normal text-gray-500">30 minutes</span></p>
-                    <p class="text-gray-600 leading-relaxed mb-6">Prepare with Taru Shikha on how to position your experience, likely interview themes, practical tips and company insights where available.</p>
-                    <a href="<?= base_url('career-services/start/career_4500') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Book private coaching</a>
+                    <p class="text-gray-600 leading-relaxed mb-4">Prepare your interview answers, explain your strengths clearly and get practical guidance from Taru Shikha.</p>
+                    <p class="text-xs text-gray-500 mb-6">The HiredNext team shares her available slots by email.</p>
+                    <a href="<?= base_url('career-services/start/career_4500') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">View consultation</a>
                 </article>
             </div>
             <p class="text-sm text-gray-600 mt-6">Career services are optional and do not buy preference in recruitment. Stronger presentation and preparation can improve how clearly your fit is understood, but no service guarantees shortlisting, an interview or a job.</p>

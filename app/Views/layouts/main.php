@@ -180,8 +180,12 @@
                                     <span class="block text-xs text-gray-500 mt-1">CV, interview & senior career advisory</span>
                                 </a>
                                 <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=navigation&utm_campaign=interview_ready') ?>" class="block rounded-xl px-5 py-4 hover:bg-gray-50 transition">
-                                    <span class="block text-sm font-extrabold text-primary">Interview Ready <span class="text-xs font-normal">· Preview</span></span>
-                                    <span class="block text-xs text-gray-500 mt-1">Explore the sample and register interest</span>
+                                    <span class="block text-sm font-extrabold text-primary">Interview Ready <span class="text-xs font-normal">· ₹999 preview</span></span>
+                                    <span class="block text-xs text-gray-500 mt-1">Practice questions and feedback on your answers</span>
+                                </a>
+                                <a href="<?= base_url('career-services/start/career_4500') ?>" class="block rounded-xl px-5 py-4 hover:bg-gray-50 transition">
+                                    <span class="block text-sm font-extrabold text-primary">1-to-1 consultation</span>
+                                    <span class="block text-xs text-gray-500 mt-1">30 minutes with Taru Shikha · ₹4,500</span>
                                 </a>
                             </div>
                         </div>
@@ -212,7 +216,8 @@
                     <div class="space-y-2 pl-2">
                         <a href="<?= base_url('services/clients') ?>" class="mobile-link block font-bold">For Clients</a>
                         <a href="<?= base_url('services/candidates') ?>" class="mobile-link block font-bold">For Candidates</a>
-                        <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=mobile_navigation&utm_campaign=interview_ready') ?>" class="mobile-link block font-bold">Interview Ready · Preview</a>
+                        <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=mobile_navigation&utm_campaign=interview_ready') ?>" class="mobile-link block font-bold">Interview Ready · ₹999 preview</a>
+                        <a href="<?= base_url('career-services/start/career_4500') ?>" class="mobile-link block font-bold">1-to-1 consultation · ₹4,500</a>
                     </div>
                 </div>
                 <a href="<?= base_url('testimonials') ?>" class="mobile-link">Testimonials</a>
@@ -254,7 +259,8 @@
                         <li><a href="<?= base_url('about') ?>" class="hover:text-accent">About</a></li>
                         <li><a href="<?= base_url('services/clients') ?>" class="hover:text-accent">Services for Clients</a></li>
                         <li><a href="<?= base_url('services/candidates') ?>" class="hover:text-accent">Services for Candidates</a></li>
-                        <li><a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=footer&utm_campaign=interview_ready') ?>" class="hover:text-accent">Interview Ready Preview</a></li>
+                        <li><a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=footer&utm_campaign=interview_ready') ?>" class="hover:text-accent">Interview Ready · ₹999 preview</a></li>
+                        <li><a href="<?= base_url('career-services/start/career_4500') ?>" class="hover:text-accent">1-to-1 consultation · ₹4,500</a></li>
                         <li><a href="<?= base_url('blog') ?>" class="hover:text-accent">Insights & Blog</a></li>
                         <li><a href="<?= base_url('jobs') ?>" class="hover:text-accent">Jobs</a></li>
                     </ul>

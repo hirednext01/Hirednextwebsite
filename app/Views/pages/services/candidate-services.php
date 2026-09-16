@@ -27,6 +27,34 @@
     <?= view('pages/services/_candidate-offers', ['primaryOnly' => true]) ?>
 </section>
 
+<section id="interview-support" aria-labelledby="interview-support-title" class="py-16 bg-[#f6f0e7]">
+    <div class="max-w-[1040px] mx-auto px-4 sm:px-8">
+        <div class="max-w-3xl mb-8">
+            <p class="text-accent text-xs font-black uppercase tracking-[0.2em] mb-3">Prepare for the conversation</p>
+            <h2 id="interview-support-title" class="text-3xl md:text-4xl font-serif font-bold text-primary">Interview coming up? Know what to say.</h2>
+            <p class="text-gray-600 mt-4">Explore written practice or speak 1-to-1 with Taru Shikha. Choose the support you need.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+            <article class="rounded-2xl border border-primary/15 bg-white p-8 flex flex-col">
+                <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Practise your answers</p>
+                <h3 class="text-3xl font-serif font-bold text-primary mb-3">Interview Ready</h3>
+                <p class="text-2xl font-bold text-primary mb-4">₹999 <span class="text-sm font-normal text-gray-500">proposed price</span></p>
+                <p class="text-gray-600 leading-relaxed mb-4">10 practice questions for your target job, help choosing examples from your experience, AI feedback on 5 answers you write, and a pack you can download.</p>
+                <p class="text-sm text-gray-500 mb-6">The service is not open yet. See the example and register interest; no payment today.</p>
+                <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=candidate_services&utm_campaign=interview_ready') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Explore Interview Ready</a>
+            </article>
+            <article class="rounded-2xl border border-primary/15 bg-white p-8 flex flex-col">
+                <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Speak with Taru Shikha</p>
+                <h3 class="text-3xl font-serif font-bold text-primary mb-3">1-to-1 consultation</h3>
+                <p class="text-2xl font-bold text-primary mb-4">₹4,500 <span class="text-sm font-normal text-gray-500">30 minutes</span></p>
+                <p class="text-gray-600 leading-relaxed mb-4">Prepare your interview answers, explain your strengths clearly and get practical guidance from Taru Shikha, including company insights where available.</p>
+                <p class="text-sm text-gray-500 mb-6">The HiredNext team shares her available slots by email and confirms the time with you.</p>
+                <a href="<?= base_url('career-services/start/career_4500') ?>" class="mt-auto inline-flex justify-center rounded-xl bg-primary text-white px-5 py-3 font-bold">View consultation</a>
+            </article>
+        </div>
+    </div>
+</section>
+
 <section id="cv-creation" class="py-20 bg-white">
 <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
     <div class="grid lg:grid-cols-12 gap-10 items-start">
