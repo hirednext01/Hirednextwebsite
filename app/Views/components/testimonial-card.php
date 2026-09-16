@@ -32,7 +32,13 @@ $isCandidate = $relationship === 'placed_candidate';
 if ($isCandidate) {
     // These employers also occur in an approved story whose company field is
     // empty. Redact the public wording while retaining the original submission.
-    $confidentialEmployers = array_filter([$company, 'Zecode by Siyaram’s', "Zecode by Siyaram's"]);
+    // Legacy database rows may omit company while retaining it in placement_role.
+    // Use their preserved source records to recognise those employers as well.
+    $confidentialEmployers = array_values(array_unique(array_filter(array_merge(
+        [$company, 'Zecode by Siyaram’s', "Zecode by Siyaram's"],
+        array_column(\Config\HistoricalTestimonials::all(), 'company')
+    ))));
+    usort($confidentialEmployers, static fn($left, $right) => strlen($right) <=> strlen($left));
     $quote = str_ireplace($confidentialEmployers, 'the employer', (string) $quote);
     $placementRole = str_ireplace($confidentialEmployers, '', $placementRole);
     $role = str_ireplace($confidentialEmployers, '', $role);
