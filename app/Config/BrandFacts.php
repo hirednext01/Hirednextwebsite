@@ -9,6 +9,7 @@ class BrandFacts extends BaseConfig
     /**
      * Canonical public facts for HiredNext. Numeric performance claims are
      * maintained separately below so their source status stays explicit.
+     * Founding history and current operating/registration location are distinct.
      */
     public array $facts = [
         'organization_name' => 'HiredNext Recruitment',
