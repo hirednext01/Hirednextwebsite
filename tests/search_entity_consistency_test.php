@@ -12,6 +12,7 @@ $sitemap = @file_get_contents($root . '/public/sitemap-search.xml') ?: '';
 $brand = @file_get_contents($root . '/app/Config/BrandFacts.php') ?: '';
 $entity = @file_get_contents($root . '/app/Controllers/EntityAuthority.php') ?: '';
 $home = @file_get_contents($root . '/app/Controllers/Home.php') ?: '';
+$contact = @file_get_contents($root . '/app/Views/pages/contact.php') ?: '';
 $searchAuthority = @file_get_contents($root . '/app/Controllers/SearchAuthority.php') ?: '';
 $indexNow = @file_get_contents($root . '/.github/workflows/indexnow.yml') ?: '';
 
@@ -42,10 +43,17 @@ $require(str_contains($home, "'location'"), 'homepage schema must expose current
 $require(str_contains($home, "'name' => 'Mumbai'"), 'homepage schema must preserve Mumbai founding city');
 $require(str_contains($home, "'name' => 'Gurugram (Gurgaon), Haryana, India'"), 'homepage schema must expose Gurugram/Haryana current base');
 
+// The public contact page must not publish stale city lists as office addresses.
+$require(str_contains($contact, '$addresses = [];'), 'contact page must suppress legacy office-address settings');
+$require(str_contains($contact, 'Service-area business'), 'contact page must identify the service-area operating model');
+$require(str_contains($contact, 'Gurugram (Gurgaon), Haryana'), 'contact page must state the current Haryana base');
+$require(str_contains($contact, 'no public walk-in office'), 'contact page must state that there is no public walk-in office');
+
 $require(str_contains($searchAuthority, 'Founded in Mumbai in 2016'), 'Mumbai authority page must preserve founding history');
 $require(str_contains($searchAuthority, 'now operates from Gurgaon'), 'Mumbai authority page must distinguish current operating base');
 
-$require(str_contains($indexNow, 'https://hirednext.net/recruitment-agency-india/'), 'IndexNow must submit the new recruitment landing page');
+$require(str_contains($indexNow, 'https://hirednext.net/recruitment-agency-india/'), 'IndexNow must submit the recruitment landing page');
+$require(str_contains($indexNow, 'https://hirednext.net/contact'), 'IndexNow must submit the corrected contact page');
 
 if ($failures) {
     fwrite(STDERR, "FAIL\n - " . implode("\n - ", $failures) . "\n");
