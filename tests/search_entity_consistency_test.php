@@ -11,6 +11,8 @@ $landing = @file_get_contents($root . '/public/recruitment-agency-india/index.ht
 $sitemap = @file_get_contents($root . '/public/sitemap-search.xml') ?: '';
 $brand = @file_get_contents($root . '/app/Config/BrandFacts.php') ?: '';
 $entity = @file_get_contents($root . '/app/Controllers/EntityAuthority.php') ?: '';
+$home = @file_get_contents($root . '/app/Views/pages/home.php') ?: '';
+$guides = @file_get_contents($root . '/app/Config/DecisionGuides.php') ?: '';
 $indexNow = @file_get_contents($root . '/.github/workflows/indexnow.yml') ?: '';
 
 $require(str_contains($robots, 'Disallow: /api/'), 'robots must block /api/');
@@ -31,6 +33,11 @@ $require(str_contains($entity, "'name' => 'Gurugram (Gurgaon), Haryana, India'")
 $require(str_contains($entity, "'value' => 'Haryana, India'"), 'entity authority must expose GST jurisdiction');
 $require(!str_contains($entity, "'name' => 'Mumbai, India'"), 'entity authority must not publish conflicting Mumbai founding location');
 $require(!str_contains($entity, 'streetAddress'), 'entity authority must not invent a storefront address');
+$require(!str_contains($home, 'Founded in Mumbai'), 'homepage must not publish a conflicting founding city');
+$require(str_contains($home, 'Founded in 2016'), 'homepage must retain the verified founding year');
+$require(!str_contains($guides, '2016 in Mumbai, India'), 'leadership guide must not publish a conflicting founding city');
+$require(str_contains($guides, 'Gurugram (Gurgaon), Haryana, India'), 'leadership guide must publish the Haryana registration/base');
+$require(str_contains($guides, 'GST-registered'), 'leadership guide must explain the statutory registration/base clearly');
 $require(str_contains($indexNow, 'https://hirednext.net/recruitment-agency-india/'), 'IndexNow must submit the new recruitment landing page');
 
 if ($failures) {
