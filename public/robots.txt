@@ -1,13 +1,14 @@
+# HiredNext public content is open to search engines and AI-search crawlers.
 User-agent: *
 Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /candidate-resume
+Disallow: /uploads/resumes/
+Disallow: /cv-upgrade/
+Disallow: /cv-payment/
+Disallow: /advisory/payment/
+Disallow: /career-services/start/
 
 Sitemap: https://hirednext.net/sitemap.xml
+Sitemap: https://hirednext.net/sitemap-search.xml
