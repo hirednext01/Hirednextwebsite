@@ -282,7 +282,8 @@
                 <div>
                     <h4 class="font-bold mb-3 uppercase tracking-widest text-sm">Executive Search in India</h4>
                     <div class="flex flex-wrap gap-x-3 gap-y-2 text-sm text-white/70">
-                        <a href="<?= base_url('services/executive-search') ?>" class="hover:text-accent">Executive Search India</a>
+                        <a href="<?= base_url('recruitment-agency-india/') ?>" class="hover:text-accent">Recruitment Agency India</a>
+                        <span>•</span>                        <a href="<?= base_url('services/executive-search') ?>" class="hover:text-accent">Executive Search India</a>
                         <span>•</span><a href="<?= base_url('regions/executive-search-bangalore') ?>" class="hover:text-accent">Leadership Hiring Bangalore</a>
                         <span>•</span><a href="<?= base_url('regions/executive-search-gurgaon') ?>" class="hover:text-accent">CXO Recruitment Gurgaon</a>
                     </div>

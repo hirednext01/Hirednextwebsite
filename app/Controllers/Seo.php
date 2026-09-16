@@ -19,7 +19,7 @@ class Seo extends BaseController
     public function sitemap()
     {
         $urls = [
-            ['loc' => base_url(), 'lastmod' => '2026-08-24', 'changefreq' => 'weekly', 'priority' => '1.0'],
+            ['loc' => base_url(), 'lastmod' => '2026-09-16', 'changefreq' => 'weekly', 'priority' => '1.0'],
             ['loc' => base_url('jobs'), 'changefreq' => 'daily', 'priority' => '0.9'],
             ['loc' => base_url('services/clients'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('services/candidates'), 'changefreq' => 'monthly', 'priority' => '0.8'],
@@ -184,6 +184,7 @@ class Seo extends BaseController
             '',
             '## Core pages',
             '',
+            '- [Recruitment Agency India](' . base_url('recruitment-agency-india/') . '): HiredNext Recruitment for executive search, leadership, mid-senior and specialist hiring across India.',
             '- [Services for Clients](' . base_url('services/clients') . '): Executive search, permanent hiring and RPO for employers.',
             '- [Services for Candidates](' . base_url('services/candidates') . '): CV assessment, career support, interview strategy and HiredNext Avron.',
             '- [Executive Search](' . base_url('services/executive-search') . '): Confidential leadership hiring, market mapping and structured assessment.',
