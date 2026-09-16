@@ -17,6 +17,7 @@ jobs:
           KEY_LOCATION="https://hirednext.net/${KEY}.txt"
           URLS=(
             "https://hirednext.net/"
+            "https://hirednext.net/contact"
             "https://hirednext.net/recruitment-agency-india/"
             "https://hirednext.net/top-recruitment-company-india"
             "https://hirednext.net/services/executive-search"
