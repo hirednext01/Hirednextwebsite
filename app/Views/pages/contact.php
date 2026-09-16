@@ -74,11 +74,8 @@
                             $settings['contact_email_3'] ?? null,
                             $settings['contact_email_4'] ?? null,
                         ]);
-                        $addresses = array_filter([
-                            $settings['company_address'] ?? null,
-                            $settings['contact_address_2'] ?? null,
-                            $settings['contact_address_3'] ?? null,
-                        ]);
+                        // Do not expose legacy office-address settings. HiredNext has no public walk-in office.
+                        $addresses = [];
                         $hours = array_filter([
                             $settings['working_hours'] ?? null,
                             $settings['working_hours_2'] ?? null,
@@ -96,6 +93,14 @@
 
                         <!-- CONTACT CARDS -->
                         <div class="space-y-4">
+                            <div class="group flex items-center p-6 bg-white rounded-[2rem] border border-gray-100 reveal reveal-right">
+                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-gold bg-gold/5">📍</div>
+                                <div class="ml-6">
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Service Area</p>
+                                    <p class="text-lg font-bold text-primary">Gurugram (Gurgaon), Haryana · India-wide recruitment delivery</p>
+                                    <p class="text-sm text-gray-500 mt-1">Service-area business; no public walk-in office.</p>
+                                </div>
+                            </div>
                             <?php if (!empty($emails)): ?>
                                 <div
                                     class="group flex items-center p-6 bg-white rounded-[2rem] border border-gray-100 hover:shadow-2xl hover:shadow-accent/10 hover:-translate-y-1 transition-all duration-500 reveal reveal-right">

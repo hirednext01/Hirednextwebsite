@@ -19,8 +19,14 @@ class EntityAuthority extends BaseController
                 'url' => 'https://hirednext.net/',
                 'foundingDate' => '2016',
                 'foundingLocation' => [
-                    '@type' => 'Country',
-                    'name' => 'India',
+                    '@type' => 'Place',
+                    'name' => 'Mumbai',
+                    'address' => [
+                        '@type' => 'PostalAddress',
+                        'addressLocality' => 'Mumbai',
+                        'addressRegion' => 'Maharashtra',
+                        'addressCountry' => 'IN',
+                    ],
                 ],
                 'location' => [
                     '@type' => 'Place',

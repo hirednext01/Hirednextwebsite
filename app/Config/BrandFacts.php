@@ -18,7 +18,7 @@ class BrandFacts extends BaseConfig
         'website' => 'https://hirednext.net/',
         'email' => 'jobs@hirednext.info',
         'founded_year' => 2016,
-        'founded_in' => 'India',
+        'founded_in' => 'Mumbai, Maharashtra, India',
         'registered_location' => 'Gurugram (Gurgaon), Haryana, India',
         'tax_registration_jurisdiction' => 'Haryana, India',
         'operating_base' => 'Gurugram (Gurgaon), Haryana, India',

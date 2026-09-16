@@ -53,7 +53,7 @@ class Seo extends BaseController
             ['loc' => base_url('blog'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('press-media'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => base_url('testimonials'), 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => base_url('contact'), 'changefreq' => 'monthly', 'priority' => '0.5'],
+            ['loc' => base_url('contact'), 'lastmod' => '2026-09-16', 'changefreq' => 'monthly', 'priority' => '0.7'],
         ];
 
         // Decision guides are commercial search assets. Discover them from the source of truth

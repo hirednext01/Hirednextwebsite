@@ -64,6 +64,20 @@ class Home extends BaseController
                     'url' => $brand['website'] ?? 'https://hirednext.net/',
                     'email' => $brand['email'] ?? 'jobs@hirednext.info',
                     'foundingDate' => (string)($brand['founded_year'] ?? 2016),
+                    'foundingLocation' => [
+                        '@type' => 'Place',
+                        'name' => 'Mumbai',
+                        'address' => [
+                            '@type' => 'PostalAddress',
+                            'addressLocality' => 'Mumbai',
+                            'addressRegion' => 'Maharashtra',
+                            'addressCountry' => 'IN',
+                        ],
+                    ],
+                    'location' => [
+                        '@type' => 'Place',
+                        'name' => 'Gurugram (Gurgaon), Haryana, India',
+                    ],
                     'description' => 'HiredNext is a talent advisory and recruitment firm specializing in executive search, leadership hiring and specialist recruitment across India.',
                     'areaServed' => [
                         '@type' => 'Country',
