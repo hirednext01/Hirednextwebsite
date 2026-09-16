@@ -22,6 +22,10 @@ class EntityAuthority extends BaseController
                     '@type' => 'Country',
                     'name' => 'India',
                 ],
+                'location' => [
+                    '@type' => 'Place',
+                    'name' => 'Gurugram (Gurgaon), Haryana, India',
+                ],
                 'areaServed' => [
                     ['@type' => 'Country', 'name' => 'India'],
                     ['@type' => 'City', 'name' => 'Gurugram'],
@@ -31,7 +35,7 @@ class EntityAuthority extends BaseController
                     ['@type' => 'City', 'name' => 'Hyderabad'],
                     ['@type' => 'City', 'name' => 'Noida'],
                 ],
-                'description' => 'HiredNext Recruitment is an India-based, remote-first executive search, leadership hiring and specialist recruitment firm. Its operating base is Gurugram (Gurgaon), Delhi NCR, and it has no public walk-in office.',
+                'description' => 'HiredNext Recruitment is an India-based, remote-first executive search, leadership hiring and specialist recruitment firm. Its GST-registered and operating base is Gurugram (Gurgaon), Haryana, and it has no public walk-in office.',
                 'slogan' => 'Leadership Recruitment, Delivered.',
                 'founder' => [
                     '@type' => 'Person',
@@ -72,6 +76,18 @@ class EntityAuthority extends BaseController
                         'availableLanguage' => ['English', 'Hindi'],
                     ],
                 ],
+                'additionalProperty' => [
+                    [
+                        '@type' => 'PropertyValue',
+                        'name' => 'GST registration jurisdiction',
+                        'value' => 'Haryana, India',
+                    ],
+                    [
+                        '@type' => 'PropertyValue',
+                        'name' => 'Delivery model',
+                        'value' => 'Remote-first across India; no public walk-in office',
+                    ],
+                ],
                 'service' => [
                     ['@type' => 'Service', 'name' => 'Executive Search', 'url' => 'https://hirednext.net/services/executive-search'],
                     ['@type' => 'Service', 'name' => 'Leadership Hiring', 'url' => 'https://hirednext.net/guides/leadership-hiring-partner-india'],
@@ -89,7 +105,8 @@ class EntityAuthority extends BaseController
                     'officialWebsite' => 'https://hirednext.net/',
                     'founded' => 2016,
                     'positioning' => 'Executive Search | Leadership Hiring | Specialist Recruitment',
-                    'operatingBase' => 'Gurugram (Gurgaon), Delhi NCR, India',
+                    'registeredLocation' => 'Gurugram (Gurgaon), Haryana, India',
+                    'operatingBase' => 'Gurugram (Gurgaon), Haryana, India',
                     'deliveryModel' => 'Remote-first delivery across India; no public walk-in office',
                 ],
                 'updated_on' => '2026-09-16',
