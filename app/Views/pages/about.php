@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="rounded-[2rem] overflow-hidden border border-primary/10 shadow-2xl shadow-primary/10 bg-white"><img src="<?= base_url('theme/taru-shikha-founder.webp') ?>" alt="Taru Shikha, Founder and CEO of HiredNext Recruitment" class="w-full h-auto block" loading="eager"></div>
+            <div class="rounded-[2rem] overflow-hidden border border-primary/10 shadow-2xl shadow-primary/10 bg-white"><img src="<?= base_url('theme/taru-shikha-founder-crisp.webp') ?>" alt="Taru Shikha, Founder and CEO of HiredNext Recruitment" width="1536" height="1024" class="w-full h-auto block" loading="eager" decoding="async"></div>
         </div>
         <div class="mt-14 pt-8 border-t border-primary/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div><div class="text-2xl md:text-3xl font-serif font-bold text-primary">10+ years</div><div class="text-xs uppercase tracking-widest text-gray-500 mt-2">Recruitment experience</div></div>
@@ -62,10 +62,12 @@
     </div>
 </section>
 
-<section class="py-0 bg-white">
+<section id="founder-card" aria-label="A message from our founder" class="py-0 bg-white scroll-mt-24">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
         <div class="rounded-[2rem] overflow-hidden border border-gray-200 shadow-xl shadow-primary/5">
-            <img src="<?= base_url('theme/taru-shikha-founder.webp') ?>" alt="Taru Shikha in a HiredNext office setting" class="w-full h-auto block" loading="lazy">
+            <a href="<?= base_url('theme/taru-shikha-founder-card.png') ?>" target="_blank" rel="noopener" class="block" aria-label="View Taru Shikha's original founder card at full size">
+                <img src="<?= base_url('theme/taru-shikha-founder-card.png') ?>" alt="Built on Experience. Driven by People. Taru Shikha's founder message, portrait and signature." width="1536" height="1024" class="w-full h-auto block" loading="lazy" decoding="async">
+            </a>
             <div class="bg-primary text-white px-6 py-5 md:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                 <div><div class="text-xl font-serif font-bold">Taru Shikha</div><div class="text-sm text-white/60 mt-1">Founder &amp; CEO · HiredNext Recruitment</div></div>
                 <div class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.18em] font-bold text-white/55"><span>Executive Search</span><span>Leadership Hiring</span><span>Human-led · AI-assisted</span></div>
