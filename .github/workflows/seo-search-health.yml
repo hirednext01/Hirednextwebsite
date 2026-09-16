@@ -1,0 +1,45 @@
+name: SEO and AI Search Health
+
+on:
+  push:
+    paths:
+      - 'public/robots.txt'
+      - 'public/sitemap-search.xml'
+      - 'public/recruitment-agency-india/**'
+      - 'app/Config/BrandFacts.php'
+      - 'app/Controllers/EntityAuthority.php'
+      - 'tests/search_entity_consistency_test.php'
+      - '.github/workflows/seo-search-health.yml'
+  pull_request:
+    paths:
+      - 'public/robots.txt'
+      - 'public/sitemap-search.xml'
+      - 'public/recruitment-agency-india/**'
+      - 'app/Config/BrandFacts.php'
+      - 'app/Controllers/EntityAuthority.php'
+      - 'tests/search_entity_consistency_test.php'
+      - '.github/workflows/seo-search-health.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify PHP syntax
+        run: |
+          php -l app/Config/BrandFacts.php
+          php -l app/Controllers/EntityAuthority.php
+      - name: Verify search/entity consistency
+        run: php tests/search_entity_consistency_test.php
+      - name: Verify focused sitemap XML
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          ET.parse('public/sitemap-search.xml')
+          print('PASS sitemap XML')
+          PY
