@@ -27,6 +27,8 @@
     <?= view('pages/services/_candidate-offers', ['primaryOnly' => true]) ?>
 </section>
 
+<?= view('pages/services/_cv-rebuild-testimonials') ?>
+
 <section id="interview-support" aria-labelledby="interview-support-title" class="py-16 bg-[#f6f0e7]">
     <div class="max-w-[1040px] mx-auto px-4 sm:px-8">
         <div class="max-w-3xl mb-8">
