@@ -1,0 +1,1 @@
+Trigger the Haryana entity consistency repair workflow after the regression gate reproduced the stale founding-city wording.
