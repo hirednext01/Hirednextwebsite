@@ -110,15 +110,15 @@
 
 <section class="py-20 bg-white">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-12"><div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-3">Our process</div><h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Strategy first. Technology where useful. Recruiter judgement throughout.</h2><p class="text-gray-600 leading-relaxed">Every mandate starts with understanding the business problem before choosing sourcing channels, automation or assessment tools.</p></div>
+        <div class="text-center max-w-3xl mx-auto mb-12"><div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-3">How we hire</div><h2 id="how-we-hire" class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4 scroll-mt-28">Understand the role. Find the right people.</h2><p class="text-gray-600 leading-relaxed">We understand what you need, speak to suitable candidates and help you choose the right person. Our team supports you from the first conversation through to joining.</p></div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             <?php $steps = [
-                ['01', 'Strategise the mandate', 'Clarify why the role exists, business outcomes, must-have evidence, culture context, compensation, location and decision-makers.'],
-                ['02', 'Map the talent market', 'Identify target companies, adjacent talent pools, relevant industries and realistic candidate availability before outreach starts.'],
-                ['03', 'Source & engage', 'Combine recruiter networks, direct search, databases and appropriate automation to reach relevant active and passive talent.'],
-                ['04', 'Screen intelligently', 'Use structured recruiter screening supported by AI-assisted parsing or matching where useful, then validate the evidence through human conversation.'],
-                ['05', 'Evaluate deeply', 'Assess achievements, scale, motivation, communication, leadership context and role fit. Add psychometric or other structured testing when requested and relevant.'],
-                ['06', 'Present, close & support', 'Share evidence-led shortlists, coordinate interviews, manage feedback and offers, and support the candidate through joining.'],
+                ['01', 'Understand your hiring needs', 'We agree on the responsibilities, experience, salary and location, and what the person needs to achieve.'],
+                ['02', 'Find suitable candidates', 'We use research, our network and direct outreach to find people with relevant experience.'],
+                ['03', 'Speak with candidates', 'We discuss their work, achievements, career plans and interest in the role.'],
+                ['04', 'Assess skills and experience', 'We look closely at what each person has delivered and how their skills match your needs. Any additional assessments are agreed with you.'],
+                ['05', 'Share a clear shortlist', 'You receive a shortlist with clear reasons for each recommendation. We coordinate interviews and gather feedback.'],
+                ['06', 'Support the hire', 'We help manage the offer, notice period and joining, and stay in touch during the transition.'],
             ]; ?>
             <?php foreach ($steps as $step): ?><article class="rounded-2xl border border-gray-200 p-7 bg-white hover:shadow-md transition-shadow"><div class="text-accent text-sm font-black mb-4"><?= esc($step[0]) ?></div><h3 class="text-xl font-bold text-primary mb-3"><?= esc($step[1]) ?></h3><p class="text-sm text-gray-600 leading-relaxed"><?= esc($step[2]) ?></p></article><?php endforeach; ?>
         </div>
