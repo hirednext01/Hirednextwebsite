@@ -1,0 +1,125 @@
+name: Apply Google Brand Identity Correction
+
+on:
+  push:
+    branches:
+      - fix/google-brand-identity-20260916
+    paths:
+      - '.github/workflows/apply-google-brand-identity-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/google-brand-identity-20260916
+      - name: Apply canonical identity and contact-page corrections
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path, old, new, label):
+              p = Path(path)
+              text = p.read_text()
+              if new in text:
+                  print(f'{label}: already applied')
+                  return
+              if old not in text:
+                  raise SystemExit(f'{label}: expected source text not found')
+              p.write_text(text.replace(old, new, 1))
+              print(f'{label}: patched')
+
+          replace_once(
+              'app/Config/BrandFacts.php',
+              "        'founded_in' => 'India',",
+              "        'founded_in' => 'Mumbai, Maharashtra, India',",
+              'BrandFacts founding city'
+          )
+
+          replace_once(
+              'app/Controllers/EntityAuthority.php',
+              "                'foundingLocation' => [\n                    '@type' => 'Country',\n                    'name' => 'India',\n                ],",
+              "                'foundingLocation' => [\n                    '@type' => 'Place',\n                    'name' => 'Mumbai',\n                    'address' => [\n                        '@type' => 'PostalAddress',\n                        'addressLocality' => 'Mumbai',\n                        'addressRegion' => 'Maharashtra',\n                        'addressCountry' => 'IN',\n                    ],\n                ],",
+              'EntityAuthority founding location'
+          )
+
+          replace_once(
+              'app/Controllers/Home.php',
+              "                    'foundingDate' => (string)($brand['founded_year'] ?? 2016),\n                    'description' => 'HiredNext is a talent advisory and recruitment firm specializing in executive search, leadership hiring and specialist recruitment across India.',",
+              "                    'foundingDate' => (string)($brand['founded_year'] ?? 2016),\n                    'foundingLocation' => [\n                        '@type' => 'Place',\n                        'name' => 'Mumbai',\n                        'address' => [\n                            '@type' => 'PostalAddress',\n                            'addressLocality' => 'Mumbai',\n                            'addressRegion' => 'Maharashtra',\n                            'addressCountry' => 'IN',\n                        ],\n                    ],\n                    'location' => [\n                        '@type' => 'Place',\n                        'name' => 'Gurugram (Gurgaon), Haryana, India',\n                    ],\n                    'description' => 'HiredNext is a talent advisory and recruitment firm specializing in executive search, leadership hiring and specialist recruitment across India.',",
+              'Homepage organization schema'
+          )
+
+          replace_once(
+              'app/Views/pages/contact.php',
+              "                        $addresses = array_filter([\n                            $settings['company_address'] ?? null,\n                            $settings['contact_address_2'] ?? null,\n                            $settings['contact_address_3'] ?? null,\n                        ]);",
+              "                        // Do not expose legacy office-address settings. HiredNext has no public walk-in office.\n                        $addresses = [];",
+              'Contact legacy addresses'
+          )
+
+          contact = Path('app/Views/pages/contact.php')
+          text = contact.read_text()
+          card = '''                            <div class="group flex items-center p-6 bg-white rounded-[2rem] border border-gray-100 reveal reveal-right">\n                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-gold bg-gold/5">📍</div>\n                                <div class="ml-6">\n                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Service Area</p>\n                                    <p class="text-lg font-bold text-primary">Gurugram (Gurgaon), Haryana · India-wide recruitment delivery</p>\n                                    <p class="text-sm text-gray-500 mt-1">Service-area business; no public walk-in office.</p>\n                                </div>\n                            </div>\n'''
+          if 'Service-area business; no public walk-in office.' not in text:
+              anchor = '                        <div class="space-y-4">\n'
+              if anchor not in text:
+                  raise SystemExit('Contact service-area card: anchor not found')
+              text = text.replace(anchor, anchor + card, 1)
+              contact.write_text(text)
+              print('Contact service-area card: patched')
+          else:
+              print('Contact service-area card: already applied')
+
+          indexnow = Path('.github/workflows/indexnow.yml')
+          text = indexnow.read_text()
+          if '"https://hirednext.net/contact"' not in text:
+              anchor = '            "https://hirednext.net/"\n'
+              if anchor not in text:
+                  raise SystemExit('IndexNow contact URL: anchor not found')
+              text = text.replace(anchor, anchor + '            "https://hirednext.net/contact"\n', 1)
+              indexnow.write_text(text)
+              print('IndexNow contact URL: patched')
+          else:
+              print('IndexNow contact URL: already applied')
+
+          seo = Path('app/Controllers/Seo.php')
+          text = seo.read_text()
+          old = "            ['loc' => base_url('contact'), 'changefreq' => 'monthly', 'priority' => '0.5'],"
+          new = "            ['loc' => base_url('contact'), 'lastmod' => '2026-09-16', 'changefreq' => 'monthly', 'priority' => '0.7'],"
+          if new not in text:
+              if old not in text:
+                  raise SystemExit('Sitemap contact freshness: expected source text not found')
+              seo.write_text(text.replace(old, new, 1))
+              print('Sitemap contact freshness: patched')
+          else:
+              print('Sitemap contact freshness: already applied')
+          PY
+
+          php -l app/Config/BrandFacts.php
+          php -l app/Controllers/EntityAuthority.php
+          php -l app/Controllers/Home.php
+          php -l app/Controllers/SearchAuthority.php
+          php -l app/Controllers/Seo.php
+          php -l app/Views/pages/contact.php
+          php tests/search_entity_consistency_test.php
+
+      - name: Commit correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git config user.name 'HiredNext SEO Recovery'
+          git config user.email 'tarushikha@hirednext.info'
+          git add app/Config/BrandFacts.php app/Controllers/EntityAuthority.php app/Controllers/Home.php app/Controllers/Seo.php app/Views/pages/contact.php .github/workflows/indexnow.yml
+          git commit -m 'fix: separate Mumbai founding history from active Haryana service-area identity'
+          git push origin HEAD:fix/google-brand-identity-20260916
