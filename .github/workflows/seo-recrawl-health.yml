@@ -1,0 +1,29 @@
+name: SEO Recrawl Freshness Health
+
+on:
+  push:
+    branches: [seo-recrawl-signals-2026-09-16]
+    paths:
+      - 'tests/search_recrawl_signals_test.php'
+      - 'app/Config/DecisionGuides.php'
+      - 'app/Controllers/Seo.php'
+      - 'app/Views/layouts/main.php'
+      - '.github/workflows/seo-recrawl-health.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify freshness and discovery signals
+        run: php tests/search_recrawl_signals_test.php
+      - name: Verify touched PHP syntax
+        run: |
+          php -l app/Config/DecisionGuides.php
+          php -l app/Controllers/Seo.php
+          php -l app/Views/layouts/main.php
