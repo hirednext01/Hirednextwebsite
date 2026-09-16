@@ -114,7 +114,7 @@
 
                 <label class="flex items-start gap-3 rounded-xl bg-gray-50 p-4 text-sm text-gray-600 leading-relaxed">
                     <input type="checkbox" name="publish_consent" value="1" required class="mt-1" <?= old('publish_consent') ? 'checked' : '' ?> aria-describedby="testimonial-consent-text">
-                    <span id="testimonial-consent-text">I confirm that HiredNext supported this placement and that this is my genuine experience. I allow HiredNext to review and, if approved, publish the story. HiredNext may lightly edit for spelling or length without changing the meaning. My email and phone will not be published.</span>
+                    <span id="testimonial-consent-text">I confirm that HiredNext supported this placement and that this is my genuine experience. I allow HiredNext to review and, if approved, publish the story. HiredNext may lightly edit for spelling or length without changing the meaning. My email and phone will not be published, and the employer/client name will be withheld.</span>
                 </label>
 
                 <button type="submit" class="w-full bg-primary text-white rounded-xl px-6 py-4 font-black hover:bg-accent transition" aria-label="Submit my HiredNext placement story for review">Share My Placement Story →</button>

@@ -180,6 +180,18 @@ jobs:
           cd /home/u212644598/domains/hirednext.net/public_html
           test -d .git || { echo "Production path is not a Git checkout"; exit 20; }
           echo "Before: $(git rev-parse --short HEAD)"
+          # Terminal uploads are delivery artifacts, not application files.
+          # Preserve only these known untracked uploads outside the public root.
+          patch_archive=""
+          for patch_file in hirednext-job-page-upgrade.patchn hirednext-job-page-upgrade.patch hirednext-about-testimonials-services.patch hirednext-testimonial-privacy.patch; do
+            if [[ -f "$patch_file" && ! -L "$patch_file" ]] && [[ "$(git status --porcelain --untracked-files=all -- "$patch_file")" == "?? $patch_file" ]]; then
+              if [[ -z "$patch_archive" ]]; then
+                patch_archive="$(mktemp -d "$HOME/hirednext-deploy-uploads.XXXXXXXX")"
+              fi
+              mv -- "$patch_file" "$patch_archive/"
+              echo "Preserved uploaded patch: $patch_file in $patch_archive"
+            fi
+          done
           unexpected_changes="$(git status --porcelain --untracked-files=all | grep -v "^?? app/Views/pages/home.php.typography-backup$" || true)"
           test -z "$unexpected_changes" || { echo "Production checkout has local changes; refusing to overwrite"; printf '%s\n' "$unexpected_changes"; exit 21; }
           git fetch origin main

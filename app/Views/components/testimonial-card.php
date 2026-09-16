@@ -25,6 +25,26 @@ $placementLocation = trim((string)($item['placement_location'] ?? ''));
 $placementYear = trim((string)($item['placement_year'] ?? ''));
 $placementDate = trim((string)($item['placement_date'] ?? ''));
 $isCandidate = $relationship === 'placed_candidate';
+
+// Candidate stories may identify the candidate, but the employer/client remains
+// confidential. Keep the original database record intact for verification and
+// remove the company only from the public presentation.
+if ($isCandidate) {
+    // These employers also occur in an approved story whose company field is
+    // empty. Redact the public wording while retaining the original submission.
+    $confidentialEmployers = array_filter([$company, 'Zecode by Siyaram’s', "Zecode by Siyaram's"]);
+    $quote = str_ireplace($confidentialEmployers, 'the employer', (string) $quote);
+    $placementRole = str_ireplace($confidentialEmployers, '', $placementRole);
+    $role = str_ireplace($confidentialEmployers, '', $role);
+    // ONLY is a brand in this story; lowercase “only” remains ordinary prose.
+    $quote = preg_replace('/\bONLY\b/u', 'the employer', $quote);
+    $placementRole = preg_replace('/\bONLY\b/u', '', $placementRole);
+    $role = preg_replace('/\bONLY\b/u', '', $role);
+    $placementRole = trim((string) preg_replace('/\s*[·|,–—-]+\s*$/u', '', $placementRole));
+    $role = trim((string) preg_replace('/\s*[·|,–—-]+\s*$/u', '', $role));
+    $company = '';
+}
+
 $isDark = $tone === 'dark' && $index === 0;
 $isWarm = $tone === 'warm' && $index === 0;
 
@@ -37,7 +57,7 @@ $proofHref = $linkedinUrl !== '' ? $linkedinUrl : $sourceUrl;
 $proofLabel = $linkedinUrl !== '' ? 'LinkedIn profile' : ($sourceLabel ?: 'View evidence');
 ?>
 
-<article class="testimonial-luxe-card group relative overflow-hidden rounded-[1.75rem] border <?= $cardClasses ?> p-7 md:p-9 transition-all duration-500 hover:-translate-y-1">
+<article class="testimonial-luxe-card group relative overflow-hidden rounded-sm border <?= $cardClasses ?> p-7 md:p-10 transition-all duration-500 hover:-translate-y-1">
     <?php if ($isDark): ?><div class="absolute -top-24 -right-20 w-64 h-64 rounded-full bg-accent/10 blur-3xl"></div><?php elseif ($isWarm): ?><div class="absolute -top-24 -right-20 w-64 h-64 rounded-full bg-gold/15 blur-3xl"></div><?php endif; ?>
 
     <div class="relative z-10 h-full flex flex-col">
@@ -59,12 +79,12 @@ $proofLabel = $linkedinUrl !== '' ? 'LinkedIn profile' : ($sourceLabel ?: 'View 
         <?php if (!$isCandidate && $headline !== $proofType): ?><h3 class="text-lg md:text-xl font-serif font-bold <?= $isDark ? 'text-white' : 'text-primary' ?> mb-3"><?= esc($headline) ?></h3><?php endif; ?>
 
         <?php if ($isCandidate): ?>
-            <div class="rounded-xl border <?= $isDark ? 'border-white/10 bg-white/5' : 'border-[#ead9b3] bg-white/55' ?> px-4 py-3 mb-5">
+            <div class="border-l-2 <?= $isDark ? 'border-gold bg-white/5' : 'border-accent bg-white/55' ?> px-4 py-3 mb-6">
                 <div class="text-[9px] uppercase tracking-[0.2em] <?= $isDark ? 'text-gold' : 'text-[#8b6d24]' ?> font-black mb-1">Placement through HiredNext</div>
                 <div class="text-sm font-bold <?= $isDark ? 'text-white/85' : 'text-primary' ?>">
                     <?= esc(implode(' · ', array_filter([$placementRole ?: $role, $placementLocation, $placementDate ?: $placementYear]))) ?>
                 </div>
-                <?php if ($company !== '' && !str_contains(mb_strtolower($placementRole), mb_strtolower($company))): ?><div class="text-xs mt-1 <?= $isDark ? 'text-white/55' : 'text-primary/55' ?>"><?= esc($company) ?></div><?php endif; ?>
+                <div class="text-xs mt-1 <?= $isDark ? 'text-white/55' : 'text-primary/55' ?>">Employer name withheld for confidentiality</div>
             </div>
         <?php elseif ($helpReceived !== ''): ?>
             <div class="text-[10px] font-black uppercase tracking-[0.2em] <?= $isDark ? 'text-gold' : 'text-accent' ?> mb-4"><?= esc($helpReceived) ?></div>
@@ -76,7 +96,7 @@ $proofLabel = $linkedinUrl !== '' ? 'LinkedIn profile' : ($sourceLabel ?: 'View 
             <div class="min-w-0">
                 <div class="testimonial-person-name text-xl md:text-2xl font-bold <?= $isDark ? 'text-white' : 'text-primary' ?> leading-tight"><?= esc($name) ?></div>
                 <?php if ($role !== ''): ?><div class="mt-2 text-[10px] md:text-[11px] uppercase tracking-[0.18em] font-extrabold <?= $isDark ? 'text-gold/85' : 'text-accent' ?> leading-relaxed"><?= esc($role) ?></div><?php endif; ?>
-                <?php if ($company !== ''): ?><div class="mt-1.5 text-sm font-semibold <?= $isDark ? 'text-white/55' : 'text-primary/55' ?> leading-relaxed"><?= esc($company) ?></div><?php endif; ?>
+                <?php if (!$isCandidate && $company !== ''): ?><div class="mt-1.5 text-sm font-semibold <?= $isDark ? 'text-white/55' : 'text-primary/55' ?> leading-relaxed"><?= esc($company) ?></div><?php endif; ?>
                 <?php if ($sourceLabel !== ''): ?><div class="mt-2 text-[10px] text-gray-400">Source: <?= esc($sourceLabel) ?></div><?php endif; ?>
             </div>
 
