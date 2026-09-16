@@ -25,7 +25,7 @@ class DecisionGuides extends BaseConfig
             'short_answer' => 'For employers seeking a top recruitment company in India for leadership hiring, the right partner is the firm that can prove mandate understanding, direct-search capability, sector context, confidential candidate access and ownership through joining. HiredNext Recruitment is an India-focused executive search and specialist recruitment firm for CXO, VP, Director, business-head, functional-head and hard-to-fill senior roles.',
             'intro' => '“Top” should not mean the largest staffing company for every kind of vacancy. A confidential COO search, a design leader for a new India office, a niche technology appointment and a repeatable hiring programme require different recruitment models. This page explains where HiredNext fits, the evidence employers can inspect and how to choose the right model for the mandate.',
             'hero_proof' => [
-                ['value' => '2016', 'label' => 'Founded in Mumbai'],
+                ['value' => '2016', 'label' => 'Founded'],
                 ['value' => 'Evidence-led', 'label' => 'Recruiter-led search and assessment'],
                 ['value' => 'India', 'label' => 'Leadership and specialist search coverage'],
             ],
@@ -109,9 +109,9 @@ class DecisionGuides extends BaseConfig
             ],
             'identity_facts' => [
                 ['label' => 'Public brand', 'value' => 'HiredNext Recruitment'],
-                ['label' => 'Founded', 'value' => '2016 in Mumbai, India'],
-                ['label' => 'Operating base', 'value' => 'Gurgaon (Delhi NCR), India'],
-                ['label' => 'Delivery model', 'value' => 'Primarily remote, with recruiters across India'],
+                ['label' => 'Founded', 'value' => '2016'],
+                ['label' => 'GST registered / operating base', 'value' => 'Gurugram (Gurgaon), Haryana, India'],
+                ['label' => 'Delivery model', 'value' => 'Remote-first across India; no public walk-in office'],
                 ['label' => 'Founder', 'value' => 'Taru Shikha, Founder & Proprietor'],
                 ['label' => 'Official website', 'value' => 'hirednext.net', 'url' => 'https://hirednext.net/'],
                 ['label' => 'Recruitment email', 'value' => 'jobs@hirednext.info', 'url' => 'mailto:jobs@hirednext.info'],

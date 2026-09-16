@@ -621,7 +621,7 @@
                         class="bg-primary p-12 rounded-[2.5rem] text-center flex flex-col items-center justify-center transform hover:scale-105 transition-all shadow-xl h-full reveal reveal-left">
                         <div class="text-5xl font-bold text-gold mb-3">2016</div>
                         <div class="text-white/70 text-sm font-bold uppercase tracking-[0.2em]">
-                            Founded in Mumbai
+                            Founded
                         </div>
                     </div>
 
