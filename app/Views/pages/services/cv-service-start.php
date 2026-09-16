@@ -1,9 +1,12 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<?php $gstInclusive = in_array($tier, ['priority_599', 'rebuild_1799'], true); ?>
+<?php
+$gstInclusive = in_array($tier, ['priority_599', 'rebuild_1799'], true);
+$isCoaching = $tier === 'career_4500';
+?>
 <section class="pt-32 pb-20 bg-gray-50 min-h-[70vh]">
-  <div class="max-w-[820px] mx-auto px-4 sm:px-8">
-    <div class="bg-white border border-gray-200 rounded-[2rem] p-8 md:p-12 shadow-sm">
+  <div class="<?= $isCoaching ? 'max-w-[1280px] grid lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)] gap-8 items-start' : 'max-w-[820px]' ?> mx-auto px-4 sm:px-8">
+    <div class="<?= $isCoaching ? 'order-2 lg:order-1 min-w-0' : '' ?> bg-white border border-gray-200 rounded-[2rem] p-8 md:p-12 shadow-sm">
       <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">HiredNext Career Services</div>
       <h1 class="text-3xl md:text-5xl font-serif font-bold text-primary"><?= esc($plan['name']) ?></h1>
       <div class="mt-3 text-2xl font-black text-primary">₹<?= number_format((int)$plan['amount']) ?><?php if ($gstInclusive): ?><span class="ml-2 text-sm font-semibold text-gray-500">(inclusive of GST)</span><?php endif; ?></div>
@@ -26,6 +29,22 @@
         <div class="md:col-span-2"><button class="w-full rounded-full bg-accent px-7 py-4 text-white font-black">Continue to secure payment →</button><p class="text-xs text-gray-500 text-center mt-4">Paid career services are separate from recruitment consideration and never guarantee interviews, hiring or placement.</p></div>
       </form>
     </div>
+    <?php if ($isCoaching): ?>
+    <aside aria-labelledby="meet-your-interview-coach" class="order-1 lg:order-2 min-w-0 lg:sticky lg:top-28 rounded-[2rem] overflow-hidden border border-primary/10 bg-white shadow-sm">
+      <div class="p-6 sm:p-8">
+        <p class="text-accent text-xs font-black uppercase tracking-[0.2em] mb-3">Your interview coach</p>
+        <h2 id="meet-your-interview-coach" class="text-3xl font-serif font-bold text-primary leading-tight">Walk into your next interview prepared.</h2>
+        <p class="mt-4 text-sm text-gray-600 leading-relaxed">Prepare with Taru Shikha. Learn how to explain your strengths, choose the right examples and handle difficult interview questions.</p>
+      </div>
+      <figure>
+        <img src="<?= base_url('theme/taru-shikha-interview-coaching.png') ?>" alt="Taru Shikha seated with a tablet during a one-to-one conversation" width="1122" height="1402" class="block w-full h-auto" loading="eager" decoding="async">
+        <figcaption class="bg-primary px-6 py-5 sm:px-8 text-white">
+          <p class="text-xl font-serif font-bold">Taru Shikha</p>
+          <p class="mt-1 text-sm text-white/80">Founder &amp; CEO · HiredNext Recruitment</p>
+        </figcaption>
+      </figure>
+    </aside>
+    <?php endif; ?>
   </div>
 </section>
 <?= $this->endSection() ?>
