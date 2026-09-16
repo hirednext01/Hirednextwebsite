@@ -71,23 +71,10 @@ jobs:
               anchor = '                        <div class="space-y-4">\n'
               if anchor not in text:
                   raise SystemExit('Contact service-area card: anchor not found')
-              text = text.replace(anchor, anchor + card, 1)
-              contact.write_text(text)
+              contact.write_text(text.replace(anchor, anchor + card, 1))
               print('Contact service-area card: patched')
           else:
               print('Contact service-area card: already applied')
-
-          indexnow = Path('.github/workflows/indexnow.yml')
-          text = indexnow.read_text()
-          if '"https://hirednext.net/contact"' not in text:
-              anchor = '            "https://hirednext.net/"\n'
-              if anchor not in text:
-                  raise SystemExit('IndexNow contact URL: anchor not found')
-              text = text.replace(anchor, anchor + '            "https://hirednext.net/contact"\n', 1)
-              indexnow.write_text(text)
-              print('IndexNow contact URL: patched')
-          else:
-              print('IndexNow contact URL: already applied')
 
           seo = Path('app/Controllers/Seo.php')
           text = seo.read_text()
@@ -120,6 +107,6 @@ jobs:
           fi
           git config user.name 'HiredNext SEO Recovery'
           git config user.email 'tarushikha@hirednext.info'
-          git add app/Config/BrandFacts.php app/Controllers/EntityAuthority.php app/Controllers/Home.php app/Controllers/Seo.php app/Views/pages/contact.php .github/workflows/indexnow.yml
+          git add app/Config/BrandFacts.php app/Controllers/EntityAuthority.php app/Controllers/Home.php app/Controllers/Seo.php app/Views/pages/contact.php
           git commit -m 'fix: separate Mumbai founding history from active Haryana service-area identity'
           git push origin HEAD:fix/google-brand-identity-20260916
