@@ -63,6 +63,12 @@ Use this engagement ladder within existing owners and permissions:
 
 Do not give everyone direct founder access. Apply the separate founder-time approval gate below.
 
+### Default reply spacing
+
+For ordinary candidate, prospect and LinkedIn conversations, leave at least **three hours** after the person's latest substantive message before sending a non-urgent reply, and avoid rapid back-and-forth from automation. Read the whole thread again when the window opens and send one considered response. This cooldown is per person and canonical thread, across owners/channels, so another task must not reply during the same window.
+
+Do not use the cooldown to delay a genuine same-day interview decision, a client deadline, an accepted paid-order issue, a failed delivery, a payment exception, an opt-out, or another time-sensitive operational matter. In those cases reply as soon as the owner can resolve the issue. Automated acknowledgements already sent by the website do not justify a second immediate acknowledgement.
+
 ## Founder time approval — 17 September 2026
 Taru's personal phone/video time is premium. Seniority, a strong CV, a high fit score, networking interest or a request to speak is not enough to offer a founder call. Keep routine candidate screening, CV-service discovery, intake and support in writing. Only a genuine client or a prospect with evidenced intent to buy a relevant service/commission a hiring mandate should be considered for Taru's time; buying does not itself include a founder call unless separately agreed.
 Before offering any specific time, promising a call, reserving a slot or creating/rescheduling a founder event, email tarushikha@hirednext.info once with the verified person's identity, thread link, commercial need, buyer/mandate evidence, why Taru is needed and proposed bounded agenda/duration. Wait for her explicit approval for that person and purpose. This supersedes earlier score-based or seniority-based automatic call invitations. Preserve existing confirmed appointments unless Taru separately changes them; an earlier invitation without a confirmed appointment is not approval to book now.
