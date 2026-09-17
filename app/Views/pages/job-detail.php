@@ -6,7 +6,7 @@ $shareText = 'HiredNext opportunity: ' . ($job['title'] ?? 'Job') . (!empty($job
 $whatsAppUrl = 'https://wa.me/?text=' . rawurlencode($shareText);
 $emailUrl = 'mailto:?subject=' . rawurlencode('Job opportunity: ' . ($job['title'] ?? 'HiredNext role')) . '&body=' . rawurlencode("Thought this role may be relevant to you:\n\n" . $shareText);
 $linkedinUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode($jobUrl);
-$estimatedApplicationInterest = (int) ($estimatedApplicationInterest ?? 0);
+$applicationCount = isset($applicationCount) && is_int($applicationCount) ? $applicationCount : null;
 
 // Presentation-only related roles: read open jobs, never mutate job/application data.
 $similarJobs = [];
@@ -53,7 +53,7 @@ try {
                     <?php if (!empty($job['experience'])): ?><span>◷ <?= esc($job['experience']) ?> experience</span><?php endif; ?>
                     <?php if (!empty($job['created_at'])): ?><span>Posted <?= esc(date('d M Y', strtotime($job['created_at']))) ?></span><?php endif; ?>
                 </div>
-                <?php if ($estimatedApplicationInterest > 0): ?><div class="mt-4 inline-flex items-center gap-2 rounded-full border border-orange-300/30 bg-orange-400/10 px-4 py-2 text-sm font-bold text-orange-100"><span class="h-2 w-2 rounded-full bg-gold"></span><?= esc($estimatedApplicationInterest) ?>+ candidates are already in the application pipeline</div><?php endif; ?>
+                <?php if ($applicationCount !== null && $applicationCount > 0): ?><div class="mt-4 inline-flex items-center gap-2 rounded-full border border-orange-300/30 bg-orange-400/10 px-4 py-2 text-sm font-bold text-orange-100"><span class="h-2 w-2 rounded-full bg-gold"></span><?= esc($applicationCount) ?> candidates have applied through HiredNext</div><?php endif; ?>
             </div>
             <div class="lg:col-span-4 lg:text-right">
                 <a href="#apply" class="inline-flex w-full lg:w-auto justify-center px-7 py-3.5 rounded-xl bg-white text-primary font-black hover:bg-gold transition">Apply for this role</a>

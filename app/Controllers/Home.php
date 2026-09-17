@@ -703,31 +703,20 @@ class Home extends BaseController
             'currentPage' => 'jobs',
             'settings' => $settings,
             'job' => $job,
-            'estimatedApplicationInterest' => $this->estimatedApplicationInterest((int) ($job['id'] ?? 0)),
+            'applicationCount' => $this->recruitOsApplicationCount($jobModel->recruitOsJobCode((string) $job['slug'])),
         ];
 
         return view('pages/job-detail', $data);
     }
 
-    private function estimatedApplicationInterest(int $jobId): int
+    private function recruitOsApplicationCount(?string $jobCode): ?int
     {
-        if ($jobId < 1) return 0;
+        if (!$jobCode) return null;
 
         try {
-            $db = \Config\Database::connect();
-            if (!$db->tableExists('job_applications')) return 0;
-            $countRow = $db->table('job_applications')
-                ->select('COUNT(DISTINCT LOWER(email)) AS website_count', false)
-                ->where('job_id', $jobId)
-                ->get()
-                ->getRowArray();
-            $websiteCount = (int) ($countRow['website_count'] ?? 0);
-
-            // Include an explicit 50% estimate for applications received via
-            // Naukri, WhatsApp, calls and referrals outside this website.
-            return (int) ceil($websiteCount * 1.5);
+            return (new \App\Services\RecruitOsIntakeClient())->applicationCount($jobCode);
         } catch (\Throwable $e) {
-            return 0;
+            return null;
         }
     }
 
@@ -738,7 +727,6 @@ class Home extends BaseController
         }
 
         $jobModel = new \App\Models\JobModel();
-        $applicationModel = new \App\Models\JobApplicationModel();
         $job = $jobModel->getBySlug($slug);
 
         if (!$job || $job['status'] !== 'open') {
@@ -751,6 +739,7 @@ class Home extends BaseController
             'email' => 'required|valid_email',
             'phone' => 'required|min_length[6]',
             'linkedin' => 'required|min_length[10]',
+            'message' => 'permit_empty|max_length[2000]',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -791,40 +780,46 @@ class Home extends BaseController
             return redirect()->back()->withInput()->with('errors', ['resume' => 'Resume must be 5MB or less.']);
         }
 
-        $uploadPath = FCPATH . 'uploads/resumes/';
-        if (!is_dir($uploadPath)) {
-            mkdir($uploadPath, 0755, true);
+        $tempPath = $resumeFile->getTempName();
+        $fileHash = is_file($tempPath) ? hash_file('sha256', $tempPath) : false;
+        if (!$fileHash) {
+            return redirect()->back()->withInput()->with('errors', [
+                'resume' => 'We could not read the uploaded CV. Please try again.',
+            ]);
         }
 
-        $newName = $resumeFile->getRandomName();
-        $resumeFile->move($uploadPath, $newName);
+        $name = trim((string) $this->request->getPost('name'));
+        $email = strtolower(trim((string) $this->request->getPost('email')));
+        $phone = trim((string) $this->request->getPost('phone'));
+        $message = trim((string) $this->request->getPost('message'));
+        $jobCode = $jobModel->recruitOsJobCode((string) $job['slug']);
+        $externalId = 'website-' . hash('sha256', implode('|', [$job['slug'], $email, $fileHash]));
 
-        $data = [
-            'job_id' => $job['id'],
-            'name' => htmlspecialchars($this->request->getPost('name')),
-            'email' => htmlspecialchars($this->request->getPost('email')),
-            'phone' => htmlspecialchars($this->request->getPost('phone')),
-            'linkedin' => htmlspecialchars($linkedin),
-            'message' => htmlspecialchars($this->request->getPost('message')),
-            'resume_url' => base_url('candidate-resume') . '?file=' . rawurlencode($newName),
-            'resume_name' => $resumeFile->getClientName(),
-            'resume_size' => $resumeFile->getSize(),
-            'status' => 'new',
-        ];
-
-        $applicationModel->insert($data);
-
-    $to = 'jobs@hirednext.info';
-    $subject = 'New Job Application: ' . ($job['title'] ?? 'Job');
-    $body = "New application received on HiredNext\n\n" .
-        "Job: " . ($job['title'] ?? 'N/A') . "\n" .
-        "Candidate: " . ($data['name'] ?? 'N/A') . "\n" .
-        "Email: " . ($data['email'] ?? 'N/A') . "\n" .
-        "Phone: " . ($data['phone'] ?? 'N/A') . "\n" .
-        "LinkedIn: " . ($data['linkedin'] ?? 'N/A') . "\n" .
-        "Resume: " . ($data['resume_url'] ?? 'N/A') . "\n";
-    $headers = "From: jobs@hirednext.info\r\n" . "Reply-To: " . ($data['email'] ?? 'jobs@hirednext.info') . "\r\n";
-    @mail($to, $subject, $body, $headers);
+        try {
+            (new \App\Services\RecruitOsIntakeClient())->submit(
+                $tempPath,
+                (string) $resumeFile->getClientName(),
+                (string) $resumeFile->getMimeType(),
+                [
+                    'source' => 'job_portal',
+                    'source_account' => 'hirednext.net',
+                    'external_id' => $externalId,
+                    'attachment_id' => 'sha256-' . $fileHash,
+                    'job_code' => $jobCode,
+                    'candidate_name' => $name,
+                    'candidate_email' => $email,
+                    'candidate_phone' => $phone,
+                    'candidate_linkedin' => $linkedin,
+                    'candidate_message' => $message !== '' ? $message : null,
+                    'identity_verified' => true,
+                ]
+            );
+        } catch (\Throwable $e) {
+            log_message('error', 'Recruit OS website intake failed for job slug {slug}.', ['slug' => $slug]);
+            return redirect()->back()->withInput()->with('errors', [
+                'resume' => 'We could not securely submit your application. No application was recorded. Please try again shortly.',
+            ]);
+        }
 
         return redirect()->to('/jobs/' . $job['slug'] . '?applied=1')
             ->with('success', 'Your application has been submitted successfully.');
