@@ -47,4 +47,7 @@ $isCoaching = $tier === 'career_4500';
     <?php endif; ?>
   </div>
 </section>
+<?php if ($tier === 'rebuild_1799'): ?>
+<?= view('pages/services/_cv-rebuild-testimonials') ?>
+<?php endif; ?>
 <?= $this->endSection() ?>
