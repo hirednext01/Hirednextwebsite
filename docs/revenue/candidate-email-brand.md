@@ -49,6 +49,20 @@ The n8n employer Revenue Engine `FpTC97xlfGg09zLR` is paused. It currently gener
 
 The inactive candidate campaigns `jZmlljrC1YkPDr4w` (Daily 50 Recent Applicants) and `ISzfPIPVjkdgBH9B` (Candidate Re-engagement Funnel) also retain fixed sales templates. They remain paused and unmodified. Their copy must be aligned with this shared standard before any separately authorised resumption; do not treat this file as a runtime template change. No automated LinkedIn DM sender was identified in the accessible n8n workflows.
 
+## Warmth and candidate engagement — 17 September 2026
+
+Every candidate and prospect interaction must be kind, super-polite, warm and gentle. Write as if the person has trusted HiredNext with an important career decision. Be clear without being cold: acknowledge effort, explain what happens next, and never leave a person feeling mocked, dismissed, pressured or deliberately kept hopeful.
+
+Use this engagement ladder within existing owners and permissions:
+
+1. **Live role:** discuss only a genuine current role for which the person may fit. State that assessment is based on evidence and never imply selection, client submission or an interview before it is true.
+2. **Future roles:** when no suitable mandate exists, say so gently or avoid creating a false expectation. Invite the person to watch [HiredNext jobs](https://hirednext.net/jobs) and follow the verified [HiredNext Recruitment LinkedIn page](https://www.linkedin.com/company/hirednext-recruitment-service/). Ask them to apply through the website when a relevant role appears so the team can match the correct application and answers.
+3. **Useful support:** where a reviewed CV has a specific evidence or positioning gap, explain that gap and its hiring-manager consequence. Offer CV assessment, scoring, rebuild or interview preparation only as an optional service that solves the observed gap. Paid work never affects recruitment consideration or buys access to a mandate. Use truthful capacity language such as accepting a limited number of detailed rebuilds at a time; never manufacture scarcity or create fear.
+4. **Long-term value:** retain consent, canonical thread and structured evidence in the existing ATS/CRM when available. Use event-driven contact—new matching role, requested service update or meaningful reply—not daily individual chasing. A periodic jobs/news update may be used only within existing consent and owner rules.
+5. **Potential employer:** a candidate who later becomes a Head of HR or hiring leader can also become a client prospect, but do not exploit their candidacy. Ask about an actual current mandate only when their role and conversation make it natural, and keep recruitment handling separate from employer business development.
+
+Do not give everyone direct founder access. Apply the separate founder-time approval gate below.
+
 ## Founder time approval — 17 September 2026
 Taru's personal phone/video time is premium. Seniority, a strong CV, a high fit score, networking interest or a request to speak is not enough to offer a founder call. Keep routine candidate screening, CV-service discovery, intake and support in writing. Only a genuine client or a prospect with evidenced intent to buy a relevant service/commission a hiring mandate should be considered for Taru's time; buying does not itself include a founder call unless separately agreed.
 Before offering any specific time, promising a call, reserving a slot or creating/rescheduling a founder event, email tarushikha@hirednext.info once with the verified person's identity, thread link, commercial need, buyer/mandate evidence, why Taru is needed and proposed bounded agenda/duration. Wait for her explicit approval for that person and purpose. This supersedes earlier score-based or seniority-based automatic call invitations. Preserve existing confirmed appointments unless Taru separately changes them; an earlier invitation without a confirmed appointment is not approval to book now.
