@@ -6,6 +6,19 @@ use CodeIgniter\Model;
 
 class JobModel extends Model
 {
+    private const RECRUIT_OS_JOB_CODES = [
+        'divisional-merchandising-manager-gurgaon' => 'JOB-1032',
+        'apparel-designer-gurgaon' => 'JOB-1033',
+        'dgm-operations-woven-manufacturing-hubli' => 'HN-HBL-0910-01',
+        'manager-industrial-engineering-woven-hubli' => 'HN-HBL-0910-02',
+        'manager-planning-woven-manufacturing-hubli' => 'HN-HBL-0910-03',
+        'manager-quality-woven-manufacturing-hubli' => 'HN-HBL-0910-04',
+        'dispatch-executive-woven-manufacturing-hubli' => 'HN-HBL-0910-05',
+        'assistant-quality-manager-woven-hubli' => 'HN-HBL-0910-06',
+        'assistant-production-manager-woven-hubli' => 'HN-HBL-0910-07',
+        'assistant-manager-industrial-engineering-woven-hubli' => 'HN-HBL-0910-08',
+    ];
+
     private const PUBLISHED_JOBS = [
         'divisional-merchandising-manager-gurgaon' => [
             'title' => 'Divisional Merchandising Manager',
@@ -301,6 +314,11 @@ class JobModel extends Model
 
         $this->ensurePublishedJobs();
         return $this->where('slug', $slug)->first();
+    }
+
+    public function recruitOsJobCode(string $slug): ?string
+    {
+        return self::RECRUIT_OS_JOB_CODES[$slug] ?? null;
     }
 
     public function ensurePublishedJobs(): void

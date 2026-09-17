@@ -6,7 +6,9 @@ $shareText = 'HiredNext opportunity: ' . ($job['title'] ?? 'Job') . (!empty($job
 $whatsAppUrl = 'https://wa.me/?text=' . rawurlencode($shareText);
 $emailUrl = 'mailto:?subject=' . rawurlencode('Job opportunity: ' . ($job['title'] ?? 'HiredNext role')) . '&body=' . rawurlencode("Thought this role may be relevant to you:\n\n" . $shareText);
 $linkedinUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode($jobUrl);
-$estimatedApplicationInterest = (int) ($estimatedApplicationInterest ?? 0);
+$applicationCount = isset($applicationCount) && is_int($applicationCount) ? $applicationCount : null;
+$screeningProfile = (string)($job['slug'] ?? '');
+$screeningQuestions = is_array($screeningQuestions ?? null) ? $screeningQuestions : [];
 
 // Presentation-only related roles: read open jobs, never mutate job/application data.
 $similarJobs = [];
@@ -53,7 +55,7 @@ try {
                     <?php if (!empty($job['experience'])): ?><span>◷ <?= esc($job['experience']) ?> experience</span><?php endif; ?>
                     <?php if (!empty($job['created_at'])): ?><span>Posted <?= esc(date('d M Y', strtotime($job['created_at']))) ?></span><?php endif; ?>
                 </div>
-                <?php if ($estimatedApplicationInterest > 0): ?><div class="mt-4 inline-flex items-center gap-2 rounded-full border border-orange-300/30 bg-orange-400/10 px-4 py-2 text-sm font-bold text-orange-100"><span class="h-2 w-2 rounded-full bg-gold"></span><?= esc($estimatedApplicationInterest) ?>+ candidates are already in the application pipeline</div><?php endif; ?>
+                <?php if ($applicationCount !== null && $applicationCount > 0): ?><div class="mt-4 inline-flex items-center gap-2 rounded-full border border-orange-300/30 bg-orange-400/10 px-4 py-2 text-sm font-bold text-orange-100"><span class="h-2 w-2 rounded-full bg-gold"></span><?= esc($applicationCount) ?> candidates have applied through HiredNext</div><?php endif; ?>
             </div>
             <div class="lg:col-span-4 lg:text-right">
                 <a href="#apply" class="inline-flex w-full lg:w-auto justify-center px-7 py-3.5 rounded-xl bg-white text-primary font-black hover:bg-gold transition">Apply for this role</a>
@@ -147,6 +149,30 @@ try {
                     <div><label for="application-email" class="block text-sm font-bold text-primary mb-2">Email *</label><input id="application-email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="Email" class="w-full border border-gray-200 rounded-xl px-4 py-3" /></div>
                     <div><label for="application-phone" class="block text-sm font-bold text-primary mb-2">Phone *</label><input id="application-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="Phone" class="w-full border border-gray-200 rounded-xl px-4 py-3" /></div>
                     <div><label for="application-linkedin" class="block text-sm font-bold text-primary mb-2">LinkedIn profile URL *</label><input id="application-linkedin" name="linkedin" type="text" inputmode="url" autocomplete="url" required placeholder="linkedin.com/in/your-profile" class="w-full border border-gray-200 rounded-xl px-4 py-3" /><p class="mt-1 text-xs text-gray-500">With or without https://</p></div>
+                    <?php if ($screeningQuestions): ?>
+                        <div class="md:col-span-2 mt-2 rounded-2xl border border-orange-200 bg-orange-50/50 p-5">
+                            <div class="text-[11px] uppercase tracking-widest font-black text-accent">Evidence for shortlisting</div>
+                            <h3 class="mt-1 text-xl font-bold text-primary">Help us assess your fit accurately</h3>
+                            <p class="mt-2 text-sm text-gray-600">Give precise scope, ownership and numbers. Your answers will be reviewed with your CV and stored only in Recruit OS for this application.</p>
+                        </div>
+                        <?php foreach ($screeningQuestions as $key => $question):
+                            $fieldId = 'screening-' . str_replace('_', '-', $key);
+                            $isTextarea = ($question['type'] ?? '') === 'textarea';
+                            $isUrl = ($question['type'] ?? '') === 'url';
+                            $required = (bool)($question['required'] ?? false);
+                            $maxLength = $isTextarea ? 1500 : 500;
+                            $wrapperClass = $isTextarea ? 'md:col-span-2' : '';
+                        ?>
+                            <div class="<?= $wrapperClass ?>">
+                                <label for="<?= esc($fieldId, 'attr') ?>" class="block text-sm font-bold text-primary mb-2"><?= esc($question['label']) ?><?= $required ? ' *' : '' ?></label>
+                                <?php if ($isTextarea): ?>
+                                    <textarea id="<?= esc($fieldId, 'attr') ?>" name="screening[<?= esc($key, 'attr') ?>]" rows="3" maxlength="<?= $maxLength ?>" <?= $required ? 'required' : '' ?> placeholder="<?= esc($question['placeholder'] ?? '', 'attr') ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3"><?= esc(old('screening.' . $key) ?? '') ?></textarea>
+                                <?php else: ?>
+                                    <input id="<?= esc($fieldId, 'attr') ?>" name="screening[<?= esc($key, 'attr') ?>]" type="<?= $isUrl ? 'url' : 'text' ?>" maxlength="<?= $maxLength ?>" <?= $required ? 'required' : '' ?> value="<?= esc(old('screening.' . $key) ?? '', 'attr') ?>" placeholder="<?= esc($question['placeholder'] ?? '', 'attr') ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3" />
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                     <div class="md:col-span-2"><label for="application-message" class="block text-sm font-bold text-primary mb-2">Short message <span class="text-gray-400 font-normal">optional</span></label><textarea id="application-message" name="message" placeholder="Short message (optional)" class="w-full border border-gray-200 rounded-xl px-4 py-3" rows="3"></textarea></div>
                     <div class="md:col-span-2 rounded-xl border border-dashed border-gray-300 px-4 py-4 text-sm text-gray-500"><label for="application-resume" class="block text-sm font-bold text-primary mb-2">Resume / CV *</label><input id="application-resume" name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="w-full" aria-describedby="application-resume-help" /><p id="application-resume-help" class="text-xs text-gray-500 mt-2">PDF, DOC or DOCX. Maximum 5MB.</p></div>
                     <div class="md:col-span-2"><button type="submit" class="w-full bg-primary text-white py-3.5 rounded-xl font-black hover:bg-accent transition" aria-label="Submit application for <?= esc($job['title'] ?? 'this role') ?>">Submit application</button><p class="text-xs text-gray-500 mt-3 text-center">HiredNext does not charge candidates to apply for a job or secure placement.</p></div>

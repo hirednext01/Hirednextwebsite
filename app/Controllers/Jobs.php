@@ -75,21 +75,18 @@ class Jobs extends BaseController
         $pager = $jobModel->pager;
 
         $applicationInterest = [];
-        if ($db->tableExists('job_applications') && !empty($jobs)) {
-            $jobIds = array_values(array_filter(array_map(static fn($job) => (int) ($job['id'] ?? 0), $jobs)));
-            if (!empty($jobIds)) {
-                $applicationRows = $db->table('job_applications')
-                    ->select('job_id, COUNT(DISTINCT LOWER(email)) AS website_count', false)
-                    ->whereIn('job_id', $jobIds)
-                    ->groupBy('job_id')
-                    ->get()
-                    ->getResultArray();
-                foreach ($applicationRows as $row) {
-                    $websiteCount = (int) ($row['website_count'] ?? 0);
-                    // Naukri, WhatsApp, calls and referrals are estimated at 50% of website volume.
-                    $applicationInterest[(int) $row['job_id']] = (int) ceil($websiteCount * 1.5);
+        try {
+            $recruitOs = new \App\Services\RecruitOsIntakeClient();
+            foreach ($jobs as $job) {
+                $jobCode = $jobModel->recruitOsJobCode((string) ($job['slug'] ?? ''));
+                $count = $jobCode ? $recruitOs->applicationCount($jobCode) : null;
+                if ($count !== null && $count > 0) {
+                    $applicationInterest[(int) $job['id']] = $count;
                 }
             }
+        } catch (\Throwable $e) {
+            // If Recruit OS is unavailable, hide the count rather than estimate it.
+            $applicationInterest = [];
         }
 
         $activeFilters = array_filter($query, static fn($value) => $value !== '');

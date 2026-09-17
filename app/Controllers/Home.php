@@ -703,31 +703,21 @@ class Home extends BaseController
             'currentPage' => 'jobs',
             'settings' => $settings,
             'job' => $job,
-            'estimatedApplicationInterest' => $this->estimatedApplicationInterest((int) ($job['id'] ?? 0)),
+            'screeningQuestions' => $this->jobScreeningQuestions((string) $job['slug']),
+            'applicationCount' => $this->recruitOsApplicationCount($jobModel->recruitOsJobCode((string) $job['slug'])),
         ];
 
         return view('pages/job-detail', $data);
     }
 
-    private function estimatedApplicationInterest(int $jobId): int
+    private function recruitOsApplicationCount(?string $jobCode): ?int
     {
-        if ($jobId < 1) return 0;
+        if (!$jobCode) return null;
 
         try {
-            $db = \Config\Database::connect();
-            if (!$db->tableExists('job_applications')) return 0;
-            $countRow = $db->table('job_applications')
-                ->select('COUNT(DISTINCT LOWER(email)) AS website_count', false)
-                ->where('job_id', $jobId)
-                ->get()
-                ->getRowArray();
-            $websiteCount = (int) ($countRow['website_count'] ?? 0);
-
-            // Include an explicit 50% estimate for applications received via
-            // Naukri, WhatsApp, calls and referrals outside this website.
-            return (int) ceil($websiteCount * 1.5);
+            return (new \App\Services\RecruitOsIntakeClient())->applicationCount($jobCode);
         } catch (\Throwable $e) {
-            return 0;
+            return null;
         }
     }
 
@@ -738,7 +728,6 @@ class Home extends BaseController
         }
 
         $jobModel = new \App\Models\JobModel();
-        $applicationModel = new \App\Models\JobApplicationModel();
         $job = $jobModel->getBySlug($slug);
 
         if (!$job || $job['status'] !== 'open') {
@@ -751,6 +740,7 @@ class Home extends BaseController
             'email' => 'required|valid_email',
             'phone' => 'required|min_length[6]',
             'linkedin' => 'required|min_length[10]',
+            'message' => 'permit_empty|max_length[2000]',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -772,6 +762,14 @@ class Home extends BaseController
             ]);
         }
 
+        [$screeningAnswers, $screeningErrors] = $this->validateScreeningAnswers(
+            (string) $job['slug'],
+            $this->request->getPost('screening')
+        );
+        if ($screeningErrors) {
+            return redirect()->back()->withInput()->with('errors', $screeningErrors);
+        }
+
         $resumeFile = $this->request->getFile('resume');
         if (!$resumeFile || !$resumeFile->isValid()) {
             return redirect()->back()->withInput()->with('errors', ['resume' => 'Resume file is required.']);
@@ -791,43 +789,122 @@ class Home extends BaseController
             return redirect()->back()->withInput()->with('errors', ['resume' => 'Resume must be 5MB or less.']);
         }
 
-        $uploadPath = FCPATH . 'uploads/resumes/';
-        if (!is_dir($uploadPath)) {
-            mkdir($uploadPath, 0755, true);
+        $tempPath = $resumeFile->getTempName();
+        $fileHash = is_file($tempPath) ? hash_file('sha256', $tempPath) : false;
+        if (!$fileHash) {
+            return redirect()->back()->withInput()->with('errors', [
+                'resume' => 'We could not read the uploaded CV. Please try again.',
+            ]);
         }
 
-        $newName = $resumeFile->getRandomName();
-        $resumeFile->move($uploadPath, $newName);
+        $name = trim((string) $this->request->getPost('name'));
+        $email = strtolower(trim((string) $this->request->getPost('email')));
+        $phone = trim((string) $this->request->getPost('phone'));
+        $message = trim((string) $this->request->getPost('message'));
+        $jobCode = $jobModel->recruitOsJobCode((string) $job['slug']);
+        $externalId = 'website-' . hash('sha256', implode('|', [$job['slug'], $email, $fileHash]));
 
-        $data = [
-            'job_id' => $job['id'],
-            'name' => htmlspecialchars($this->request->getPost('name')),
-            'email' => htmlspecialchars($this->request->getPost('email')),
-            'phone' => htmlspecialchars($this->request->getPost('phone')),
-            'linkedin' => htmlspecialchars($linkedin),
-            'message' => htmlspecialchars($this->request->getPost('message')),
-            'resume_url' => base_url('candidate-resume') . '?file=' . rawurlencode($newName),
-            'resume_name' => $resumeFile->getClientName(),
-            'resume_size' => $resumeFile->getSize(),
-            'status' => 'new',
-        ];
-
-        $applicationModel->insert($data);
-
-    $to = 'jobs@hirednext.info';
-    $subject = 'New Job Application: ' . ($job['title'] ?? 'Job');
-    $body = "New application received on HiredNext\n\n" .
-        "Job: " . ($job['title'] ?? 'N/A') . "\n" .
-        "Candidate: " . ($data['name'] ?? 'N/A') . "\n" .
-        "Email: " . ($data['email'] ?? 'N/A') . "\n" .
-        "Phone: " . ($data['phone'] ?? 'N/A') . "\n" .
-        "LinkedIn: " . ($data['linkedin'] ?? 'N/A') . "\n" .
-        "Resume: " . ($data['resume_url'] ?? 'N/A') . "\n";
-    $headers = "From: jobs@hirednext.info\r\n" . "Reply-To: " . ($data['email'] ?? 'jobs@hirednext.info') . "\r\n";
-    @mail($to, $subject, $body, $headers);
+        try {
+            (new \App\Services\RecruitOsIntakeClient())->submit(
+                $tempPath,
+                (string) $resumeFile->getClientName(),
+                (string) $resumeFile->getMimeType(),
+                [
+                    'source' => 'job_portal',
+                    'source_account' => 'hirednext.net',
+                    'external_id' => $externalId,
+                    'attachment_id' => 'sha256-' . $fileHash,
+                    'job_code' => $jobCode,
+                    'candidate_name' => $name,
+                    'candidate_email' => $email,
+                    'candidate_phone' => $phone,
+                    'candidate_linkedin' => $linkedin,
+                    'candidate_message' => $message !== '' ? $message : null,
+                    'candidate_answers' => $screeningAnswers,
+                    'identity_verified' => true,
+                ]
+            );
+        } catch (\Throwable $e) {
+            log_message('error', 'Recruit OS website intake failed for job slug {slug}.', ['slug' => $slug]);
+            return redirect()->back()->withInput()->with('errors', [
+                'resume' => 'We could not securely submit your application. No application was recorded. Please try again shortly.',
+            ]);
+        }
 
         return redirect()->to('/jobs/' . $job['slug'] . '?applied=1')
             ->with('success', 'Your application has been submitted successfully.');
+    }
+
+    private function jobScreeningQuestions(string $slug): array
+    {
+        $common = [
+            'current_company' => ['label' => 'Current company', 'required' => true],
+            'current_designation' => ['label' => 'Current designation', 'required' => true],
+            'current_location' => ['label' => 'Current location', 'required' => true],
+            'total_experience_years' => ['label' => 'Total relevant experience', 'required' => true, 'placeholder' => 'For example: 10 years'],
+        ];
+        $commercial = [
+            'current_ctc' => ['label' => 'Current CTC', 'required' => true, 'placeholder' => 'Include currency and fixed/variable split'],
+            'expected_ctc' => ['label' => 'Expected CTC', 'required' => true],
+            'notice_period' => ['label' => 'Notice period', 'required' => true],
+            'gurgaon_availability' => ['label' => 'Gurgaon availability', 'required' => true, 'placeholder' => 'Currently in Gurgaon, can relocate by…, or not available'],
+        ];
+
+        if ($slug === 'divisional-merchandising-manager-gurgaon') {
+            return $common + [
+                'buying_export_years' => ['label' => 'Years in buying houses, sourcing offices or export houses', 'required' => true],
+                'retail_years' => ['label' => 'Years in domestic retail', 'required' => true, 'placeholder' => 'Enter 0 if none'],
+                'international_buyers_markets' => ['label' => 'International buyers and markets personally handled', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Include UK or Japan exposure where applicable'],
+                'product_categories' => ['label' => 'Product categories managed', 'required' => true],
+                'annual_business_value' => ['label' => 'Approximate annual business or order value managed', 'required' => true, 'placeholder' => 'For example: USD 15m annually'],
+                'commercial_ownership' => ['label' => 'Your direct commercial ownership', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Costing, negotiation, margin, OTB, order conversion, delivery and/or P&L'],
+                'team_size' => ['label' => 'Current team size and functions led', 'required' => true],
+                'quantified_achievement' => ['label' => 'Strongest quantified achievement', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Situation, your action and measurable result—margin, vendor performance, buyer growth or retention'],
+            ] + $commercial;
+        }
+
+        if ($slug === 'apparel-designer-gurgaon') {
+            return $common + [
+                'portfolio_url' => ['label' => 'Portfolio URL', 'required' => true, 'type' => 'url'],
+                'product_categories' => ['label' => 'Product categories designed', 'required' => true],
+                'international_market_exposure' => ['label' => 'International brand or retailer exposure', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Include UK exposure where disclosure is permitted'],
+                'adobe_proficiency' => ['label' => 'Illustrator and Photoshop proficiency', 'required' => true, 'type' => 'textarea', 'placeholder' => 'State what you create independently in each tool'],
+                'ai_design_tools' => ['label' => 'AI design tools used in actual work', 'required' => true, 'placeholder' => 'Enter None if not used'],
+                'end_to_end_range_example' => ['label' => 'One range or style taken from concept through production', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Your actions, tech-pack/sample ownership and commercial or production outcome'],
+                'cross_functional_example' => ['label' => 'Merchandising, sourcing and factory collaboration', 'required' => true, 'type' => 'textarea', 'placeholder' => 'One cost, quality or feasibility problem you helped resolve'],
+            ] + $commercial;
+        }
+
+        return [];
+    }
+
+    private function validateScreeningAnswers(string $slug, $submitted): array
+    {
+        $questions = $this->jobScreeningQuestions($slug);
+        if (!$questions) return [[], []];
+
+        $submitted = is_array($submitted) ? $submitted : [];
+        $answers = [];
+        $errors = [];
+        foreach ($questions as $key => $question) {
+            $value = trim((string) ($submitted[$key] ?? ''));
+            if (($question['required'] ?? false) && $value === '') {
+                $errors[$key] = ($question['label'] ?? $key) . ' is required.';
+                continue;
+            }
+            if ($value === '') continue;
+            $maxLength = ($question['type'] ?? '') === 'textarea' ? 1500 : 500;
+            if (mb_strlen($value) > $maxLength) {
+                $errors[$key] = ($question['label'] ?? $key) . ' must be ' . number_format($maxLength) . ' characters or less.';
+                continue;
+            }
+            if (($question['type'] ?? '') === 'url' && !filter_var($value, FILTER_VALIDATE_URL)) {
+                $errors[$key] = ($question['label'] ?? $key) . ' must be a valid URL.';
+                continue;
+            }
+            $answers[$key] = $value;
+        }
+        return [$answers, $errors];
     }
 
     public function candidateResume()

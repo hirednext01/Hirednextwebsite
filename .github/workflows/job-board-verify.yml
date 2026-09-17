@@ -5,9 +5,15 @@ on:
       - jobs/professional-job-board-redesign-2026-09-10
   pull_request:
     paths:
+      - 'app/Controllers/Home.php'
+      - 'app/Controllers/Jobs.php'
+      - 'app/Models/JobModel.php'
+      - 'app/Services/RecruitOsIntakeClient.php'
       - 'app/Views/pages/jobs.php'
       - 'app/Views/pages/job-detail.php'
       - 'tests/job_board_presentation_test.php'
+      - 'tests/recruit_os_direct_intake_test.php'
+      - '.github/workflows/job-board-verify.yml'
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -16,7 +22,13 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
+      - run: php -l app/Controllers/Home.php
+      - run: php -l app/Controllers/Jobs.php
+      - run: php -l app/Models/JobModel.php
+      - run: php -l app/Services/RecruitOsIntakeClient.php
       - run: php -l app/Views/pages/jobs.php
       - run: php -l app/Views/pages/job-detail.php
       - run: php -l tests/job_board_presentation_test.php
+      - run: php -l tests/recruit_os_direct_intake_test.php
       - run: php tests/job_board_presentation_test.php
+      - run: php tests/recruit_os_direct_intake_test.php
