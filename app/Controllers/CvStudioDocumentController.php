@@ -53,7 +53,7 @@ class CvStudioDocumentController extends BaseController
                     || !in_array((string) ($order['status'] ?? ''), ['verified', 'in_fulfilment', 'delivered'], true)) {
                     throw new \RuntimeException('Payment must be verified before this paid CV can be delivered.');
                 }
-            } elseif (in_array((string) ($lead['assessment_plan'] ?? ''), ['ats_999', 'rebuild_1799'], true)) {
+            } elseif (in_array((string) ($lead['assessment_plan'] ?? ''), ['ats_999', 'rebuild_1799', 'executive_6999'], true)) {
                 throw new \RuntimeException('Payment must be verified before this paid CV can be delivered.');
             }
 

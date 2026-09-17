@@ -44,7 +44,29 @@ class CandidateServices extends BaseController
                 'offers' => [
                     ['@type' => 'Offer', 'name' => 'CV Assessment', 'price' => '599', 'priceCurrency' => 'INR', 'url' => base_url('services/cv-assessment')],
                     ['@type' => 'Offer', 'name' => 'Professional CV Rebuild', 'price' => '1799', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/rebuild_1799')],
+                    ['@type' => 'Offer', 'name' => 'Executive CV & Leadership Case Study', 'price' => '6999', 'priceCurrency' => 'INR', 'url' => base_url('services/executive-cv')],
                 ],
+            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
+        ]);
+    }
+
+    public function executiveCv()
+    {
+        $pageUrl = base_url('services/executive-cv');
+        return view('pages/services/executive-cv', [
+            'title' => 'Executive CV & Leadership Case Study | HiredNext',
+            'metaDescription' => 'HiredNext builds a senior leadership CV and one evidence-led career case study through structured career analysis, positioning and human review. ₹6,999 including GST.',
+            'metaKeywords' => 'executive CV writing India, leadership resume, senior management CV, executive case study',
+            'canonical' => $pageUrl,
+            'currentPage' => 'services',
+            'settings' => $this->loadWebsiteSettings(),
+            'jsonLd' => json_encode([
+                '@context' => 'https://schema.org', '@type' => 'Service',
+                'name' => 'Executive CV & Leadership Case Study',
+                'serviceType' => 'Executive CV writing and leadership positioning',
+                'provider' => ['@type' => 'Organization', 'name' => 'HiredNext Recruitment', 'url' => base_url()],
+                'url' => $pageUrl,
+                'offers' => ['@type' => 'Offer', 'price' => '6999', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/executive_6999')],
             ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
     }

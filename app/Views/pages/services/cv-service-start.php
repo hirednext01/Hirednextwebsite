@@ -1,8 +1,9 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <?php
-$gstInclusive = in_array($tier, ['priority_599', 'rebuild_1799'], true);
+$gstInclusive = in_array($tier, ['priority_599', 'rebuild_1799', 'executive_6999'], true);
 $isCoaching = $tier === 'career_4500';
+$isExecutive = $tier === 'executive_6999';
 ?>
 <section class="pt-32 pb-20 bg-gray-50 min-h-[70vh]">
   <div class="<?= $isCoaching ? 'max-w-[1280px] grid lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)] gap-8 items-start' : 'max-w-[820px]' ?> mx-auto px-4 sm:px-8">
@@ -11,6 +12,14 @@ $isCoaching = $tier === 'career_4500';
       <h1 class="text-3xl md:text-5xl font-serif font-bold text-primary"><?= esc($plan['name']) ?></h1>
       <div class="mt-3 text-2xl font-black text-primary">₹<?= number_format((int)$plan['amount']) ?><?php if ($gstInclusive): ?><span class="ml-2 text-sm font-semibold text-gray-500">(inclusive of GST)</span><?php endif; ?></div>
       <p class="text-gray-600 mt-5 leading-relaxed"><?= esc($plan['description']) ?></p>
+      <?php if ($isExecutive): ?>
+      <div class="grid sm:grid-cols-2 gap-3 mt-6 text-sm">
+        <?php foreach (['Career evidence and scope analysis','Executive positioning and narrative architecture','One signature leadership case study','Executive CV in editable and PDF-ready formats','Two consolidated revision rounds','Human accuracy and presentation review'] as $item): ?>
+        <div class="rounded-xl border border-primary/10 bg-primary/5 p-3 font-semibold text-primary">✓ <?= esc($item) ?></div>
+        <?php endforeach; ?>
+      </div>
+      <p class="text-sm text-gray-600 mt-4 leading-relaxed">After payment verification, HiredNext sends a structured evidence questionnaire. We use your verified mandates, decisions, scale and outcomes to build the CV and case study. Missing facts are clarified; numbers and achievements are never invented.</p>
+      <?php endif; ?>
       <?php if ($tier === 'career_4500'): ?>
       <p class="text-sm text-gray-600 mt-4 leading-relaxed">The HiredNext team will share Taru Shikha's available slots by email and confirm the time with you for your 30-minute consultation.</p>
       <?php endif; ?>

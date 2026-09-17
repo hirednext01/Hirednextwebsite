@@ -79,6 +79,7 @@ jobs:
             app/Views/pages/admin/cv-reviews.php
             app/Views/pages/services/candidate-services.php
             app/Views/pages/services/cv-upgrade-payment.php
+            app/Views/pages/services/executive-cv.php
           )
           for file in "${files[@]}"; do
             test -f "$file"
@@ -93,6 +94,7 @@ jobs:
           grep -Fq "CvStudioDocumentController::deliver" app/Config/RoutesCvStudio.php
           grep -Fq "Price on Request" app/Services/Cv/CvUpgradePlans.php
           ! grep -Fq "executive_2499" app/Services/Cv/CvUpgradePlans.php
+          php tests/executive_cv_product_test.php
           grep -Fq "No CV-writing AI is configured" app/Services/Cv/CvWriterPanel.php
           grep -Fq "Missing facts are flagged" app/Views/pages/admin/cv-studio-detail.php
           grep -Fq "SAMPLE PREVIEW" app/Views/pages/services/candidate-services.php
