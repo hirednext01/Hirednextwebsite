@@ -32,6 +32,7 @@ class Seo extends BaseController
             ['loc' => base_url('services/rpo'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/avron'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => base_url('services/cv-assessment'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('services/executive-cv'), 'lastmod' => '2026-09-17', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('pilots/interview-ready.html'), 'lastmod' => '2026-09-17', 'changefreq' => 'weekly', 'priority' => '0.7'],
 
             // Priority commercial recruitment verticals.

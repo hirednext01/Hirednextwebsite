@@ -24,6 +24,11 @@
     </div>
     <p class="mt-6 text-center text-sm font-semibold text-primary">You do not have to buy both. The rebuild already includes an assessment.</p>
 
+    <article class="mt-8 rounded-[1.75rem] bg-primary text-white p-8 md:p-10 shadow-lg grid lg:grid-cols-[1.45fr_.75fr] gap-8 items-center">
+        <div><div class="text-xs font-black text-gold uppercase tracking-[0.22em]">Senior leaders · ₹6,999 including GST</div><h3 class="text-3xl md:text-4xl font-serif font-bold mt-3">Executive CV & Leadership Case Study</h3><p class="text-white/80 mt-4 leading-relaxed">A senior career is more than a chronology. HiredNext analyses your mandates, progression, scale, decisions and evidence, then architects the story into an executive CV and one signature leadership case study.</p><p class="text-sm text-white/65 mt-4">Human reviewed · evidence constrained · 5–7 working days after complete inputs · two revision rounds</p></div>
+        <div class="lg:text-right"><a href="<?= base_url('services/executive-cv') ?>" class="inline-flex justify-center rounded-full bg-accent px-7 py-4 font-black text-white">Explore Executive CV — ₹6,999</a></div>
+    </article>
+
     <?php if (empty($primaryOnly)): ?>
     <div class="mt-12 mb-6">
         <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-2">More ways HiredNext can help</div>
@@ -48,10 +53,10 @@
         </article>
 
         <article class="rounded-[1.5rem] border border-primary bg-white p-6 shadow-sm flex flex-col">
-            <div class="text-sm font-black text-accent">PRICE ON REQUEST</div>
-            <h3 class="text-2xl font-serif font-bold text-primary mt-2">C-Suite Executive CV Advisory</h3>
-            <p class="text-sm text-gray-600 mt-3 leading-relaxed">Bespoke CXO/board service with a 1-to-1 positioning call and specialist executive resume expert.</p>
-            <a href="<?= base_url('advisory') ?>" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Request executive advisory →</a>
+            <div class="text-sm font-black text-accent">₹6,999 · GST INCLUDED</div>
+            <h3 class="text-2xl font-serif font-bold text-primary mt-2">Executive CV & Leadership Case Study</h3>
+            <p class="text-sm text-gray-600 mt-3 leading-relaxed">Executive positioning, full CV architecture and one signature leadership case study built from verified career evidence.</p>
+            <a href="<?= base_url('services/executive-cv') ?>" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Explore the executive journey →</a>
             <div class="mt-auto pt-6 rounded-2xl border border-gray-200 bg-gray-50 p-4">
                 <div class="flex gap-3 items-start">
                     <div class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 font-black text-sm">CXO</div>

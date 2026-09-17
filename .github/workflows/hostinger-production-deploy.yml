@@ -126,6 +126,7 @@ jobs:
           php -l app/Services/Cv/CvCreationAgent.php
           php -l app/Views/pages/services/cv-service-start.php
           php tests/all_paid_candidate_services_gate_test.php
+          php tests/executive_cv_product_test.php
 
       - name: Verify automatic CV fulfilment controls
         shell: bash

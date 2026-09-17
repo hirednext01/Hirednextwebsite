@@ -3,8 +3,8 @@
 <?php
 $qrUrl = base_url('cv-payment/qr') . '?v=20260903';
 $tier = (string)($order['tier'] ?? '');
-$showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_1799'], true);
-$gstInclusive = ((int) ($order['amount'] ?? 0)) === 1799;
+$showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_1799', 'executive_6999'], true);
+$gstInclusive = in_array((int) ($order['amount'] ?? 0), [1799, 6999], true);
 ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
