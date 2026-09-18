@@ -8,7 +8,7 @@ on:
       - 'public/recruitment-agency-india/**'
       - 'app/Config/BrandFacts.php'
       - 'app/Controllers/EntityAuthority.php'
-      - 'tests/search_entity_consistency_test.php'
+      - 'tests/search_entity_consistency_test.php'\n      - 'tests/ai_search_authority_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   pull_request:
@@ -18,7 +18,7 @@ on:
       - 'public/recruitment-agency-india/**'
       - 'app/Config/BrandFacts.php'
       - 'app/Controllers/EntityAuthority.php'
-      - 'tests/search_entity_consistency_test.php'
+      - 'tests/search_entity_consistency_test.php'\n      - 'tests/ai_search_authority_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   workflow_dispatch:
@@ -38,7 +38,7 @@ jobs:
           php -l app/Controllers/EntityAuthority.php
       - name: Verify search/entity consistency
         run: php tests/search_entity_consistency_test.php
-      - name: Verify focused sitemap XML
+      - name: Verify AI search authority contract\n        run: php tests/ai_search_authority_test.php\n      - name: Verify focused sitemap XML
         run: |
           python3 - <<'PY'
           import xml.etree.ElementTree as ET
