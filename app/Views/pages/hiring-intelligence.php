@@ -68,10 +68,62 @@ $examples = $evidence->joinedExamples ?? [];
     </div>
 </section>
 
+<section class="py-16 bg-white border-b border-gray-100">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="max-w-4xl mb-9">
+            <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Historical search depth</div>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Placement history and mandate breadth — labelled separately.</h2>
+            <p class="text-gray-600 leading-relaxed">HiredNext separates confirmed historical placement context from documented roles worked. This protects the evidence standard: a mandate handled is not automatically presented as a placement.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-6 mb-8">
+            <article class="rounded-[2rem] bg-primary text-white p-7 md:p-8">
+                <div class="text-gold text-[10px] uppercase tracking-[0.22em] font-black mb-3">Historical automotive account</div>
+                <h3 class="text-2xl md:text-3xl font-serif font-bold mb-4">50 roles closed across multiple years</h3>
+                <p class="text-white/75 leading-relaxed"><?= esc($intelligence->automotiveHistoryNote ?? '') ?></p>
+            </article>
+
+            <article class="rounded-[2rem] border border-gray-200 bg-gray-50 p-7 md:p-8">
+                <div class="text-accent text-[10px] uppercase tracking-[0.22em] font-black mb-3">Leadership placements</div>
+                <h3 class="text-2xl md:text-3xl font-serif font-bold text-primary mb-4">C-suite and functional-head experience</h3>
+                <p class="text-sm text-gray-600 leading-relaxed mb-5"><?= esc($intelligence->leadershipPlacementNote ?? '') ?></p>
+                <div class="flex flex-wrap gap-2">
+                    <?php foreach (($intelligence->leadershipPlacementFamilies ?? []) as $role): ?>
+                        <span class="rounded-full bg-white border border-gray-200 text-primary px-3 py-2 text-xs font-extrabold"><?= esc($role) ?></span>
+                    <?php endforeach; ?>
+                </div>
+            </article>
+        </div>
+
+        <div class="rounded-[2rem] border border-gray-200 bg-white p-7 md:p-9">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-7">
+                <div>
+                    <div class="text-accent text-[10px] uppercase tracking-[0.22em] font-black mb-3">Documented mandate history</div>
+                    <h3 class="text-2xl md:text-3xl font-serif font-bold text-primary">Specialist roles worked across automotive, mobility and enterprise technology</h3>
+                </div>
+                <div class="text-xs text-gray-500 md:max-w-xs">Mandate records only. These role families are not all presented as joined placements.</div>
+            </div>
+
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <?php foreach (($intelligence->documentedMandateGroups ?? []) as $group => $roles): ?>
+                    <div class="rounded-2xl bg-gray-50 border border-gray-100 p-5">
+                        <h4 class="font-extrabold text-primary mb-4"><?= esc($group) ?></h4>
+                        <ul class="space-y-2.5 text-sm text-gray-600">
+                            <?php foreach ($roles as $role): ?>
+                                <li class="flex gap-2.5"><span class="text-accent font-black">•</span><span><?= esc($role) ?></span></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="py-16 bg-white">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
         <div class="max-w-3xl mb-9">
-            <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Selected evidence</div>
+            <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">Confirmed joined evidence</div>
             <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Anonymised joined-placement examples</h2>
             <p class="text-gray-600 leading-relaxed"><?= esc($evidence->scopeNote ?? '') ?></p>
         </div>
