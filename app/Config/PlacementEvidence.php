@@ -16,6 +16,20 @@ class PlacementEvidence extends BaseConfig
 
     public array $joinedExamples = [
         [
+            'role_family' => 'Lead Pega Developer',
+            'function' => 'Enterprise Technology',
+            'industry' => 'Automotive / Mobility',
+            'location' => null,
+            'joined_month' => '2025-10',
+        ],
+        [
+            'role_family' => 'ESB Developer',
+            'function' => 'Enterprise Integration',
+            'industry' => 'Automotive / Mobility',
+            'location' => null,
+            'joined_month' => '2025-10',
+        ],
+        [
             'role_family' => 'Web Development Lead',
             'function' => 'Technology',
             'industry' => 'Automotive / Mobility',
