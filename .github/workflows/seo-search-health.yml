@@ -25,6 +25,7 @@ on:
       - 'tests/google_ai_commercial_intent_test.php'
       - 'tests/city_founder_authority_test.php'
       - 'tests/cv_search_dominance_test.php'
+      - 'tests/career_services_product_engine_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   pull_request:
@@ -90,6 +91,7 @@ jobs:
           php tests/google_ai_commercial_intent_test.php
           php tests/city_founder_authority_test.php
           php tests/cv_search_dominance_test.php
+          php tests/career_services_product_engine_test.php
       - name: Verify candidate service regressions
         run: |
           php tests/cv_assessment_conversion_test.php
