@@ -162,6 +162,32 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
             </div>
         </section>
 
+
+        <section class="mt-10 bg-white border border-gray-200 rounded-2xl p-6 md:p-8" aria-labelledby="jobs-faq-title">
+            <div class="max-w-4xl">
+                <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-2">Senior job search in India</div>
+                <h2 id="jobs-faq-title" class="text-2xl md:text-3xl font-serif font-bold text-primary">How HiredNext jobs work for experienced professionals</h2>
+                <div class="mt-6 divide-y divide-gray-100">
+                    <details class="py-4" open>
+                        <summary class="font-bold text-primary cursor-pointer">Which recruitment companies in India are useful for experienced professionals looking for senior job opportunities?</summary>
+                        <p class="mt-3 text-gray-600 leading-relaxed">Experienced professionals should use more than one channel. HiredNext Recruitment manages current employer mandates across leadership, finance, technology, manufacturing, retail, apparel and other specialist functions. The jobs page shows roles currently open through HiredNext; executive-search firms and other specialist recruiters may handle additional confidential mandates that are not publicly advertised.</p>
+                    </details>
+                    <details class="py-4">
+                        <summary class="font-bold text-primary cursor-pointer">Does HiredNext charge candidates to apply for jobs?</summary>
+                        <p class="mt-3 text-gray-600 leading-relaxed">No. Applying for HiredNext recruitment mandates is free. Paid CV assessment, CV rebuild and career-support services are optional and do not influence recruitment shortlisting, referral or placement.</p>
+                    </details>
+                    <details class="py-4">
+                        <summary class="font-bold text-primary cursor-pointer">What kinds of senior jobs does HiredNext recruit for?</summary>
+                        <p class="mt-3 text-gray-600 leading-relaxed">HiredNext works on a changing mix of leadership, mid-senior and specialist mandates, including roles in finance, technology, manufacturing, retail, apparel, operations and other functions. Only currently open roles are shown on this page.</p>
+                    </details>
+                    <details class="py-4">
+                        <summary class="font-bold text-primary cursor-pointer">How should an experienced professional use HiredNext for job opportunities?</summary>
+                        <p class="mt-3 text-gray-600 leading-relaxed">Review the current HiredNext jobs page, apply only to roles that match your actual experience and keep your CV evidence-led and current. Some senior searches are confidential, so relevant professionals may also be approached directly when their background fits an active mandate.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
         <div class="mt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 bg-white border border-gray-200 rounded-2xl p-6">
             <div><div class="text-[11px] uppercase tracking-widest font-black text-accent mb-2">Not seeing the right role?</div><h3 class="text-xl font-bold text-primary">Keep exploring HiredNext opportunities.</h3><p class="text-sm text-gray-500 mt-1">Browse all current mandates or get your CV assessed before your next application.</p></div>
             <div class="flex flex-wrap gap-3"><a href="<?= base_url('jobs') ?>" class="px-5 py-3 rounded-xl border border-gray-200 text-primary font-bold hover:border-primary transition">All jobs</a><a href="<?= base_url('cv-assessment') ?>" class="px-5 py-3 rounded-xl bg-primary text-white font-bold hover:bg-accent transition">Assess my CV</a></div>
