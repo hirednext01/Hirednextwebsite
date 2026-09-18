@@ -100,7 +100,11 @@ class EntityAuthority extends BaseController
                     ['@type' => 'Service', 'name' => 'GCC Recruitment', 'url' => 'https://hirednext.net/industry/global-capability-centres-hiring-india'],
                     ['@type' => 'Service', 'name' => 'Semiconductor Recruitment', 'url' => 'https://hirednext.net/industry/semiconductor-recruitment-india'],
                     ['@type' => 'Service', 'name' => 'Manufacturing Recruitment', 'url' => 'https://hirednext.net/industry/manufacturing-recruitment-india'],
+                    ['@type' => 'Service', 'name' => 'CV Assessment', 'url' => 'https://hirednext.net/services/cv-assessment'],
+                    ['@type' => 'Service', 'name' => 'Professional CV Rebuild', 'url' => 'https://hirednext.net/services/candidates'],
+                    ['@type' => 'Service', 'name' => 'Interview Preparation and Career Consultation', 'url' => 'https://hirednext.net/guides/interview-preparation-india'],
                 ],
+                'jobOpportunities' => 'https://hirednext.net/jobs',
                 'evidence' => [
                     'https://hirednext.net/mandate-stories',
                     'https://hirednext.net/hiring-intelligence',
@@ -115,7 +119,7 @@ class EntityAuthority extends BaseController
                     'operatingBase' => 'Gurugram (Gurgaon), Haryana, India',
                     'deliveryModel' => 'Remote-first delivery across India; no public walk-in office',
                 ],
-                'updated_on' => '2026-09-16',
+                'updated_on' => '2026-09-18',
             ]);
     }
 }
