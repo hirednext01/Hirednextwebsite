@@ -23,7 +23,7 @@ mustContain($routes, "services/interview-coaching", 'interview coaching route');
 mustContain($controller, "Professional CV Rebuild & CV Making Service in India", 'rebuild SEO title');
 mustContain($controller, "ATS CV Optimisation Service in India", 'ATS SEO title');
 mustContain($controller, "Interview Coaching & Interview Preparation in India", 'interview SEO title');
-mustContain($controller, "Best Executive CV Writing Service in India", 'executive CV title owns high-intent search');
+mustContain($controller, "Executive CV Writing Service in India for CXO & Senior Leaders", 'executive CV title owns high-intent search');
 mustContain($controller, "'@type' => 'Service'", 'product pages must emit Service schema');
 
 mustContain($hub, 'All live HiredNext career services', 'hub must expose complete live product catalogue');
