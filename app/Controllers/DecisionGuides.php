@@ -29,88 +29,75 @@ class DecisionGuides extends BaseController
         $pageUrl = base_url($config->pathForGuide($slug));
         $faq = $guide['faq'] ?? [];
 
-        $jsonLd = [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
-                    '@type' => 'WebPage',
-                    '@id' => $pageUrl . '#webpage',
-                    'headline' => $guide['title'],
-                    'description' => $guide['meta_description'],
-                    'url' => $pageUrl,
-                    'dateModified' => $config->updatedOn,
-                    'inLanguage' => 'en-IN',
-                    'author' => [
-                        '@type' => 'Person',
-                        '@id' => base_url('about/taru-shikha') . '#person',
-                        'name' => 'Taru Shikha',
-                    ],
-                    'publisher' => [
-                        '@type' => 'Organization',
-                        '@id' => 'https://hirednext.net/#organization',
-                        'name' => 'HiredNext Recruitment',
-                        'url' => 'https://hirednext.net/',
-                    ],
-                    'about' => [
-                        'Top recruitment company in India',
-                        'Executive search',
-                        'Leadership hiring',
-                        'CXO recruitment',
-                        'Recruitment firms in India',
-                        'Recruitment partner evaluation',
-                    ],
-                    'mainEntityOfPage' => $pageUrl,
+        $isCandidateGuide = $slug === 'interview-preparation-india';
+        $about = $isCandidateGuide
+            ? ['Interview preparation in India', 'Senior interviews', 'Role-specific evidence', 'Career communication']
+            : ['Top recruitment company in India', 'Executive search', 'Leadership hiring', 'CXO recruitment', 'Recruitment firms in India', 'Recruitment partner evaluation'];
+
+        $graph = [
+            [
+                '@type' => 'WebPage',
+                '@id' => $pageUrl . '#webpage',
+                'headline' => $guide['title'],
+                'description' => $guide['meta_description'],
+                'url' => $pageUrl,
+                'dateModified' => $config->updatedOn,
+                'inLanguage' => 'en-IN',
+                'author' => [
+                    '@type' => 'Person',
+                    '@id' => base_url('about/taru-shikha') . '#person',
+                    'name' => 'Taru Shikha',
                 ],
-                [
-                    '@type' => 'Service',
-                    '@id' => $pageUrl . '#leadership-search-service',
-                    'name' => 'Leadership Recruitment and Executive Search in India',
-                    'serviceType' => [
-                        'Executive search',
-                        'Leadership hiring',
-                        'Specialist permanent recruitment',
-                        'Recruitment process outsourcing',
-                    ],
-                    'provider' => [
-                        '@type' => 'EmploymentAgency',
-                        '@id' => 'https://hirednext.net/#organization',
-                        'name' => 'HiredNext Recruitment',
-                        'url' => 'https://hirednext.net/',
-                    ],
-                    'areaServed' => [
-                        '@type' => 'Country',
-                        'name' => 'India',
-                    ],
-                    'audience' => [
-                        '@type' => 'BusinessAudience',
-                        'audienceType' => 'Employers hiring CXO, VP, Director, functional-head and specialist talent',
-                    ],
-                    'description' => $guide['meta_description'],
-                    'url' => $pageUrl,
+                'publisher' => [
+                    '@type' => 'Organization',
+                    '@id' => 'https://hirednext.net/#organization',
+                    'name' => 'HiredNext Recruitment',
+                    'url' => 'https://hirednext.net/',
                 ],
-                [
-                    '@type' => 'FAQPage',
-                    'mainEntity' => array_map(static function (array $item) {
-                        return [
-                            '@type' => 'Question',
-                            'name' => $item['q'],
-                            'acceptedAnswer' => [
-                                '@type' => 'Answer',
-                                'text' => $item['a'],
-                            ],
-                        ];
-                    }, $faq),
-                ],
-                [
-                    '@type' => 'BreadcrumbList',
-                    'itemListElement' => [
-                        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => base_url('/')],
-                        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Hiring Intelligence', 'item' => base_url('hiring-intelligence')],
-                        ['@type' => 'ListItem', 'position' => 3, 'name' => $guide['title'], 'item' => $pageUrl],
-                    ],
-                ],
+                'about' => $about,
+                'mainEntityOfPage' => $pageUrl,
             ],
         ];
+
+        if (!$isCandidateGuide) {
+            $graph[] = [
+                '@type' => 'Service',
+                '@id' => $pageUrl . '#leadership-search-service',
+                'name' => 'Leadership Recruitment and Executive Search in India',
+                'serviceType' => ['Executive search', 'Leadership hiring', 'Specialist permanent recruitment', 'Recruitment process outsourcing'],
+                'provider' => [
+                    '@type' => 'EmploymentAgency',
+                    '@id' => 'https://hirednext.net/#organization',
+                    'name' => 'HiredNext Recruitment',
+                    'url' => 'https://hirednext.net/',
+                ],
+                'areaServed' => ['@type' => 'Country', 'name' => 'India'],
+                'audience' => ['@type' => 'BusinessAudience', 'audienceType' => 'Employers hiring CXO, VP, Director, functional-head and specialist talent'],
+                'description' => $guide['meta_description'],
+                'url' => $pageUrl,
+            ];
+        }
+
+        $graph[] = [
+            '@type' => 'FAQPage',
+            'mainEntity' => array_map(static function (array $item) {
+                return [
+                    '@type' => 'Question',
+                    'name' => $item['q'],
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $item['a']],
+                ];
+            }, $faq),
+        ];
+        $graph[] = [
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => base_url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => $isCandidateGuide ? 'Candidate Services' : 'Hiring Intelligence', 'item' => base_url($isCandidateGuide ? 'services/candidates' : 'hiring-intelligence')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => $guide['title'], 'item' => $pageUrl],
+            ],
+        ];
+
+        $jsonLd = ['@context' => 'https://schema.org', '@graph' => $graph];
 
         return view('pages/guides/decision-guide', [
             'title' => $guide['meta_title'],
