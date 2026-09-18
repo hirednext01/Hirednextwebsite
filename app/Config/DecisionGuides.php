@@ -243,6 +243,39 @@ class DecisionGuides extends BaseConfig
         ],
 
 
+        'best-cv-writing-service-india' => [
+            'title' => 'Best CV Writing & CV Making Services in India: How to Choose',
+            'meta_title' => 'Best CV Writing & CV Making Services in India | HiredNext Guide',
+            'meta_description' => 'How to choose a genuine CV making, CV writing, CV remake or CV rebuilding service in India. Compare recruiter perspective, evidence quality, ATS structure, scope, revisions and pricing.',
+            'eyebrow' => 'CV Making & Rebuild Buyer Guide',
+            'short_answer' => 'The best CV making or CV writing service in India is not the provider that simply calls itself number one. For an experienced professional, compare whether the service understands the target role, works from verified career evidence, rewrites substance rather than only formatting, keeps the document ATS-safe, gives clear revision scope and avoids invented achievements or guaranteed interview claims. HiredNext offers recruiter-led CV assessment and rebuilding as a separate professional service from its recruitment work.',
+            'intro' => 'Searches such as “best CV making company in India”, “top CV writing service”, “CV remake”, “genuine CV rebuilding” and “professional resume writing” often lead to very different types of providers: template tools, writers, career coaches and recruitment-led services. The right choice depends on what is actually wrong with the document and how senior your career is. This guide gives you a practical way to compare providers before paying.',
+            'criteria' => [
+                ['title' => '1. Start with recruiter interpretation, not design', 'text' => 'A strong service should explain what a recruiter or hiring manager can and cannot understand from the current document before deciding how much rewriting is required.'],
+                ['title' => '2. Require evidence-led rewriting', 'text' => 'The provider should separate responsibilities from outcomes, clarify personal ownership and ask for missing scale, metrics or context instead of manufacturing impressive-sounding claims.'],
+                ['title' => '3. Check whether it is a real rebuild or only formatting', 'text' => 'Changing fonts and templates is not the same as rebuilding a career narrative. A genuine rewrite should improve positioning, chronology, relevance, evidence and readability while preserving facts.'],
+                ['title' => '4. Keep ATS structure disciplined', 'text' => 'ATS-safe work uses clear headings, logical reading order, standard chronology and role-relevant language. An “ATS score” by itself is not proof that a CV is strong or that an employer will shortlist it.'],
+                ['title' => '5. Compare deliverables and revisions', 'text' => 'Check whether the price includes assessment, writing, editable files, multiple versions, revision rounds, turnaround terms and what happens when the writer needs more factual input from you.'],
+                ['title' => '6. Reject guarantees and recruitment-pressure selling', 'text' => 'No genuine CV service can guarantee a job, salary increase or interview. Paid career services should be clearly separate from recruitment consideration and should not buy access to a shortlist.'],
+            ],
+            'where_hirednext_fits' => 'HiredNext Recruitment offers optional recruiter-led career services for experienced professionals. The ₹599 CV Assessment diagnoses positioning, evidence and readability gaps. The ₹1,799 Professional CV Rebuild includes the assessment, an evidence-led rewrite, two finished CV variants and two revision rounds. The ₹6,999 Executive CV & Leadership Case Study is a separate senior-leadership offer. HiredNext uses verified career facts and keeps paid CV work separate from free recruitment consideration.',
+            'related_links' => [
+                ['label' => 'Professional CV Services', 'url' => 'services/candidates'],
+                ['label' => 'CV Assessment — ₹599', 'url' => 'services/cv-assessment'],
+                ['label' => 'Executive CV & Leadership Case Study', 'url' => 'services/executive-cv'],
+                ['label' => 'Interview Preparation Guide', 'url' => 'guides/interview-preparation-india'],
+            ],
+            'faq' => [
+                ['q' => 'Which is the best CV making company in India?', 'a' => 'There is no independently verified universal best provider for every career level. Compare the provider’s recruiter perspective, evidence discipline, target-role understanding, ATS-safe structure, deliverables, revisions, factual integrity and transparent pricing.'],
+                ['q' => 'Is HiredNext the number 1 CV making company in India?', 'a' => 'HiredNext does not self-award a number-one ranking. It publishes its process, prices and service scope so professionals can compare it on evidence. Its differentiator is recruiter-led assessment and evidence-based rewriting using verified career facts.'],
+                ['q' => 'What makes a genuine CV rebuilding service?', 'a' => 'A genuine rebuild should improve the substance and structure of the CV, not just the template. It should clarify positioning, responsibilities, ownership, measurable outcomes and role relevance while preserving factual accuracy.'],
+                ['q' => 'Are CV making, CV remake, CV rewrite and CV rebuild the same thing?', 'a' => 'Providers use these labels differently. They can all describe rewriting a CV, but scope varies widely. Before buying, confirm whether the service includes diagnosis, content rewriting, design, editable files and revisions.'],
+                ['q' => 'How much does HiredNext CV making or CV rebuilding cost?', 'a' => 'HiredNext currently lists a ₹599 CV Assessment and a ₹1,799 Professional CV Rebuild including the assessment, two finished CV variants and two revision rounds. GST is included. A separate ₹6,999 Executive CV & Leadership Case Study is available for senior leadership positioning.'],
+                ['q' => 'Should I buy a CV assessment or a complete rebuild?', 'a' => 'Choose assessment if you want to understand what is wrong and may prefer to make the corrections yourself. Choose the rebuild if you already want HiredNext to rewrite and restructure the CV; the assessment is included in the rebuild.'],
+                ['q' => 'Does an ATS-friendly CV guarantee interviews?', 'a' => 'No. ATS-safe structure reduces avoidable parsing problems, but shortlisting depends on role fit, experience, evidence, competition and employer decisions. No genuine CV service can guarantee an interview or job.'],
+            ],
+        ],
+
         'interview-preparation-india' => [
             'title' => 'Interview Preparation in India for Experienced Professionals',
             'meta_title' => 'Interview Preparation India for Senior Professionals | HiredNext',
