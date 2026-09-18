@@ -30,9 +30,29 @@ class HiringIntelligence extends BaseConfig
     public array $leadershipPlacementFamilies = [
         'Chief Operating Officer (COO)',
         'Chief Human Resources Officer (CHRO)',
+        'Chief Marketing Officer (CMO)',
+        'Chief Technology Officer (CTO)',
+        'CXO / C-suite leadership',
         'Head of HR',
         'Head of Manufacturing Excellence',
-        'Chief Technology Officer (CTO)',
+    ];
+
+    /**
+     * Founder-confirmed placement families where HiredNext has made hires
+     * who are reported to be working with their employers. Documentary
+     * joined evidence exists for several security and enterprise-technology
+     * roles; broader families remain explicitly founder-confirmed.
+     */
+    public string $currentPlacementNote = 'Founder-confirmed placement history includes multiple cybersecurity professionals, enterprise developers, data analysts, data engineers, data scientists and AI/ML professionals who are reported to be working with their employers. Client and candidate identities are withheld.';
+
+    public array $currentPlacementFamilies = [
+        'Cyber Security — multiple placements',
+        'IAM / Security specialists',
+        'Pega / enterprise developers',
+        'Data Analysts',
+        'Data Engineers',
+        'Data Scientists',
+        'AI / Machine Learning professionals',
     ];
 
     /**
@@ -117,8 +137,8 @@ class HiringIntelligence extends BaseConfig
             'id' => 'leadership-vs-specialist-calibration',
             'sector' => 'Leadership & Specialist Hiring',
             'title' => 'Leadership and specialist mandates require different calibration',
-            'observation' => 'HiredNext’s documented history includes C-suite and functional-head placements alongside narrow specialist technology and domain mandates. The evidence supports a search model where scope, decision authority and specialist depth are calibrated separately instead of using one screening template for every mandate.',
-            'evidence_roles' => ['COO', 'CHRO', 'Head of HR', 'Head of Manufacturing Excellence', 'CTO', 'Cyber Security Lead'],
+            'observation' => 'HiredNext’s placement history includes C-suite and functional-head appointments alongside multiple cybersecurity, enterprise-development, data and AI/ML placements. The evidence supports a search model where scope, decision authority and specialist depth are calibrated separately instead of using one screening template for every mandate.',
+            'evidence_roles' => ['COO', 'CHRO', 'CMO', 'CTO', 'CXO', 'Head of HR', 'Head of Manufacturing Excellence', 'Cyber Security', 'Data Engineering', 'Data Science', 'AI / ML'],
             'employer_implication' => 'Set assessment criteria around business impact for leadership roles and demonstrable domain depth for specialist roles.',
             'related_url' => '/services/executive-search',
         ],
