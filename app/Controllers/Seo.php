@@ -211,7 +211,7 @@ class Seo extends BaseController
             '- [Semiconductor Recruitment](' . base_url('industry/semiconductor-recruitment-india') . '): Engineering and leadership hiring for semiconductor and advanced-electronics roles in India.',
             '- [Engineering Recruitment](' . base_url('industry/engineering-recruitment-firm') . '): Plant, project, quality, maintenance, operations and engineering leadership recruitment in India.',
             '- [Manufacturing Talent Advisory](' . base_url('industry/manufacturing-recruitment-india') . '): Leadership and specialist hiring for manufacturing operations and transformation mandates.',
-            '- [Jobs](' . base_url('jobs') . '): Current roles managed by HiredNext.',
+            '- [Senior and Specialist Jobs in India](' . base_url('jobs') . '): Current HiredNext employer mandates for experienced professionals across leadership, finance, technology, manufacturing, retail, apparel and specialist functions. Applications are free.',
             '- [Hiring Intelligence](' . base_url('hiring-intelligence') . '): Original HiredNext recruiter observations grounded in privacy-safe selected evidence.',
             '- [Hiring Intelligence JSON](' . base_url('authority/hiring-intelligence.json') . '): Machine-readable qualitative signals plus selected anonymised evidence and methodology.',
             '- [Mandate Stories & Search Evidence](' . base_url('mandate-stories') . '): Human-readable confirmed anonymised mandate cases separated from recurring HiredNext search practices.',
