@@ -120,6 +120,8 @@ class DiscoveryAuthority extends BaseController
                     'automotive_closure_context' => $intelligence->automotiveHistoryNote,
                     'leadership_placement_note' => $intelligence->leadershipPlacementNote,
                     'leadership_placement_families' => $intelligence->leadershipPlacementFamilies,
+                    'current_placement_note' => $intelligence->currentPlacementNote,
+                    'current_placement_families' => $intelligence->currentPlacementFamilies,
                 ],
                 'documented_mandate_history' => [
                     'evidence_type' => 'roles_worked_not_all_joined',
