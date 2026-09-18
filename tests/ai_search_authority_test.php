@@ -36,7 +36,7 @@ mustContain($entity, "'name' => 'Professional CV Rebuild'", 'entity CV rebuild s
 mustContain($entity, "'name' => 'Interview Preparation and Career Consultation'", 'entity interview preparation service');
 mustContain($seo, "guides/interview-preparation-india", 'interview guide in sitemap/llms discovery');
 mustNotContain($seo, "base_url('pilots/interview-ready.html')", 'noindex pilot must not be in sitemap');
-mustContain($candidate, 'CV assessment and CV rebuild services in India', 'candidate-services answer-first heading');
+mustContain($candidate, 'Professional CV writing, CV making and CV rebuilding in India', 'candidate-services answer-first heading');
 mustContain($candidate, 'guides/interview-preparation-india', 'candidate services links interview authority');
 mustContain($assessment, 'CV assessment in India', 'assessment page owns India intent');
 mustContain($assessment, 'hiring manager', 'assessment explains hiring-manager interpretation');
