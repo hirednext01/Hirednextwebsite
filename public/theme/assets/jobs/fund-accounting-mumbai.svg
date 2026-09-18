@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Fund Accounting - Mumbai | HiredNext Recruitment</title>
+  <desc id="desc">Confidential direct hiring for one Fund Accounting position in Mumbai, up to twelve lakh per annum.</desc>
+  <defs>
+    <linearGradient id="bg-fa" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#edf3f8"/>
+    </linearGradient>
+    <linearGradient id="navy-fa" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#061e3f"/>
+      <stop offset="1" stop-color="#0c3466"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1350" fill="url(#bg-fa)"/>
+  <rect width="1080" height="24" fill="#ff4e16"/>
+  <rect x="0" y="0" width="22" height="1350" fill="#ff4e16"/>
+
+  <text x="68" y="108" font-family="Arial,Helvetica,sans-serif" font-size="70" font-weight="700" fill="#071d3d">Hired</text>
+  <text x="250" y="108" font-family="Arial,Helvetica,sans-serif" font-size="70" font-weight="700" fill="#ff4e16">Next</text>
+  <text x="68" y="146" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#071d3d">Recruitment</text>
+  <rect x="758" y="58" width="254" height="62" rx="14" fill="#071d3d"/>
+  <text x="885" y="99" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#ffffff">HN-FA-0918</text>
+
+  <rect x="68" y="192" width="495" height="56" rx="14" fill="#ff4e16"/>
+  <text x="316" y="229" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#ffffff">CONFIDENTIAL DIRECT HIRING</text>
+  <text x="68" y="318" font-family="Arial,Helvetica,sans-serif" font-size="76" font-weight="800" fill="#071d3d">FUND ACCOUNTING</text>
+  <text x="68" y="372" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#52647a">FINANCE PROFESSIONAL</text>
+  <rect x="68" y="400" width="152" height="8" fill="#ff4e16"/>
+
+  <rect x="68" y="445" width="944" height="176" rx="24" fill="url(#navy-fa)"/>
+  <g font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#ffffff">
+    <text x="112" y="496">• Mumbai | In-person</text>
+    <text x="112" y="547">• 1 opening</text>
+    <text x="112" y="598">• CTC up to ₹12 LPA</text>
+  </g>
+
+  <text x="68" y="684" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" letter-spacing="2" fill="#ff4e16">WHO SHOULD APPLY</text>
+  <g font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#071d3d">
+    <text x="88" y="741">• Qualified CA: 0–1 year relevant experience</text>
+    <text x="88" y="795">• Non-CA: 3–4 years in fund accounting</text>
+    <text x="88" y="849">• PE / investment-fund exposure preferred</text>
+  </g>
+
+  <text x="68" y="925" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" letter-spacing="2" fill="#ff4e16">ROLE FOCUS</text>
+  <g font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#071d3d">
+    <text x="88" y="982">• Day-to-day PE-fund accounting</text>
+    <text x="88" y="1036">• Periodic accounting closures</text>
+    <text x="88" y="1090">• Fund-related financial reporting</text>
+    <text x="88" y="1144">• Accurate and complete accounting records</text>
+    <text x="88" y="1198">• Early joiners preferred</text>
+  </g>
+
+  <rect x="0" y="1240" width="1080" height="110" fill="url(#navy-fa)"/>
+  <text x="68" y="1288" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#ffffff">APPLY AT</text>
+  <text x="68" y="1328" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="800" fill="#ff8a5c">hirednext.net/jobs/fund-accounting-mumbai</text>
+  <text x="1012" y="1312" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#ffffff">Reputed global</text>
+  <text x="1012" y="1338" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#dbe4ef">consulting firm</text>
+</svg>

@@ -4,6 +4,7 @@ $routes = file_get_contents($root . '/app/Config/Routes.php');
 $home = file_get_contents($root . '/app/Controllers/Home.php');
 $list = file_get_contents($root . '/app/Views/pages/jobs.php');
 $detail = file_get_contents($root . '/app/Views/pages/job-detail.php');
+$jobModel = file_get_contents($root . '/app/Models/JobModel.php');
 
 $checks = [
     'job listing route unchanged' => strpos($routes, '$routes->get(\'jobs\', \'Jobs::index\')') !== false,
@@ -32,6 +33,16 @@ $checks = [
     'copy link' => strpos($detail, 'copyJobLink') !== false,
     'similar jobs' => strpos($detail, 'Similar opportunities') !== false,
     'no job mutation in detail view' => strpos($detail, '->insert(') === false && strpos($detail, '->update(') === false && strpos($detail, '->delete(') === false,
+    'fund accounting role published' => strpos($jobModel, "'fund-accounting-mumbai' =>") !== false,
+    'fund accounting code mapped' => strpos($jobModel, "'fund-accounting-mumbai' => 'HN-FA-0918'") !== false,
+    'fund accounting eligibility split' => strpos($jobModel, 'Non-CA finance professional with 3–4 years') !== false,
+    'fund accounting poster included' => strpos($jobModel, '/theme/assets/jobs/fund-accounting-mumbai.svg') !== false,
+    'revenue assurance role published' => strpos($jobModel, "'revenue-assurance-bengaluru' =>") !== false,
+    'revenue assurance code mapped' => strpos($jobModel, "'revenue-assurance-bengaluru' => 'HN-RA-0918'") !== false,
+    'revenue assurance standards included' => strpos($jobModel, 'IFRS 15 and Ind AS 115') !== false,
+    'revenue assurance poster included' => strpos($jobModel, '/theme/assets/jobs/revenue-assurance-bengaluru.svg') !== false,
+    'fund accounting poster file exists' => is_file($root . '/public/theme/assets/jobs/fund-accounting-mumbai.svg'),
+    'revenue assurance poster file exists' => is_file($root . '/public/theme/assets/jobs/revenue-assurance-bengaluru.svg'),
 ];
 
 $failed = [];
