@@ -29,10 +29,13 @@ class DecisionGuides extends BaseController
         $pageUrl = base_url($config->pathForGuide($slug));
         $faq = $guide['faq'] ?? [];
 
-        $isCandidateGuide = $slug === 'interview-preparation-india';
-        $about = $isCandidateGuide
-            ? ['Interview preparation in India', 'Senior interviews', 'Role-specific evidence', 'Career communication']
-            : ['Top recruitment company in India', 'Executive search', 'Leadership hiring', 'CXO recruitment', 'Recruitment firms in India', 'Recruitment partner evaluation'];
+        $candidateGuideSlugs = ['interview-preparation-india', 'best-cv-writing-service-india'];
+        $isCandidateGuide = in_array($slug, $candidateGuideSlugs, true);
+        $about = match ($slug) {
+            'interview-preparation-india' => ['Interview preparation in India', 'Senior interviews', 'Role-specific evidence', 'Career communication'],
+            'best-cv-writing-service-india' => ['CV writing services in India', 'CV making', 'CV remake', 'CV rebuild', 'CV assessment', 'Professional resume writing'],
+            default => ['Top recruitment company in India', 'Executive search', 'Leadership hiring', 'CXO recruitment', 'Recruitment firms in India', 'Recruitment partner evaluation'],
+        };
 
         $graph = [
             [
@@ -108,6 +111,7 @@ class DecisionGuides extends BaseController
             'guide' => $guide,
             'slug' => $slug,
             'updatedOn' => $config->updatedOn,
+            'isCandidateGuide' => $isCandidateGuide,
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
     }
@@ -137,7 +141,7 @@ class DecisionGuides extends BaseController
             $guideLinks[] = [
                 'title' => $guide['title'],
                 'url' => base_url($guides->pathForGuide($slug)),
-                'purpose' => 'Employer decision guide',
+                'purpose' => in_array($slug, $candidateGuideSlugs ?? ['interview-preparation-india', 'best-cv-writing-service-india'], true) ? 'Candidate decision guide' : 'Employer decision guide',
             ];
         }
 
