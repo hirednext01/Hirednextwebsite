@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Revenue Assurance - Bengaluru | HiredNext Recruitment</title>
+  <desc id="desc">Confidential direct hiring for three Revenue Assurance positions in Bengaluru, up to twelve lakh per annum.</desc>
+  <defs>
+    <linearGradient id="bg-ra" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#edf3f8"/>
+    </linearGradient>
+    <linearGradient id="navy-ra" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#061e3f"/>
+      <stop offset="1" stop-color="#0c3466"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1350" fill="url(#bg-ra)"/>
+  <rect width="1080" height="24" fill="#ff4e16"/>
+  <rect x="0" y="0" width="22" height="1350" fill="#ff4e16"/>
+
+  <text x="68" y="108" font-family="Arial,Helvetica,sans-serif" font-size="70" font-weight="700" fill="#071d3d">Hired</text>
+  <text x="250" y="108" font-family="Arial,Helvetica,sans-serif" font-size="70" font-weight="700" fill="#ff4e16">Next</text>
+  <text x="68" y="146" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#071d3d">Recruitment</text>
+  <rect x="758" y="58" width="254" height="62" rx="14" fill="#071d3d"/>
+  <text x="885" y="99" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#ffffff">HN-RA-0918</text>
+
+  <rect x="68" y="192" width="495" height="56" rx="14" fill="#ff4e16"/>
+  <text x="316" y="229" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#ffffff">CONFIDENTIAL DIRECT HIRING</text>
+  <text x="68" y="318" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="800" fill="#071d3d">REVENUE</text>
+  <text x="68" y="394" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="800" fill="#071d3d">ASSURANCE</text>
+  <rect x="68" y="423" width="152" height="8" fill="#ff4e16"/>
+
+  <rect x="68" y="468" width="944" height="176" rx="24" fill="url(#navy-ra)"/>
+  <g font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="700" fill="#ffffff">
+    <text x="112" y="519">• Marathahalli, Bengaluru</text>
+    <text x="112" y="570">• 3 openings</text>
+    <text x="112" y="621">• CTC up to ₹12 LPA | Office / client site</text>
+  </g>
+
+  <text x="68" y="702" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" letter-spacing="2" fill="#ff4e16">TEAM PROFILE</text>
+  <g font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="700" fill="#071d3d">
+    <text x="88" y="757">• 2 roles: Qualified CA | Fresher / 0–1 year</text>
+    <text x="88" y="809">• 1 role: Non-CA accepted | 3–4 years</text>
+    <text x="88" y="861">• Revenue assurance / recognition experience</text>
+  </g>
+
+  <text x="68" y="930" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" letter-spacing="2" fill="#ff4e16">ROLE FOCUS</text>
+  <g font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#071d3d">
+    <text x="88" y="983">• IFRS 15 and Ind AS 115</text>
+    <text x="88" y="1032">• Review approximately 2,000 customer contracts</text>
+    <text x="88" y="1081">• Revenue recalculation after an acquisition</text>
+    <text x="88" y="1130">• Software / SaaS / consulting exposure preferred</text>
+    <text x="88" y="1179">• Initial assignment: 2–3 months</text>
+    <text x="88" y="1228">• Direct hire into the consulting practice | No permanent WFH</text>
+  </g>
+
+  <rect x="0" y="1260" width="1080" height="90" fill="url(#navy-ra)"/>
+  <text x="68" y="1298" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#ffffff">APPLY AT</text>
+  <text x="68" y="1332" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="800" fill="#ff8a5c">hirednext.net/jobs/revenue-assurance-bengaluru</text>
+  <text x="1012" y="1318" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700" fill="#ffffff">Reputed global</text>
+  <text x="1012" y="1342" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="20" fill="#dbe4ef">consulting firm</text>
+</svg>
