@@ -223,7 +223,7 @@ class CandidateServices extends BaseController
 
         return view('pages/services/cv-assessment', [
             'title' => 'CV Assessment & Resume Review Service in India | HiredNext',
-            'metaDescription' => 'Get a recruiter-led CV assessment and resume review in India for ₹599. Role-focused written feedback on positioning, readability, evidence and priority corrections within 12 hours after payment verification.',
+            'metaDescription' => 'Get a detailed 12-hour, role-focused CV assessment for ₹599 from HiredNext recruitment experts. Includes recruiter-led resume review on positioning, readability, evidence and priority corrections.',
             'currentPage' => 'services',
             'job' => $job,
         ]);
