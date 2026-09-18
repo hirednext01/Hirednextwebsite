@@ -211,8 +211,7 @@ class Seo extends BaseController
             '- [ATS CV Optimisation](' . base_url('services/ats-cv-optimisation') . '): ₹999 ATS-safe structure, role language, keyword and recruiter-scan optimisation for a fundamentally sound CV.',
             '- [Professional CV Rebuild](' . base_url('services/professional-cv-rebuild') . '): ₹1,799 evidence-led CV making, rewriting and rebuilding with assessment, two finished variants and two revision rounds.',
             '- [Executive CV Writing](' . base_url('services/executive-cv') . '): ₹6,999 executive CV and one leadership case study for CXO, VP, Director and senior-leadership careers.',
-            '- [Interview Coaching](' . base_url('services/interview-coaching') . '): ₹4,500 private 30-minute role-specific interview preparation session with Taru Shikha.'
-            '- [Professional CV Rebuild](' . base_url('services/candidates') . '): ₹1,799 rebuild using verified career facts, with assessment, two CV variants and two revision rounds.',
+            '- [Interview Coaching](' . base_url('services/interview-coaching') . '): ₹4,500 private 30-minute role-specific interview preparation session with Taru Shikha.',
             '- [Interview Preparation Guide](' . base_url('guides/interview-preparation-india') . '): Evidence-led interview preparation for experienced and senior professionals; links to the live 1-to-1 consultation. The ₹999 Interview Ready pilot is not open for purchase.',
             '- [Executive Search](' . base_url('services/executive-search') . '): Confidential leadership hiring, market mapping and structured assessment.',
             '- [Permanent Recruitment](' . base_url('services/permanent-hiring') . '): Mid-senior and specialist recruitment support.',
