@@ -17,9 +17,11 @@
 <section class="bg-white border-b border-gray-100">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8 py-10">
         <div class="max-w-4xl">
-            <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-3">Recruiter-led career support</div>
-            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary">CV assessment and CV rebuild services in India — what HiredNext actually does</h2>
-            <p class="mt-4 text-gray-600 leading-relaxed">A CV assessment diagnoses what a recruiter or hiring manager can understand quickly, what evidence remains unclear and which corrections matter first. A CV rebuild goes further: HiredNext rewrites and restructures the document using verified career facts so responsibilities, scale and outcomes are easier to evaluate.</p>
+            <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-3">Recruiter-led CV services in India</div>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary">Professional CV writing, CV making and CV rebuilding in India</h2>
+            <p class="mt-4 text-gray-600 leading-relaxed">People use different words for the same need: CV making, CV writing, CV remake, CV rewriting, CV revamp or CV rebuild. HiredNext treats the work as evidence-led rebuilding rather than template filling. We use your verified career facts to make role level, scope, progression, achievements and relevant capability easier for recruiters and hiring managers to understand.</p>
+            <p class="mt-3 text-gray-600 leading-relaxed">A CV assessment diagnoses what a recruiter or hiring manager can understand quickly, what evidence remains unclear and which corrections matter first. A CV rebuild goes further: HiredNext rewrites and restructures the document using verified career facts so responsibilities, scale and outcomes are easier to evaluate.</p>
+            <p class="mt-3 text-gray-600 leading-relaxed"><a class="font-bold text-primary underline underline-offset-4" href="<?= base_url('guides/best-cv-writing-service-india') ?>">Looking for the best CV making or CV writing company in India?</a> Use our evidence-based buyer guide to compare what a genuine service should actually do before choosing any provider.</p>
             <p class="mt-3 text-gray-600 leading-relaxed">Interview preparation is separate from CV work. HiredNext also offers a live 1-to-1 consultation, while the ₹999 Interview Ready written-practice pilot is not open for purchase. Paid career services are optional and never influence recruitment shortlisting or placement.</p>
             <div class="mt-6 flex flex-wrap gap-3 text-sm font-bold">
                 <a class="text-primary underline underline-offset-4" href="<?= base_url('services/cv-assessment') ?>">CV assessment</a>
