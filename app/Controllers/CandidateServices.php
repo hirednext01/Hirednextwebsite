@@ -28,9 +28,9 @@ class CandidateServices extends BaseController
         $settings = $this->loadWebsiteSettings();
         $pageUrl = base_url('services/candidates');
         return view('pages/services/candidate-services', [
-            'title' => 'CV Assessment, CV Rebuild & Interview Coaching | HiredNext',
-            'metaDescription' => 'Find what your CV may be failing to show. Get a written assessment for ₹599, a complete CV rebuild for ₹1,799, or private 30-minute interview coaching for ₹4,500.',
-            'metaKeywords' => 'CV assessment India, CV rebuild, resume review, professional CV writing',
+            'title' => 'CV Assessment & CV Rebuild Services in India | HiredNext',
+            'metaDescription' => 'Recruiter-led CV assessment and professional CV rebuild services in India for experienced professionals, plus optional 1-to-1 interview and career consultation.',
+            'metaKeywords' => 'CV assessment India, CV rebuild service India, CV writing service India, resume review India, executive CV writing India',
             'canonical' => $pageUrl,
             'currentPage' => 'services',
             'settings' => $settings,
@@ -38,13 +38,14 @@ class CandidateServices extends BaseController
                 '@context' => 'https://schema.org',
                 '@type' => 'Service',
                 'name' => 'HiredNext CV Assessment and Professional CV Rebuild',
-                'serviceType' => 'CV assessment and writing',
+                'serviceType' => ['CV assessment', 'Professional CV rebuild', 'Executive CV writing', 'Career consultation'],
                 'provider' => ['@type' => 'Organization', 'name' => 'HiredNext Recruitment', 'url' => base_url()],
                 'url' => $pageUrl,
                 'offers' => [
                     ['@type' => 'Offer', 'name' => 'CV Assessment', 'price' => '599', 'priceCurrency' => 'INR', 'url' => base_url('services/cv-assessment')],
                     ['@type' => 'Offer', 'name' => 'Professional CV Rebuild', 'price' => '1799', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/rebuild_1799')],
                     ['@type' => 'Offer', 'name' => 'Executive CV & Leadership Case Study', 'price' => '6999', 'priceCurrency' => 'INR', 'url' => base_url('services/executive-cv')],
+                    ['@type' => 'Offer', 'name' => 'Career Consultation', 'price' => '4500', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/career_4500')],
                 ],
             ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
