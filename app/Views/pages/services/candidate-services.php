@@ -98,7 +98,7 @@
                 <p class="text-2xl font-bold text-primary mb-4">₹4,500 <span class="text-sm font-normal text-gray-500">30 minutes</span></p>
                 <p class="text-gray-600 leading-relaxed mb-4">Prepare your interview answers, explain your strengths clearly and get practical guidance from Taru Shikha, including company insights where available.</p>
                 <p class="text-sm text-gray-500 mb-6">The HiredNext team shares her available slots by email and confirms the time with you.</p>
-                <a href="<?= base_url('career-services/start/career_4500') ?>" class="mt-auto inline-flex justify-center rounded-xl bg-primary text-white px-5 py-3 font-bold">View consultation</a>
+                <a href="<?= base_url('services/interview-coaching') ?>" class="mt-auto inline-flex justify-center rounded-xl bg-primary text-white px-5 py-3 font-bold">View consultation</a>
             </article>
         </div>
     </div>
