@@ -32,6 +32,6 @@ mustHave($authority, "taru-shikha-founder-crisp.webp", 'founder schema must use 
 mustHave($authority, "'@type' => 'FAQPage'", 'founder profile FAQ schema');
 mustHave($authority, 'top recruiters in India', 'founder authority must address recruiter-discovery query without self-ranking');
 mustHave($founder, 'Taru Shikha — Founder & CEO of HiredNext Recruitment', 'founder page must clearly state current identity');
-mustHave($founder, 'recruiter in India', 'founder page must reinforce current recruiter identity');
+mustHave($founder, 'Recruiter in India', 'founder page must reinforce current recruiter identity');
 
 echo "PASS city and founder authority contract\n";
