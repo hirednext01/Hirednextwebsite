@@ -112,7 +112,7 @@ class Jobs extends BaseController
                     '@id' => base_url('jobs') . '#collection',
                     'url' => base_url('jobs'),
                     'name' => 'Jobs in India – Leadership, Technology & Specialist Roles',
-                    'description' => 'Current employer mandates managed by HiredNext Recruitment across India, including leadership, technology and specialist roles.',
+                    'description' => 'Current employer mandates managed by HiredNext Recruitment across India, including senior, leadership, finance, technology, manufacturing, retail and specialist roles.',
                     'inLanguage' => 'en-IN',
                     'isPartOf' => ['@id' => 'https://hirednext.net/#website'],
                     'publisher' => ['@id' => 'https://hirednext.net/#organization'],
@@ -134,8 +134,8 @@ class Jobs extends BaseController
 
         return view('pages/jobs', [
             'title' => 'Jobs in India – Leadership, Technology & Specialist Roles | HiredNext',
-            'metaDescription' => 'Explore current employer mandates managed by HiredNext across India. Search leadership, technology and specialist jobs by location, industry, employment type or keyword.',
-            'metaKeywords' => 'jobs in India, leadership jobs India, technology jobs India, specialist jobs India, HiredNext jobs, recruitment jobs India',
+            'metaDescription' => 'Explore current HiredNext employer mandates and senior, leadership and specialist jobs in India across finance, technology, manufacturing, retail and other functions.',
+            'metaKeywords' => 'senior jobs India, leadership jobs India, executive jobs India, specialist jobs India, HiredNext jobs, experienced professionals jobs India',
             'canonical' => base_url('jobs'),
             'currentPage' => 'jobs',
             'settings' => $settings,
