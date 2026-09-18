@@ -18,7 +18,7 @@
             <div class="text-sm font-black text-accent">₹1,799 · GST INCLUDED · DONE FOR YOU</div>
             <h3 class="text-3xl font-serif font-bold text-primary mt-2">Get Your CV Rebuilt</h3>
             <p class="text-gray-600 mt-4 leading-relaxed">HiredNext assesses your current CV, rebuilds the content and positioning, and creates two finished CV variants with two revision rounds.</p>
-            <a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="mt-6 inline-flex rounded-full bg-primary px-6 py-3 font-black text-white">Get My CV Rebuilt — ₹1,799</a>
+            <a href="<?= base_url('services/professional-cv-rebuild') ?>" class="mt-6 inline-flex rounded-full bg-primary px-6 py-3 font-black text-white">Get My CV Rebuilt — ₹1,799</a>
             <p class="mt-5 text-sm text-gray-600">Assessment included · Two CV variants · Two revision rounds</p>
         </article>
     </div>
@@ -29,18 +29,17 @@
         <div class="lg:text-right"><a href="<?= base_url('services/executive-cv') ?>" class="inline-flex justify-center rounded-full bg-accent px-7 py-4 font-black text-white">Explore Executive CV — ₹6,999</a></div>
     </article>
 
-    <?php if (empty($primaryOnly)): ?>
     <div class="mt-12 mb-6">
         <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-2">More ways HiredNext can help</div>
         <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">Choose only if this is the problem you need solved.</h2>
     </div>
 
-    <div class="grid lg:grid-cols-3 gap-5 items-stretch">
+    <div class="grid md:grid-cols-2 gap-5 items-stretch max-w-4xl mx-auto">
         <article class="rounded-[1.5rem] border border-gray-200 bg-white p-6 shadow-sm flex flex-col">
             <div class="text-sm font-black text-accent">₹999</div>
             <h3 class="text-2xl font-serif font-bold text-primary mt-2">ATS CV Optimisation</h3>
             <p class="text-sm text-gray-600 mt-3 leading-relaxed">For a CV that is fundamentally sound but needs stronger ATS structure, keywords, role language and recruiter scanability. Includes one revision round.</p>
-            <a href="<?= base_url('career-services/start/ats_999') ?>" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Start ATS optimisation →</a>
+            <a href="<?= base_url('services/ats-cv-optimisation') ?>" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Start ATS optimisation →</a>
             <div class="mt-auto pt-6"><?= view('pages/services/_candidate-success', ['successKey' => 'ats']) ?></div>
         </article>
 
@@ -48,29 +47,11 @@
             <div class="text-sm font-black text-accent">₹4,500 · 30 MINUTES</div>
             <h3 class="text-2xl font-serif font-bold text-primary mt-2">1:1 Interview Coaching with Taru</h3>
             <p class="text-sm text-gray-600 mt-3 leading-relaxed">Prepare for a specific interview with sharper positioning, likely interview themes, practical tips and company insights where sufficient information is available.</p>
-            <a href="<?= base_url('career-services/start/career_4500') ?>" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Book private interview coaching →</a>
+            <a href="<?= base_url('services/interview-coaching') ?>" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Book private interview coaching →</a>
             <div class="mt-auto pt-6"><?= view('pages/services/_candidate-success', ['successKey' => 'strategy']) ?></div>
         </article>
 
-        <article class="rounded-[1.5rem] border border-primary bg-white p-6 shadow-sm flex flex-col">
-            <div class="text-sm font-black text-accent">₹6,999 · GST INCLUDED</div>
-            <h3 class="text-2xl font-serif font-bold text-primary mt-2">Executive CV & Leadership Case Study</h3>
-            <p class="text-sm text-gray-600 mt-3 leading-relaxed">Executive positioning, full CV architecture and one signature leadership case study built from verified career evidence.</p>
-            <a href="<?= base_url('services/executive-cv') ?>" class="mt-5 inline-flex text-sm font-black text-primary hover:text-accent">Explore the executive journey →</a>
-            <div class="mt-auto pt-6 rounded-2xl border border-gray-200 bg-gray-50 p-4">
-                <div class="flex gap-3 items-start">
-                    <div class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 font-black text-sm">CXO</div>
-                    <div>
-                        <div class="text-[10px] font-black uppercase tracking-[0.16em] text-accent">Success story</div>
-                        <p class="text-sm text-gray-700 leading-relaxed mt-2">“My experience was strong, but the CV positioned me one level below my actual scope. The advisory rebuilt the story around scale, commercial ownership and transformation impact before senior-level conversations.”</p>
-                        <div class="text-xs font-black text-primary mt-3">Business Unit Head <span class="font-normal text-gray-400">· Manufacturing</span></div>
-                        <div class="text-[10px] text-gray-400 mt-2">Stories are shared without identifying details to protect candidate privacy. Individual outcomes vary.</div>
-                    </div>
-                </div>
-            </div>
-        </article>
-    </div>
+   </div>
 
-    <?php endif; ?>
     <p class="text-xs text-gray-500 text-center mt-6">Paid career services address positioning and document quality; they do not guarantee interviews, hiring or placement.</p>
 </div>
