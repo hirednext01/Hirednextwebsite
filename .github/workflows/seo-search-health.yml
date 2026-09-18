@@ -7,8 +7,18 @@ on:
       - 'public/sitemap-search.xml'
       - 'public/recruitment-agency-india/**'
       - 'app/Config/BrandFacts.php'
+      - 'app/Config/Routes.php'
+      - 'app/Config/DecisionGuides.php'
+      - 'app/Controllers/DecisionGuides.php'
+      - 'app/Controllers/CandidateServices.php'
+      - 'app/Controllers/Jobs.php'
       - 'app/Controllers/EntityAuthority.php'
-      - 'tests/search_entity_consistency_test.php'\n      - 'tests/ai_search_authority_test.php'
+      - 'app/Controllers/Seo.php'
+      - 'app/Views/pages/services/**'
+      - 'app/Views/pages/jobs.php'
+      - 'app/Views/layouts/main.php'
+      - 'tests/search_entity_consistency_test.php'
+      - 'tests/ai_search_authority_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   pull_request:
@@ -17,8 +27,18 @@ on:
       - 'public/sitemap-search.xml'
       - 'public/recruitment-agency-india/**'
       - 'app/Config/BrandFacts.php'
+      - 'app/Config/Routes.php'
+      - 'app/Config/DecisionGuides.php'
+      - 'app/Controllers/DecisionGuides.php'
+      - 'app/Controllers/CandidateServices.php'
+      - 'app/Controllers/Jobs.php'
       - 'app/Controllers/EntityAuthority.php'
-      - 'tests/search_entity_consistency_test.php'\n      - 'tests/ai_search_authority_test.php'
+      - 'app/Controllers/Seo.php'
+      - 'app/Views/pages/services/**'
+      - 'app/Views/pages/jobs.php'
+      - 'app/Views/layouts/main.php'
+      - 'tests/search_entity_consistency_test.php'
+      - 'tests/ai_search_authority_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   workflow_dispatch:
@@ -29,16 +49,35 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - name: Verify PHP syntax
         run: |
           php -l app/Config/BrandFacts.php
+          php -l app/Config/Routes.php
+          php -l app/Config/DecisionGuides.php
+          php -l app/Controllers/DecisionGuides.php
+          php -l app/Controllers/CandidateServices.php
+          php -l app/Controllers/Jobs.php
           php -l app/Controllers/EntityAuthority.php
+          php -l app/Controllers/Seo.php
+          php -l app/Views/pages/services/candidate-services.php
+          php -l app/Views/pages/services/cv-assessment.php
+          php -l app/Views/pages/services/_cv-service-faq.php
+          php -l app/Views/pages/services/client-services.php
+          php -l app/Views/pages/jobs.php
+          php -l app/Views/layouts/main.php
       - name: Verify search/entity consistency
         run: php tests/search_entity_consistency_test.php
-      - name: Verify AI search authority contract\n        run: php tests/ai_search_authority_test.php\n      - name: Verify focused sitemap XML
+      - name: Verify AI search authority contract
+        run: php tests/ai_search_authority_test.php
+      - name: Verify candidate service regressions
+        run: |
+          php tests/cv_assessment_conversion_test.php
+          php tests/cv_public_checkout_test.php
+          php tests/authority_api_response_test.php
+      - name: Verify focused sitemap XML
         run: |
           python3 - <<'PY'
           import xml.etree.ElementTree as ET
