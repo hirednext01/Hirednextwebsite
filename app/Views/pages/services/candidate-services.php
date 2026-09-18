@@ -25,7 +25,9 @@
             <p class="mt-3 text-gray-600 leading-relaxed">Interview preparation is separate from CV work. HiredNext also offers a live 1-to-1 consultation, while the ₹999 Interview Ready written-practice pilot is not open for purchase. Paid career services are optional and never influence recruitment shortlisting or placement.</p>
             <div class="mt-6 flex flex-wrap gap-3 text-sm font-bold">
                 <a class="text-primary underline underline-offset-4" href="<?= base_url('services/cv-assessment') ?>">CV assessment</a>
-                <a class="text-primary underline underline-offset-4" href="<?= base_url('career-services/start/rebuild_1799') ?>">Professional CV rebuild</a>
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('services/professional-cv-rebuild') ?>">Professional CV rebuild</a>
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('services/ats-cv-optimisation') ?>">ATS CV optimisation</a>
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('services/interview-coaching') ?>">Interview coaching</a>
                 <a class="text-primary underline underline-offset-4" href="<?= base_url('guides/interview-preparation-india') ?>">Interview preparation guide</a>
                 <a class="text-primary underline underline-offset-4" href="<?= base_url('jobs') ?>">Current jobs</a>
             </div>
@@ -38,6 +40,31 @@
         <div class="rounded-2xl border border-primary/10 bg-primary/5 px-5 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <p class="text-sm text-gray-700 leading-relaxed"><span class="font-extrabold text-primary">Candidate safety:</span> HiredNext never charges candidates to apply for a job or secure placement. CV assessment, CV creation and career advisory are optional professional services and are handled separately from recruitment consideration.</p>
             <a href="<?= base_url('jobs') ?>" class="shrink-0 text-sm font-extrabold text-primary hover:text-accent">View open jobs →</a>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-14 bg-white border-y border-gray-100">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="max-w-3xl mb-8">
+            <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-2">All live HiredNext career services</div>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary">Five paid services. Choose only the one that solves the problem.</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <?php foreach ([
+                ['CV Assessment','₹599','services/cv-assessment','Diagnose the gaps first.'],
+                ['ATS CV Optimisation','₹999','services/ats-cv-optimisation','Light structural and keyword improvement.'],
+                ['Professional CV Rebuild','₹1,799','services/professional-cv-rebuild','Full managed rewrite and rebuild.'],
+                ['Executive CV','₹6,999','services/executive-cv','CXO and senior-leadership positioning.'],
+                ['Interview Coaching','₹4,500','services/interview-coaching','Role-specific 1-to-1 preparation.'],
+            ] as $service): ?>
+                <a href="<?= base_url($service[2]) ?>" class="rounded-2xl border border-gray-200 bg-white p-5 hover:border-primary hover:shadow-md transition">
+                    <div class="text-xs font-black text-accent"><?= esc($service[1]) ?></div>
+                    <div class="font-serif font-bold text-primary text-lg mt-2"><?= esc($service[0]) ?></div>
+                    <div class="text-sm text-gray-500 mt-2"><?= esc($service[3]) ?></div>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
