@@ -2,6 +2,7 @@
 <?= $this->section('content') ?>
 <?php
 $guide = $guide ?? [];
+$isCandidateGuide = $isCandidateGuide ?? false;
 $criteria = $guide['criteria'] ?? [];
 $faq = $guide['faq'] ?? [];
 $relatedLinks = $guide['related_links'] ?? [];
@@ -389,7 +390,7 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
                 <section class="mt-12" id="evaluation-checklist">
                     <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">Employer evaluation checklist</div>
                     <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-3">How to compare recruitment and executive-search firms</h2>
-                    <p class="text-gray-600 leading-relaxed mb-7 max-w-3xl">Use one evidence-led checklist rather than comparing agency names, fee percentages or CV volume in isolation.</p>
+                    <p class="text-gray-600 leading-relaxed mb-7 max-w-3xl"><?= $isCandidateGuide ? 'Use one evidence-led checklist rather than choosing only from advertising claims, templates or headline prices.' : 'Use one evidence-led checklist rather than comparing agency names, fee percentages or CV volume in isolation.' ?></p>
                     <div class="grid md:grid-cols-2 gap-4">
                         <?php foreach ($criteria as $criterion): ?>
                             <article class="rounded-2xl border border-gray-200 p-5 md:p-6 bg-white">
@@ -405,17 +406,25 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
                 <div class="text-[10px] uppercase tracking-[0.28em] text-gold font-black mb-3">Where HiredNext fits</div>
                 <h2 class="text-3xl font-serif font-bold mb-4">Evidence before claims</h2>
                 <p class="text-white/75 leading-relaxed mb-7"><?= esc($guide['where_hirednext_fits'] ?? '') ?></p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="<?= base_url('mandate-stories') ?>" class="inline-flex px-5 py-3 rounded-xl bg-white text-primary font-black text-sm">See mandate stories</a>
-                    <a href="<?= base_url('testimonials') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">See recommendations</a>
-                    <a href="<?= base_url('press-media') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">See media coverage</a>
-                </div>
+                <?php if ($isCandidateGuide): ?>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="<?= base_url('services/candidates') ?>" class="inline-flex px-5 py-3 rounded-xl bg-white text-primary font-black text-sm">Explore HiredNext CV services</a>
+                        <a href="<?= base_url('services/cv-assessment') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">Start with CV assessment</a>
+                        <a href="<?= base_url('testimonials') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">See recommendations</a>
+                    </div>
+                <?php else: ?>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="<?= base_url('mandate-stories') ?>" class="inline-flex px-5 py-3 rounded-xl bg-white text-primary font-black text-sm">See mandate stories</a>
+                        <a href="<?= base_url('testimonials') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">See recommendations</a>
+                        <a href="<?= base_url('press-media') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">See media coverage</a>
+                    </div>
+                <?php endif; ?>
             </section>
 
             <?php if (!empty($faq)): ?>
                 <section class="mt-14">
                     <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">Common questions</div>
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-7">Questions employers ask before choosing a recruiter</h2>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-7"><?= $isCandidateGuide ? 'Questions professionals ask before choosing CV support' : 'Questions employers ask before choosing a recruiter' ?></h2>
                     <div class="space-y-4">
                         <?php foreach ($faq as $item): ?>
                             <div class="rounded-2xl border border-gray-200 p-6">
