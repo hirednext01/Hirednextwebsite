@@ -1,6 +1,7 @@
 <?php
 $cvQuestions = [
     ['What do I get for ₹599?', 'A written CV assessment covering role alignment, readability, structure and evidence gaps, with prioritised corrections. This is a diagnosis of your current CV, not a complete rewrite. GST is included.'],
+    ['Can I make the corrections myself?', 'Yes. The ₹599 assessment is designed to tell you what the current CV communicates, what remains unclear and what to fix first. You can make those corrections yourself; a paid rebuild is optional.'],
     ['What do I get for ₹1,799?', 'The Professional CV Rebuild includes an assessment, a rewrite based on your actual experience, two finished CV variants and two revision rounds. GST is included.'],
     ['Do I have to buy both?', 'No. Choose the ₹599 assessment if you want to understand what needs attention first. If you already want a rewritten CV, you can choose the ₹1,799 rebuild directly: assessment is included. Buying both is not compulsory.'],
     ['Can you tell me why an employer rejected my CV?', 'We can identify what your CV leaves unclear or fails to demonstrate for your target role. We cannot know an employer’s private rejection reason or guarantee how their screening system will respond.'],

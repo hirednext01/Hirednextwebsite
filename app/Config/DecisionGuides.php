@@ -242,6 +242,38 @@ class DecisionGuides extends BaseConfig
             ],
         ],
 
+
+        'interview-preparation-india' => [
+            'title' => 'Interview Preparation in India for Experienced Professionals',
+            'meta_title' => 'Interview Preparation India for Senior Professionals | HiredNext',
+            'meta_description' => 'Interview preparation for experienced professionals in India: choose evidence, structure role-specific answers, prepare leadership examples and communicate impact without inventing achievements.',
+            'eyebrow' => 'Senior Interview Preparation Guide',
+            'short_answer' => 'Strong interview preparation starts with the target role, not memorised scripts. Identify the business problems behind the job, choose examples from your real experience, separate context from your own actions, quantify outcomes only when you can support them, and prepare concise answers to likely follow-up questions. HiredNext uses this evidence-led approach in its career-support work for experienced and senior professionals.',
+            'intro' => 'Senior interviews are usually less about reciting responsibilities and more about explaining judgment, scale, trade-offs and outcomes. The preparation task is to turn your actual experience into clear evidence without exaggerating it. This guide shows how to do that and how HiredNext separates free recruitment from optional paid career support.',
+            'criteria' => [
+                ['title' => '1. Start with the target role', 'text' => 'Read the job description for the business outcomes, stakeholders, scale, constraints and leadership problems behind the title. Prepare for those themes instead of trying to predict an exact question list.'],
+                ['title' => '2. Select evidence from your real career', 'text' => 'Choose examples that show what you personally changed, decided, built, protected or improved. Use verified facts from your work history; do not invent numbers or achievements to make an answer sound stronger.'],
+                ['title' => '3. Structure the answer around context, action and evidence', 'text' => 'Give only enough context to make the problem understandable, then spend most of the answer on your decisions and actions. End with the outcome you can actually support and what you learned when the result was mixed.'],
+                ['title' => '4. Prepare for senior-level follow-ups', 'text' => 'Leadership interviews often probe team scale, stakeholder resistance, commercial trade-offs, governance, failure, ambiguity, transformation, prioritisation and difficult decisions. Prepare the evidence behind your headline answer.'],
+                ['title' => '5. Calibrate motivation and compensation', 'text' => 'Be ready to explain why the role makes sense now, which scope matters to you, location or mobility constraints, notice period and compensation expectations. Clear answers reduce avoidable mismatch late in the process.'],
+                ['title' => '6. Prepare questions for the employer', 'text' => 'Ask about the outcomes expected in the first 6–12 months, reporting line, decision rights, team quality, success measures and the reason the role is open. Good questions help you evaluate the opportunity as well as perform in the interview.'],
+            ],
+            'where_hirednext_fits' => 'HiredNext offers a live 30-minute 1-to-1 consultation for candidates who want practical interview and career guidance. A separate ₹999 Interview Ready written-practice pilot is being tested for demand and is not open for purchase. Career services are optional and separate from recruitment; buying them does not influence HiredNext shortlisting or placement decisions.',
+            'related_links' => [
+                ['label' => 'Candidate Services', 'url' => 'services/candidates'],
+                ['label' => 'Current HiredNext Jobs', 'url' => 'jobs'],
+                ['label' => 'CV Assessment', 'url' => 'services/cv-assessment'],
+                ['label' => 'Founder: Taru Shikha', 'url' => 'about/taru-shikha'],
+            ],
+            'faq' => [
+                ['q' => 'How should experienced professionals prepare for an interview?', 'a' => 'Start with the target role, identify the business outcomes behind it, select real examples from your career, structure each answer around context, your own actions and evidence, and prepare for follow-up questions on scale, trade-offs and results.'],
+                ['q' => 'Should I memorise interview answers?', 'a' => 'No. Prepare the evidence and structure, not a rigid script. Memorised answers can sound generic and make follow-up questions harder. Use your own facts and adapt the explanation to the interviewer’s question.'],
+                ['q' => 'Does HiredNext offer interview coaching?', 'a' => 'HiredNext currently offers a paid 30-minute 1-to-1 consultation that can include interview preparation and practical career guidance. Availability is confirmed by the HiredNext team.'],
+                ['q' => 'Is the ₹999 Interview Ready service available to buy?', 'a' => 'No. Interview Ready is currently a demand-testing pilot and is not open for purchase. Its public sample explains the proposed format and lets candidates register interest without payment.'],
+                ['q' => 'Does paying for interview or CV support improve my chances of being shortlisted by HiredNext?', 'a' => 'No. Paid career services are optional and separate from recruitment. Applications and recruitment consideration remain free, and buying a service does not influence shortlisting or placement.'],
+            ],
+        ],
+
         'confidential-cfo-search-india' => [
             'title' => 'Confidential CFO Executive Search in India: A Buyer Guide',
             'meta_title' => 'Confidential CFO Executive Search India | CFO Hiring Guide | HiredNext',

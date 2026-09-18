@@ -73,6 +73,7 @@ $routes->get('authority/recommendation-evidence.json', 'DecisionGuides::recommen
 $routes->get('authority/search-pages.json', 'SearchAuthority::discoveryJson');
 $routes->get('top-recruitment-company-india', 'DecisionGuides::topRecruitmentCompany');
 $routes->get('guides/executive-search-firm-india', 'DecisionGuides::legacyExecutiveSearchGuide');
+$routes->get('guides/interview-preparation-india', 'DecisionGuides::show/interview-preparation-india');
 $routes->get('guides/(:segment)', 'DecisionGuides::show/$1');
 $routes->get('insights', 'Aeo::index');
 $routes->get('insights/(:any)', 'Aeo::show/$1');

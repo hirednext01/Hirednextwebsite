@@ -15,6 +15,23 @@
 </section>
 
 <section class="bg-white border-b border-gray-100">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8 py-10">
+        <div class="max-w-4xl">
+            <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-3">Recruiter-led career support</div>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary">CV assessment and CV rebuild services in India — what HiredNext actually does</h2>
+            <p class="mt-4 text-gray-600 leading-relaxed">A CV assessment diagnoses what a recruiter or hiring manager can understand quickly, what evidence remains unclear and which corrections matter first. A CV rebuild goes further: HiredNext rewrites and restructures the document using verified career facts so responsibilities, scale and outcomes are easier to evaluate.</p>
+            <p class="mt-3 text-gray-600 leading-relaxed">Interview preparation is separate from CV work. HiredNext also offers a live 1-to-1 consultation, while the ₹999 Interview Ready written-practice pilot is not open for purchase. Paid career services are optional and never influence recruitment shortlisting or placement.</p>
+            <div class="mt-6 flex flex-wrap gap-3 text-sm font-bold">
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('services/cv-assessment') ?>">CV assessment</a>
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('career-services/start/rebuild_1799') ?>">Professional CV rebuild</a>
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('guides/interview-preparation-india') ?>">Interview preparation guide</a>
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('jobs') ?>">Current jobs</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white border-b border-gray-100">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8 py-5">
         <div class="rounded-2xl border border-primary/10 bg-primary/5 px-5 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <p class="text-sm text-gray-700 leading-relaxed"><span class="font-extrabold text-primary">Candidate safety:</span> HiredNext never charges candidates to apply for a job or secure placement. CV assessment, CV creation and career advisory are optional professional services and are handled separately from recruitment consideration.</p>
@@ -44,6 +61,7 @@
                 <p class="text-gray-600 leading-relaxed mb-4">10 practice questions for your target job, help choosing examples from your experience, AI feedback on 5 answers you write, and a pack you can download.</p>
                 <p class="text-sm text-gray-500 mb-6">The service is not open yet. See the example and register interest; no payment today.</p>
                 <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=candidate_services&utm_campaign=interview_ready') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Explore Interview Ready</a>
+                <a href="<?= base_url('guides/interview-preparation-india') ?>" class="mt-3 text-center text-sm font-bold text-primary underline underline-offset-4">Read the interview preparation guide</a>
             </article>
             <article class="rounded-2xl border border-primary/15 bg-white p-8 flex flex-col">
                 <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Speak with Taru Shikha</p>

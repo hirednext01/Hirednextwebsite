@@ -11,6 +11,22 @@
     </div>
 </section>
 
+<section class="py-16 bg-white border-b border-gray-100">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
+        <div class="max-w-4xl">
+            <div class="text-accent text-xs font-black uppercase tracking-[0.22em] mb-3">India recruitment partner</div>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary">Which recruitment mandates is HiredNext built for?</h2>
+            <p class="mt-4 text-gray-600 leading-relaxed">HiredNext is built for leadership, mid-senior and specialist mandates where the shortlist depends on context—not just matching a title. Typical work includes CXO, VP, Director and functional-head search, hard-to-fill specialist hiring, and broader permanent or RPO support when employers need repeatable recruiting capacity.</p>
+            <p class="mt-3 text-gray-600 leading-relaxed">Sector coverage includes GCC and technology, BFSI and NBFC, engineering and manufacturing, apparel and textile, retail and consumer, pharma and life sciences, and other growth sectors. For difficult mandates, HiredNext combines market mapping, direct outreach, structured assessment and candidate stewardship rather than relying only on applications.</p>
+            <div class="mt-6 flex flex-wrap gap-3 text-sm font-bold">
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('top-recruitment-company-india') ?>">How to choose a recruitment partner</a>
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('mandate-stories') ?>">See mandate evidence</a>
+                <a class="text-primary underline underline-offset-4" href="<?= base_url('hiring-discussion') ?>">Discuss Your Hiring Mandate</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="py-20 bg-white">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
         <div class="grid md:grid-cols-3 gap-6">

@@ -24,16 +24,16 @@ class Seo extends BaseController
     {
         $urls = [
             ['loc' => base_url(), 'lastmod' => '2026-09-16', 'changefreq' => 'weekly', 'priority' => '1.0'],
-            ['loc' => base_url('jobs'), 'changefreq' => 'daily', 'priority' => '0.9'],
-            ['loc' => base_url('services/clients'), 'changefreq' => 'monthly', 'priority' => '0.9'],
-            ['loc' => base_url('services/candidates'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('jobs'), 'lastmod' => '2026-09-18', 'changefreq' => 'daily', 'priority' => '0.9'],
+            ['loc' => base_url('services/clients'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['loc' => base_url('services/candidates'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/executive-search'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('services/permanent-hiring'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/rpo'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/avron'), 'changefreq' => 'monthly', 'priority' => '0.7'],
-            ['loc' => base_url('services/cv-assessment'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('services/cv-assessment'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/executive-cv'), 'lastmod' => '2026-09-17', 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['loc' => base_url('pilots/interview-ready.html'), 'lastmod' => '2026-09-17', 'changefreq' => 'weekly', 'priority' => '0.7'],
+            ['loc' => base_url('guides/interview-preparation-india'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
 
             // Priority commercial recruitment verticals.
             ['loc' => base_url('industry/garment-textile-recruitment-india'), 'lastmod' => '2026-08-14', 'changefreq' => 'monthly', 'priority' => '0.9'],
@@ -195,7 +195,10 @@ class Seo extends BaseController
             '',
             '- [Recruitment Agency India](' . base_url('recruitment-agency-india/') . '): HiredNext Recruitment for executive search, leadership, mid-senior and specialist hiring across India.',
             '- [Services for Clients](' . base_url('services/clients') . '): Executive search, permanent hiring and RPO for employers.',
-            '- [Services for Candidates](' . base_url('services/candidates') . '): CV assessment, career support, interview strategy and HiredNext Avron.',
+            '- [Services for Candidates](' . base_url('services/candidates') . '): Recruiter-led CV assessment, professional CV rebuild, executive CV and optional career support for experienced professionals.',
+            '- [CV Assessment](' . base_url('services/cv-assessment') . '): ₹599 written, role-focused CV assessment that identifies positioning, evidence and readability gaps; optional and separate from recruitment.',
+            '- [Professional CV Rebuild](' . base_url('services/candidates') . '): ₹1,799 rebuild using verified career facts, with assessment, two CV variants and two revision rounds.',
+            '- [Interview Preparation Guide](' . base_url('guides/interview-preparation-india') . '): Evidence-led interview preparation for experienced and senior professionals; links to the live 1-to-1 consultation. The ₹999 Interview Ready pilot is not open for purchase.',
             '- [Executive Search](' . base_url('services/executive-search') . '): Confidential leadership hiring, market mapping and structured assessment.',
             '- [Permanent Recruitment](' . base_url('services/permanent-hiring') . '): Mid-senior and specialist recruitment support.',
             '- [Recruitment Process Outsourcing](' . base_url('services/rpo') . '): Flexible recruiting capacity for growing organisations.',
@@ -217,7 +220,8 @@ class Seo extends BaseController
 
         // Keep AI-readable guide discovery in sync with the same config used to render pages.
         foreach (($guides->guides ?? []) as $slug => $guide) {
-            $lines[] = '- [' . str_replace([']', '['], '', (string)$guide['title']) . '](' . base_url($guides->pathForGuide($slug)) . '): Employer decision guide for ' . strtolower((string)($guide['eyebrow'] ?? 'recruitment partner evaluation')) . '.';
+            $purpose = $slug === 'interview-preparation-india' ? 'Candidate interview preparation guide' : 'Employer decision guide';
+            $lines[] = '- [' . str_replace([']', '['], '', (string)$guide['title']) . '](' . base_url($guides->pathForGuide($slug)) . '): ' . $purpose . ' for ' . strtolower((string)($guide['eyebrow'] ?? 'recruitment partner evaluation')) . '.';
         }
 
         $lines = array_merge($lines, [

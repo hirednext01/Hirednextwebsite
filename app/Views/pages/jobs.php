@@ -28,6 +28,23 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
     </div>
 </section>
 
+<section class="bg-white border-b border-gray-100">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-8">
+        <div class="grid lg:grid-cols-12 gap-6 items-start">
+            <div class="lg:col-span-8">
+                <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-2">Senior and specialist jobs in India</div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">Active employer mandates managed by HiredNext Recruitment</h2>
+                <p class="mt-3 text-gray-600 leading-relaxed">HiredNext is a recruitment firm, not a mass job-board marketplace. The roles below are current employer mandates managed by the team and may span leadership, finance, technology, manufacturing, retail, apparel and other specialist functions as mandates change.</p>
+                <p class="mt-3 text-gray-600 leading-relaxed"><strong class="text-primary">Applications are free.</strong> Paid CV assessment, CV rebuild or interview support is optional and does not influence recruitment shortlisting, referral or placement.</p>
+            </div>
+            <div class="lg:col-span-4 flex lg:justify-end gap-3 flex-wrap">
+                <a href="<?= base_url('services/candidates') ?>" class="inline-flex rounded-xl border border-primary/20 px-4 py-3 text-sm font-bold text-primary">Career services</a>
+                <a href="<?= base_url('services/clients') ?>" class="inline-flex rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white">Hiring? Give us a mandate</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="bg-gray-50 py-8 md:py-10 min-h-screen">
     <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12">
         <div class="bg-white border border-gray-200 rounded-2xl p-4 md:p-5 shadow-sm mb-6">
