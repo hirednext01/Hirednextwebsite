@@ -259,7 +259,8 @@
                         <li><a href="<?= base_url('about') ?>" class="hover:text-accent">About</a></li>
                         <li><a href="<?= base_url('services/clients') ?>" class="hover:text-accent">Services for Clients</a></li>
                         <li><a href="<?= base_url('services/candidates') ?>" class="hover:text-accent">Services for Candidates</a></li>
-                        <li><a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=footer&utm_campaign=interview_ready') ?>" class="hover:text-accent">Interview Ready · ₹999 preview</a></li>
+                        <li><a href="<?= base_url('services/cv-assessment') ?>" class="hover:text-accent">CV Assessment · ₹599</a></li>
+                        <li><a href="<?= base_url('guides/interview-preparation-india') ?>" class="hover:text-accent">Interview Preparation Guide</a></li>
                         <li><a href="<?= base_url('career-services/start/career_4500') ?>" class="hover:text-accent">1-to-1 consultation · ₹4,500</a></li>
                         <li><a href="<?= base_url('blog') ?>" class="hover:text-accent">Insights & Blog</a></li>
                         <li><a href="<?= base_url('jobs') ?>" class="hover:text-accent">Jobs</a></li>
