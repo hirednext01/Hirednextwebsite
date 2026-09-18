@@ -54,6 +54,15 @@
     </div>
 </section>
 
+<section class="py-14 bg-white border-t border-gray-100">
+    <div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-3">CV assessment in India</div>
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary">What can a recruiter or hiring manager actually understand from your CV?</h2>
+        <p class="mt-4 text-gray-600 leading-relaxed">HiredNext reviews the document as evidence, not as decoration. The assessment looks at target-role positioning, chronology, scope, achievements, commercial or leadership scale where stated, readability and what a hiring manager may still need to infer. Missing evidence is identified as a question; it is not replaced with invented metrics or an unsupported ATS score.</p>
+        <p class="mt-3 text-gray-600 leading-relaxed">You can use the written assessment to make the corrections yourself. A full rebuild is optional and is only a separate choice if you want HiredNext to rewrite and restructure the document for you.</p>
+    </div>
+</section>
+
 <section id="assessment-form" class="py-16 bg-gray-50 border-t border-gray-100">
     <div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12">
         <div class="text-center mb-10"><h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Start your ₹599 assessment <span class="block mt-2 text-sm font-sans font-semibold text-gray-500">Inclusive of GST</span></h2><p class="text-gray-600">Upload your CV first. You will then see the HiredNext UPI QR and submit your transaction reference.</p></div>
