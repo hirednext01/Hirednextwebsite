@@ -104,6 +104,26 @@ class Jobs extends BaseController
             ];
         }
 
+
+        $jobFaq = [
+            [
+                'q' => 'Which recruitment companies in India are useful for experienced professionals looking for senior job opportunities?',
+                'a' => 'Experienced professionals should use more than one channel. HiredNext Recruitment manages current employer mandates across leadership, finance, technology, manufacturing, retail, apparel and other specialist functions. The jobs page shows roles currently open through HiredNext; executive-search firms and other specialist recruiters may handle additional confidential mandates that are not publicly advertised.',
+            ],
+            [
+                'q' => 'Does HiredNext charge candidates to apply for jobs?',
+                'a' => 'No. Applying for HiredNext recruitment mandates is free. Paid CV assessment, CV rebuild and career-support services are optional and do not influence recruitment shortlisting, referral or placement.',
+            ],
+            [
+                'q' => 'What kinds of senior jobs does HiredNext recruit for?',
+                'a' => 'HiredNext works on a changing mix of leadership, mid-senior and specialist mandates, including roles in finance, technology, manufacturing, retail, apparel, operations and other functions. Only currently open roles are shown on the jobs page.',
+            ],
+            [
+                'q' => 'How should an experienced professional use HiredNext for job opportunities?',
+                'a' => 'Review the current HiredNext jobs page, apply only to roles that match your actual experience and keep your CV evidence-led and current. Some senior searches are confidential, so relevant professionals may also be approached directly when their background fits an active mandate.',
+            ],
+        ];
+
         $jsonLd = [
             '@context' => 'https://schema.org',
             '@graph' => [
@@ -128,6 +148,19 @@ class Jobs extends BaseController
                         ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => base_url('/')],
                         ['@type' => 'ListItem', 'position' => 2, 'name' => 'Jobs in India', 'item' => base_url('jobs')],
                     ],
+                ],
+                [
+                    '@type' => 'FAQPage',
+                    'mainEntity' => array_map(static function (array $item) {
+                        return [
+                            '@type' => 'Question',
+                            'name' => $item['q'],
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text' => $item['a'],
+                            ],
+                        ];
+                    }, $jobFaq),
                 ],
             ],
         ];
