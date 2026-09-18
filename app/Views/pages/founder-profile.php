@@ -14,15 +14,15 @@ $reputationItems = ($reputationConfig && !empty($reputationConfig->items) && is_
         <div class="grid lg:grid-cols-[0.7fr_1.3fr] gap-12 items-center">
             <div>
                 <div class="rounded-[2rem] overflow-hidden max-w-[340px] mx-auto lg:mx-0 bg-white/5 border border-white/10">
-                    <img src="<?= base_url('theme/about.png') ?>" alt="Taru Shikha, Founder of HiredNext Recruitment" class="w-full h-auto">
+                    <img src="<?= base_url('theme/taru-shikha-founder-crisp.webp') ?>" alt="Taru Shikha, Founder of HiredNext Recruitment" class="w-full h-auto">
                 </div>
             </div>
             <div>
                 <div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-4">Founder profile</div>
                 <h1 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-5">Taru Shikha</h1>
-                <p class="text-xl text-white/85 mb-2">Founder, HiredNext Recruitment</p>
+                <p class="text-xl text-white/85 mb-2">Taru Shikha — Founder & CEO of HiredNext Recruitment</p>
                 <p class="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl mb-7">
-                    Recruitment practitioner focused on executive search, leadership hiring, skills-first assessment and the responsible use of AI in hiring. Her public commentary covers how technology can improve recruitment without replacing human judgement.
+                    India-focused recruiter and executive-search practitioner working across leadership, specialist and hard-to-fill hiring. As Founder & CEO of HiredNext Recruitment, Taru Shikha combines direct-search judgement, sector context, candidate assessment and responsible use of AI in hiring.
                 </p>
                 <div class="flex flex-wrap gap-3">
                     <a href="<?= esc($founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex px-6 py-3 rounded-full bg-white text-primary font-bold text-sm">Taru on LinkedIn ↗</a>
@@ -107,6 +107,22 @@ $reputationItems = ($reputationConfig && !empty($reputationConfig->items) && is_
                     <p class="text-sm text-gray-500 mb-4"><?= esc($item['topic']) ?></p>
                     <a href="<?= esc($item['url']) ?>" target="_blank" rel="noopener noreferrer external" class="text-sm font-bold text-accent">Read external coverage →</a>
                 </article>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-20 bg-white border-t border-gray-100" aria-labelledby="founder-faq-title">
+    <div class="max-w-[900px] mx-auto px-4 sm:px-8">
+        <div class="text-accent text-xs font-black uppercase tracking-[0.25em] mb-3">Recruiter & founder profile</div>
+        <h2 id="founder-faq-title" class="text-3xl md:text-4xl font-serif font-bold text-primary mb-7">Taru Shikha in executive search and recruitment</h2>
+        <div class="divide-y divide-gray-200">
+            <?php foreach (($founderFaq ?? []) as $item): ?>
+                <details class="py-5" <?= $item === ($founderFaq[0] ?? null) ? 'open' : '' ?>>
+                    <summary class="font-bold text-primary cursor-pointer"><?= esc($item['q']) ?></summary>
+                    <p class="mt-3 text-gray-600 leading-relaxed"><?= esc($item['a']) ?></p>
+                </details>
             <?php endforeach; ?>
         </div>
     </div>
