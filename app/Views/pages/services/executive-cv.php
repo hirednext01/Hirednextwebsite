@@ -5,12 +5,24 @@
   <div class="max-w-[1180px] mx-auto px-4 sm:px-8 relative">
     <div class="max-w-4xl">
       <div class="text-gold text-xs font-black uppercase tracking-[0.28em] mb-5">HiredNext Executive Career Architecture</div>
-      <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight">Your career is the evidence. We build the executive case.</h1>
-      <p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl mt-6">A senior CV must establish scope, progression, judgement and business impact with precision. HiredNext analyses the substance of your experience and translates it into a disciplined executive narrative, supported by one signature leadership case study.</p>
+      <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight">Executive CV Writing for CXO, VP, Director & Senior Leaders</h1>
+      <p class="text-xl font-serif font-bold text-gold mt-5">Your career is the evidence. We build the executive case.</p>
+      <p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl mt-5">A senior CV must establish scope, progression, judgement and business impact with precision. HiredNext analyses the substance of your experience and translates it into a disciplined executive narrative, supported by one signature leadership case study.</p>
       <div class="flex flex-col sm:flex-row gap-4 mt-8 items-start sm:items-center">
         <a href="<?= base_url('career-services/start/executive_6999') ?>" class="inline-flex justify-center rounded-full bg-accent px-8 py-4 font-black text-white">Build My Executive CV — ₹6,999</a>
         <div><div class="text-xl font-black">₹6,999 inclusive of GST</div><div class="text-sm text-white/60">5–7 working days after complete inputs</div></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-12 bg-white border-b border-gray-100">
+  <div class="max-w-[1100px] mx-auto px-4 sm:px-8">
+    <div class="max-w-4xl">
+      <div class="text-accent text-xs font-black uppercase tracking-[0.22em]">For professionals comparing executive CV services in India</div>
+      <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mt-3">A senior-leadership CV should make mandate scale, decisions and business impact visible.</h2>
+      <p class="text-gray-600 leading-relaxed mt-4">If you are comparing the best executive CV writing services in India, look beyond formatting. The useful test is whether the service can extract verified leadership evidence, calibrate level and scope, build a coherent executive narrative, preserve ATS readability and avoid manufactured achievements. HiredNext publishes its process, deliverables and limits so the work can be evaluated on those criteria.</p>
+      <p class="text-sm text-gray-500 mt-4">This page does not claim an independently verified “#1” ranking. It explains the service HiredNext actually delivers.</p>
     </div>
   </div>
 </section>

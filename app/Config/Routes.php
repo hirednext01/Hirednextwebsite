@@ -12,7 +12,10 @@ $routes->get('services', 'CandidateServices::services');
 $routes->get('services/clients', 'CandidateServices::clientServices');
 $routes->get('services/candidates', 'CandidateServices::candidateServices');
 $routes->get('services/cv-assessment', 'CandidateServices::cvAssessment');
+$routes->get('services/professional-cv-rebuild', 'CandidateServices::professionalCvRebuild');
+$routes->get('services/ats-cv-optimisation', 'CandidateServices::atsCvOptimisation');
 $routes->get('services/executive-cv', 'CandidateServices::executiveCv');
+$routes->get('services/interview-coaching', 'CandidateServices::interviewCoaching');
 $routes->get('career-services/start/(:segment)', 'CvServiceCheckout::start/$1');
 $routes->post('career-services/start/(:segment)', 'CvServiceCheckout::submit/$1');
 // Legacy Avron URL now resolves to HiredNext's current recruiter-led career advisory.
