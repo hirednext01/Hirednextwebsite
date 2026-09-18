@@ -78,6 +78,8 @@ jobs:
           php -l app/Controllers/Authority.php
           php -l app/Views/pages/services/candidate-services.php
           php -l app/Views/pages/services/cv-assessment.php
+          php -l app/Views/pages/services/cv-service-product.php
+          php -l app/Views/pages/services/executive-cv.php
           php -l app/Views/pages/services/_cv-service-faq.php
           php -l app/Views/pages/services/client-services.php
           php -l app/Views/pages/jobs.php
