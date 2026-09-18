@@ -102,7 +102,7 @@ class HiringIntelligence extends BaseConfig
             'observation' => 'Documented historical mandate records include automotive cybersecurity, penetration testing, data science, Gen AI, data engineering, ServiceNow, diagnostics, cloud, enterprise platforms and specialist engineering. These are mandate records; they are not all represented as placement outcomes.',
             'evidence_roles' => ['Automotive Cyber Security', 'Data Scientist', 'Data Engineer', 'ServiceNow', 'Diagnostics', 'Engineering Data Analysis'],
             'employer_implication' => 'Build separate capability maps for each technical family instead of treating automotive technology as a single talent pool.',
-            'related_url' => '/industry/automotive-recruitment-india',
+            'related_url' => null,
         ],
         [
             'id' => 'textile-cross-functional-map',
