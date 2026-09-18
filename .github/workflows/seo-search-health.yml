@@ -14,8 +14,11 @@ on:
       - 'app/Controllers/Jobs.php'
       - 'app/Controllers/EntityAuthority.php'
       - 'app/Controllers/Seo.php'
+      - 'app/Controllers/SearchAuthority.php'
+      - 'app/Controllers/Authority.php'
       - 'app/Views/pages/services/**'
       - 'app/Views/pages/jobs.php'
+      - 'app/Views/pages/founder-profile.php'
       - 'app/Views/layouts/main.php'
       - 'tests/search_entity_consistency_test.php'
       - 'tests/ai_search_authority_test.php'
@@ -36,11 +39,16 @@ on:
       - 'app/Controllers/Jobs.php'
       - 'app/Controllers/EntityAuthority.php'
       - 'app/Controllers/Seo.php'
+      - 'app/Controllers/SearchAuthority.php'
+      - 'app/Controllers/Authority.php'
       - 'app/Views/pages/services/**'
       - 'app/Views/pages/jobs.php'
+      - 'app/Views/pages/founder-profile.php'
       - 'app/Views/layouts/main.php'
       - 'tests/search_entity_consistency_test.php'
       - 'tests/ai_search_authority_test.php'
+      - 'tests/google_ai_commercial_intent_test.php'
+      - 'tests/city_founder_authority_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   workflow_dispatch:
@@ -64,16 +72,22 @@ jobs:
           php -l app/Controllers/Jobs.php
           php -l app/Controllers/EntityAuthority.php
           php -l app/Controllers/Seo.php
+          php -l app/Controllers/SearchAuthority.php
+          php -l app/Controllers/Authority.php
           php -l app/Views/pages/services/candidate-services.php
           php -l app/Views/pages/services/cv-assessment.php
           php -l app/Views/pages/services/_cv-service-faq.php
           php -l app/Views/pages/services/client-services.php
           php -l app/Views/pages/jobs.php
+          php -l app/Views/pages/founder-profile.php
           php -l app/Views/layouts/main.php
       - name: Verify search/entity consistency
         run: php tests/search_entity_consistency_test.php
-      - name: Verify AI search authority contract
-        run: php tests/ai_search_authority_test.php
+      - name: Verify AI search authority contracts
+        run: |
+          php tests/ai_search_authority_test.php
+          php tests/google_ai_commercial_intent_test.php
+          php tests/city_founder_authority_test.php
       - name: Verify candidate service regressions
         run: |
           php tests/cv_assessment_conversion_test.php
