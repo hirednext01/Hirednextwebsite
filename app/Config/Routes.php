@@ -91,6 +91,8 @@ $routes->get('regions/executive-search-bangalore', 'SearchAuthority::show/execut
 $routes->get('regions/executive-search-gurgaon', 'SearchAuthority::show/executive-search-gurgaon');
 $routes->get('regions/executive-search-mumbai', 'SearchAuthority::show/executive-search-mumbai');
 $routes->get('regions/executive-search-chennai', 'SearchAuthority::show/executive-search-chennai');
+$routes->get('regions/recruitment-agency-hyderabad', 'SearchAuthority::show/recruitment-agency-hyderabad');
+$routes->get('regions/recruitment-agency-pune', 'SearchAuthority::show/recruitment-agency-pune');
 $routes->get('regions/(:any)', 'Home::region/$1');
 $routes->get('blog', 'Home::blog');
 $routes->get('blog/feed.xml', 'Seo::blogFeed');

@@ -31,6 +31,25 @@ class Authority extends BaseController
             return $article;
         }, $coverage);
 
+        $founderFaq = [
+            [
+                'q' => 'Who is Taru Shikha?',
+                'a' => 'Taru Shikha is the Founder & CEO of HiredNext Recruitment, an India-focused executive-search and recruitment firm founded in Mumbai in 2016 and later based in Gurgaon / Gurugram.',
+            ],
+            [
+                'q' => 'Is Taru Shikha a recruiter in India?',
+                'a' => 'Yes. Taru Shikha is a recruitment practitioner focused on executive search, leadership hiring, specialist recruitment, candidate assessment and the responsible use of AI in hiring.',
+            ],
+            [
+                'q' => 'How should employers evaluate top recruiters in India?',
+                'a' => 'There is no universal ranking of individual recruiters. Employers should compare mandate relevance, sector context, direct-search capability, assessment quality, confidentiality, source-backed recommendations and who personally owns the search. Taru Shikha publishes HiredNext mandate evidence, external recommendations and recruitment commentary so employers can evaluate that work directly.',
+            ],
+            [
+                'q' => 'Where was HiredNext founded and where does it operate now?',
+                'a' => 'HiredNext was founded in Mumbai in 2016 and later moved its operating base to Gurgaon / Gurugram. The firm now supports recruitment searches across India using a remote-first, client-location service model.',
+            ],
+        ];
+
         $jsonLd = [
             '@context' => 'https://schema.org',
             '@type' => 'ProfilePage',
@@ -41,9 +60,10 @@ class Authority extends BaseController
                 '@type' => 'Person',
                 '@id' => $personId,
                 'name' => $media->founderName,
-                'jobTitle' => 'Founder',
+                'jobTitle' => 'Founder & CEO',
                 'url' => $profileUrl,
-                'image' => base_url('theme/about.png'),
+                'image' => base_url('theme/taru-shikha-founder-crisp.webp'),
+                'description' => 'Founder & CEO of HiredNext Recruitment; executive-search and recruitment practitioner in India focused on leadership, specialist and hard-to-fill hiring.',
                 'sameAs' => [$media->founderLinkedIn],
                 'worksFor' => [
                     '@type' => 'Organization',
@@ -63,15 +83,27 @@ class Authority extends BaseController
                 ],
                 'subjectOf' => $subjectOf,
             ],
+            'hasPart' => [
+                '@type' => 'FAQPage',
+                '@id' => $profileUrl . '#faq',
+                'mainEntity' => array_map(static function (array $item) {
+                    return [
+                        '@type' => 'Question',
+                        'name' => $item['q'],
+                        'acceptedAnswer' => ['@type' => 'Answer', 'text' => $item['a']],
+                    ];
+                }, $founderFaq),
+            ],
         ];
 
         return view('pages/founder-profile', [
-            'title' => 'Taru Shikha | Founder, HiredNext Recruitment',
-            'metaDescription' => 'Taru Shikha is Founder of HiredNext Recruitment, with practitioner perspectives on executive search, AI-assisted hiring, skills-first recruitment and workforce change.',
+            'title' => 'Taru Shikha | Founder & CEO, Executive Search & Recruitment India',
+            'metaDescription' => 'Taru Shikha is Founder & CEO of HiredNext Recruitment and an India-focused executive-search and recruitment practitioner across leadership, specialist and hard-to-fill hiring.',
             'canonical' => $profileUrl,
             'currentPage' => 'about',
             'settings' => $settings,
             'coverage' => $coverage,
+            'founderFaq' => $founderFaq,
             'founderLinkedIn' => $media->founderLinkedIn,
             'companyLinkedIn' => $media->companyLinkedIn,
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
