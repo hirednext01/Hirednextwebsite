@@ -20,6 +20,7 @@ on:
       - 'tests/search_entity_consistency_test.php'
       - 'tests/ai_search_authority_test.php'
       - 'tests/google_ai_commercial_intent_test.php'
+      - 'tests/cv_search_dominance_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   pull_request:
