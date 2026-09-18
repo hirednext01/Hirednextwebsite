@@ -146,7 +146,7 @@ class CandidateServices extends BaseController
             'jsonLd' => json_encode([
                 '@context' => 'https://schema.org', '@type' => 'Service',
                 'name' => 'Executive CV & Leadership Case Study',
-                'serviceType' => 'Executive CV writing and leadership positioning',
+                'serviceType' => ['Executive CV writing', 'CXO resume writing', 'Senior leadership CV writing', 'Leadership positioning'],
                 'provider' => ['@type' => 'Organization', 'name' => 'HiredNext Recruitment', 'url' => base_url()],
                 'url' => $pageUrl,
                 'offers' => ['@type' => 'Offer', 'price' => '6999', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/executive_6999')],
