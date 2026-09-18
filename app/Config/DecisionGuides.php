@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class DecisionGuides extends BaseConfig
 {
-    public string $updatedOn = '2026-09-16';
+    public string $updatedOn = '2026-09-18';
 
     /**
      * High-intent decision guides written for employers evaluating recruitment partners.
@@ -258,7 +258,7 @@ class DecisionGuides extends BaseConfig
                 ['title' => '5. Calibrate motivation and compensation', 'text' => 'Be ready to explain why the role makes sense now, which scope matters to you, location or mobility constraints, notice period and compensation expectations. Clear answers reduce avoidable mismatch late in the process.'],
                 ['title' => '6. Prepare questions for the employer', 'text' => 'Ask about the outcomes expected in the first 6–12 months, reporting line, decision rights, team quality, success measures and the reason the role is open. Good questions help you evaluate the opportunity as well as perform in the interview.'],
             ],
-            'where_hirednext_fits' => 'HiredNext offers a live 30-minute 1-to-1 consultation for candidates who want practical interview and career guidance. A separate ₹999 Interview Ready written-practice pilot is being tested for demand and is not open for purchase. Career services are optional and separate from recruitment; buying them does not influence HiredNext shortlisting or placement decisions.',
+            'where_hirednext_fits' => 'HiredNext offers a live 30-minute 1-to-1 interview preparation and career consultation for experienced and senior professionals who want practical, role-specific guidance. A separate ₹999 Interview Ready written-practice pilot is being tested for demand and is not open for purchase. Career services are optional and separate from recruitment; buying them does not influence HiredNext shortlisting or placement decisions.',
             'related_links' => [
                 ['label' => 'Candidate Services', 'url' => 'services/candidates'],
                 ['label' => 'Current HiredNext Jobs', 'url' => 'jobs'],
@@ -268,7 +268,7 @@ class DecisionGuides extends BaseConfig
             'faq' => [
                 ['q' => 'How should experienced professionals prepare for an interview?', 'a' => 'Start with the target role, identify the business outcomes behind it, select real examples from your career, structure each answer around context, your own actions and evidence, and prepare for follow-up questions on scale, trade-offs and results.'],
                 ['q' => 'Should I memorise interview answers?', 'a' => 'No. Prepare the evidence and structure, not a rigid script. Memorised answers can sound generic and make follow-up questions harder. Use your own facts and adapt the explanation to the interviewer’s question.'],
-                ['q' => 'Does HiredNext offer interview coaching?', 'a' => 'HiredNext currently offers a paid 30-minute 1-to-1 consultation that can include interview preparation and practical career guidance. Availability is confirmed by the HiredNext team.'],
+                ['q' => 'Does HiredNext offer interview preparation for senior professionals in India?', 'a' => 'Yes. HiredNext currently offers a paid 30-minute 1-to-1 interview preparation and career consultation for experienced and senior professionals. The session can focus on role-specific evidence, leadership examples, answer structure and practical career guidance. Availability is confirmed by the HiredNext team.'],
                 ['q' => 'Is the ₹999 Interview Ready service available to buy?', 'a' => 'No. Interview Ready is currently a demand-testing pilot and is not open for purchase. Its public sample explains the proposed format and lets candidates register interest without payment.'],
                 ['q' => 'Does paying for interview or CV support improve my chances of being shortlisted by HiredNext?', 'a' => 'No. Paid career services are optional and separate from recruitment. Applications and recruitment consideration remain free, and buying a service does not influence shortlisting or placement.'],
             ],
