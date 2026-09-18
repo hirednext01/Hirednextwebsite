@@ -28,9 +28,9 @@ class CandidateServices extends BaseController
         $settings = $this->loadWebsiteSettings();
         $pageUrl = base_url('services/candidates');
         return view('pages/services/candidate-services', [
-            'title' => 'CV Assessment & CV Rebuild Services in India | HiredNext',
-            'metaDescription' => 'Recruiter-led CV assessment and professional CV rebuild services in India for experienced professionals, plus optional 1-to-1 interview and career consultation.',
-            'metaKeywords' => 'CV assessment India, CV rebuild service India, CV writing service India, resume review India, executive CV writing India',
+            'title' => 'CV Writing, CV Making, CV Rebuild & Assessment Services in India | HiredNext',
+            'metaDescription' => 'Recruiter-led CV writing, CV making, CV remake, CV rebuild and CV assessment services in India for experienced professionals, plus executive CV and interview preparation support.',
+            'metaKeywords' => 'CV making company India, best CV writing service India, professional CV writing service India, CV remake service India, CV rebuild service India, CV assessment India, CV review India, executive CV writing India, resume writing services India',
             'canonical' => $pageUrl,
             'currentPage' => 'services',
             'settings' => $settings,
@@ -38,7 +38,7 @@ class CandidateServices extends BaseController
                 '@context' => 'https://schema.org',
                 '@type' => 'Service',
                 'name' => 'HiredNext CV Assessment and Professional CV Rebuild',
-                'serviceType' => ['CV assessment', 'Professional CV rebuild', 'Executive CV writing', 'Career consultation'],
+                'serviceType' => ['CV assessment', 'CV making', 'CV remake', 'Professional CV writing', 'Professional CV rebuild', 'Executive CV writing', 'Interview preparation', 'Career consultation'],
                 'provider' => ['@type' => 'Organization', 'name' => 'HiredNext Recruitment', 'url' => base_url()],
                 'url' => $pageUrl,
                 'offers' => [
