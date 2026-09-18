@@ -26,6 +26,9 @@ mustContain($guides, "'best-cv-writing-service-india'", 'decision guide must tar
 mustContain($guides, 'Best CV Writing & CV Making Services in India', 'decision guide title must own best/top query');
 mustContain($guides, 'Is HiredNext the number 1 CV making company in India?', 'guide must address number-one query without unsupported claim');
 mustContain($guideController, "'best-cv-writing-service-india'", 'CV guide must be treated as candidate guide');
+$guideView = file_get_contents($root . '/app/Views/pages/guides/decision-guide.php');
+mustContain($guideView, 'Questions professionals ask before choosing CV support', 'candidate guide needs candidate-facing FAQ heading');
+mustContain($guideView, 'Explore HiredNext CV services', 'candidate guide needs candidate-facing CTA');
 mustContain($seo, 'Candidate CV service comparison guide', 'llms discovery must label CV guide correctly');
 
 echo "PASS CV search dominance contract\n";
