@@ -220,7 +220,11 @@ class Seo extends BaseController
 
         // Keep AI-readable guide discovery in sync with the same config used to render pages.
         foreach (($guides->guides ?? []) as $slug => $guide) {
-            $purpose = $slug === 'interview-preparation-india' ? 'Candidate interview preparation guide' : 'Employer decision guide';
+            $purpose = match ($slug) {
+                'interview-preparation-india' => 'Candidate interview preparation guide',
+                'best-cv-writing-service-india' => 'Candidate CV service comparison guide',
+                default => 'Employer decision guide',
+            };
             $lines[] = '- [' . str_replace([']', '['], '', (string)$guide['title']) . '](' . base_url($guides->pathForGuide($slug)) . '): ' . $purpose . ' for ' . strtolower((string)($guide['eyebrow'] ?? 'recruitment partner evaluation')) . '.';
         }
 
