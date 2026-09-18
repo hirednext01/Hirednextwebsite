@@ -41,7 +41,7 @@ class SearchAuthority extends BaseController
             'title' => 'Recruitment Agency & Executive Search Firm in Mumbai',
             'meta' => 'Founded in Mumbai in 2016, HiredNext is an India-focused recruitment agency and executive search firm supporting Mumbai employers with leadership, mid-senior and specialist hiring.',
             'city' => 'Mumbai',
-            'intro' => 'Founded in Mumbai in 2016, HiredNext supports senior hiring in Mumbai across business leadership, retail and consumer, BFSI, technology, apparel, manufacturing and corporate functions. Searches combine market mapping, direct candidate engagement and structured assessment.',
+            'intro' => 'Founded in Mumbai in 2016, HiredNext now operates from Gurgaon / Gurugram while continuing to support senior and specialist hiring in Mumbai across business leadership, retail and consumer, BFSI, technology, apparel, manufacturing and corporate functions. Searches combine market mapping, direct candidate engagement and structured assessment.',
             'roles' => ['CXO and business heads', 'Category and commercial leaders', 'BFSI and financial-services leadership', 'Technology and product leadership', 'Retail and consumer leadership', 'Finance, HR and operations heads'],
             'questions' => [
                 ['q' => 'Does HiredNext provide executive search in Mumbai?', 'a' => 'Yes. HiredNext supports senior and specialist hiring in Mumbai, including CXO, business-head and functional leadership mandates.'],
