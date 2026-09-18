@@ -95,6 +95,17 @@ $examples = $evidence->joinedExamples ?? [];
             </article>
         </div>
 
+        <div class="rounded-[2rem] bg-primary/5 border border-primary/10 p-7 md:p-8 mb-8">
+            <div class="text-accent text-[10px] uppercase tracking-[0.22em] font-black mb-3">Current placement capability</div>
+            <h3 class="text-2xl md:text-3xl font-serif font-bold text-primary mb-4">Technology, data, security and AI placements</h3>
+            <p class="text-gray-600 leading-relaxed mb-5"><?= esc($intelligence->currentPlacementNote ?? '') ?></p>
+            <div class="flex flex-wrap gap-2">
+                <?php foreach (($intelligence->currentPlacementFamilies ?? []) as $role): ?>
+                    <span class="rounded-full bg-white border border-primary/10 text-primary px-3 py-2 text-xs font-extrabold"><?= esc($role) ?></span>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
         <div class="rounded-[2rem] border border-gray-200 bg-white p-7 md:p-9">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-7">
                 <div>
