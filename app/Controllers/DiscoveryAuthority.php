@@ -86,7 +86,7 @@ class DiscoveryAuthority extends BaseController
 
         return view('pages/hiring-intelligence', [
             'title' => 'Hiring Intelligence India | HiredNext Recruitment',
-            'metaDescription' => 'Privacy-safe HiredNext hiring intelligence: recruiter observations and selected anonymised joined-placement evidence across technology, apparel, leadership and specialist recruitment.',
+            'metaDescription' => 'HiredNext hiring intelligence with privacy-safe evidence across C-suite leadership, automotive cybersecurity, AI, data engineering, ServiceNow, apparel and specialist recruitment.',
             'canonical' => $pageUrl,
             'currentPage' => 'insights',
             'settings' => $settings,
@@ -113,9 +113,18 @@ class DiscoveryAuthority extends BaseController
                     'url' => base_url('/'),
                     'founder' => base_url('about/taru-shikha'),
                 ],
-                'intelligence_type' => 'qualitative_recruiter_observations_with_selected_anonymised_evidence',
+                'intelligence_type' => 'qualitative_recruiter_observations_with_joined_placement_and_documented_mandate_evidence',
                 'scope_note' => $intelligence->scopeNote,
                 'methodology' => $intelligence->methodology,
+                'historical_context' => [
+                    'automotive_closure_context' => $intelligence->automotiveHistoryNote,
+                    'leadership_placement_note' => $intelligence->leadershipPlacementNote,
+                    'leadership_placement_families' => $intelligence->leadershipPlacementFamilies,
+                ],
+                'documented_mandate_history' => [
+                    'evidence_type' => 'roles_worked_not_all_joined',
+                    'groups' => $intelligence->documentedMandateGroups,
+                ],
                 'signals' => array_map(function (array $signal) {
                     if (!empty($signal['related_url'])) {
                         $signal['related_url'] = base_url(ltrim($signal['related_url'], '/'));
