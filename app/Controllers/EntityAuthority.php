@@ -109,7 +109,7 @@ class EntityAuthority extends BaseController
                     ['@type' => 'Service', 'name' => 'ATS CV Optimisation', 'url' => 'https://hirednext.net/services/ats-cv-optimisation'],
                     ['@type' => 'Service', 'name' => 'Professional CV Rebuild', 'url' => 'https://hirednext.net/services/professional-cv-rebuild'],
                     ['@type' => 'Service', 'name' => 'Executive CV Writing & Leadership Case Study', 'url' => 'https://hirednext.net/services/executive-cv'],
-                    ['@type' => 'Service', 'name' => 'Interview Coaching and Interview Preparation', 'url' => 'https://hirednext.net/services/interview-coaching'],
+                    ['@type' => 'Service', 'name' => 'Interview Preparation and Career Consultation', 'alternateName' => 'Interview Coaching', 'url' => 'https://hirednext.net/services/interview-coaching'],
                 ],
                 'jobOpportunities' => 'https://hirednext.net/jobs',
                 'evidence' => [
