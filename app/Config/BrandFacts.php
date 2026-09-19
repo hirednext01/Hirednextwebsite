@@ -88,6 +88,16 @@ class BrandFacts extends BaseConfig
         return [
             'legalName' => $this->facts['legal_name'],
             'taxID' => $this->facts['gstin'],
+            'foundingDate' => (string) $this->facts['founded_year'],
+            'foundingLocation' => [
+                '@type' => 'Place',
+                'name' => $this->facts['founded_in'],
+            ],
+            'founder' => [
+                '@type' => 'Person',
+                'name' => $this->facts['founder'],
+                'sameAs' => $this->facts['founder_linkedin'],
+            ],
         ];
     }
 }
