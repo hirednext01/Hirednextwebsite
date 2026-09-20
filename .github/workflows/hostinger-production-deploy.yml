@@ -107,10 +107,11 @@ jobs:
           grep -Fq 'Placement through HiredNext' app/Views/components/testimonial-card.php
           grep -Fq 'admin/testimonials' app/Config/Routes.php
 
-      - name: Verify paid CV assessment submission gate
+      - name: Verify CV guide and paid CV assessment submission gate
         shell: bash
         run: |
           set -euo pipefail
+          php -l app/Views/pages/guides/decision-guide.php
           php -l app/Controllers/CvAssessment.php
           php -l app/Views/pages/services/cv-assessment.php
           php tests/cv_assessment_payment_gate_test.php
