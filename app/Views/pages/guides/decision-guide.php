@@ -388,8 +388,8 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
 
             <?php if (!empty($criteria)): ?>
                 <section class="mt-12" id="evaluation-checklist">
-                    <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">Employer evaluation checklist</div>
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-3">How to compare recruitment and executive-search firms</h2>
+                    <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3"><?= $isCandidateGuide ? 'CV service evaluation checklist' : 'Employer evaluation checklist' ?></div>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-3"><?= $isCandidateGuide ? 'How to compare CV writing, CV making and CV rebuild services' : 'How to compare recruitment and executive-search firms' ?></h2>
                     <p class="text-gray-600 leading-relaxed mb-7 max-w-3xl"><?= $isCandidateGuide ? 'Use one evidence-led checklist rather than choosing only from advertising claims, templates or headline prices.' : 'Use one evidence-led checklist rather than comparing agency names, fee percentages or CV volume in isolation.' ?></p>
                     <div class="grid md:grid-cols-2 gap-4">
                         <?php foreach ($criteria as $criterion): ?>
@@ -510,9 +510,15 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
             <?php endif; ?>
 
             <div class="rounded-2xl border border-accent/20 bg-accent/5 p-6">
-                <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">Search evidence</div>
-                <p class="text-sm text-gray-700 leading-relaxed mb-4">Read the complete case evidence separately from the recurring practices HiredNext uses during difficult searches.</p>
-                <a class="font-black text-primary hover:text-accent" href="<?= base_url('mandate-stories') ?>">Mandate stories & search evidence →</a>
+                <?php if ($isCandidateGuide): ?>
+                    <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">CV service evidence</div>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-4">See exactly what HiredNext assesses, rewrites and delivers before choosing a paid CV service.</p>
+                    <a class="font-black text-primary hover:text-accent" href="<?= base_url('services/candidates') ?>">Explore CV assessment & rebuild →</a>
+                <?php else: ?>
+                    <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">Search evidence</div>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-4">Read the complete case evidence separately from the recurring practices HiredNext uses during difficult searches.</p>
+                    <a class="font-black text-primary hover:text-accent" href="<?= base_url('mandate-stories') ?>">Mandate stories & search evidence →</a>
+                <?php endif; ?>
             </div>
 
             <div class="rounded-2xl border border-gray-200 bg-white p-6">
@@ -537,9 +543,15 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
             <?php endif; ?>
 
             <div class="rounded-2xl bg-accent/10 border border-accent/20 p-6">
-                <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">Hiring mandate?</div>
-                <p class="text-sm text-gray-600 leading-relaxed mb-4">If the role is senior, confidential or hard to fill, share the mandate and HiredNext can assess whether a focused search is the right model.</p>
-                <a href="<?= base_url('services/clients') ?>" class="font-black text-primary hover:text-accent">Explore employer services →</a>
+                <?php if ($isCandidateGuide): ?>
+                    <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">Need your CV rebuilt?</div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Choose the ₹599 assessment when you want a diagnosis, or the ₹1,799 rebuild when you want HiredNext to rewrite and restructure the CV for you.</p>
+                    <a href="<?= base_url('services/candidates') ?>" class="font-black text-primary hover:text-accent">View CV services & pricing →</a>
+                <?php else: ?>
+                    <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">Hiring mandate?</div>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">If the role is senior, confidential or hard to fill, share the mandate and HiredNext can assess whether a focused search is the right model.</p>
+                    <a href="<?= base_url('services/clients') ?>" class="font-black text-primary hover:text-accent">Explore employer services →</a>
+                <?php endif; ?>
             </div>
         </aside>
     </div>
@@ -547,11 +559,17 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
 
 <section class="py-12 bg-gray-50 border-t border-gray-100">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
-        <div class="text-[10px] uppercase tracking-[0.26em] text-gray-400 font-black mb-5">More decision guides</div>
+        <div class="text-[10px] uppercase tracking-[0.26em] text-gray-400 font-black mb-5"><?= $isCandidateGuide ? 'More CV support' : 'More decision guides' ?></div>
         <div class="grid md:grid-cols-3 gap-4">
-            <a href="<?= base_url('top-recruitment-company-india') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Choose an Executive Search Firm →</a>
-            <a href="<?= base_url('guides/leadership-hiring-partner-india') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Evaluate a Leadership Hiring Partner →</a>
-            <a href="<?= base_url('guides/specialist-recruitment-firm-india') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Specialist vs Generalist Recruiter →</a>
+            <?php if ($isCandidateGuide): ?>
+                <a href="<?= base_url('services/candidates') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">CV Writing & Rebuild Services →</a>
+                <a href="<?= base_url('services/cv-assessment') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">CV Assessment — ₹599 →</a>
+                <a href="<?= base_url('services/executive-cv') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Executive CV for Senior Leaders →</a>
+            <?php else: ?>
+                <a href="<?= base_url('top-recruitment-company-india') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Choose an Executive Search Firm →</a>
+                <a href="<?= base_url('guides/leadership-hiring-partner-india') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Evaluate a Leadership Hiring Partner →</a>
+                <a href="<?= base_url('guides/specialist-recruitment-firm-india') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Specialist vs Generalist Recruiter →</a>
+            <?php endif; ?>
         </div>
     </div>
 </section>
