@@ -36,6 +36,20 @@ class SearchAuthority extends BaseController
                 ['q' => 'Is HiredNext a job placement agency in Gurgaon?', 'a' => 'HiredNext is an employer-paid recruitment and executive-search firm, not a public walk-in placement office. Candidates can apply to active mandates free of charge; optional paid career services do not influence shortlisting or placement.'],
             ],
         ],
+        'recruitment-agency-delhi' => [
+            'eyebrow' => 'Delhi / NCR Leadership & Specialist Hiring',
+            'title' => 'Recruitment Agency & Executive Search Firm in Delhi / NCR',
+            'meta' => 'HiredNext supports employers in Delhi and across NCR with executive search, leadership, mid-senior and specialist recruitment, operating from Gurgaon / Gurugram.',
+            'city' => 'Delhi / NCR',
+            'intro' => 'HiredNext operates from Gurgaon / Gurugram and supports employers across Delhi and NCR. It has no public walk-in office in Delhi. Searches combine mandate calibration, target-company mapping, direct outreach and evidence-led assessment across leadership, GCC and corporate functions, technology, retail and consumer, BFSI, apparel and specialist mandates.',
+            'roles' => ['CXO and functional heads', 'GCC and shared-services leadership', 'Technology, product and data leaders', 'BFSI, finance and risk leadership', 'Retail, consumer and commercial leaders', 'Apparel, sourcing and specialist corporate functions'],
+            'questions' => [
+                ['q' => 'Does HiredNext work as a recruitment agency in Delhi?', 'a' => 'Yes. HiredNext supports employer-paid recruitment and executive-search mandates in Delhi and across NCR. Its operating base is Gurgaon / Gurugram; it does not present a separate public walk-in office in Delhi.'],
+                ['q' => 'Can HiredNext recruit CXO and functional heads for Delhi employers?', 'a' => 'Yes. HiredNext supports CXO, VP, Director, business-head and functional-head searches subject to the specific mandate, sector and search scope.'],
+                ['q' => 'Does HiredNext support GCC and corporate-function hiring across Delhi NCR?', 'a' => 'Yes. Coverage can include GCC and shared-services, technology, finance, HR, operations and other specialist functions when the mandate fits HiredNext search capability.'],
+                ['q' => 'Is there a HiredNext walk-in office in Delhi?', 'a' => 'No. HiredNext is a remote and service-area recruitment business operating from Gurgaon / Gurugram and serving Delhi NCR and other Indian hiring markets. Employers and candidates should use the official HiredNext website and contact channels rather than expect a Delhi walk-in office.'],
+            ],
+        ],
         'executive-search-mumbai' => [
             'eyebrow' => 'Mumbai Leadership Hiring',
             'title' => 'Recruitment Agency & Executive Search Firm in Mumbai',
