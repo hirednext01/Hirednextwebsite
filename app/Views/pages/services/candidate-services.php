@@ -171,4 +171,14 @@
 </section>
 
 <?= view('pages/services/_cv-service-faq') ?>
+
+<section class="py-16 bg-white border-t border-gray-100">
+    <div class="max-w-[1100px] mx-auto px-4 sm:px-8">
+        <div class="rounded-[1.75rem] border border-primary/10 bg-primary/5 p-7 md:p-9 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div><div class="text-xs font-black uppercase tracking-[0.2em] text-accent">Career Intelligence</div><h2 class="mt-2 text-3xl font-serif font-bold text-primary">Not sure what you actually need?</h2><p class="mt-3 text-gray-600 max-w-2xl">Read recruiter-led guides on CV assessment vs rebuild, how senior CVs are read, LinkedIn leadership positioning and where AI resume tools help—or create risk.</p></div>
+            <a href="<?= base_url('career-intelligence') ?>" class="inline-flex shrink-0 justify-center rounded-full bg-primary px-7 py-4 font-black text-white">Explore Career Intelligence</a>
+        </div>
+    </div>
+</section>
+
 <?= $this->endSection() ?>
