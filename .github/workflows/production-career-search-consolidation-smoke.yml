@@ -1,0 +1,45 @@
+name: Career Search Consolidation Smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/production-career-search-consolidation-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify live prices and legacy redirects
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          curl --fail --silent --show-error --location --max-time 30 https://hirednext.net/ -o /tmp/home
+          grep -Fq "₹992 + GST" /tmp/home
+          grep -Fq "₹2,500 + GST" /tmp/home
+          ! grep -Fq "₹599" /tmp/home
+          ! grep -Fq "₹1,799" /tmp/home
+
+          curl --fail --silent --show-error --location --max-time 30 https://hirednext.net/jobs -o /tmp/jobs
+          grep -Fq "₹992 + GST" /tmp/jobs
+          grep -Fq "₹2,500 + GST" /tmp/jobs
+          ! grep -Fq "₹599" /tmp/jobs
+          ! grep -Fq "₹1,799" /tmp/jobs
+
+          cv_headers=$(mktemp)
+          curl --silent --show-error --head --max-time 30 "https://hirednext.net/cv-assessment?job=finance-lead&utm_source=legacy" > "$cv_headers"
+          grep -Eq '^HTTP/[^ ]+ 301' "$cv_headers"
+          grep -Eqi '^location: https://hirednext\.net/services/cv-assessment\?job=finance-lead(&|%26)utm_source=legacy' "$cv_headers"
+
+          avron_headers=$(mktemp)
+          curl --silent --show-error --head --max-time 30 https://hirednext.net/services/avron > "$avron_headers"
+          grep -Eq '^HTTP/[^ ]+ 301' "$avron_headers"
+          grep -Eqi '^location: https://hirednext\.net/services/candidates' "$avron_headers"
+
+          echo "PASS: live pricing and legacy search redirects verified"
