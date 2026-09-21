@@ -69,6 +69,17 @@ class Seo extends BaseController
             ['loc' => base_url('contact'), 'lastmod' => '2026-09-16', 'changefreq' => 'monthly', 'priority' => '0.7'],
         ];
 
+        $careerConfig = config('CareerAuthority');
+        $urls[] = ['loc' => base_url('career-intelligence'), 'lastmod' => $careerConfig->updatedOn, 'changefreq' => 'weekly', 'priority' => '0.9'];
+        foreach (($careerConfig->pages ?? []) as $careerSlug => $careerPage) {
+            $urls[] = [
+                'loc' => base_url($careerConfig->pathFor($careerSlug)),
+                'lastmod' => $careerConfig->updatedOn,
+                'changefreq' => 'monthly',
+                'priority' => '0.9',
+            ];
+        }
+
         // Decision guides are commercial search assets. Discover them from the source of truth
         // so every future guide is exposed to search engines without another sitemap edit.
         $guideConfig = config('DecisionGuides');
@@ -209,6 +220,13 @@ class Seo extends BaseController
             '- [Recruitment Agency Hyderabad](' . base_url('regions/recruitment-agency-hyderabad') . '): GCC, technology, pharma, life-sciences and leadership recruitment in Hyderabad.',
             '- [Recruitment Agency Pune](' . base_url('regions/recruitment-agency-pune') . '): Manufacturing, engineering, automotive, technology and leadership recruitment in Pune.',
             '- [Services for Candidates](' . base_url('services/candidates') . '): Recruiter-led CV assessment, professional CV rebuild, executive CV and optional career support for experienced professionals.',
+            '- [Career Intelligence](' . base_url('career-intelligence') . '): Recruiter-led guidance on CV evidence, LinkedIn leadership positioning, AI resume tools and senior-career visibility.',
+            '- [LinkedIn Profile Optimisation India](' . base_url('guides/linkedin-profile-optimisation-india') . '): How senior professionals should structure headline, About, experience, proof and discoverability.',
+            '- [Executive LinkedIn Profile India](' . base_url('guides/executive-linkedin-profile-india') . '): CXO, VP and Director profile positioning around mandate, scale, decision ownership and evidence.',
+            '- [CV Assessment vs CV Rebuild](' . base_url('guides/cv-assessment-vs-cv-rebuild') . '): Decision guide for choosing diagnosis, managed rewrite or the combined bundle.',
+            '- [CV Writing vs AI Resume Builder](' . base_url('guides/cv-writing-vs-ai-resume-builder-india') . '): Where AI helps with CVs and where human evidence judgement remains important.',
+            '- [How Recruiters Read a Senior CV](' . base_url('guides/how-recruiters-read-senior-cv-india') . '): What senior recruiters look for first: level, scale, ownership, relevance and defensible outcomes.',
+            '- [Career Intelligence JSON](' . base_url('authority/career-intelligence.json') . '): Machine-readable summaries, intent, reviewer identity, update date and primary service links for HiredNext career guidance.',
             '- [CV Assessment](' . base_url('services/cv-assessment') . '): ₹992 + GST written, role-focused CV assessment that identifies positioning, evidence and readability gaps.',
             '- [ATS CV Optimisation](' . base_url('services/ats-cv-optimisation') . '): ₹999 ATS-safe structure, role language, keyword and recruiter-scan optimisation for a fundamentally sound CV.',
             '- [Professional CV Rebuild](' . base_url('services/professional-cv-rebuild') . '): ₹2,500 + GST evidence-led CV making, rewriting and rebuilding with two finished variants and two revision rounds.',
