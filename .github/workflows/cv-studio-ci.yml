@@ -3,6 +3,8 @@ name: Verify HiredNext CV Studio
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
     paths:
       - 'app/Commands/CvDoctor.php'
       - 'app/Commands/LyzrCvSetup.php'
@@ -48,6 +50,14 @@ jobs:
           coverage: none
       - name: Public checkout contract test
         run: php tests/cv_public_checkout_test.php
+      - name: Premium pricing and LinkedIn positioning contract
+        run: php tests/career_services_2026_premium_pricing_test.php
+      - name: Career services product engine
+        run: php tests/career_services_product_engine_test.php
+      - name: CV assessment conversion
+        run: php tests/cv_assessment_conversion_test.php
+      - name: CV assessment payment gate
+        run: php tests/cv_assessment_payment_gate_test.php
       - name: PHP syntax gate
         shell: bash
         run: |
@@ -57,6 +67,15 @@ jobs:
             app/Commands/LyzrCvSetup.php
             app/Config/Routing.php
             app/Config/RoutesCvStudio.php
+            app/Controllers/CandidateServices.php
+            app/Controllers/CvAssessment.php
+            app/Controllers/CvPayment.php
+            app/Controllers/CvReviewAdmin.php
+            app/Services/Cv/CvCandidateMailer.php
+            app/Views/pages/services/cv-assessment.php
+            app/Views/pages/services/cv-payment-direct.php
+            app/Views/pages/services/cv-service-product.php
+            app/Views/pages/services/linkedin-leadership.php
             app/Controllers/CvStudioAdmin.php
             app/Controllers/CvStudioDocumentController.php
             app/Database/Migrations/2026-08-31-160000_CreateCvDocuments.php
