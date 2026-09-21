@@ -82,7 +82,7 @@
     </div>
 </section>
 
-<section class="py-10 bg-gray-50 border-t border-gray-200"><div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12 text-center"><h2 class="text-2xl font-serif font-bold text-primary">Already want a complete rewrite?</h2><p class="mt-3 text-gray-600">The ₹1,799 Professional CV The rebuild includes the analysis required to write the document. Choose the bundle when you also want the separate detailed written assessment. You do not have to buy every service.</p><a href="<?= base_url('career-services/start/rebuild_2500') ?>" class="inline-flex mt-5 rounded-xl bg-primary px-6 py-3 font-bold text-white">Get My CV Rebuilt — ₹1,799</a></div></section>
+<section class="py-10 bg-gray-50 border-t border-gray-200"><div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12 text-center"><h2 class="text-2xl font-serif font-bold text-primary">Already want a complete rewrite?</h2><p class="mt-3 text-gray-600">The ₹2,500 + GST Professional CV Rebuild is the done-for-you option. It includes the analysis required to write the document. Choose the bundle when you also want the separate detailed written assessment. You do not have to buy every service.</p><a href="<?= base_url('career-services/start/rebuild_2500') ?>" class="inline-flex mt-5 rounded-xl bg-primary px-6 py-3 font-bold text-white">Get My CV Rebuilt — ₹2,500 + GST</a></div></section>
 
 <?= view('pages/services/_cv-service-faq') ?>
 
