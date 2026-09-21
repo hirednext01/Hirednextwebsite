@@ -13,7 +13,7 @@ $checks = [
     'unpaid audit is not marked received' => str_contains($assessmentController, "'checkout_started'")
         && !str_contains($assessmentController, "'cv_received'"),
     'page states the payment gate clearly' => str_contains($view, 'Your assessment request is submitted only after you enter your payment reference')
-        && str_contains($view, 'Continue to ₹599 payment'),
+        && str_contains($view, 'Continue to payment — ₹1,171'),
 ];
 
 $failed = [];
