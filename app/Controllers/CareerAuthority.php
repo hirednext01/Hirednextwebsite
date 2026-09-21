@@ -101,6 +101,7 @@ class CareerAuthority extends BaseController
                         'jobTitle' => 'Founder & CEO',
                         'worksFor' => ['@id' => 'https://hirednext.net/#organization'],
                         'url' => base_url('about/taru-shikha'),
+                        'sameAs' => ['https://www.linkedin.com/in/tarushikhaarora'],
                     ],
                     'publisher' => ['@id' => 'https://hirednext.net/#organization'],
                     'about' => array_map(static fn (string $topic): array => ['@type' => 'Thing', 'name' => $topic], [
