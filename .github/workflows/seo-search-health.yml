@@ -32,6 +32,7 @@ on:
       - 'tests/ai_search_authority_test.php'
       - 'tests/google_ai_commercial_intent_test.php'
       - 'tests/city_founder_authority_test.php'
+      - 'tests/delhi_recruitment_authority_test.php'
       - 'tests/cv_search_dominance_test.php'
       - 'tests/career_services_product_engine_test.php'
       - '.github/workflows/indexnow.yml'
@@ -105,6 +106,7 @@ jobs:
           php tests/ai_search_authority_test.php
           php tests/google_ai_commercial_intent_test.php
           php tests/city_founder_authority_test.php
+          php tests/delhi_recruitment_authority_test.php
           php tests/cv_search_dominance_test.php
           php tests/career_services_product_engine_test.php
           php tests/career_ai_search_authority_test.php
