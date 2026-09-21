@@ -38,12 +38,14 @@ class CandidateServices extends BaseController
                 '@context' => 'https://schema.org',
                 '@type' => 'Service',
                 'name' => 'HiredNext CV Assessment and Professional CV Rebuild',
-                'serviceType' => ['CV assessment', 'CV making', 'CV remake', 'Professional CV writing', 'Professional CV rebuild', 'Executive CV writing', 'Interview preparation', 'Career consultation'],
+                'serviceType' => ['CV assessment', 'CV making', 'CV remake', 'Professional CV writing', 'Professional CV rebuild', 'Executive CV writing', 'LinkedIn leadership positioning', 'Interview preparation', 'Career consultation'],
                 'provider' => ['@type' => 'Organization', 'name' => 'HiredNext Recruitment', 'url' => base_url()],
                 'url' => $pageUrl,
                 'offers' => [
-                    ['@type' => 'Offer', 'name' => 'CV Assessment', 'price' => '599', 'priceCurrency' => 'INR', 'url' => base_url('services/cv-assessment')],
-                    ['@type' => 'Offer', 'name' => 'Professional CV Rebuild', 'price' => '1799', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/rebuild_1799')],
+                    ['@type' => 'Offer', 'name' => 'CV Assessment', 'price' => '1171', 'priceCurrency' => 'INR', 'url' => base_url('services/cv-assessment')],
+                    ['@type' => 'Offer', 'name' => 'Professional CV Rebuild', 'price' => '2950', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/rebuild_2500')],
+                    ['@type' => 'Offer', 'name' => 'CV Assessment + Professional CV Rebuild Bundle', 'price' => '3915', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/bundle_3317')],
+                    ['@type' => 'Offer', 'name' => 'LinkedIn Leadership Positioning & Narrative Strategy', 'price' => '10619', 'priceCurrency' => 'INR', 'url' => base_url('services/linkedin-leadership-positioning')],
                     ['@type' => 'Offer', 'name' => 'Executive CV & Leadership Case Study', 'price' => '6999', 'priceCurrency' => 'INR', 'url' => base_url('services/executive-cv')],
                     ['@type' => 'Offer', 'name' => 'Career Consultation', 'price' => '4500', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/career_4500')],
                 ],
@@ -53,9 +55,9 @@ class CandidateServices extends BaseController
 
     public function professionalCvRebuild()
     {
-        return $this->careerProductPage('rebuild_1799', 'services/professional-cv-rebuild', [
+        return $this->careerProductPage('rebuild_2500', 'services/professional-cv-rebuild', [
             'title' => 'Professional CV Rebuild & CV Making Service in India | HiredNext',
-            'metaDescription' => 'Professional CV rebuild, CV making, CV remake and CV writing service in India for experienced professionals. ₹1,799 including assessment, two CV variants and two revision rounds.',
+            'metaDescription' => 'Professional CV rebuild, CV making, CV remake and CV writing service in India for experienced professionals. ₹2,500 + GST with two CV variants and two revision rounds.',
             'metaKeywords' => 'professional CV rebuild India, CV making service India, CV remake India, CV writing service India, resume rewriting India, CV revamp India',
             'eyebrow' => 'Professional CV Rebuild · India',
             'headline' => 'Your experience is real. Your CV should make it easier to see.',
@@ -66,16 +68,51 @@ class CandidateServices extends BaseController
                 'Candidates who want HiredNext to do the rewrite rather than only diagnose the gaps.',
             ],
             'deliverables' => [
-                'Recruiter-led CV assessment included.',
+                'Internal career-evidence analysis to guide the rewrite. The separate detailed written assessment is available on its own or in the discounted bundle.',
                 'Evidence-led content rewrite using verified career facts.',
                 'Two completed CV variants in ATS-safe design directions.',
                 'Two revision rounds for factual correction and calibrated positioning.',
             ],
             'faq' => [
                 ['q' => 'Is this CV making, CV writing or CV rebuilding?', 'a' => 'All three phrases can describe this service. HiredNext uses “rebuild” because the work covers positioning, content, evidence and structure—not only formatting.'],
-                ['q' => 'Do I need to buy the ₹599 assessment first?', 'a' => 'No. The Professional CV Rebuild already includes the assessment.'],
+                ['q' => 'Do I need to buy the assessment first?', 'a' => 'No. The rebuild includes the analysis needed to write the document. Choose the Assessment + Rebuild Bundle when you also want the separate detailed written assessment before the rewrite.'],
                 ['q' => 'Does HiredNext invent achievements to strengthen the CV?', 'a' => 'No. Claims remain anchored to facts you provide. Missing metrics or context become clarification questions, not invented content.'],
             ],
+        ]);
+    }
+
+    public function linkedinLeadership()
+    {
+        $plan = \App\Services\Cv\CvUpgradePlans::get('linkedin_8999');
+        if (!$plan) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $pageUrl = base_url('services/linkedin-leadership-positioning');
+        return view('pages/services/linkedin-leadership', [
+            'title' => 'LinkedIn Leadership Positioning & Narrative Strategy | HiredNext',
+            'metaDescription' => 'Confidential LinkedIn leadership positioning for senior professionals: deep assessment, narrative strategy, profile architecture and specialist review. Campaign price ₹8,999 + GST.',
+            'metaKeywords' => 'LinkedIn profile writing India, LinkedIn leadership positioning, executive LinkedIn profile, senior leader LinkedIn strategy, LinkedIn profile optimisation India',
+            'canonical' => $pageUrl,
+            'currentPage' => 'services',
+            'settings' => $this->loadWebsiteSettings(),
+            'plan' => $plan,
+            'jsonLd' => json_encode([
+                '@context' => 'https://schema.org',
+                '@type' => 'Service',
+                'name' => $plan['name'],
+                'serviceType' => ['LinkedIn leadership positioning', 'Executive LinkedIn narrative strategy', 'LinkedIn profile optimisation'],
+                'provider' => ['@type' => 'Organization', 'name' => 'HiredNext Recruitment', 'url' => base_url()],
+                'url' => $pageUrl,
+                'areaServed' => ['@type' => 'Country', 'name' => 'India'],
+                'offers' => [
+                    '@type' => 'Offer',
+                    'price' => (string) $plan['amount'],
+                    'priceCurrency' => 'INR',
+                    'url' => base_url('career-services/start/linkedin_8999'),
+                    'description' => ($plan['price_label'] ?? '') . ' campaign price; regular service value ' . ($plan['regular_price_label'] ?? ''),
+                ],
+            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
     }
 
@@ -195,11 +232,12 @@ class CandidateServices extends BaseController
             'canonical' => $pageUrl,
             'currentPage' => 'services',
             'settings' => $this->loadWebsiteSettings(),
-            'price' => '₹' . number_format((int) $plan['amount']),
-            'priceNote' => $plan['delivery'] . ' · GST included',
+            'price' => $plan['price_label'] ?? ('₹' . number_format((int) $plan['amount'])),
+            'priceNote' => ($plan['payable_label'] ?? ('₹' . number_format((int) $plan['amount']) . ' payable')) . ' · ' . $plan['delivery'],
             'ctaLabel' => match ($tier) {
                 'ats_999' => 'Optimise My CV — ₹999',
-                'rebuild_1799' => 'Rebuild My CV — ₹1,799',
+                'rebuild_2500' => 'Rebuild My CV — ₹2,500 + GST',
+                'bundle_3317' => 'Get Assessment + Rebuild — ₹3,317.40 + GST',
                 'career_4500' => 'Book Interview Coaching — ₹4,500',
                 default => 'Start now',
             },
@@ -223,7 +261,7 @@ class CandidateServices extends BaseController
 
         return view('pages/services/cv-assessment', [
             'title' => 'CV Assessment & Resume Review Service in India | HiredNext',
-            'metaDescription' => 'Get a detailed 12-hour, role-focused CV assessment for ₹599 from HiredNext recruitment experts. Includes recruiter-led resume review on positioning, readability, evidence and priority corrections.',
+            'metaDescription' => 'Get a detailed 12-hour, role-focused CV assessment for ₹992 + GST from HiredNext recruitment experts. Includes recruiter-led resume review on positioning, readability, evidence and priority corrections.',
             'currentPage' => 'services',
             'job' => $job,
         ]);
