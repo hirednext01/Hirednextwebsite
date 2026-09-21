@@ -23,6 +23,8 @@ on:
       - 'app/Controllers/Authority.php'
       - 'app/Views/pages/services/**'
       - 'app/Views/pages/jobs.php'
+      - 'tests/career_service_legacy_consolidation_test.php'
+      - 'app/Views/pages/home.php'
       - 'app/Views/pages/founder-profile.php'
       - 'app/Views/layouts/main.php'
       - 'tests/search_entity_consistency_test.php'
@@ -104,6 +106,7 @@ jobs:
           php tests/cv_search_dominance_test.php
           php tests/career_services_product_engine_test.php
           php tests/career_ai_search_authority_test.php
+          php tests/career_service_legacy_consolidation_test.php
       - name: Verify candidate service regressions
         run: |
           php tests/cv_assessment_conversion_test.php
