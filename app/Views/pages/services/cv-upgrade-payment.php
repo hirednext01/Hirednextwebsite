@@ -2,8 +2,10 @@
 <?= $this->section('content') ?>
 <?php
 $tier = (string)($order['tier'] ?? '');
-$showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_1799', 'executive_6999'], true);
-$gstInclusive = in_array((int) ($order['amount'] ?? 0), [1799, 6999], true);
+$showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_2500', 'bundle_3317', 'executive_6999'], true);
+$priceLabel = $plan['price_label'] ?? ('₹' . number_format((int)($order['amount'] ?? 0)));
+$regularPriceLabel = $plan['regular_price_label'] ?? null;
+$payableLabel = $plan['payable_label'] ?? ('₹' . number_format((int)($order['amount'] ?? 0)) . ' payable');
 ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
@@ -67,18 +69,20 @@ $gstInclusive = in_array((int) ($order['amount'] ?? 0), [1799, 6999], true);
         <div class="bg-white rounded-[2rem] border border-gray-200 p-7 md:p-10 shadow-sm">
             <div class="grid md:grid-cols-2 gap-10 items-start">
                 <div>
-                    <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">HiredNext CV Service</div>
+                    <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">HiredNext Career Service</div>
                     <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4"><?= esc($order['service_name'] ?? 'CV Service') ?></h2>
                     <p class="text-gray-600 leading-relaxed mb-6"><?= esc($plan['description'] ?? '') ?></p>
                     <div class="rounded-2xl bg-primary text-white p-6 mb-6">
-                        <div class="text-[10px] uppercase tracking-[0.22em] text-white/55 font-black mb-2">Amount to pay</div>
-                        <div class="text-4xl font-black">₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?></div><?php if ($gstInclusive): ?><div class="text-sm text-white/70 mt-2">Inclusive of GST</div><?php endif; ?>
-                        <div class="text-sm text-white/70 mt-2"><?= esc($plan['delivery'] ?? '') ?></div>
+                        <div class="text-[10px] uppercase tracking-[0.22em] text-white/55 font-black mb-2">Service price</div>
+                        <?php if ($regularPriceLabel): ?><div class="text-lg font-black text-white/45 line-through"><?= esc($regularPriceLabel) ?></div><?php endif; ?>
+                        <div class="text-3xl font-black mt-1"><?= esc($priceLabel) ?></div>
+                        <div class="text-sm text-white/75 mt-2"><?= esc($payableLabel) ?></div>
+                        <div class="text-sm text-white/60 mt-3"><?= esc($plan['delivery'] ?? '') ?></div>
                     </div>
                     <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
                         <div class="text-sm font-black tracking-[0.14em] text-primary mb-3">VERIFIED BUSINESS PAYMENT ONLY</div>
                         <p class="text-sm text-gray-700 leading-relaxed">The previous QR has been retired. HiredNext will send payment details from <strong>jobs@hirednext.info</strong>. Do not use an old Paytm URL or any destination showing an individual's name or phone number.</p>
-                        <div class="mt-4 text-xl font-black text-primary">₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?></div><?php if ($gstInclusive): ?><div class="mt-1 text-xs font-semibold text-gray-500">Inclusive of GST</div><?php endif; ?>
+                        <div class="mt-4 text-xl font-black text-primary"><?= esc($payableLabel) ?></div>
                     </div>
                 </div>
                 <div>
@@ -94,7 +98,7 @@ $gstInclusive = in_array((int) ($order['amount'] ?? 0), [1799, 6999], true);
                         <div><label class="block text-sm font-bold text-primary mb-1">Email used with HiredNext *</label><input type="email" name="email" required value="<?= esc(old('email')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="you@example.com"></div>
                         <div><label class="block text-sm font-bold text-primary mb-1">UPI transaction/reference number *</label><input name="payment_reference" required minlength="6" value="<?= esc(old('payment_reference')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Reference shown by your payment app"></div>
                         <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-bold hover:opacity-90 transition">I have paid ₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?> — Submit for verification</button>
-                        <p class="text-xs text-gray-500 text-center">This professional CV service is optional and separate from recruitment consideration, job applications, interviews or placement through HiredNext.</p>
+                        <p class="text-xs text-gray-500 text-center">This career service improves positioning or preparation; it does not guarantee reach, interviews, hiring or placement.</p>
                     </form>
                 </div>
             </div>
