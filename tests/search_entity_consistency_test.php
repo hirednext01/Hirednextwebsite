@@ -15,6 +15,7 @@ $home = @file_get_contents($root . '/app/Controllers/Home.php') ?: '';
 $contact = @file_get_contents($root . '/app/Views/pages/contact.php') ?: '';
 $searchAuthority = @file_get_contents($root . '/app/Controllers/SearchAuthority.php') ?: '';
 $indexNow = @file_get_contents($root . '/.github/workflows/indexnow.yml') ?: '';
+$priorityDiscovery = @file_get_contents($root . '/app/Commands/SubmitPrioritySearchDiscovery.php') ?: '';
 
 $require(str_contains($robots, 'Disallow: /api/'), 'robots must block /api/');
 $require(str_contains($robots, 'Disallow: /admin/'), 'robots must block /admin/');
@@ -54,6 +55,24 @@ $require(str_contains($searchAuthority, 'now operates from Gurgaon'), 'Mumbai au
 
 $require(str_contains($indexNow, 'https://hirednext.net/recruitment-agency-india/'), 'IndexNow must submit the recruitment landing page');
 $require(str_contains($indexNow, 'https://hirednext.net/contact'), 'IndexNow must submit the corrected contact page');
+
+$careerServicePaths = [
+    'services/cv-assessment',
+    'services/ats-cv-optimisation',
+    'services/professional-cv-rebuild',
+    'services/executive-cv',
+    'services/interview-coaching',
+];
+foreach ($careerServicePaths as $path) {
+    $require(
+        str_contains($indexNow, 'https://hirednext.net/' . $path),
+        'GitHub IndexNow workflow must submit ' . $path
+    );
+    $require(
+        str_contains($priorityDiscovery, "'" . $path . "'"),
+        'CLI priority discovery must submit ' . $path
+    );
+}
 
 if ($failures) {
     fwrite(STDERR, "FAIL\n - " . implode("\n - ", $failures) . "\n");
