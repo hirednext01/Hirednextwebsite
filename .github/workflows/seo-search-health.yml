@@ -15,6 +15,7 @@ on:
       - 'app/Controllers/CareerAuthority.php'
       - 'app/Config/CareerAuthority.php'
       - 'app/Controllers/DecisionGuides.php'
+      - 'app/Controllers/LegacyCareerRedirects.php'
       - 'app/Controllers/CandidateServices.php'
       - 'app/Controllers/Jobs.php'
       - 'app/Controllers/EntityAuthority.php'
@@ -23,6 +24,8 @@ on:
       - 'app/Controllers/Authority.php'
       - 'app/Views/pages/services/**'
       - 'app/Views/pages/jobs.php'
+      - 'tests/career_service_legacy_consolidation_test.php'
+      - 'app/Views/pages/home.php'
       - 'app/Views/pages/founder-profile.php'
       - 'app/Views/layouts/main.php'
       - 'tests/search_entity_consistency_test.php'
@@ -79,6 +82,7 @@ jobs:
           if [ -f app/Views/pages/career-authority.php ]; then php -l app/Views/pages/career-authority.php; fi
           if [ -f app/Views/pages/career-intelligence.php ]; then php -l app/Views/pages/career-intelligence.php; fi
           php -l app/Controllers/DecisionGuides.php
+          php -l app/Controllers/LegacyCareerRedirects.php
           php -l app/Controllers/CandidateServices.php
           php -l app/Controllers/Jobs.php
           php -l app/Controllers/EntityAuthority.php
@@ -104,6 +108,7 @@ jobs:
           php tests/cv_search_dominance_test.php
           php tests/career_services_product_engine_test.php
           php tests/career_ai_search_authority_test.php
+          php tests/career_service_legacy_consolidation_test.php
       - name: Verify candidate service regressions
         run: |
           php tests/cv_assessment_conversion_test.php
