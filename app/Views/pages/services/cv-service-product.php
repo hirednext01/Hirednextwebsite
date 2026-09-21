@@ -77,7 +77,7 @@ $faq = $faq ?? [];
                 </a>
             <?php endforeach; ?>
         </div>
-        <p class="text-xs text-gray-500 text-center mt-6">Paid career services are optional and separate from recruitment. They do not guarantee interviews, shortlisting, hiring or placement.</p>
+        <p class="text-xs text-gray-500 text-center mt-6">A clearer CV and stronger positioning can make relevant career evidence easier to recognise. Hiring outcomes still depend on the role, the employer and the wider selection process.</p>
     </div>
 </section>
 
