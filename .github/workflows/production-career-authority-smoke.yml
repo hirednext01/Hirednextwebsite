@@ -1,0 +1,55 @@
+name: Career Authority Production Smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/Config/CareerAuthority.php'
+      - 'app/Controllers/CareerAuthority.php'
+      - 'app/Views/pages/career-authority.php'
+      - 'app/Views/pages/career-intelligence.php'
+      - 'app/Config/Routes.php'
+      - '.github/workflows/production-career-authority-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Wait for Hostinger and verify live authority cluster
+        shell: bash
+        run: |
+          set -euo pipefail
+          urls=(
+            "https://hirednext.net/career-intelligence|CV evidence, LinkedIn positioning"
+            "https://hirednext.net/guides/linkedin-profile-optimisation-india|LinkedIn Profile Optimisation in India"
+            "https://hirednext.net/guides/executive-linkedin-profile-india|Executive LinkedIn Profile in India"
+            "https://hirednext.net/guides/cv-assessment-vs-cv-rebuild|CV Assessment vs CV Rebuild"
+            "https://hirednext.net/guides/cv-writing-vs-ai-resume-builder-india|Professional CV Writing vs AI Resume Builder"
+            "https://hirednext.net/guides/how-recruiters-read-senior-cv-india|How Recruiters Read a Senior CV in India"
+            "https://hirednext.net/authority/career-intelligence.json|linkedin-profile-optimisation-india"
+          )
+
+          for item in "${urls[@]}"; do
+            url="${item%%|*}"
+            needle="${item#*|}"
+            ok=0
+            for attempt in $(seq 1 18); do
+              echo "Checking $url (attempt $attempt)"
+              if curl --fail --location --silent --show-error --max-time 25 "$url" -o /tmp/page && grep -Fq "$needle" /tmp/page; then
+                ok=1
+                break
+              fi
+              sleep 5
+            done
+            if [ "$ok" -ne 1 ]; then
+              echo "FAILED: $url did not contain expected text: $needle"
+              exit 1
+            fi
+          done
+
+          echo "PASS: live HiredNext career authority cluster verified"
