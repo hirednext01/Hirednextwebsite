@@ -63,6 +63,7 @@ class Home extends BaseController
                     'taxID' => $schemaIdentity['taxID'],
                     'url' => $brand['website'] ?? 'https://hirednext.net/',
                     'email' => $brand['email'] ?? 'jobs@hirednext.info',
+                    'logo' => base_url('theme/assets/logo.jpeg'),
                     'foundingDate' => (string)($brand['founded_year'] ?? 2016),
                     'foundingLocation' => [
                         '@type' => 'Place',
@@ -87,7 +88,9 @@ class Home extends BaseController
                         '@type' => 'Person',
                         '@id' => base_url('about/taru-shikha') . '#person',
                         'name' => $brand['founder'] ?? 'Taru Shikha',
-                        'jobTitle' => $brand['founder_title'] ?? 'Founder & Proprietor',
+                        'jobTitle' => $brand['founder_title'] ?? 'Founder & CEO',
+                        'url' => base_url('about/taru-shikha'),
+                        'sameAs' => [$brand['founder_linkedin'] ?? 'https://www.linkedin.com/in/tarushikhaarora'],
                     ],
                     'sameAs' => [
                         $brand['company_linkedin'] ?? 'https://www.linkedin.com/company/hirednext-recruitment-service/',
