@@ -22,7 +22,7 @@
             <p class="mt-4 text-gray-600 leading-relaxed">People use different words for the same need: CV making, CV writing, CV remake, CV rewriting, CV revamp or CV rebuild. HiredNext treats the work as evidence-led rebuilding rather than template filling. We use your verified career facts to make role level, scope, progression, achievements and relevant capability easier for recruiters and hiring managers to understand.</p>
             <p class="mt-3 text-gray-600 leading-relaxed">A CV assessment diagnoses what a recruiter or hiring manager can understand quickly, what evidence remains unclear and which corrections matter first. A CV rebuild goes further: HiredNext rewrites and restructures the document using verified career facts so responsibilities, scale and outcomes are easier to evaluate.</p>
             <p class="mt-3 text-gray-600 leading-relaxed"><a class="font-bold text-primary underline underline-offset-4" href="<?= base_url('guides/best-cv-writing-service-india') ?>">Looking for the best CV making or CV writing company in India?</a> Use our evidence-based buyer guide to compare what a genuine service should actually do before choosing any provider.</p>
-            <p class="mt-3 text-gray-600 leading-relaxed">Interview preparation is separate from CV work. HiredNext also offers a live 1-to-1 consultation, while the ₹999 Interview Ready written-practice pilot is not open for purchase. Paid career services are optional and never influence recruitment shortlisting or placement.</p>
+            <p class="mt-3 text-gray-600 leading-relaxed">Interview preparation is separate from CV work. HiredNext also offers a live 1-to-1 consultation, while the ₹999 Interview Ready written-practice pilot is not open for purchase. A stronger CV can make relevant experience, scale and evidence easier for a hiring team to recognise. Interview preparation is designed to help you communicate that evidence with greater confidence.</p>
             <div class="mt-6 flex flex-wrap gap-3 text-sm font-bold">
                 <a class="text-primary underline underline-offset-4" href="<?= base_url('services/cv-assessment') ?>">CV assessment</a>
                 <a class="text-primary underline underline-offset-4" href="<?= base_url('services/professional-cv-rebuild') ?>">Professional CV rebuild</a>
@@ -38,7 +38,7 @@
 <section class="bg-white border-b border-gray-100">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8 py-5">
         <div class="rounded-2xl border border-primary/10 bg-primary/5 px-5 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-            <p class="text-sm text-gray-700 leading-relaxed"><span class="font-extrabold text-primary">Candidate safety:</span> HiredNext never charges candidates to apply for a job or secure placement. CV assessment, CV creation and career advisory are optional professional services and are handled separately from recruitment consideration.</p>
+            <p class="text-sm text-gray-700 leading-relaxed"><span class="font-extrabold text-primary">Candidate safety:</span> HiredNext never charges candidates to apply for a job or secure placement. CV assessment, CV creation and career advisory are paid professional services designed to strengthen presentation, positioning and preparation; job applications remain free.</p>
             <a href="<?= base_url('jobs') ?>" class="shrink-0 text-sm font-extrabold text-primary hover:text-accent">View open jobs →</a>
         </div>
     </div>
