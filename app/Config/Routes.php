@@ -21,7 +21,7 @@ $routes->get('services/interview-coaching', 'CandidateServices::interviewCoachin
 $routes->get('career-services/start/(:segment)', 'CvServiceCheckout::start/$1');
 $routes->post('career-services/start/(:segment)', 'CvServiceCheckout::submit/$1');
 // Legacy Avron URL now resolves to HiredNext's current recruiter-led career advisory.
-$routes->get('services/avron', 'CandidateServices::candidateServices');
+$routes->get('services/avron', 'LegacyCareerRedirects::avron');
 $routes->get('services/(:any)', 'Home::serviceDetail/$1');
 $routes->get('speak-to-hirednext', 'Advisory::gateway');
 $routes->get('hiring-discussion', 'Advisory::hiringDiscussion');
@@ -29,7 +29,7 @@ $routes->post('hiring-discussion/submit', 'Advisory::submitHiringDiscussion');
 $routes->get('advisory', 'Advisory::index');
 $routes->get('advisory/payment/(:segment)', 'Advisory::payment/$1');
 $routes->post('advisory/payment/submit', 'Advisory::submitAdvisoryPayment');
-$routes->get('cv-assessment', 'CandidateServices::cvAssessment');
+$routes->get('cv-assessment', 'LegacyCareerRedirects::cvAssessment');
 $routes->post('cv-assessment/submit', 'CvAssessment::submit');
 $routes->get('cv-payment/qr', 'CvPayment::qr');
 $routes->get('cv-payment/(:num)', 'CvPayment::checkout/$1');
