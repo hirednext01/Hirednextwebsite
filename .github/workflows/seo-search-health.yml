@@ -10,6 +10,7 @@ on:
       - 'app/Config/Routes.php'
       - 'app/Config/DecisionGuides.php'
       - 'tests/career_ai_search_authority_test.php'
+      - 'tests/search_entity_article_consistency_test.php'
       - 'app/Views/pages/career-intelligence.php'
       - 'app/Views/pages/career-authority.php'
       - 'app/Controllers/CareerAuthority.php'
@@ -108,6 +109,7 @@ jobs:
           php tests/cv_search_dominance_test.php
           php tests/career_services_product_engine_test.php
           php tests/career_ai_search_authority_test.php
+          php tests/search_entity_article_consistency_test.php
           php tests/career_service_legacy_consolidation_test.php
       - name: Verify candidate service regressions
         run: |
