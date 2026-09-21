@@ -142,6 +142,12 @@ class CareerAuthority extends BaseController
             'related' => array_slice($related, 0, 4),
             'updatedOn' => $config->updatedOn,
             'reviewedBy' => $config->reviewedBy,
+            'ogType' => 'article',
+            'articleAuthor' => 'Taru Shikha',
+            'publishedTime' => $config->updatedOn,
+            'modifiedTime' => $config->updatedOn,
+            'articleSection' => 'Career Intelligence',
+            'articleTags' => ['CV evidence', 'LinkedIn positioning', 'Leadership careers', 'Recruiter visibility'],
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
     }
