@@ -15,7 +15,7 @@ const checks = {
   'unpaid audit is not marked received': assessmentController.includes("'checkout_started'")
     && !assessmentController.includes("'cv_received'"),
   'page states the payment gate clearly': view.includes('Your assessment request is submitted only after you enter your payment reference')
-    && view.includes('Continue to ₹599 payment'),
+    && view.includes('Continue to payment — ₹1,171'),
 };
 
 const failed = Object.entries(checks).filter(([, ok]) => !ok).map(([label]) => label);

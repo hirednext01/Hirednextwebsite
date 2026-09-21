@@ -11,9 +11,13 @@ class CvServiceCheckout extends BaseController
 {
     public function start(string $tier)
     {
-        $plan = CvUpgradePlans::get($tier);
-        if (!$plan || $tier === 'priority_599') {
+        $canonicalTier = CvUpgradePlans::canonicalTier($tier);
+        $plan = CvUpgradePlans::get($canonicalTier);
+        if (!$plan || $canonicalTier === 'priority_992') {
             return redirect()->to('/services/cv-assessment');
+        }
+        if ($tier !== $canonicalTier) {
+            return redirect()->to('/career-services/start/' . $canonicalTier);
         }
 
         return view('pages/services/cv-service-start', [
@@ -22,15 +26,16 @@ class CvServiceCheckout extends BaseController
             'canonical' => base_url('services/candidates'),
             'currentPage' => 'services',
             'settings' => $this->loadWebsiteSettings(),
-            'tier' => $tier,
+            'tier' => $canonicalTier,
             'plan' => $plan,
         ]);
     }
 
     public function submit(string $tier)
     {
-        $plan = CvUpgradePlans::get($tier);
-        if (!$plan || $tier === 'priority_599') {
+        $canonicalTier = CvUpgradePlans::canonicalTier($tier);
+        $plan = CvUpgradePlans::get($canonicalTier);
+        if (!$plan || $canonicalTier === 'priority_992') {
             return redirect()->to('/services/cv-assessment');
         }
 
@@ -64,7 +69,7 @@ class CvServiceCheckout extends BaseController
             'name' => trim((string) $this->request->getPost('name')),
             'email' => trim((string) $this->request->getPost('email')),
             'phone' => trim((string) $this->request->getPost('phone')),
-            'assessment_plan' => $tier,
+            'assessment_plan' => $canonicalTier,
             'job_slug' => null,
             'job_title' => trim((string) $this->request->getPost('target_role')) ?: null,
             'message' => trim((string) $this->request->getPost('message')) ?: null,
@@ -83,7 +88,7 @@ class CvServiceCheckout extends BaseController
         $orderId = (int) (new CvUpgradeOrderModel())->insert([
             'lead_id' => $leadId,
             'token' => $token,
-            'tier' => $tier,
+            'tier' => $canonicalTier,
             'service_name' => $plan['name'],
             'amount' => $plan['amount'],
             'status' => 'offered',
@@ -94,7 +99,7 @@ class CvServiceCheckout extends BaseController
 
         (new CvAuditService())->record($leadId, 'public_service_checkout_started', [
             'order_id' => $orderId,
-            'tier' => $tier,
+            'tier' => $canonicalTier,
             'service_name' => $plan['name'],
             'amount' => $plan['amount'],
             'resume_name' => $originalName,

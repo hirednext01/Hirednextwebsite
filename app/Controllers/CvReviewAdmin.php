@@ -258,7 +258,7 @@ class CvReviewAdmin extends BaseController
             'status' => 'in_review',
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        (new CvAuditService())->record((int)$id, 'payment_verified', ['payment_reference' => $lead['payment_id'], 'amount' => $lead['amount'] ?? 599], $user, 'admin', 'verified');
+        (new CvAuditService())->record((int)$id, 'payment_verified', ['payment_reference' => $lead['payment_id'], 'amount' => $lead['amount'] ?? 1171], $user, 'admin', 'verified');
         return redirect()->to('/admin/cv-reviews/' . (int)$id)->with('success', 'Payment marked verified. This CV is now eligible for priority analysis.');
     }
 
@@ -289,11 +289,11 @@ class CvReviewAdmin extends BaseController
         }
         $now = date('Y-m-d H:i:s');
         $orderModel->update((int)$orderId, ['status' => 'verified', 'verified_at' => $now, 'updated_at' => $now]);
-        if (($order['tier'] ?? '') === 'priority_599') {
+        if (in_array((string)($order['tier'] ?? ''), ['priority_599', 'priority_992'], true)) {
             $db = \Config\Database::connect();
             $db->table('cv_assessment_leads')->where('id', (int)$id)->update([
-                'assessment_plan' => 'priority_599',
-                'amount' => 599,
+                'assessment_plan' => (($order['tier'] ?? '') === 'priority_992' ? 'priority_992' : 'priority_599'),
+                'amount' => (int)($order['amount'] ?? 0),
                 'payment_status' => 'verified',
                 'payment_id' => $order['payment_reference'],
                 'status' => 'in_review',

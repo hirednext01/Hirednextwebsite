@@ -6,9 +6,9 @@
         <div class="max-w-4xl">
             <div class="text-gold text-xs font-black uppercase tracking-[0.28em] mb-5">HiredNext Career Services</div>
             <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight mb-6">Not getting shortlisted? Start with the CV you are sending.</h1>
-            <p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl">Your experience may be stronger than your CV shows. Find what needs attention with a written ₹599 assessment, or get HiredNext to rebuild it for ₹1,799.</p>
-            <div class="flex flex-col sm:flex-row gap-3 mt-8"><a href="<?= base_url('services/cv-assessment') ?>" class="inline-flex justify-center rounded-full bg-accent px-7 py-3.5 font-black text-white">Get My CV Assessed — ₹599</a><a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="inline-flex justify-center rounded-full border border-white/25 bg-white/5 px-7 py-3.5 font-black text-white">Get My CV Rebuilt — ₹1,799</a></div>
-            <p class="mt-4 text-sm text-white/70">GST included. Rebuild includes assessment, two CV variants and two revision rounds.</p>
+            <p class="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl">Your experience may be stronger than your CV shows. Start with a written ₹992 + GST assessment, choose a full CV rebuild at ₹2,500 + GST, or combine both at a 5% bundle saving.</p>
+            <div class="flex flex-col sm:flex-row gap-3 mt-8"><a href="<?= base_url('services/cv-assessment') ?>" class="inline-flex justify-center rounded-full bg-accent px-7 py-3.5 font-black text-white">Get My CV Assessed — ₹992 + GST</a><a href="<?= base_url('career-services/start/rebuild_2500') ?>" class="inline-flex justify-center rounded-full border border-white/25 bg-white/5 px-7 py-3.5 font-black text-white">Get My CV Rebuilt — ₹2,500 + GST</a></div>
+            <p class="mt-4 text-sm text-white/70">Assessment and rebuild are priced separately. The bundle includes the full written assessment plus the managed rebuild at 5% off.</p>
             <a href="#cv-questions" class="inline-block mt-4 text-sm text-white underline underline-offset-4">Questions before buying? Get instant answers</a>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <p class="mt-4 text-gray-600 leading-relaxed">People use different words for the same need: CV making, CV writing, CV remake, CV rewriting, CV revamp or CV rebuild. HiredNext treats the work as evidence-led rebuilding rather than template filling. We use your verified career facts to make role level, scope, progression, achievements and relevant capability easier for recruiters and hiring managers to understand.</p>
             <p class="mt-3 text-gray-600 leading-relaxed">A CV assessment diagnoses what a recruiter or hiring manager can understand quickly, what evidence remains unclear and which corrections matter first. A CV rebuild goes further: HiredNext rewrites and restructures the document using verified career facts so responsibilities, scale and outcomes are easier to evaluate.</p>
             <p class="mt-3 text-gray-600 leading-relaxed"><a class="font-bold text-primary underline underline-offset-4" href="<?= base_url('guides/best-cv-writing-service-india') ?>">Looking for the best CV making or CV writing company in India?</a> Use our evidence-based buyer guide to compare what a genuine service should actually do before choosing any provider.</p>
-            <p class="mt-3 text-gray-600 leading-relaxed">Interview preparation is separate from CV work. HiredNext also offers a live 1-to-1 consultation, while the ₹999 Interview Ready written-practice pilot is not open for purchase. Paid career services are optional and never influence recruitment shortlisting or placement.</p>
+            <p class="mt-3 text-gray-600 leading-relaxed">Interview preparation is separate from CV work. HiredNext also offers a live 1-to-1 consultation, while the ₹999 Interview Ready written-practice pilot is not open for purchase. A stronger CV can make relevant experience, scale and evidence easier for a hiring team to recognise. Interview preparation is designed to help you communicate that evidence with greater confidence.</p>
             <div class="mt-6 flex flex-wrap gap-3 text-sm font-bold">
                 <a class="text-primary underline underline-offset-4" href="<?= base_url('services/cv-assessment') ?>">CV assessment</a>
                 <a class="text-primary underline underline-offset-4" href="<?= base_url('services/professional-cv-rebuild') ?>">Professional CV rebuild</a>
@@ -38,7 +38,7 @@
 <section class="bg-white border-b border-gray-100">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8 py-5">
         <div class="rounded-2xl border border-primary/10 bg-primary/5 px-5 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-            <p class="text-sm text-gray-700 leading-relaxed"><span class="font-extrabold text-primary">Candidate safety:</span> HiredNext never charges candidates to apply for a job or secure placement. CV assessment, CV creation and career advisory are optional professional services and are handled separately from recruitment consideration.</p>
+            <p class="text-sm text-gray-700 leading-relaxed"><span class="font-extrabold text-primary">Candidate safety:</span> HiredNext never charges candidates to apply for a job or secure placement. CV assessment, CV creation and career advisory are paid professional services designed to strengthen presentation, positioning and preparation; job applications remain free.</p>
             <a href="<?= base_url('jobs') ?>" class="shrink-0 text-sm font-extrabold text-primary hover:text-accent">View open jobs →</a>
         </div>
     </div>
@@ -49,14 +49,16 @@
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
         <div class="max-w-3xl mb-8">
             <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-2">All live HiredNext career services</div>
-            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary">Five paid services. Choose only the one that solves the problem.</h2>
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary">Seven paid services. Choose only the one that solves the problem.</h2>
         </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <?php foreach ([
-                ['CV Assessment','₹599','services/cv-assessment','Diagnose the gaps first.'],
+                ['CV Assessment','₹992 + GST','services/cv-assessment','Diagnose the gaps first.'],
                 ['ATS CV Optimisation','₹999','services/ats-cv-optimisation','Light structural and keyword improvement.'],
-                ['Professional CV Rebuild','₹1,799','services/professional-cv-rebuild','Full managed rewrite and rebuild.'],
+                ['Professional CV Rebuild','₹2,500 + GST','services/professional-cv-rebuild','Full managed rewrite and rebuild.'],
+                ['Assessment + CV Rebuild Bundle','₹3,317.40 + GST','services/cv-assessment-rebuild-bundle','Full assessment + rebuild with a 5% saving.'],
                 ['Executive CV','₹6,999','services/executive-cv','CXO and senior-leadership positioning.'],
+                ['LinkedIn Leadership Positioning','₹8,999 + GST','services/linkedin-leadership-positioning','Executive narrative and profile positioning.'],
                 ['Interview Coaching','₹4,500','services/interview-coaching','Role-specific 1-to-1 preparation.'],
             ] as $service): ?>
                 <a href="<?= base_url($service[2]) ?>" class="rounded-2xl border border-gray-200 bg-white p-5 hover:border-primary hover:shadow-md transition">
@@ -74,6 +76,20 @@
 </section>
 
 <?= view('pages/services/_cv-rebuild-testimonials') ?>
+
+<section class="py-16 bg-primary text-white">
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-8 grid lg:grid-cols-[1.1fr_.9fr] gap-8 items-center">
+        <div>
+            <div class="text-gold text-xs font-black uppercase tracking-[0.22em]">For senior professionals</div>
+            <h2 class="mt-3 text-3xl md:text-5xl font-serif font-bold">Your LinkedIn profile may be read before your CV.</h2>
+            <p class="mt-4 text-white/75 leading-relaxed">Build a leadership narrative that makes your scale, credibility and direction easier for executive-search professionals, founders, boards, investors and relevant industry peers to understand.</p>
+            <div class="mt-5 flex flex-wrap items-center gap-4"><span class="line-through text-white/45 font-black">₹17,500 + GST</span><span class="text-2xl font-black text-gold">Campaign ₹8,999 + GST</span></div>
+        </div>
+        <div class="lg:text-right"><a href="<?= base_url('services/linkedin-leadership-positioning') ?>" class="inline-flex rounded-full bg-accent px-7 py-4 font-black text-white">Explore LinkedIn Leadership Positioning</a></div>
+    </div>
+</section>
+
+
 
 <section id="interview-support" aria-labelledby="interview-support-title" class="py-16 bg-[#f6f0e7]">
     <div class="max-w-[1040px] mx-auto px-4 sm:px-8">

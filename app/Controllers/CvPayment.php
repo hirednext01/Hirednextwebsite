@@ -23,7 +23,7 @@ class CvPayment extends BaseController
     public function checkout($leadId = null)
     {
         $db = \Config\Database::connect();
-        $lead = $db->table('cv_assessment_leads')->where('id', $leadId)->where('assessment_plan', 'priority_599')->get()->getRowArray();
+        $lead = $db->table('cv_assessment_leads')->where('id', $leadId)->whereIn('assessment_plan', ['priority_992', 'priority_599'])->get()->getRowArray();
         if (!$lead) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -43,10 +43,16 @@ class CvPayment extends BaseController
         }
 
         $db = \Config\Database::connect();
-        $lead = $db->table('cv_assessment_leads')->where('id', $leadId)->where('assessment_plan', 'priority_599')->get()->getRowArray();
+        $lead = $db->table('cv_assessment_leads')->where('id', $leadId)->whereIn('assessment_plan', ['priority_992', 'priority_599'])->get()->getRowArray();
         if (!$lead) {
             return redirect()->to('/services/cv-assessment?payment=failed')->with('errors', ['payment' => 'We could not find this CV assessment request.']);
         }
+
+        $amount = (int) ($lead['amount'] ?? 1171);
+        $amountLabel = number_format($amount);
+        $priceDescription = (($lead['assessment_plan'] ?? '') === 'priority_992')
+            ? '₹992 + GST (₹1,171 payable including GST)'
+            : '₹' . $amountLabel;
 
         if (in_array((string)($lead['payment_status'] ?? ''), ['verified', 'paid', 'captured', 'owner_confirmed'], true)) {
             return redirect()->to('/services/cv-assessment?payment=verification_pending')->with('success', 'This payment is already recorded. Your existing assessment request remains in its delivery process.');
@@ -62,12 +68,12 @@ class CvPayment extends BaseController
         $audit = new CvAuditService();
         $audit->record($leadId, 'payment_reference_submitted', [
             'service' => 'Priority CV Assessment',
-            'amount' => 599,
+            'amount' => $amount,
             'payment_reference' => $paymentReference,
         ], null, 'web', 'pending_verification');
 
         $resumePath = ROOTPATH . ltrim((string)($lead['resume_path'] ?? ''), '/');
-        $internalSubject = 'ACTION: ₹599 CV review payment submitted #' . $leadId . ' — ' . ($lead['name'] ?? 'Candidate');
+        $internalSubject = 'ACTION: ' . $priceDescription . ' CV review payment submitted #' . $leadId . ' — ' . ($lead['name'] ?? 'Candidate');
         $internalEvent = $this->emailAttempt($leadId, 'internal_payment_alert', 'tarushikha@hirednext.info', $internalSubject);
         $email = \Config\Services::email();
         $email->clear(true);
@@ -79,7 +85,7 @@ class CvPayment extends BaseController
         $email->setMessage(
             "HIREDNEXT CV REVIEW — PAYMENT REFERENCE SUBMITTED\n\n" .
             "Lead ID: {$leadId}\nName: " . ($lead['name'] ?? '') . "\nEmail: " . ($lead['email'] ?? '') . "\nPhone: " . ($lead['phone'] ?? '') . "\n" .
-            "Service: Priority CV Assessment / 12 hours\nAmount: ₹599\nUPI reference: {$paymentReference}\nPayment status: pending verification\n" .
+            "Service: Priority CV Assessment / 12 hours\nAmount: {$priceDescription}\nUPI reference: {$paymentReference}\nPayment status: pending verification\n" .
             "Submitted: " . ($lead['created_at'] ?? '') . "\n\nMessage:\n" . (($lead['message'] ?? '') ?: '—') . "\n" .
             \App\Services\Cv\Automation\CvFulfilmentAccess::noticeForKey('assessment:' . $leadId)
         );
@@ -105,7 +111,7 @@ class CvPayment extends BaseController
         $email->setReplyTo('jobs@hirednext.info', 'HiredNext Jobs');
         $email->setSubject($ackSubject);
         \App\Services\HiredNextEmail::applyText($email, 'Payment reference received',
-            "Dear " . ($lead['name'] ?? 'Candidate') . ",\n\nThank you for asking HiredNext to review your CV. We have received your ₹599 Priority CV Assessment request and UPI transaction reference.\n\n" .
+            "Dear " . ($lead['name'] ?? 'Candidate') . ",\n\nThank you for asking HiredNext to review your CV. We have received your {$priceDescription} Priority CV Assessment request and UPI transaction reference.\n\n" .
             "Your payment is now pending verification. Once verified, the priority review will be taken up for the 12-hour review window.\n\nReference: {$paymentReference}\nRequest ID: {$leadId}\n\n" .
             "Please note: this is a paid professional CV-review service. HiredNext never charges candidates to apply for jobs or secure placement.\n\nRegards,\nHiredNext Jobs Team\njobs@hirednext.info\nhttps://hirednext.net\n"
         );
@@ -120,7 +126,7 @@ class CvPayment extends BaseController
             log_message('error', 'Priority CV payment acknowledgement failed for lead #' . $leadId . ': ' . $error);
         }
 
-        return redirect()->to('/services/cv-assessment?payment=verification_pending')->with('success', 'Thank you. Your payment reference has been received. We will verify the ₹599 payment and start your 12-hour priority CV assessment.');
+        return redirect()->to('/services/cv-assessment?payment=verification_pending')->with('success', 'Thank you. Your payment reference has been received. We will verify the payment and start your 12-hour priority CV assessment.');
     }
 
     private function emailAttempt(int $leadId, string $type, string $recipient, string $subject): ?int

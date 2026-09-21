@@ -5,7 +5,7 @@ $eyebrow = $eyebrow ?? 'HiredNext Career Services';
 $headline = $headline ?? '';
 $intro = $intro ?? '';
 $price = $price ?? '';
-$priceNote = $priceNote ?? 'GST included';
+$priceNote = $priceNote ?? '';
 $ctaLabel = $ctaLabel ?? 'Start now';
 $ctaUrl = $ctaUrl ?? base_url('services/candidates');
 $forWhom = $forWhom ?? [];
@@ -61,12 +61,14 @@ $faq = $faq ?? [];
             <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mt-3">Choose the service that matches the problem</h2>
             <p class="text-gray-600 mt-3">You do not need to buy every service. Move up only when the extra work is genuinely useful.</p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <?php foreach ([
-                ['CV Assessment','₹599','services/cv-assessment'],
+                ['CV Assessment','₹992 + GST','services/cv-assessment'],
                 ['ATS CV Optimisation','₹999','services/ats-cv-optimisation'],
-                ['Professional CV Rebuild','₹1,799','services/professional-cv-rebuild'],
+                ['Professional CV Rebuild','₹2,500 + GST','services/professional-cv-rebuild'],
+                ['Assessment + Rebuild','₹3,317.40 + GST','services/cv-assessment-rebuild-bundle'],
                 ['Executive CV','₹6,999','services/executive-cv'],
+                ['LinkedIn Leadership','₹8,999 + GST','services/linkedin-leadership-positioning'],
                 ['Interview Coaching','₹4,500','services/interview-coaching'],
             ] as $service): ?>
                 <a href="<?= base_url($service[2]) ?>" class="rounded-2xl border border-gray-200 bg-white p-5 hover:border-primary hover:shadow-md transition">
@@ -75,7 +77,7 @@ $faq = $faq ?? [];
                 </a>
             <?php endforeach; ?>
         </div>
-        <p class="text-xs text-gray-500 text-center mt-6">Paid career services are optional and separate from recruitment. They do not guarantee interviews, shortlisting, hiring or placement.</p>
+        <p class="text-xs text-gray-500 text-center mt-6">A clearer CV and stronger positioning can make relevant career evidence easier to recognise. Hiring outcomes still depend on the role, the employer and the wider selection process.</p>
     </div>
 </section>
 

@@ -69,6 +69,7 @@ class CvCandidateMailer
 
     public function createAndSendOffer(int $leadId, string $tier, ?array $actor = null): array
     {
+        $tier = CvUpgradePlans::canonicalTier($tier);
         $plan = CvUpgradePlans::get($tier);
         if (!$plan) {
             throw new \RuntimeException('Unknown CV service tier.');
@@ -123,7 +124,8 @@ class CvCandidateMailer
         $email->setMessage($html);
         $email->setAltMessage(
             "Dear " . ($lead['name'] ?? 'Candidate') . ",\n\n" .
-            "Based on your HiredNext CV assessment, an optional next step is {$plan['name']} for ₹" . number_format((int) $plan['amount']) . ".\n" .
+            "Based on your HiredNext CV assessment, an optional next step is {$plan['name']} for " . ($plan['price_label'] ?? ('₹' . number_format((int) $plan['amount']))) . ".\n" .
+            (($plan['payable_label'] ?? '') !== '' ? ($plan['payable_label'] . ".\n") : '') .
             "Reason: {$reason}\n\nComplete only if useful to you: {$checkoutUrl}\n\nPaid services are optional and unrelated to recruitment consideration or placement.\n"
         );
         $sent = $email->send(false);
@@ -223,10 +225,12 @@ class CvCandidateMailer
             $data = json_decode((string) ($report['report_json'] ?? ''), true);
             $next = is_array($data) ? ($data['recommended_next_step'] ?? []) : [];
             $map = [
-                'priority_599' => null,
+                'priority_992' => null,
                 'ats_999' => 'ats_optimisation',
-                'rebuild_1799' => 'professional_rebuild',
-                'executive_2499' => 'executive_rebuild',
+                'rebuild_2500' => 'professional_rebuild',
+                'bundle_3317' => 'professional_rebuild',
+                'linkedin_8999' => null,
+                'executive_6999' => 'executive_rebuild',
             ];
             if (($map[$tier] ?? 'not-match') !== 'not-match' && (($map[$tier] ?? null) === null || ($next['classification'] ?? '') === $map[$tier])) {
                 return trim((string) ($next['reason'] ?? $plan['description']));
@@ -237,13 +241,18 @@ class CvCandidateMailer
 
     private function offerHtml(array $lead, array $plan, string $reason, string $checkoutUrl): string
     {
-        $amount = '₹' . number_format((int) $plan['amount']);
+        $amount = $plan['price_label'] ?? ('₹' . number_format((int) $plan['amount']));
+        $payable = $plan['payable_label'] ?? '';
+        $regular = $plan['regular_price_label'] ?? '';
+        $priceHtml = ($regular !== '' ? '<span style="color:#98a2b3;text-decoration:line-through">' . esc($regular) . '</span><br>' : '') .
+            '<strong style="font-size:18px;color:#0c3466">' . esc($plan['name']) . ' · ' . esc($amount) . '</strong>' .
+            ($payable !== '' ? '<br><span style="color:#667085">' . esc($payable) . '</span>' : '');
         $body = 'Dear ' . esc($lead['name'] ?? 'Candidate') . ',<br><br>' .
             'Your HiredNext CV review indicates that the following optional service may be useful:<br><br>' .
-            '<div style="border:1px solid #dde3eb;border-left:4px solid #ff4e16;padding:16px;margin:16px 0"><strong style="font-size:18px;color:#0c3466">' . esc($plan['name']) . ' · ' . esc($amount) . '</strong><br><span style="color:#667085">' . esc($plan['delivery']) . '</span><br><br><strong>Why this is being recommended:</strong><br>' . esc($reason) . '</div>' .
+            '<div style="border:1px solid #dde3eb;border-left:4px solid #ff4e16;padding:16px;margin:16px 0">' . $priceHtml . '<br><span style="color:#667085">' . esc($plan['delivery']) . '</span><br><br><strong>Why this is being recommended:</strong><br>' . esc($reason) . '</div>' .
             '<a href="' . esc($checkoutUrl) . '" style="display:inline-block;background:#0c3466;color:white;text-decoration:none;padding:12px 18px;border-radius:6px;font-weight:700">View HiredNext checkout</a><br><br>' .
             'You can also create a richer professional profile at <a href="https://www.theprofile360.in">TheProfile360.in</a> and add your improved CV there once ready.<br><br>' .
-            '<span style="font-size:12px;color:#667085">This service is optional and is completely separate from recruitment consideration, interviews or placement through HiredNext.</span>';
+            '<span style="font-size:12px;color:#667085">Career services improve positioning, clarity and preparation. Recruitment decisions remain based on suitability for the role.</span>';
         return $this->simpleLetterheadHtml('Optional next step from your CV assessment', $body);
     }
 

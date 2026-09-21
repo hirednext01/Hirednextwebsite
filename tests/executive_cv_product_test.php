@@ -14,7 +14,7 @@ $checks = [
  'direct checkout' => str_contains($landing, "career-services/start/executive_6999"),
  'case study scope' => str_contains($landing, 'One defining chapter') && str_contains($landing, 'Decisions and actions attributable to you'),
  'evidence safeguards' => str_contains($landing, 'we do not manufacture achievements') && str_contains($start, 'numbers and achievements are never invented'),
- 'GST display at intake and payment' => str_contains($start, "'executive_6999'") && str_contains($payment, '[1799, 6999]'),
+ 'price display at intake and payment' => str_contains($plans, "'executive_6999'") && str_contains($plans, "'price_label' => '₹6,999'") && str_contains($start, "\$priceLabel = \$plan['price_label']") && str_contains($payment, "\$priceLabel = \$plan['price_label']"),
  'paid generation and delivery gates' => str_contains($creator, "'executive_6999'") && str_contains($delivery, "'executive_6999'"),
 ];
 $failed=[]; foreach($checks as $label=>$ok){ if(!$ok)$failed[]=$label; }
