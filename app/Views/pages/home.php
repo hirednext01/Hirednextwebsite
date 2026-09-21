@@ -106,16 +106,16 @@
                 <article class="rounded-2xl bg-primary text-white p-7 flex flex-col">
                     <p class="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">Start here</p>
                     <h3 class="text-2xl font-serif font-bold mb-2">CV assessment</h3>
-                    <p class="text-3xl font-bold mb-4">₹599 <span class="text-sm font-normal text-white/70">GST included</span></p>
+                    <p class="text-3xl font-bold mb-4">₹992 + GST <span class="text-sm font-normal text-white/70"></span></p>
                     <p class="text-white/80 leading-relaxed mb-6">Understand where your CV could explain your experience and target-role fit more clearly. Get a prioritised improvement report.</p>
-                    <a href="<?= base_url('services/cv-assessment?utm_source=website&utm_medium=homepage&utm_campaign=cv_assessment') ?>" class="mt-auto inline-flex justify-center rounded-xl bg-accent text-gray-900 px-5 py-3 font-bold">See the ₹599 assessment</a>
+                    <a href="<?= base_url('services/cv-assessment?utm_source=website&utm_medium=homepage&utm_campaign=cv_assessment') ?>" class="mt-auto inline-flex justify-center rounded-xl bg-accent text-gray-900 px-5 py-3 font-bold">See the ₹992 + GST assessment</a>
                 </article>
                 <article class="rounded-2xl border border-primary/15 bg-white p-7 flex flex-col">
                     <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Ready for a rewrite</p>
                     <h3 class="text-2xl font-serif font-bold text-primary mb-2">CV rebuild</h3>
-                    <p class="text-3xl font-bold text-primary mb-4">₹1,799 <span class="text-sm font-normal text-gray-500">GST included</span></p>
+                    <p class="text-3xl font-bold text-primary mb-4">₹2,500 + GST <span class="text-sm font-normal text-gray-500"></span></p>
                     <p class="text-gray-600 leading-relaxed mb-6">Turn the experience you already have into a clearer, structured CV. Explore the existing service and what is included.</p>
-                    <a href="<?= base_url('services/candidates?utm_source=website&utm_medium=homepage&utm_campaign=cv_rebuild') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Explore CV rebuild</a>
+                    <a href="<?= base_url('services/professional-cv-rebuild?utm_source=website&utm_medium=homepage&utm_campaign=cv_rebuild') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Explore CV rebuild</a>
                 </article>
                 <article class="rounded-2xl border border-primary/15 bg-white p-7 flex flex-col">
                     <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Practise your answers</p>
