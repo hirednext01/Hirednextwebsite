@@ -13,6 +13,8 @@ $routes->get('services/clients', 'CandidateServices::clientServices');
 $routes->get('services/candidates', 'CandidateServices::candidateServices');
 $routes->get('services/cv-assessment', 'CandidateServices::cvAssessment');
 $routes->get('services/professional-cv-rebuild', 'CandidateServices::professionalCvRebuild');
+$routes->get('services/cv-assessment-rebuild-bundle', 'CandidateServices::cvBundle');
+$routes->get('services/linkedin-leadership-positioning', 'CandidateServices::linkedinLeadership');
 $routes->get('services/ats-cv-optimisation', 'CandidateServices::atsCvOptimisation');
 $routes->get('services/executive-cv', 'CandidateServices::executiveCv');
 $routes->get('services/interview-coaching', 'CandidateServices::interviewCoaching');
