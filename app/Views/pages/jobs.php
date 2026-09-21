@@ -154,8 +154,8 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
                     <p class="mt-4 text-white/75 leading-relaxed max-w-2xl">Your CV presents your experience, achievements and strengths before you meet a recruiter. A clear, well-positioned CV can improve your chances of being shortlisted. Get it assessed first, then use the score and feedback to decide whether refinement or a complete rebuild will create stronger impact.</p>
                 </div>
                 <div class="lg:col-span-5 bg-white/5 p-7 md:p-9 flex flex-col justify-center gap-3">
-                    <a href="<?= base_url('services/cv-assessment?utm_source=jobs&utm_medium=job_board&utm_campaign=cv_readiness') ?>" class="inline-flex justify-center rounded-xl bg-accent px-5 py-3.5 font-black text-white">Assess my CV — ₹599</a>
-                    <a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="inline-flex justify-center rounded-xl border border-white/30 px-5 py-3.5 font-black text-white hover:bg-white/10">Get my CV rebuilt — ₹1,799</a>
+                    <a href="<?= base_url('services/cv-assessment?utm_source=jobs&utm_medium=job_board&utm_campaign=cv_readiness') ?>" class="inline-flex justify-center rounded-xl bg-accent px-5 py-3.5 font-black text-white">Assess my CV — ₹992 + GST</a>
+                    <a href="<?= base_url('services/professional-cv-rebuild') ?>" class="inline-flex justify-center rounded-xl border border-white/30 px-5 py-3.5 font-black text-white hover:bg-white/10">Get my CV rebuilt — ₹2,500 + GST</a>
                     <a href="<?= base_url('career-services/start/career_4500') ?>" class="inline-flex justify-center rounded-xl border border-white/30 px-5 py-3.5 font-black text-white hover:bg-white/10">1:1 interview coaching — ₹4,500</a>
                     <p class="text-center text-xs text-white/55">30-minute private session with Taru Shikha.</p>
                 </div>
