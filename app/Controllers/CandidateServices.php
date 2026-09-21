@@ -81,6 +81,35 @@ class CandidateServices extends BaseController
         ]);
     }
 
+    public function cvBundle()
+    {
+        return $this->careerProductPage('bundle_3317', 'services/cv-assessment-rebuild-bundle', [
+            'title' => 'CV Assessment + Professional CV Rebuild Bundle | HiredNext',
+            'metaDescription' => 'Get a detailed CV assessment plus a complete HiredNext CV rebuild at a 5% bundled discount: ₹3,317.40 + GST.',
+            'metaKeywords' => 'CV assessment and rebuild bundle India, CV review and CV writing package, professional CV rebuild package India',
+            'eyebrow' => 'Assessment + Rebuild Bundle · 5% Saving',
+            'headline' => 'Understand the gaps first. Then turn the findings into a stronger finished CV.',
+            'intro' => 'This bundle combines the full written HiredNext CV Assessment with our managed Professional CV Rebuild. You see what is weakening the document, then our team rebuilds the positioning, evidence and structure for you.',
+            'forWhom' => [
+                'Professionals who want a written diagnosis they can keep as well as a finished rebuilt CV.',
+                'Candidates making a significant move in level, function, sector or geography.',
+                'People who want one continuous assessment-to-rebuild journey rather than separate purchases.',
+            ],
+            'deliverables' => [
+                'Detailed written CV Assessment with prioritised gaps and recommendations.',
+                'Evidence-led Professional CV Rebuild using verified career facts.',
+                'Two completed ATS-safe CV variants.',
+                'Two consolidated revision rounds.',
+                '5% saving versus buying assessment and rebuild separately.',
+            ],
+            'faq' => [
+                ['q' => 'What is the bundle price?', 'a' => 'The separate base prices total ₹3,492 + GST. The bundle is ₹3,317.40 + GST, a 5% discount before GST.'],
+                ['q' => 'Do I have to buy the bundle?', 'a' => 'No. Assessment and rebuild remain available separately. Choose the bundle only when you want both deliverables.'],
+                ['q' => 'Will HiredNext invent achievements?', 'a' => 'No. Missing scale, metrics or context become clarification questions; they are not fabricated.'],
+            ],
+        ]);
+    }
+
     public function linkedinLeadership()
     {
         $plan = \App\Services\Cv\CvUpgradePlans::get('linkedin_8999');
