@@ -25,7 +25,7 @@ class BrandFacts extends BaseConfig
         'operating_base' => 'Gurugram (Gurgaon), Haryana, India',
         'delivery_model' => 'Remote-first delivery across India; no public walk-in office',
         'founder' => 'Taru Shikha',
-        'founder_title' => 'Founder',
+        'founder_title' => 'Founder & CEO',
         'founder_linkedin' => 'https://www.linkedin.com/in/tarushikhaarora',
         'company_linkedin' => 'https://www.linkedin.com/company/hirednext-recruitment-service/',
         'primary_offering' => 'Executive search, leadership recruitment, permanent hiring and recruitment process outsourcing',
