@@ -8,8 +8,8 @@
             <h1 class="text-4xl md:text-6xl font-serif font-bold leading-tight mb-5">Not getting shortlisted? See what your CV may be failing to show.</h1>
             <p class="text-lg md:text-xl text-white/80 leading-relaxed">Think your CV has no gaps? Get a written, role-focused assessment of what it communicates, the evidence it leaves unclear and the corrections to make first.</p>
             <?php if (!empty($job)): ?><div class="mt-7 inline-flex flex-wrap items-center gap-3 rounded-2xl bg-white/10 border border-white/15 px-5 py-4 text-sm"><span class="text-white/60">For the role:</span><strong><?= esc($job['title']) ?></strong><span>· <?= esc($job['location'] ?? '') ?></span></div><?php endif; ?>
-            <a href="#assessment-form" class="inline-flex mt-8 rounded-xl bg-accent px-7 py-4 font-black text-white">Get My CV Assessed — ₹599 <span class="ml-1 text-xs font-bold opacity-80">(inclusive of GST)</span></a>
-            <p class="mt-3 text-xs text-white/55">Pay by HiredNext UPI QR after CV upload. Job applications and placements remain free.</p>
+            <a href="#assessment-form" class="inline-flex mt-8 rounded-xl bg-accent px-7 py-4 font-black text-white">Get My CV Assessed — ₹992 + GST</a>
+            <p class="mt-3 text-xs text-white/55">₹1,171 payable including GST (rounded to the nearest rupee). Payment details are confirmed after CV upload.</p>
             <a href="#cv-questions" class="inline-block mt-4 text-sm text-white underline underline-offset-4">Questions before buying? Get instant answers</a>
         </div>
         <aside class="rounded-[2rem] border border-white/15 bg-white/10 p-7">
@@ -50,7 +50,7 @@
             <div class="mt-6 border-t border-white/20 pt-5"><h3 class="font-bold text-gold">Priority correction</h3><p class="mt-2 text-white/85">Add the category scope, your actual decision authority and an outcome you can support. Use numbers only when you can verify them.</p></div>
             <p class="mt-5 text-xs text-white/65">Illustrative wording, not a customer testimonial. Your report is based on your own CV and target role.</p>
         </div>
-        <div class="mt-7 text-center"><a href="#assessment-form" class="inline-flex rounded-xl bg-accent px-7 py-4 font-black text-white">Get My CV Assessed — ₹599</a><p class="mt-3 text-sm text-gray-600">GST included. A written diagnosis before you decide on further work.</p></div>
+        <div class="mt-7 text-center"><a href="#assessment-form" class="inline-flex rounded-xl bg-accent px-7 py-4 font-black text-white">Get My CV Assessed — ₹992 + GST</a><p class="mt-3 text-sm text-gray-600">₹1,171 payable including GST. A written diagnosis before you decide on further work.</p></div>
     </div>
 </section>
 
@@ -65,10 +65,10 @@
 
 <section id="assessment-form" class="py-16 bg-gray-50 border-t border-gray-100">
     <div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12">
-        <div class="text-center mb-10"><h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Start your ₹599 assessment <span class="block mt-2 text-sm font-sans font-semibold text-gray-500">Inclusive of GST</span></h2><p class="text-gray-600">Upload your CV first. You will then see the HiredNext UPI QR and submit your transaction reference.</p></div>
+        <div class="text-center mb-10"><h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Start your ₹992 + GST assessment <span class="block mt-2 text-sm font-sans font-semibold text-gray-500">₹1,171 payable including GST</span></h2><p class="text-gray-600">Upload your CV first. You will then continue to secure payment and submit the transaction reference.</p></div>
         <form action="<?= base_url('cv-assessment/submit') ?>" method="post" enctype="multipart/form-data" class="bg-white border border-gray-200 rounded-[2rem] p-8 md:p-10 space-y-5">
             <?= csrf_field() ?>
-            <input type="hidden" name="assessment_plan" value="priority_599"><input type="hidden" name="job_slug" value="<?= esc($job['slug'] ?? '') ?>"><input type="hidden" name="job_title" value="<?= esc($job['title'] ?? '') ?>">
+            <input type="hidden" name="assessment_plan" value="priority_992"><input type="hidden" name="job_slug" value="<?= esc($job['slug'] ?? '') ?>"><input type="hidden" name="job_title" value="<?= esc($job['title'] ?? '') ?>">
             <input type="hidden" name="utm_source" value=""><input type="hidden" name="utm_medium" value=""><input type="hidden" name="utm_campaign" value=""><input type="hidden" name="utm_content" value="">
             <input type="hidden" name="first_touch_source" value=""><input type="hidden" name="first_touch_medium" value=""><input type="hidden" name="first_touch_campaign" value=""><input type="hidden" name="first_touch_content" value="">
             <input type="hidden" name="latest_touch_source" value=""><input type="hidden" name="latest_touch_medium" value=""><input type="hidden" name="latest_touch_campaign" value=""><input type="hidden" name="latest_touch_content" value="">
@@ -76,13 +76,13 @@
             <input name="phone" required minlength="6" value="<?= esc(old('phone')) ?>" placeholder="Phone number" class="w-full border border-gray-200 rounded-xl px-4 py-3">
             <div><label for="cv-target-role" class="block text-sm font-bold text-primary mb-2">Which role are you targeting?</label><textarea id="cv-target-role" name="message" rows="4" required placeholder="For example: Merchandising Manager. Add a job description if you have one." class="w-full border border-gray-200 rounded-xl px-4 py-3"><?= esc(old('message') ?: ($job['title'] ?? '')) ?></textarea></div>
             <div class="rounded-xl border border-dashed border-gray-300 px-4 py-4"><label class="block text-sm font-bold text-primary mb-2">Upload your CV</label><input name="resume" type="file" accept=".pdf,.doc,.docx" required class="w-full text-sm"><p class="text-xs text-gray-500 mt-2">PDF, DOC or DOCX. Maximum 5MB.</p></div>
-            <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-black">Continue to ₹599 payment <span class="text-xs opacity-80">(GST included)</span></button>
+            <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-black">Continue to payment — ₹1,171</button>
             <p class="text-xs text-gray-500 text-center">Your assessment request is submitted only after you enter your payment reference on the next step. No submission email is sent before that. This service does not guarantee interviews, shortlisting or placement.</p>
         </form>
     </div>
 </section>
 
-<section class="py-10 bg-gray-50 border-t border-gray-200"><div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12 text-center"><h2 class="text-2xl font-serif font-bold text-primary">Already want a complete rewrite?</h2><p class="mt-3 text-gray-600">The ₹1,799 Professional CV Rebuild includes assessment, two CV variants and two revision rounds. GST included. You do not have to buy both services.</p><a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="inline-flex mt-5 rounded-xl bg-primary px-6 py-3 font-bold text-white">Get My CV Rebuilt — ₹1,799</a></div></section>
+<section class="py-10 bg-gray-50 border-t border-gray-200"><div class="max-w-[900px] mx-auto px-4 sm:px-8 lg:px-12 text-center"><h2 class="text-2xl font-serif font-bold text-primary">Already want a complete rewrite?</h2><p class="mt-3 text-gray-600">The ₹1,799 Professional CV The rebuild includes the analysis required to write the document. Choose the bundle when you also want the separate detailed written assessment. You do not have to buy every service.</p><a href="<?= base_url('career-services/start/rebuild_2500') ?>" class="inline-flex mt-5 rounded-xl bg-primary px-6 py-3 font-bold text-white">Get My CV Rebuilt — ₹1,799</a></div></section>
 
 <?= view('pages/services/_cv-service-faq') ?>
 
@@ -102,5 +102,5 @@
     });
 })();
 </script>
-<script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Service','name'=>'HiredNext Priority CV Assessment','provider'=>['@type'=>'Organization','name'=>'HiredNext Recruitment','url'=>base_url()],'serviceType'=>'Role-focused CV Assessment','offers'=>[['@type'=>'Offer','price'=>'599','priceCurrency'=>'INR','name'=>'Priority CV Assessment']]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>
+<script type="application/ld+json"><?= json_encode(['@context'=>'https://schema.org','@type'=>'Service','name'=>'HiredNext Priority CV Assessment','provider'=>['@type'=>'Organization','name'=>'HiredNext Recruitment','url'=>base_url()],'serviceType'=>'Role-focused CV Assessment','offers'=>[['@type'=>'Offer','price'=>'1171','priceCurrency'=>'INR','name'=>'Priority CV Assessment']]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>
 <?= $this->endSection() ?>
