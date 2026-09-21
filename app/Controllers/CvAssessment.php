@@ -14,13 +14,13 @@ class CvAssessment extends BaseController
             'name' => 'required|min_length[3]',
             'email' => 'required|valid_email',
             'phone' => 'required|min_length[6]',
-            'assessment_plan' => 'permit_empty|in_list[priority_599]',
+            'assessment_plan' => 'permit_empty|in_list[priority_992,priority_599]',
         ]);
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
-        $plan = 'priority_599';
+        $plan = 'priority_992';
         $resume = $this->request->getFile('resume');
         if (!$resume || !$resume->isValid() || $resume->hasMoved()) {
             return redirect()->back()->withInput()->with('errors', ['resume' => 'Please upload a valid CV.']);
@@ -59,8 +59,8 @@ class CvAssessment extends BaseController
             'latest_touch_campaign' => trim((string) $this->request->getPost('latest_touch_campaign')) ?: null,
             'latest_touch_content' => trim((string) $this->request->getPost('latest_touch_content')) ?: null,
             'resume_path' => 'writable/uploads/cv-assessments/' . $storedName,
-            'amount' => $plan === 'priority_599' ? 599 : 0,
-            'payment_status' => $plan === 'free' ? 'not_required' : 'awaiting_payment',
+            'amount' => 1171,
+            'payment_status' => 'awaiting_payment',
             'payment_id' => null,
             // This is a checkout draft only. The assessment is submitted and
             // notifications are sent after a payment reference is supplied.
@@ -89,7 +89,7 @@ class CvAssessment extends BaseController
 
         return redirect()->to('/cv-payment/' . $leadId)->with(
             'success',
-            'Your CV is held securely for checkout. Your assessment request will be submitted only after you pay ₹599 and enter the UPI transaction/reference number.'
+            'Your CV is held securely for checkout. Your assessment request will be submitted only after you pay ₹992 + GST (₹1,171 payable including GST, rounded to the nearest rupee) and enter the UPI transaction/reference number.'
         );
     }
 }
