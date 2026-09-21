@@ -1,5 +1,11 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
+<?php
+$amount = (int)($lead['amount'] ?? 1171);
+$isNewAssessment = (($lead['assessment_plan'] ?? '') === 'priority_992');
+$priceLabel = $isNewAssessment ? '₹992 + GST' : ('₹' . number_format($amount));
+$payableLabel = '₹' . number_format($amount);
+?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
     #navbar #logoText, #navbar .nav-link, #navbar #menuBtn { color:#0c3466 !important; }
@@ -35,14 +41,15 @@
                     <div class="rounded-2xl bg-gray-50 p-5 mb-6">
                         <div class="flex justify-between gap-4 py-2"><span class="text-gray-500">Candidate</span><strong class="text-right"><?= esc($lead['name']) ?></strong></div>
                         <div class="flex justify-between gap-4 py-2"><span class="text-gray-500">Service</span><strong class="text-right">Priority CV Assessment</strong></div>
-                        <div class="flex justify-between gap-4 py-2"><span class="text-gray-500">Total (inclusive of GST)</span><strong>₹599</strong></div>
+                        <div class="flex justify-between gap-4 py-2"><span class="text-gray-500">Service price</span><strong><?= esc($priceLabel) ?></strong></div>
+                        <div class="flex justify-between gap-4 py-2"><span class="text-gray-500">Payable</span><strong><?= esc($payableLabel) ?></strong></div>
                     </div>
                 </div>
 
                 <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
                     <div class="text-sm font-black tracking-[0.14em] text-primary mb-3">VERIFIED BUSINESS PAYMENT ONLY</div>
                     <p class="text-sm text-gray-700 leading-relaxed">The previous QR has been retired. Wait for payment details issued by <strong>HiredNext Recruitment</strong> from jobs@hirednext.info.</p>
-                    <div class="mt-4 text-xl font-black text-primary">₹599 · GST included</div>
+                    <div class="mt-4 text-xl font-black text-primary"><?= esc($payableLabel) ?> payable</div><?php if ($isNewAssessment): ?><div class="mt-1 text-xs font-semibold text-gray-500">₹992 + GST</div><?php endif; ?>
                 </div>
             </div>
 
@@ -52,7 +59,7 @@
                 <div class="text-[10px] uppercase tracking-[0.2em] text-accent font-black">Already paid?</div>
                 <label class="block text-sm font-bold text-primary">Submit the transaction/reference number</label>
                 <input name="payment_reference" required minlength="6" value="<?= esc(old('payment_reference')) ?>" placeholder="Enter the transaction/reference ID shown after payment" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white">
-                <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-bold hover:opacity-90 transition">I have paid ₹599 (GST included) — Submit for verification</button>
+                <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-bold hover:opacity-90 transition">I have paid <?= esc($payableLabel) ?> — Submit for verification</button>
                 <p class="text-xs text-gray-500 text-center">Use this only if payment is already complete. Payment remains pending until HiredNext verifies the transaction.</p>
             </form>
         </div>
