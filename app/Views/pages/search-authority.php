@@ -51,6 +51,14 @@ if (($page['city'] ?? '') === 'Bengaluru (Bangalore)') {
     ];
 } elseif (($page['city'] ?? '') === 'Gurgaon / Delhi NCR') {
     $relatedLinks = [
+        ['path' => 'regions/recruitment-agency-delhi', 'label' => 'Recruitment Agency Delhi / NCR'],
+        ['path' => 'regions/india', 'label' => 'Executive Search India'],
+        ['path' => 'industry/global-capability-centres-hiring-india', 'label' => 'GCC Recruitment India'],
+        ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
+    ];
+} elseif (($page['city'] ?? '') === 'Delhi / NCR') {
+    $relatedLinks = [
+        ['path' => 'regions/executive-search-gurgaon', 'label' => 'Recruitment Agency Gurgaon / Gurugram'],
         ['path' => 'regions/india', 'label' => 'Executive Search India'],
         ['path' => 'industry/global-capability-centres-hiring-india', 'label' => 'GCC Recruitment India'],
         ['path' => 'services/executive-search', 'label' => 'Executive Search Services'],
