@@ -371,17 +371,6 @@
 
         // The legacy payment template embeds an old base64 image. Replace it with
         // the maintained QR asset served through the dedicated no-cache endpoint.
-        if (/\/cv-payment\/\d+\/?$/.test(window.location.pathname)) {
-            const paymentQr = document.querySelector('img[src^="data:image/"]');
-            if (paymentQr) {
-                paymentQr.src = '<?= base_url('cv-payment/qr') ?>?v=20260811';
-                paymentQr.alt = 'HiredNext Paytm payment QR code';
-                paymentQr.style.width = '100%';
-                paymentQr.style.maxWidth = '300px';
-                paymentQr.style.height = 'auto';
-                paymentQr.style.display = 'block';
-            }
-        }
 
         const observerOptions = { threshold: 0.1 };
         const scrollObserver = new IntersectionObserver((entries) => {

@@ -1,7 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <?php
-$qrUrl = base_url('cv-payment/qr') . '?v=20260903';
 $tier = (string)($order['tier'] ?? '');
 $showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_1799', 'executive_6999'], true);
 $gstInclusive = in_array((int) ($order['amount'] ?? 0), [1799, 6999], true);
@@ -76,19 +75,17 @@ $gstInclusive = in_array((int) ($order['amount'] ?? 0), [1799, 6999], true);
                         <div class="text-4xl font-black">₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?></div><?php if ($gstInclusive): ?><div class="text-sm text-white/70 mt-2">Inclusive of GST</div><?php endif; ?>
                         <div class="text-sm text-white/70 mt-2"><?= esc($plan['delivery'] ?? '') ?></div>
                     </div>
-                    <div class="flex flex-col items-center rounded-2xl border border-gray-200 bg-gray-50 p-5">
-                        <div class="text-sm font-black tracking-[0.18em] text-primary mb-3">HIREDNEXT</div>
-                        <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
-                            <img src="<?= esc($qrUrl) ?>" alt="HiredNext payment QR" width="280" height="280" class="block w-[280px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
-                        </div>
-                        <div class="mt-4 text-xl font-black text-primary">PAY ₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?></div><?php if ($gstInclusive): ?><div class="mt-1 text-xs font-semibold text-gray-500">Inclusive of GST</div><?php endif; ?>
+                    <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
+                        <div class="text-sm font-black tracking-[0.14em] text-primary mb-3">VERIFIED BUSINESS PAYMENT ONLY</div>
+                        <p class="text-sm text-gray-700 leading-relaxed">The previous QR has been retired. HiredNext will send payment details from <strong>jobs@hirednext.info</strong>. Do not use an old Paytm URL or any destination showing an individual's name or phone number.</p>
+                        <div class="mt-4 text-xl font-black text-primary">₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?></div><?php if ($gstInclusive): ?><div class="mt-1 text-xs font-semibold text-gray-500">Inclusive of GST</div><?php endif; ?>
                     </div>
                 </div>
                 <div>
                     <?php if (session('success')): ?><div class="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-800 font-semibold"><?= esc(session('success')) ?></div><?php endif; ?>
                     <?php if (session('error')): ?><div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 font-semibold"><?= esc(session('error')) ?></div><?php endif; ?>
                     <div class="mb-6">
-                        <div class="text-[10px] uppercase tracking-[0.22em] text-accent font-black mb-2">After payment</div>
+                        <div class="text-[10px] uppercase tracking-[0.22em] text-accent font-black mb-2">Already paid?</div>
                         <h2 class="text-2xl font-serif font-bold text-primary mb-2">Submit the transaction reference</h2>
                         <p class="text-sm text-gray-600 leading-relaxed">Use the same email address used for your HiredNext CV request. Payment remains pending until HiredNext verifies the transaction.</p>
                     </div>

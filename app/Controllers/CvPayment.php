@@ -10,19 +10,14 @@ class CvPayment extends BaseController
 {
     public function qr()
     {
-        $qrFile = FCPATH . 'theme/assets/hirednext-upi-qr.svg';
-        if (!is_file($qrFile) || !is_readable($qrFile)) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-        $qrBytes = file_get_contents($qrFile);
-        if ($qrBytes === false || $qrBytes === '') {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
+        // Retired immediately: the legacy QR resolved to a personal, phone-linked
+        // UPI beneficiary. Serve no payment destination until a verified business
+        // route replaces it.
         return $this->response
-            ->setHeader('Content-Type', 'image/svg+xml; charset=UTF-8')
-            ->setHeader('Cache-Control', 'private, no-store, no-cache, must-revalidate, max-age=0')
+            ->setStatusCode(410)
+            ->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
             ->setHeader('Pragma', 'no-cache')
-            ->setBody($qrBytes);
+            ->setBody('This payment QR has been retired. Please use payment details sent by jobs@hirednext.info.');
     }
 
     public function checkout($leadId = null)

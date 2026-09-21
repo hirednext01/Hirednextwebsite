@@ -1,9 +1,5 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<?php
-$qrUrl = base_url('cv-payment/qr') . '?v=20260903';
-?>
-
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
     #navbar #logoText, #navbar .nav-link, #navbar #menuBtn { color:#0c3466 !important; }
@@ -25,15 +21,13 @@ $qrUrl = base_url('cv-payment/qr') . '?v=20260903';
                     <div class="rounded-2xl bg-primary text-white p-6 mb-6">
                         <div class="text-[10px] uppercase tracking-[0.22em] text-white/55 font-black mb-2">Amount to pay</div>
                         <div class="text-4xl font-black mb-2"><?= esc($plan['amount_label'] ?? '') ?></div>
-                        <div class="text-sm text-white/70">Pay exactly this amount using the HiredNext payment QR below.</div>
+                        <div class="text-sm text-white/70">HiredNext will issue verified business payment details from jobs@hirednext.info.</div>
                     </div>
 
-                    <div class="flex flex-col items-center rounded-2xl border border-gray-200 bg-gray-50 p-5">
-                        <div class="text-sm font-black tracking-[0.18em] text-primary mb-3">HIREDNEXT</div>
-                        <div class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm">
-                            <img src="<?= esc($qrUrl) ?>" alt="HiredNext payment QR" width="280" height="280" class="block w-[280px] max-w-full h-auto object-contain" loading="eager" decoding="sync">
-                        </div>
-                        <div class="mt-4 text-xl font-black text-primary">PAY <?= esc($plan['amount_label'] ?? '') ?></div>
+                    <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
+                        <div class="text-sm font-black tracking-[0.14em] text-primary mb-3">VERIFIED BUSINESS PAYMENT ONLY</div>
+                        <p class="text-sm text-gray-700 leading-relaxed">The previous QR has been retired. Do not use an old Paytm URL or any destination showing an individual's name or phone number.</p>
+                        <div class="mt-4 text-xl font-black text-primary"><?= esc($plan['amount_label'] ?? '') ?></div>
                     </div>
                 </div>
 
@@ -43,7 +37,7 @@ $qrUrl = base_url('cv-payment/qr') . '?v=20260903';
                     <?php endif; ?>
 
                     <div class="mb-6">
-                        <div class="text-[10px] uppercase tracking-[0.22em] text-accent font-black mb-2">After payment</div>
+                        <div class="text-[10px] uppercase tracking-[0.22em] text-accent font-black mb-2">Already paid?</div>
                         <h2 class="text-2xl font-serif font-bold text-primary mb-2">Submit your advisory request</h2>
                         <p class="text-sm text-gray-600 leading-relaxed">Enter the UPI reference and the information needed to prepare the session. Payment remains pending until HiredNext verifies the transaction.</p>
                     </div>
