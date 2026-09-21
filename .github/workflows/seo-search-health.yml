@@ -9,6 +9,11 @@ on:
       - 'app/Config/BrandFacts.php'
       - 'app/Config/Routes.php'
       - 'app/Config/DecisionGuides.php'
+      - 'tests/career_ai_search_authority_test.php'
+      - 'app/Views/pages/career-intelligence.php'
+      - 'app/Views/pages/career-authority.php'
+      - 'app/Controllers/CareerAuthority.php'
+      - 'app/Config/CareerAuthority.php'
       - 'app/Controllers/DecisionGuides.php'
       - 'app/Controllers/CandidateServices.php'
       - 'app/Controllers/Jobs.php'
@@ -69,6 +74,10 @@ jobs:
           php -l app/Config/BrandFacts.php
           php -l app/Config/Routes.php
           php -l app/Config/DecisionGuides.php
+          if [ -f app/Config/CareerAuthority.php ]; then php -l app/Config/CareerAuthority.php; fi
+          if [ -f app/Controllers/CareerAuthority.php ]; then php -l app/Controllers/CareerAuthority.php; fi
+          if [ -f app/Views/pages/career-authority.php ]; then php -l app/Views/pages/career-authority.php; fi
+          if [ -f app/Views/pages/career-intelligence.php ]; then php -l app/Views/pages/career-intelligence.php; fi
           php -l app/Controllers/DecisionGuides.php
           php -l app/Controllers/CandidateServices.php
           php -l app/Controllers/Jobs.php
@@ -94,6 +103,7 @@ jobs:
           php tests/city_founder_authority_test.php
           php tests/cv_search_dominance_test.php
           php tests/career_services_product_engine_test.php
+          php tests/career_ai_search_authority_test.php
       - name: Verify candidate service regressions
         run: |
           php tests/cv_assessment_conversion_test.php
