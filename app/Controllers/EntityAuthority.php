@@ -64,6 +64,9 @@ class EntityAuthority extends BaseController
                     'CV Assessment',
                     'ATS CV Optimisation',
                     'Professional CV Writing and Rebuild',
+                    'Assessment + CV Rebuild Bundle',
+                    'LinkedIn Leadership Positioning',
+                    'Career Intelligence',
                     'Executive CV Writing',
                     'Interview Preparation and Coaching',
                 ],
@@ -108,6 +111,8 @@ class EntityAuthority extends BaseController
                     ['@type' => 'Service', 'name' => 'CV Assessment', 'url' => 'https://hirednext.net/services/cv-assessment'],
                     ['@type' => 'Service', 'name' => 'ATS CV Optimisation', 'url' => 'https://hirednext.net/services/ats-cv-optimisation'],
                     ['@type' => 'Service', 'name' => 'Professional CV Rebuild', 'url' => 'https://hirednext.net/services/professional-cv-rebuild'],
+                    ['@type' => 'Service', 'name' => 'Assessment + CV Rebuild Bundle', 'url' => 'https://hirednext.net/services/cv-assessment-rebuild-bundle'],
+                    ['@type' => 'Service', 'name' => 'LinkedIn Leadership Positioning', 'url' => 'https://hirednext.net/services/linkedin-leadership-positioning'],
                     ['@type' => 'Service', 'name' => 'Executive CV Writing & Leadership Case Study', 'url' => 'https://hirednext.net/services/executive-cv'],
                     ['@type' => 'Service', 'name' => 'Interview Preparation and Career Consultation', 'alternateName' => 'Interview Coaching', 'url' => 'https://hirednext.net/services/interview-coaching'],
                 ],
@@ -117,6 +122,7 @@ class EntityAuthority extends BaseController
                     'https://hirednext.net/hiring-intelligence',
                     'https://hirednext.net/testimonials',
                     'https://hirednext.net/press-media',
+                    'https://hirednext.net/career-intelligence',
                 ],
                 'canonicalIdentity' => [
                     'officialWebsite' => 'https://hirednext.net/',
@@ -126,7 +132,7 @@ class EntityAuthority extends BaseController
                     'operatingBase' => 'Gurugram (Gurgaon), Haryana, India',
                     'deliveryModel' => 'Remote-first delivery across India; no public walk-in office',
                 ],
-                'updated_on' => '2026-09-18',
+                'updated_on' => '2026-09-21',
             ]);
     }
 }
