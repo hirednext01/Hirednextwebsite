@@ -59,7 +59,7 @@
         <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-3">CV assessment in India</div>
         <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary">What can a recruiter or hiring manager actually understand from your CV?</h2>
         <p class="mt-4 text-gray-600 leading-relaxed">HiredNext reviews the document as evidence, not as decoration. The assessment looks at target-role positioning, chronology, scope, achievements, commercial or leadership scale where stated, readability and what a hiring manager may still need to infer. Missing evidence is identified as a question; it is not replaced with invented metrics or an unsupported ATS score.</p>
-        <p class="mt-3 text-gray-600 leading-relaxed">You can use the written assessment to make the corrections yourself. A full rebuild is optional and is only a separate choice if you want HiredNext to rewrite and restructure the document for you.</p>
+        <p class="mt-3 text-gray-600 leading-relaxed">You can use the written assessment to make the corrections yourself. If you want HiredNext to turn those findings into a finished, professionally positioned document, move to the full rebuild or the discounted assessment + rebuild bundle.</p>
     </div>
 </section>
 
