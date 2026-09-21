@@ -1,0 +1,56 @@
+name: Career Services Production Smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/production-career-services-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify live career services pages
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          fetch_page() {
+            local url="$1"
+            local out="$2"
+            curl --fail --location --silent --show-error --retry 3 --retry-delay 2 --max-time 30 "$url" -o "$out"
+            test -s "$out"
+          }
+
+          fetch_page "https://hirednext.net/services/candidates" /tmp/candidates.html
+          grep -Fq "₹992 + GST" /tmp/candidates.html
+          grep -Fq "₹2,500 + GST" /tmp/candidates.html
+          grep -Fq "Assessment + CV Rebuild Bundle" /tmp/candidates.html
+          grep -Fq "LinkedIn Leadership Positioning" /tmp/candidates.html
+
+          fetch_page "https://hirednext.net/services/cv-assessment" /tmp/assessment.html
+          grep -Fq "₹992 + GST" /tmp/assessment.html
+          grep -Fq "₹1,171" /tmp/assessment.html
+
+          fetch_page "https://hirednext.net/services/professional-cv-rebuild" /tmp/rebuild.html
+          grep -Fq "₹2,500 + GST" /tmp/rebuild.html
+          grep -Fq "₹2,950" /tmp/rebuild.html
+
+          fetch_page "https://hirednext.net/services/cv-assessment-rebuild-bundle" /tmp/bundle.html
+          grep -Fq "₹3,317.40 + GST" /tmp/bundle.html
+          grep -Fq "5% Saving" /tmp/bundle.html
+
+          fetch_page "https://hirednext.net/services/linkedin-leadership-positioning" /tmp/linkedin.html
+          grep -Fq "₹17,500 + GST" /tmp/linkedin.html
+          grep -Fq "₹8,999 + GST" /tmp/linkedin.html
+          grep -Fq "50K+" /tmp/linkedin.html
+          grep -Fq "20K+" /tmp/linkedin.html
+          grep -Fq "Illustrative" /tmp/linkedin.html
+          grep -Fq "NDA" /tmp/linkedin.html
+
+          echo "PASS: live HiredNext career-services pages and campaign pricing verified"
