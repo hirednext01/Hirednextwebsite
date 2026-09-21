@@ -104,6 +104,7 @@ $routes->get('industry/(:any)', 'Home::industry/$1');
 
 $routes->get('regions/executive-search-bangalore', 'SearchAuthority::show/executive-search-bangalore');
 $routes->get('regions/executive-search-gurgaon', 'SearchAuthority::show/executive-search-gurgaon');
+$routes->get('regions/recruitment-agency-delhi', 'SearchAuthority::show/recruitment-agency-delhi');
 $routes->get('regions/executive-search-mumbai', 'SearchAuthority::show/executive-search-mumbai');
 $routes->get('regions/executive-search-chennai', 'SearchAuthority::show/executive-search-chennai');
 $routes->get('regions/recruitment-agency-hyderabad', 'SearchAuthority::show/recruitment-agency-hyderabad');

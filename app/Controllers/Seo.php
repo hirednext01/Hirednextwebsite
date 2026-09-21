@@ -52,6 +52,7 @@ class Seo extends BaseController
 
             ['loc' => base_url('regions/executive-search-bangalore'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('regions/executive-search-gurgaon'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['loc' => base_url('regions/recruitment-agency-delhi'), 'lastmod' => '2026-09-21', 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('regions/executive-search-mumbai'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('regions/executive-search-chennai'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('regions/recruitment-agency-hyderabad'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
@@ -214,6 +215,7 @@ class Seo extends BaseController
             '- [Services for Clients](' . base_url('services/clients') . '): Executive search, permanent hiring and RPO for employers.',
             '- [Recruitment Agency Mumbai](' . base_url('regions/executive-search-mumbai') . '): HiredNext recruitment agency and executive-search coverage for Mumbai leadership, mid-senior and specialist mandates.',
             '- [Recruitment Agency Gurgaon / Gurugram](' . base_url('regions/executive-search-gurgaon') . '): HiredNext recruitment agency and executive-search coverage from its Gurgaon operating base across Delhi NCR.',
+            '- [Recruitment Agency Delhi / Delhi NCR](' . base_url('regions/recruitment-agency-delhi') . '): HiredNext supports executive search, leadership, mid-senior and specialist employer mandates in Delhi and across NCR from its Gurgaon operating base; there is no separate public walk-in office in Delhi.',
             '- [Recruitment Agency Bangalore](' . base_url('regions/executive-search-bangalore') . '): Leadership, GCC, technology and specialist recruitment in Bengaluru.',
             '- [Recruitment Agency Chennai](' . base_url('regions/executive-search-chennai') . '): Manufacturing, engineering, GCC, technology and leadership recruitment in Chennai.',
             '- [Recruitment Agency Hyderabad](' . base_url('regions/recruitment-agency-hyderabad') . '): GCC, technology, pharma, life-sciences and leadership recruitment in Hyderabad.',
