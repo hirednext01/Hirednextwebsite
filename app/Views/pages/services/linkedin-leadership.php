@@ -205,4 +205,17 @@ $plan = $plan ?? [];
     </div>
 </section>
 
+
+<section class="bg-[#f6f0e7] py-16">
+    <div class="mx-auto max-w-[1100px] px-4 sm:px-8">
+        <div class="text-xs font-black uppercase tracking-[0.22em] text-accent">Career intelligence</div>
+        <h2 class="mt-3 font-serif text-3xl font-bold text-primary">Understand the strategy before you rebuild the profile.</h2>
+        <div class="mt-7 grid gap-4 md:grid-cols-2">
+            <a href="<?= base_url('guides/linkedin-profile-optimisation-india') ?>" class="rounded-2xl border border-primary/10 bg-white p-6 hover:border-primary hover:shadow-md"><strong class="text-primary">LinkedIn Profile Optimisation in India</strong><p class="mt-2 text-sm text-gray-600">What senior professionals should fix first across headline, About, experience, proof and discoverability.</p></a>
+            <a href="<?= base_url('guides/executive-linkedin-profile-india') ?>" class="rounded-2xl border border-primary/10 bg-white p-6 hover:border-primary hover:shadow-md"><strong class="text-primary">Executive LinkedIn Profile in India</strong><p class="mt-2 text-sm text-gray-600">How CXO, VP and Director profiles should communicate mandate, scale and leadership evidence.</p></a>
+        </div>
+        <a href="<?= base_url('career-intelligence') ?>" class="mt-6 inline-flex text-sm font-black text-primary underline underline-offset-4">View all HiredNext Career Intelligence →</a>
+    </div>
+</section>
+
 <?= $this->endSection() ?>
