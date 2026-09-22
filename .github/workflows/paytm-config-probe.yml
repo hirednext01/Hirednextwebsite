@@ -18,6 +18,8 @@ jobs:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       HOSTINGER_PRIVATE_KEY: ${{ secrets.HOSTINGER_PRIVATE_KEY }}
       DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+      HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
     steps:
       - name: Probe remote env key names only
         shell: bash
@@ -27,18 +29,18 @@ jobs:
           PORT='65002'
           USER='u212644598'
           KEY="${HOSTINGER_SSH_KEY:-${SSH_PRIVATE_KEY:-${HOSTINGER_PRIVATE_KEY:-${DEPLOY_PRIVATE_KEY:-}}}}"
-          test -n "$KEY"
-          mkdir -p ~/.ssh
-          printf '%s\n' "$KEY" > ~/.ssh/hirednext_key
-          chmod 600 ~/.ssh/hirednext_key
-          ssh -i ~/.ssh/hirednext_key -p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 "$USER@$HOST" '
-            set -e
-            cd /home/u212644598/domains/hirednext.net/public_html
-            echo "PAYTM_CONFIG_PROBE_BEGIN"
-            if [ -f .env ]; then
-              awk -F= "/^[[:space:]]*[A-Za-z_][A-Za-z0-9_]*(PAYTM|MERCHANT|MID|CHECKSUM|PAYMENT)[A-Za-z0-9_]*[[:space:]]*=/ {gsub(/^[[:space:]]+|[[:space:]]+$/, \"\", \$1); print \$1}" .env | sort -u
-            else
-              echo "NO_ENV_FILE"
-            fi
-            echo "PAYTM_CONFIG_PROBE_END"
-          '
+          PASS="${HOSTINGER_PASSWORD:-${SSH_PASSWORD:-}}"
+          REMOTE_CMD='set -e; cd /home/u212644598/domains/hirednext.net/public_html; echo PAYTM_CONFIG_PROBE_BEGIN; if [ -f .env ]; then awk -F= '"'"'/^[[:space:]]*[A-Za-z_][A-Za-z0-9_]*(PAYTM|MERCHANT|MID|CHECKSUM|PAYMENT)[A-Za-z0-9_]*[[:space:]]*=/ {gsub(/^[[:space:]]+|[[:space:]]+$/, "", $1); print $1}'"'"' .env | sort -u; else echo NO_ENV_FILE; fi; echo PAYTM_CONFIG_PROBE_END'
+          if [[ -n "$KEY" ]]; then
+            mkdir -p ~/.ssh
+            printf '%s\n' "$KEY" > ~/.ssh/hirednext_key
+            chmod 600 ~/.ssh/hirednext_key
+            ssh -i ~/.ssh/hirednext_key -p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 "$USER@$HOST" "$REMOTE_CMD"
+          elif [[ -n "$PASS" ]]; then
+            sudo apt-get update -qq >/dev/null
+            sudo apt-get install -y -qq sshpass >/dev/null
+            SSHPASS="$PASS" sshpass -e ssh -p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 "$USER@$HOST" "$REMOTE_CMD"
+          else
+            echo "NO_HOSTINGER_DEPLOY_CREDENTIAL_AVAILABLE"
+            exit 1
+          fi
