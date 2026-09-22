@@ -32,6 +32,8 @@ $checks = [
     'share linkedin' => strpos($detail, 'linkedin.com/sharing/share-offsite') !== false,
     'copy link' => strpos($detail, 'copyJobLink') !== false,
     'similar jobs' => strpos($detail, 'Similar opportunities') !== false,
+    'job description H1 markup normalized' => strpos($detail, "preg_replace('/<\\\\s*h1\\\\b/i'") !== false && strpos($detail, '<?= $jobDescription ?>') !== false,
+    'raw job description is not emitted directly' => strpos($detail, "<?= $job['description'] ?? '' ?>") === false,
     'no job mutation in detail view' => strpos($detail, '->insert(') === false && strpos($detail, '->update(') === false && strpos($detail, '->delete(') === false,
     'fund accounting role published' => strpos($jobModel, "'fund-accounting-mumbai' =>") !== false,
     'fund accounting code mapped' => strpos($jobModel, "'fund-accounting-mumbai' => 'HN-FA-0918'") !== false,
