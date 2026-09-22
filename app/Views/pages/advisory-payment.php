@@ -24,11 +24,7 @@
                         <div class="text-sm text-white/70">HiredNext will issue verified business payment details from jobs@hirednext.info.</div>
                     </div>
 
-                    <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
-                        <div class="text-sm font-black tracking-[0.14em] text-primary mb-3">VERIFIED BUSINESS PAYMENT ONLY</div>
-                        <p class="text-sm text-gray-700 leading-relaxed">The previous QR has been retired. Do not use an old Paytm URL or any destination showing an individual's name or phone number.</p>
-                        <div class="mt-4 text-xl font-black text-primary"><?= esc($plan['amount_label'] ?? '') ?></div>
-                    </div>
+                    <?= view('components/business-payment-gate', ['amountLabel' => $plan['amount_label'] ?? '']) ?>
                 </div>
 
                 <div>

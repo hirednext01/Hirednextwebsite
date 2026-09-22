@@ -127,6 +127,10 @@ jobs:
           php -l app/Services/Cv/CvCreationAgent.php
           php -l app/Views/pages/services/cv-service-start.php
           php tests/all_paid_candidate_services_gate_test.php
+          php -l app/Config/PaymentIdentity.php
+          php -l app/Views/components/business-payment-gate.php
+          php tests/payment_identity_ironwall_test.php
+          node tests/private_linkedin_checkout_test.js
           php tests/executive_cv_product_test.php
 
       - name: Verify automatic CV fulfilment controls
@@ -227,6 +231,7 @@ jobs:
           grep -Fq "Placement through HiredNext" app/Views/components/testimonial-card.php
           grep -Fq "admin/testimonials" app/Config/Routes.php
           php tests/testimonial_admin_publish_test.php
+          php tests/payment_identity_ironwall_test.php
           php spark migrate
           php spark cv:automation-self-test
           php spark cv:email-style-preview
