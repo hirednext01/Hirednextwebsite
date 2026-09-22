@@ -5,7 +5,7 @@ $amount = (int)($lead['amount'] ?? 1171);
 $isNewAssessment = (($lead['assessment_plan'] ?? '') === 'priority_992');
 $priceLabel = $isNewAssessment ? '₹992 + GST' : ('₹' . number_format($amount));
 $payableLabel = '₹' . number_format($amount);
-$paymentAvailable = \Config\PaymentIdentity::destination()['active'];
+$paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config\PaymentIdentity::destination()['temporary_qr_active']);
 ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
