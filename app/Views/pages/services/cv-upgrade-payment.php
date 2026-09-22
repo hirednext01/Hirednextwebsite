@@ -6,7 +6,7 @@ $showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_2500', 'bundle_3317'
 $priceLabel = $plan['price_label'] ?? ('₹' . number_format((int)($order['amount'] ?? 0)));
 $regularPriceLabel = $plan['regular_price_label'] ?? null;
 $payableLabel = $plan['payable_label'] ?? ('₹' . number_format((int)($order['amount'] ?? 0)) . ' payable');
-$paymentAvailable = \Config\PaymentIdentity::destination()['active'];
+$paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config\PaymentIdentity::destination()['temporary_qr_active']);
 ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
