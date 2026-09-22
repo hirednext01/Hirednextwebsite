@@ -208,6 +208,16 @@ try {
                     <div class="md:col-span-2 rounded-xl border border-dashed border-gray-300 px-4 py-4 text-sm text-gray-500"><label for="application-resume" class="block text-sm font-bold text-primary mb-2">Resume / CV *</label><input id="application-resume" name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required class="w-full" aria-describedby="application-resume-help" /><p id="application-resume-help" class="text-xs text-gray-500 mt-2">PDF, DOC or DOCX. Maximum 5MB.</p></div>
                     <div class="md:col-span-2"><button type="submit" class="w-full bg-primary text-white py-3.5 rounded-xl font-black hover:bg-accent transition" aria-label="Submit application for <?= esc($job['title'] ?? 'this role') ?>">Submit application</button><p class="text-xs text-gray-500 mt-3 text-center">HiredNext does not charge candidates to apply for a job or secure placement.</p></div>
                 </form>
+
+                <div class="mt-6 rounded-2xl border border-primary/10 bg-primary/5 p-5">
+                    <div class="text-[11px] uppercase tracking-[0.18em] font-black text-accent">Optional career support</div>
+                    <h3 class="mt-2 text-xl font-serif font-bold text-primary">Want to strengthen the CV you are sending?</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-600">CV Assessment: <strong>₹992 + GST</strong> (₹1,171 payable). Professional CV Rebuild: <strong>₹2,500 + GST</strong> (₹2,950 payable). These paid services are optional and completely separate from this job application.</p>
+                    <div class="mt-4 flex flex-wrap gap-3">
+                        <a href="<?= base_url('services/cv-assessment?job=' . urlencode((string)($job['slug'] ?? ''))) ?>" class="inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-black text-white">Assess my CV</a>
+                        <a href="<?= base_url('services/professional-cv-rebuild') ?>" class="inline-flex rounded-full border border-primary px-5 py-2.5 text-sm font-black text-primary">Explore CV Rebuild</a>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
