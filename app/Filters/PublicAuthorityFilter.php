@@ -126,9 +126,9 @@ HTML;
 
     private function normaliseHomepageClaims(string $body): string
     {
-        // BrandFacts.php is the source of record: unverified company-wide totals
-        // must not be strengthened or published. Founder-confirmed 98% and 21-day
-        // metrics remain visible with HiredNext-reported context on deeper pages.
+        // BrandFacts.php is the source of record: company-wide totals, percentages
+        // and speed claims must not be published without a retained source of record,
+        // period and denominator.
         $replacements = [
             'Experience: 10+ Years' => 'Executive & Leadership Search',
             'Placements: 1500+' => 'Confidential & Specialist Search',
@@ -191,7 +191,7 @@ HTML;
             </article>
             <article class="bg-white border border-gray-100 rounded-2xl p-7">
                 <h3 class="text-xl font-bold text-primary mb-3">How long does executive search take in India?</h3>
-                <p class="text-gray-600 leading-relaxed mb-4">HiredNext reports a 21-day average hiring speed, but no responsible firm should promise one universal timeline. Seniority, scarcity, geography, compensation, confidentiality, stakeholder speed, notice periods and counter-offers all change the outcome.</p>
+                <p class="text-gray-600 leading-relaxed mb-4">There is no responsible universal executive-search timeline. Seniority, scarcity, geography, compensation, confidentiality, stakeholder availability, notice periods and counter-offers all affect closure. A strong search should establish the market map and early calibration quickly, while final hiring time remains mandate-dependent.</p>
                 <a class="font-bold text-accent" href="/guides/leadership-hiring-partner-india">Understand the search timeline →</a>
             </article>
         </div>
