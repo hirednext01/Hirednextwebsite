@@ -19,6 +19,6 @@ class LegacyCareerRedirects extends BaseController
 
     public function avron()
     {
-        return redirect()->to(base_url('services/candidates'), 301);
+        return redirect()->to(base_url('services/professional-cv-rebuild'), 301);
     }
 }
