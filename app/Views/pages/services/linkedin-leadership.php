@@ -3,8 +3,199 @@
 <?php
 $plan = $plan ?? [];
 ?>
+<style>
+    .hn-li-hero{
+        background:
+            radial-gradient(circle at 82% 22%, rgba(10,102,194,.32), transparent 31%),
+            linear-gradient(135deg,#071f3d 0%,#0b3d72 56%,#0a66c2 135%);
+    }
+    .hn-linkedin-card{
+        overflow:hidden;
+        border:1px solid rgba(255,255,255,.18);
+        border-radius:28px;
+        background:#fff;
+        color:#1f2328;
+        box-shadow:0 28px 80px rgba(2,15,35,.34);
+    }
+    .hn-li-topbar{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        padding:13px 16px;
+        background:#fff;
+        border-bottom:1px solid #e6e8eb;
+    }
+    .hn-li-logo{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:34px;
+        height:34px;
+        border-radius:5px;
+        background:#0a66c2;
+        color:#fff;
+        font:900 21px/1 Arial,sans-serif;
+        letter-spacing:-1px;
+    }
+    .hn-li-search{
+        height:34px;
+        flex:1;
+        max-width:250px;
+        border-radius:6px;
+        background:#eef3f8;
+        position:relative;
+    }
+    .hn-li-search:before{
+        content:"Search";
+        position:absolute;
+        left:14px;
+        top:8px;
+        font-size:12px;
+        color:#66717c;
+    }
+    .hn-li-nav{
+        display:flex;
+        gap:14px;
+        margin-left:auto;
+        font-size:9px;
+        font-weight:800;
+        color:#69737d;
+    }
+    .hn-li-banner{
+        height:128px;
+        position:relative;
+        overflow:hidden;
+        background:
+            radial-gradient(circle at 26% 52%,rgba(255,255,255,.4) 0 5%,transparent 6%),
+            radial-gradient(circle at 78% 35%,rgba(210,183,118,.7) 0 7%,transparent 8%),
+            linear-gradient(120deg,#143f63,#51758e 56%,#a78955);
+    }
+    .hn-li-banner:after{
+        content:"LEADERSHIP  •  SCALE  •  IMPACT";
+        position:absolute;
+        right:18px;
+        bottom:16px;
+        color:rgba(255,255,255,.88);
+        font-size:10px;
+        font-weight:900;
+        letter-spacing:.18em;
+    }
+    .hn-li-profile{
+        position:relative;
+        padding:0 22px 22px;
+    }
+    .hn-li-avatar{
+        width:104px;
+        height:104px;
+        margin-top:-50px;
+        border:5px solid #fff;
+        border-radius:50%;
+        background:linear-gradient(135deg,#cfd5db,#a8b2bd);
+        box-shadow:0 6px 20px rgba(0,0,0,.13);
+        filter:blur(4px);
+    }
+    .hn-li-name-blur{
+        width:178px;
+        height:22px;
+        margin-top:12px;
+        border-radius:5px;
+        background:#b9c1c9;
+        filter:blur(3px);
+    }
+    .hn-li-headline{
+        margin-top:11px;
+        font-size:15px;
+        font-weight:800;
+        color:#25292d;
+    }
+    .hn-li-subline{
+        margin-top:5px;
+        font-size:12px;
+        color:#68727c;
+    }
+    .hn-li-actions{
+        display:flex;
+        gap:8px;
+        margin-top:15px;
+    }
+    .hn-li-pill{
+        border:1px solid #0a66c2;
+        border-radius:999px;
+        padding:7px 14px;
+        color:#0a66c2;
+        font-size:11px;
+        font-weight:900;
+    }
+    .hn-li-pill--solid{
+        background:#0a66c2;
+        color:#fff;
+    }
+    .hn-li-mini-grid{
+        display:grid;
+        grid-template-columns:1.12fr .88fr;
+        gap:10px;
+        margin-top:17px;
+    }
+    .hn-li-mini{
+        min-height:82px;
+        border:1px solid #e3e6e8;
+        border-radius:10px;
+        padding:12px;
+        background:#fff;
+    }
+    .hn-li-mini strong{
+        display:block;
+        margin-bottom:7px;
+        font-size:12px;
+    }
+    .hn-li-lines span{
+        display:block;
+        height:6px;
+        margin:6px 0;
+        border-radius:999px;
+        background:#e5e8eb;
+    }
+    .hn-li-lines span:nth-child(2){width:88%}
+    .hn-li-lines span:nth-child(3){width:72%}
+    .hn-li-privacy{
+        padding:14px 18px;
+        border-top:1px solid #e7eaed;
+        background:#f3f6f8;
+        font-size:11px;
+        line-height:1.6;
+        color:#4f5963;
+    }
+    .hn-li-privacy strong{color:#0a66c2}
+    .hn-li-surface{background:#f4f2ee}
+    .hn-li-preview-frame{
+        border:1px solid #d6d9dc;
+        border-radius:16px;
+        background:#f4f2ee;
+        box-shadow:0 24px 65px rgba(0,0,0,.14);
+    }
+    .hn-li-browserbar{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        padding:12px 16px;
+        background:#fff;
+        border-bottom:1px solid #dfe3e6;
+    }
+    .hn-li-dotset{display:flex;gap:6px}
+    .hn-li-dotset span{width:8px;height:8px;border-radius:50%;background:#c8cdd2}
+    .hn-li-browser-search{height:31px;flex:1;max-width:330px;border-radius:5px;background:#eef3f8}
+    .hn-li-analytics{
+        background:#fff;
+        border-left:1px solid #dfe3e6;
+    }
+    @media (max-width: 767px){
+        .hn-li-nav{display:none}
+        .hn-li-mini-grid{grid-template-columns:1fr}
+        .hn-li-banner{height:108px}
+    }
+</style>
 
-<section class="relative overflow-hidden bg-primary pt-32 pb-24 text-white">
+<section class="hn-li-hero relative overflow-hidden pt-32 pb-24 text-white">
     <div class="absolute -top-28 -right-20 h-96 w-96 rounded-full bg-accent/15 blur-3xl"></div>
     <div class="relative z-10 mx-auto grid max-w-[1180px] gap-12 px-4 sm:px-8 lg:grid-cols-[1.12fr_.88fr] lg:items-center">
         <div>
@@ -30,16 +221,34 @@ $plan = $plan ?? [];
             </div>
         </div>
 
-        <aside class="rounded-[2rem] border border-white/15 bg-white/10 p-7 shadow-2xl backdrop-blur">
-            <div class="text-xs font-black uppercase tracking-[0.22em] text-gold">Confidential by design</div>
-            <h2 class="mt-3 font-serif text-3xl font-bold">Your career story stays yours.</h2>
-            <p class="mt-4 leading-relaxed text-white/75">A standard HiredNext NDA is shared before the assessment round. Profile materials, assessment answers and strategic positioning inputs are kept within the delivery team and are not shared externally for this service without your consent.</p>
-            <div class="mt-6 grid gap-3 text-sm">
-                <div class="rounded-xl border border-white/10 bg-white/5 p-4">✓ Senior LinkedIn specialist panel</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 p-4">✓ Deep analytical assessment round</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 p-4">✓ Leadership narrative architecture</div>
-                <div class="rounded-xl border border-white/10 bg-white/5 p-4">✓ Human review before final handover</div>
+        <aside class="hn-linkedin-card" aria-label="Illustrative LinkedIn profile preview">
+            <div class="hn-li-topbar">
+                <div class="hn-li-logo">in</div>
+                <div class="hn-li-search" aria-hidden="true"></div>
+                <div class="hn-li-nav" aria-hidden="true"><span>Home</span><span>Network</span><span>Jobs</span><span>Messages</span></div>
             </div>
+            <div class="hn-li-banner"></div>
+            <div class="hn-li-profile">
+                <div class="hn-li-avatar" aria-hidden="true"></div>
+                <div class="hn-li-name-blur" aria-hidden="true"></div>
+                <div class="hn-li-headline">Board Advisor · Former C-Suite Executive · Strategic Growth · Leadership</div>
+                <div class="hn-li-subline">India · 500+ connections · Open to board, advisory and leadership conversations</div>
+                <div class="hn-li-actions" aria-hidden="true">
+                    <span class="hn-li-pill hn-li-pill--solid">Connect</span>
+                    <span class="hn-li-pill">Message</span>
+                </div>
+                <div class="hn-li-mini-grid">
+                    <div class="hn-li-mini">
+                        <strong>About</strong>
+                        <div class="hn-li-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+                    </div>
+                    <div class="hn-li-mini">
+                        <strong>Featured</strong>
+                        <div class="hn-li-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hn-li-privacy"><strong>Illustrative & anonymised.</strong> The blurred identity is deliberate. Your real profile, assessment inputs and positioning remain confidential; a standard HiredNext NDA is shared before the assessment round.</div>
         </aside>
     </div>
 </section>
@@ -108,22 +317,22 @@ $plan = $plan ?? [];
     </div>
 </section>
 
-<section class="bg-white py-20">
+<section class="hn-li-surface py-20">
     <div class="mx-auto max-w-[1180px] px-4 sm:px-8">
         <div class="mx-auto max-w-4xl text-center">
-            <div class="text-xs font-black uppercase tracking-[0.24em] text-accent">Illustrative transformation preview</div>
+            <div class="text-xs font-black uppercase tracking-[0.24em] text-[#0a66c2]">Illustrative transformation preview</div>
             <h2 class="mt-3 font-serif text-3xl font-bold text-primary md:text-5xl">See how stronger positioning changes perception.</h2>
             <p class="mt-4 text-gray-600">The profile below is a deliberately anonymised, illustrative example of the design and positioning direction—not a claim that every profile will generate the sample metrics shown.</p>
         </div>
 
-        <div class="mt-10 overflow-hidden rounded-[2rem] border border-primary/15 bg-[#f8fafc] shadow-2xl">
+        <div class="hn-li-preview-frame mt-10 overflow-hidden">
             <div class="grid lg:grid-cols-[1fr_320px]">
                 <div class="p-5 md:p-8">
                     <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white">
-                        <div class="flex items-center gap-3 border-b border-gray-200 bg-[#f3f6f8] px-5 py-3">
-                            <div class="flex h-9 w-9 items-center justify-center rounded bg-[#0a66c2] text-xl font-black text-white">in</div>
-                            <div class="h-9 flex-1 rounded-full bg-white"></div>
-                            <div class="hidden gap-5 text-[10px] font-bold text-gray-500 md:flex"><span>Home</span><span>My Network</span><span>Jobs</span><span>Messaging</span></div>
+                        <div class="hn-li-browserbar">
+                            <div class="hn-li-logo">in</div>
+                            <div class="hn-li-browser-search"></div>
+                            <div class="hidden gap-5 text-[10px] font-bold text-gray-500 md:flex"><span>Home</span><span>My Network</span><span>Jobs</span><span>Messaging</span><span>Notifications</span></div>
                         </div>
                         <div class="relative h-44 bg-gradient-to-r from-[#112f4c] via-[#31556f] to-[#9d7b45]">
                             <div class="absolute inset-0 opacity-30 blur-sm" style="background:radial-gradient(circle at 30% 40%,#fff 0,transparent 20%),radial-gradient(circle at 70% 60%,#c9a86a 0,transparent 22%)"></div>
@@ -150,16 +359,16 @@ $plan = $plan ?? [];
                     </div>
                 </div>
 
-                <aside class="bg-primary p-7 text-white md:p-9">
-                    <div class="text-xs font-black uppercase tracking-[0.22em] text-gold">Illustrative visibility panel</div>
-                    <h3 class="mt-3 font-serif text-3xl font-bold">The kind of attention a stronger presence is built to support.</h3>
+                <aside class="hn-li-analytics p-7 text-gray-800 md:p-9">
+                    <div class="text-xs font-black uppercase tracking-[0.22em] text-[#0a66c2]">Illustrative profile analytics</div>
+                    <h3 class="mt-3 font-serif text-3xl font-bold text-primary">What clearer positioning is designed to improve.</h3>
                     <div class="mt-8 space-y-6">
-                        <div class="border-b border-white/15 pb-5"><div class="text-4xl font-black text-gold">50K+</div><div class="mt-1 text-sm text-white/70">illustrative impressions</div></div>
-                        <div class="border-b border-white/15 pb-5"><div class="text-4xl font-black text-gold">20K+</div><div class="mt-1 text-sm text-white/70">illustrative likes / engagements</div></div>
-                        <div class="border-b border-white/15 pb-5"><div class="text-4xl font-black text-gold">8K+</div><div class="mt-1 text-sm text-white/70">illustrative profile views</div></div>
-                        <div><div class="text-xl font-black text-white">Stronger recruiter visibility</div><div class="mt-1 text-sm text-white/60">through clearer positioning and relevant authority</div></div>
+                        <div class="border-b border-gray-200 pb-5"><div class="text-4xl font-black text-gold">50K+</div><div class="mt-1 text-sm text-gray-500">illustrative impressions</div></div>
+                        <div class="border-b border-gray-200 pb-5"><div class="text-4xl font-black text-gold">20K+</div><div class="mt-1 text-sm text-gray-500">illustrative likes / engagements</div></div>
+                        <div class="border-b border-gray-200 pb-5"><div class="text-4xl font-black text-gold">8K+</div><div class="mt-1 text-sm text-gray-500">illustrative profile views</div></div>
+                        <div><div class="text-xl font-black text-primary">Stronger recruiter visibility</div><div class="mt-1 text-sm text-gray-500">through clearer positioning and relevant authority</div></div>
                     </div>
-                    <p class="mt-8 text-xs leading-relaxed text-white/45">Illustrative only. These figures are not a guaranteed outcome and are not presented as verified results for a named HiredNext client.</p>
+                    <p class="mt-8 text-xs leading-relaxed text-gray-400">Illustrative only. These figures are not a guaranteed outcome and are not presented as verified results for a named HiredNext client.</p>
                 </aside>
             </div>
         </div>
@@ -174,7 +383,7 @@ $plan = $plan ?? [];
                 <h2 class="mt-3 font-serif text-3xl font-bold md:text-5xl">Strategy first. Writing second.</h2>
                 <p class="mt-5 max-w-3xl text-lg leading-relaxed text-white/75">Senior LinkedIn specialists work on the positioning and planning with HiredNext. The goal is not to make every profile sound impressive. It is to make the right leadership evidence, language and direction visible without exaggerating what the career actually contains.</p>
             </div>
-            <div class="rounded-[2rem] border border-white/15 bg-white/5 p-7">
+            <div class="rounded-[2rem] border border-gray-200 bg-white/5 p-7">
                 <div class="text-sm font-black text-gold">WHAT YOU RECEIVE</div>
                 <ul class="mt-5 space-y-3 text-sm text-white/85">
                     <li>✓ Deep analytical assessment questionnaire</li>
