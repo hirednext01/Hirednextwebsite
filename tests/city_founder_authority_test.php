@@ -14,6 +14,7 @@ $routes = file_get_contents($root . '/app/Config/Routes.php');
 $seo = file_get_contents($root . '/app/Controllers/Seo.php');
 $authority = file_get_contents($root . '/app/Controllers/Authority.php');
 $founder = file_get_contents($root . '/app/Views/pages/founder-profile.php');
+$home = file_get_contents($root . '/app/Views/pages/home.php');
 
 mustHave($search, 'Recruitment Agency & Executive Search Firm in Mumbai', 'Mumbai page must own recruitment-agency intent');
 mustHave($search, 'Recruitment Agency & Executive Search Firm in Gurgaon', 'Gurgaon page must own recruitment-agency intent');
@@ -32,6 +33,13 @@ mustHave($authority, "taru-shikha-founder-crisp.webp", 'founder schema must use 
 mustHave($authority, "'@type' => 'FAQPage'", 'founder profile FAQ schema');
 mustHave($authority, 'top recruiters in India', 'founder authority must address recruiter-discovery query without self-ranking');
 mustHave($founder, 'Taru Shikha — Founder & CEO of HiredNext Recruitment', 'founder page must clearly state current identity');
-mustHave($founder, 'Recruiter in India', 'founder page must reinforce current recruiter identity');
+mustHave($founder, 'Senior talent advisor in India', 'founder page must reinforce founder-level talent-advisor identity');
+mustHave($home, 'Founded in Mumbai in 2016', 'homepage must state correct founding city and year');
+mustHave($home, 'operating base to Gurugram (Gurgaon), Haryana', 'homepage must distinguish current operating base');
+mustHave($home, 'no public walk-in office', 'homepage must state service-area delivery model');
+if (strpos($home, 'presence in multiple countries') !== false) {
+    fwrite(STDERR, "FAIL: homepage must not imply physical offices in multiple countries\n");
+    exit(1);
+}
 
 echo "PASS city and founder authority contract\n";

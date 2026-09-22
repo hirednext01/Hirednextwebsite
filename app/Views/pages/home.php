@@ -566,9 +566,9 @@
                     </h2>
 
                     <p class="text-xl text-gray-600 mb-10 leading-relaxed">
-                        Founded in 2016, HiredNext has built a specialist recruitment practice and established
-                        itself as a trusted talent partner for organizations seeking
-                        leadership-driven growth and workforce transformation.
+                        Founded in Mumbai in 2016, HiredNext later moved its operating base to Gurugram (Gurgaon), Haryana.
+                        Today it works as a remote-first recruitment and talent-advisory business serving employers across India,
+                        with no public walk-in office.
                     </p>
 
                     <div class="space-y-8">
@@ -763,10 +763,9 @@
                             </svg>
                         </div>
                     </div>
-                    <h3 class="text-xl font-bold text-primary mb-4">Global Talent Reach</h3>
+                    <h3 class="text-xl font-bold text-primary mb-4">Cross-Border Search Support</h3>
                     <p class="text-gray-500 text-sm leading-relaxed">
-                        Access top talent across borders through our extensive network and presence in multiple
-                        countries for niche and specialized roles.
+                        Support for selected cross-border and international mandates through targeted research and candidate outreach. HiredNext does not represent these markets as public walk-in office locations.
                     </p>
                 </div>
 
