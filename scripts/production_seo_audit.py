@@ -114,9 +114,11 @@ def fetch(url, retries=3, timeout=25):
                 "--max-time", str(timeout),
                 "--output", tmp_path,
                 "--write-out", "%{http_code}\n%{url_effective}\n%{content_type}",
-                "--",
-                url,
             ]
+            proxy = os.environ.get("AUDIT_CURL_PROXY", "").strip()
+            if proxy:
+                cmd.extend(["--proxy", proxy])
+            cmd.extend(["--", url])
             proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 8)
             meta = proc.stdout.splitlines()
             status = int(meta[0]) if meta and meta[0].isdigit() else 0
