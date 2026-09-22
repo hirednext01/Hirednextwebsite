@@ -22,7 +22,7 @@ $reputationItems = ($reputationConfig && !empty($reputationConfig->items) && is_
                 <h1 class="text-4xl md:text-5xl font-serif font-bold leading-tight mb-5">Taru Shikha</h1>
                 <p class="text-xl text-white/85 mb-2">Taru Shikha — Founder & CEO of HiredNext Recruitment</p>
                 <p class="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl mb-7">
-                    Recruiter in India and executive-search practitioner working across leadership, specialist and hard-to-fill hiring. As Founder & CEO of HiredNext Recruitment, Taru Shikha combines direct-search judgement, sector context, candidate assessment and responsible use of AI in hiring.
+                    Senior talent advisor in India and executive-search practitioner working across leadership, specialist and hard-to-fill hiring. As Founder & CEO of HiredNext Recruitment, Taru Shikha combines direct-search judgement, sector context, candidate assessment and responsible use of AI in hiring.
                 </p>
                 <div class="flex flex-wrap gap-3">
                     <a href="<?= esc($founderLinkedIn) ?>" target="_blank" rel="noopener noreferrer external" class="inline-flex px-6 py-3 rounded-full bg-white text-primary font-bold text-sm">Taru on LinkedIn ↗</a>
