@@ -38,6 +38,7 @@ jobs:
         run: |
           python3 -m py_compile scripts/production_seo_audit.py
           python3 scripts/production_seo_audit.py --help >/dev/null
+          grep -Fq 'AUDIT_CURL_PROXY' scripts/production_seo_audit.py
           grep -Fq 'noindex present on public audited page' scripts/production_seo_audit.py
           grep -Fq 'broken internal link' scripts/production_seo_audit.py
           grep -Fq 'invalid canonical' scripts/production_seo_audit.py
@@ -46,7 +47,14 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: contract
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 20
+    env:
+      HOSTINGER_SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      HOSTINGER_PRIVATE_KEY: ${{ secrets.HOSTINGER_PRIVATE_KEY }}
+      DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+      HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
 
@@ -54,7 +62,47 @@ jobs:
         if: github.event_name == 'push'
         run: sleep 35
 
-      - name: Crawl live search-authority surface
+      - name: Open private Hostinger audit tunnel
+        shell: bash
+        run: |
+          set -euo pipefail
+          HOST='145.79.213.68'
+          PORT='65002'
+          REMOTE_USER='u212644598'
+          REMOTE="$REMOTE_USER@$HOST"
+          SSH_ARGS=(-p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ExitOnForwardFailure=yes)
+          KEY="$HOSTINGER_SSH_KEY"
+          [ -n "$KEY" ] || KEY="$SSH_PRIVATE_KEY"
+          [ -n "$KEY" ] || KEY="$HOSTINGER_PRIVATE_KEY"
+          [ -n "$KEY" ] || KEY="$DEPLOY_PRIVATE_KEY"
+          PASS="$HOSTINGER_PASSWORD"
+          [ -n "$PASS" ] || PASS="$SSH_PASSWORD"
+
+          if [ -n "$KEY" ]; then
+            mkdir -p ~/.ssh
+            printf '%s\n' "$KEY" > ~/.ssh/hostinger_key
+            chmod 600 ~/.ssh/hostinger_key
+            ssh "${SSH_ARGS[@]}" -i ~/.ssh/hostinger_key -fN -D 127.0.0.1:1080 "$REMOTE"
+          elif [ -n "$PASS" ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq sshpass
+            SSHPASS="$PASS" sshpass -e ssh "${SSH_ARGS[@]}" -fN -D 127.0.0.1:1080 "$REMOTE"
+          else
+            echo "No Hostinger SSH credential available"
+            exit 78
+          fi
+
+          code=000
+          for attempt in $(seq 1 10); do
+            code="$(curl --proxy socks5h://127.0.0.1:1080 -L -sS -o /dev/null -w '%{http_code}' --max-time 20 https://hirednext.net/ || true)"
+            echo "Tunnel verification attempt $attempt: HTTP $code"
+            [ "$code" = "200" ] && break
+            sleep 2
+          done
+          test "$code" = "200"
+          echo "AUDIT_CURL_PROXY=socks5h://127.0.0.1:1080" >> "$GITHUB_ENV"
+
+      - name: Crawl live search-authority surface through Hostinger
         id: crawl
         continue-on-error: true
         run: |
@@ -88,6 +136,12 @@ jobs:
             artifacts-audit.log
           if-no-files-found: warn
           retention-days: 30
+
+      - name: Close private audit tunnel
+        if: always()
+        shell: bash
+        run: |
+          pkill -f 'ssh .*127.0.0.1:1080' || true
 
       - name: Fail on critical search-authority defects
         if: always()
