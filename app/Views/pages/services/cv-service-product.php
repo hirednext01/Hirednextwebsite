@@ -11,6 +11,10 @@ $ctaUrl = $ctaUrl ?? base_url('services/candidates');
 $forWhom = $forWhom ?? [];
 $deliverables = $deliverables ?? [];
 $faq = $faq ?? [];
+$quickAnswer = $quickAnswer ?? '';
+$whyHiredNext = $whyHiredNext ?? [];
+$authorityLinks = $authorityLinks ?? [];
+$showRebuildTestimonials = $showRebuildTestimonials ?? false;
 ?>
 
 <section class="relative pt-32 pb-20 bg-primary text-white overflow-hidden">
@@ -30,6 +34,17 @@ $faq = $faq ?? [];
         </div>
     </div>
 </section>
+
+<?php if ($quickAnswer !== ''): ?>
+<section class="py-10 bg-white">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-8">
+        <div class="rounded-[1.75rem] border border-primary/10 bg-primary/5 p-7 md:p-9">
+            <div class="text-accent text-xs font-black uppercase tracking-[0.22em]">Quick answer</div>
+            <p class="mt-4 text-lg md:text-xl leading-relaxed text-gray-800"><?= esc($quickAnswer) ?></p>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
 
 <section class="py-16 bg-white">
     <div class="max-w-[1100px] mx-auto px-4 sm:px-8 grid lg:grid-cols-2 gap-10">
@@ -53,6 +68,40 @@ $faq = $faq ?? [];
         </div>
     </div>
 </section>
+
+<?php if (!empty($whyHiredNext)): ?>
+<section class="py-16 bg-primary text-white">
+    <div class="max-w-[1100px] mx-auto px-4 sm:px-8 grid lg:grid-cols-[.8fr_1.2fr] gap-8 items-start">
+        <div>
+            <div class="text-gold text-xs font-black uppercase tracking-[0.2em]">Why HiredNext</div>
+            <h2 class="mt-3 text-3xl md:text-4xl font-serif font-bold">CV writing informed by the hiring side of the table.</h2>
+        </div>
+        <div class="grid gap-3">
+            <?php foreach ($whyHiredNext as $item): ?>
+            <div class="rounded-xl border border-white/15 bg-white/5 px-5 py-4 text-white/85"><?= esc($item) ?></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+<?php if (!empty($authorityLinks)): ?>
+<section class="py-12 bg-white">
+    <div class="max-w-[1100px] mx-auto px-4 sm:px-8">
+        <div class="text-accent text-xs font-black uppercase tracking-[0.2em]">Before you choose a provider</div>
+        <h2 class="mt-2 text-3xl font-serif font-bold text-primary">Compare the service, the process and the evidence.</h2>
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+            <?php foreach ($authorityLinks as $link): ?>
+            <a href="<?= base_url($link['url']) ?>" class="rounded-2xl border border-gray-200 p-5 font-bold text-primary hover:border-accent hover:shadow-md"><?= esc($link['label']) ?> →</a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+<?php if ($showRebuildTestimonials): ?>
+<?= view('pages/services/_cv-rebuild-testimonials') ?>
+<?php endif; ?>
 
 <section class="py-16 bg-[#f6f0e7]">
     <div class="max-w-[1100px] mx-auto px-4 sm:px-8">
