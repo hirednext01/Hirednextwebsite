@@ -5,20 +5,19 @@ const root = path.resolve(__dirname, '..');
 const routes = fs.readFileSync(path.join(root, 'app/Config/Routes.php'), 'utf8');
 const controllerPath = path.join(root, 'app/Controllers/PrivateCheckout.php');
 const viewPath = path.join(root, 'app/Views/pages/services/linkedin-leadership-payment.php');
-const qrPath = path.join(root, 'public/theme/assets/private/hirednext-company-qr.png');
+const gatePath = path.join(root, 'app/Views/components/business-payment-gate.php');
 
 const checks = {
   'private checkout route exists': routes.includes('pay/linkedin-leadership/(:segment)')
     && routes.includes('PrivateCheckout::linkedinLeadership/$1'),
   'private checkout controller exists': fs.existsSync(controllerPath),
   'private checkout view exists': fs.existsSync(viewPath),
-  'verified company QR asset exists': fs.existsSync(qrPath),
+  'central business payment gate exists': fs.existsSync(gatePath),
 };
 
 if (fs.existsSync(controllerPath) && fs.existsSync(viewPath)) {
   const controller = fs.readFileSync(controllerPath, 'utf8');
   const view = fs.readFileSync(viewPath, 'utf8');
-  const combined = `${controller}\n${view}`;
   Object.assign(checks, {
     'checkout requires exact private token': controller.includes('hash_equals(self::TOKEN, strtolower($token))'),
     'checkout is private and uncached': controller.includes("setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive')")
@@ -28,11 +27,9 @@ if (fs.existsSync(controllerPath) && fs.existsSync(viewPath)) {
       && view.includes('₹5,500')
       && view.includes('₹990')
       && view.includes('₹6,490'),
-    'verified HiredNext company payee is displayed': view.includes('Hirednext Avron Private Limited')
-      && view.includes('hirednext-company-qr.png'),
-    'checkout contains no personal payee identity or phone-linked UPI': !combined.toLowerCase().includes('taru shikha')
-      && !combined.includes('7738578358')
-      && !combined.toLowerCase().includes('@ptaxis'),
+    'checkout uses only the central payment gate': view.includes("components/business-payment-gate")
+      && !view.includes('hirednext-company-qr.png')
+      && !/<img[^>]+(?:qr|upi|payment)/i.test(view),
     'payment confirmation goes to partnership account': view.includes('partners@hirednext.info'),
   });
 }
@@ -42,5 +39,4 @@ if (failed.length) {
   console.error(`FAIL:\n - ${failed.join('\n - ')}`);
   process.exit(1);
 }
-
-console.log('PASS: private LinkedIn leadership checkout contract');
+console.log('PASS: private LinkedIn leadership checkout uses central business payment gate');

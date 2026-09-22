@@ -34,11 +34,7 @@ $payableLabel = '₹' . number_format($amount);
                     </div>
                 </div>
 
-                <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
-                    <div class="text-sm font-black tracking-[0.14em] text-primary mb-3">VERIFIED BUSINESS PAYMENT ONLY</div>
-                    <p class="text-sm text-gray-700 leading-relaxed">The previous QR has been retired. Wait for payment details issued by <strong>HiredNext Recruitment</strong> from jobs@hirednext.info.</p>
-                    <div class="mt-4 text-xl font-black text-primary"><?= esc($payableLabel) ?> payable</div><?php if ($isNewAssessment): ?><div class="mt-1 text-xs font-semibold text-gray-500">₹992 + GST</div><?php endif; ?>
-                </div>
+                <?= view('components/business-payment-gate', ['amountLabel' => $payableLabel . ' payable', 'secondaryLabel' => $isNewAssessment ? '₹992 + GST' : '']) ?>
             </div>
 
             <form action="<?= base_url('cv-payment/verify') ?>" method="post" class="mt-8 space-y-4">

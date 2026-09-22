@@ -79,11 +79,7 @@ $payableLabel = $plan['payable_label'] ?? ('₹' . number_format((int)($order['a
                         <div class="text-sm text-white/75 mt-2"><?= esc($payableLabel) ?></div>
                         <div class="text-sm text-white/60 mt-3"><?= esc($plan['delivery'] ?? '') ?></div>
                     </div>
-                    <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
-                        <div class="text-sm font-black tracking-[0.14em] text-primary mb-3">VERIFIED BUSINESS PAYMENT ONLY</div>
-                        <p class="text-sm text-gray-700 leading-relaxed">The previous QR has been retired. HiredNext will send payment details from <strong>jobs@hirednext.info</strong>. Do not use an old Paytm URL or any destination showing an individual's name or phone number.</p>
-                        <div class="mt-4 text-xl font-black text-primary"><?= esc($payableLabel) ?></div>
-                    </div>
+                    <?= view('components/business-payment-gate', ['amountLabel' => $payableLabel]) ?>
                 </div>
                 <div>
                     <?php if (session('success')): ?><div class="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-800 font-semibold"><?= esc(session('success')) ?></div><?php endif; ?>
