@@ -383,7 +383,7 @@ $plan = $plan ?? [];
                 <h2 class="mt-3 font-serif text-3xl font-bold md:text-5xl">Strategy first. Writing second.</h2>
                 <p class="mt-5 max-w-3xl text-lg leading-relaxed text-white/75">Senior LinkedIn specialists work on the positioning and planning with HiredNext. The goal is not to make every profile sound impressive. It is to make the right leadership evidence, language and direction visible without exaggerating what the career actually contains.</p>
             </div>
-            <div class="rounded-[2rem] border border-gray-200 bg-white/5 p-7">
+            <div class="rounded-[2rem] border border-white/15 bg-white/5 p-7">
                 <div class="text-sm font-black text-gold">WHAT YOU RECEIVE</div>
                 <ul class="mt-5 space-y-3 text-sm text-white/85">
                     <li>✓ Deep analytical assessment questionnaire</li>
