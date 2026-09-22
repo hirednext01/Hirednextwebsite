@@ -5,11 +5,11 @@ import html
 import json
 import os
 import re
+import subprocess
 import sys
+import tempfile
 import time
-import urllib.error
 import urllib.parse
-import urllib.request
 import xml.etree.ElementTree as ET
 from collections import Counter
 from dataclasses import dataclass, asdict
@@ -17,7 +17,6 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 BASE = "https://hirednext.net"
-UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0 Safari/537.36 HiredNext-SearchAuthorityAudit/1.0"
 PRIVATE_PREFIXES = (
     "/api/", "/admin/", "/candidate-resume", "/uploads/resumes/",
     "/cv-upgrade/", "/cv-payment/", "/advisory/payment/", "/career-services/start/"
@@ -92,24 +91,49 @@ class PageParser(HTMLParser):
             self._buf.append(data)
 
 def fetch(url, retries=3, timeout=25):
+    """Fetch through system curl.
+
+    Hostinger currently blocks Python/urllib and SE Ranking crawler fingerprints
+    with HTTP 403, while the production smoke path using curl is permitted.
+    Using curl here keeps the audit on the same proven production-monitoring
+    transport without weakening the public firewall.
+    """
     last = ""
     for attempt in range(retries):
-        req = urllib.request.Request(url, headers={
-            "User-Agent": UA,
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "en-IN,en;q=0.9",
-            "Cache-Control": "no-cache",
-        })
+        tmp_path = ""
         try:
-            with urllib.request.urlopen(req, timeout=timeout) as r:
-                body = r.read(3_000_000).decode("utf-8", errors="replace")
-                return FetchResult(url, r.geturl(), r.status, r.headers.get("Content-Type", ""), body)
-        except urllib.error.HTTPError as e:
-            last = f"HTTP {e.code}"
-            if e.code < 500 and e.code != 429:
-                return FetchResult(url, getattr(e, "url", url), e.code, e.headers.get("Content-Type", "") if e.headers else "", "", last)
+            with tempfile.NamedTemporaryFile(delete=False) as tmp:
+                tmp_path = tmp.name
+            cmd = [
+                "curl",
+                "--location",
+                "--silent",
+                "--show-error",
+                "--compressed",
+                "--connect-timeout", "10",
+                "--max-time", str(timeout),
+                "--output", tmp_path,
+                "--write-out", "%{http_code}\n%{url_effective}\n%{content_type}",
+                "--",
+                url,
+            ]
+            proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 8)
+            meta = proc.stdout.splitlines()
+            status = int(meta[0]) if meta and meta[0].isdigit() else 0
+            final_url = meta[1].strip() if len(meta) > 1 and meta[1].strip() else url
+            content_type = meta[2].strip() if len(meta) > 2 else ""
+            body = Path(tmp_path).read_bytes()[:3_000_000].decode("utf-8", errors="replace")
+            if proc.returncode == 0:
+                return FetchResult(url, final_url, status, content_type, body, "" if status else proc.stderr.strip())
+            last = proc.stderr.strip() or f"curl exit {proc.returncode}"
         except Exception as e:
             last = str(e)
+        finally:
+            if tmp_path:
+                try:
+                    os.unlink(tmp_path)
+                except OSError:
+                    pass
         time.sleep(2 * (attempt + 1))
     return FetchResult(url, url, 0, "", "", last)
 
