@@ -35,6 +35,7 @@ on:
       - 'tests/city_founder_authority_test.php'
       - 'tests/delhi_recruitment_authority_test.php'
       - 'tests/cv_search_dominance_test.php'
+      - 'tests/cv_resume_number_one_focus_test.php'
       - 'tests/career_services_product_engine_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
@@ -109,6 +110,7 @@ jobs:
           php tests/city_founder_authority_test.php
           php tests/delhi_recruitment_authority_test.php
           php tests/cv_search_dominance_test.php
+          php tests/cv_resume_number_one_focus_test.php
           php tests/career_services_product_engine_test.php
           php tests/career_ai_search_authority_test.php
           php tests/search_entity_article_consistency_test.php
