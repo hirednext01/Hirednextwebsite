@@ -53,6 +53,7 @@ final class PaymentIdentity
             'url' => $active ? $url : '',
             'payment_email' => self::PAYMENT_EMAIL,
             'confirmation_email' => self::CONFIRMATION_EMAIL,
+            'temporary_qr_active' => true,
         ];
     }
 }
