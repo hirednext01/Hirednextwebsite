@@ -48,24 +48,14 @@ class BrandFacts extends BaseConfig
     ];
 
     /**
-     * Founder-confirmed operating metrics already used on the public website.
-     * They remain HiredNext-reported figures rather than independently audited
-     * benchmarks and should be described that way wherever context is needed.
+     * No company-wide performance metric is currently publishable as a verified
+     * benchmark unless its source-of-record, period and denominator are retained.
      */
-    public array $verifiedNumericClaims = [
-        'candidate_success_rate' => [
-            'value' => 98,
-            'unit' => '%',
-            'label' => 'HiredNext-reported candidate success rate across leadership search mandates',
-        ],
-        'average_hiring_speed' => [
-            'value' => 21,
-            'unit' => 'days',
-            'label' => 'HiredNext-reported average hiring speed',
-        ],
-    ];
+    public array $verifiedNumericClaims = [];
 
     public array $unverifiedNumericClaims = [
+        '98% candidate success rate',
+        '21-day average hiring speed',
         '1500+ placements',
         '12 sectors',
         '25+ industries',
