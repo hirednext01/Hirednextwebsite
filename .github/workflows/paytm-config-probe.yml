@@ -1,0 +1,44 @@
+name: Probe Paytm merchant configuration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/paytm-config-probe.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      HOSTINGER_SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      HOSTINGER_PRIVATE_KEY: ${{ secrets.HOSTINGER_PRIVATE_KEY }}
+      DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+    steps:
+      - name: Probe remote env key names only
+        shell: bash
+        run: |
+          set -euo pipefail
+          HOST='145.79.213.68'
+          PORT='65002'
+          USER='u212644598'
+          KEY="${HOSTINGER_SSH_KEY:-${SSH_PRIVATE_KEY:-${HOSTINGER_PRIVATE_KEY:-${DEPLOY_PRIVATE_KEY:-}}}}"
+          test -n "$KEY"
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/hirednext_key
+          chmod 600 ~/.ssh/hirednext_key
+          ssh -i ~/.ssh/hirednext_key -p "$PORT" -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 "$USER@$HOST" '
+            set -e
+            cd /home/u212644598/domains/hirednext.net/public_html
+            echo "PAYTM_CONFIG_PROBE_BEGIN"
+            if [ -f .env ]; then
+              awk -F= "/^[[:space:]]*[A-Za-z_][A-Za-z0-9_]*(PAYTM|MERCHANT|MID|CHECKSUM|PAYMENT)[A-Za-z0-9_]*[[:space:]]*=/ {gsub(/^[[:space:]]+|[[:space:]]+$/, \"\", \$1); print \$1}" .env | sort -u
+            else
+              echo "NO_ENV_FILE"
+            fi
+            echo "PAYTM_CONFIG_PROBE_END"
+          '
