@@ -1,0 +1,95 @@
+name: Production Search Authority Audit
+
+on:
+  schedule:
+    - cron: '30 3 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/production_seo_audit.py'
+      - 'public/robots.txt'
+      - 'public/sitemap-search.xml'
+      - 'app/Config/Routes.php'
+      - 'app/Config/BrandFacts.php'
+      - 'app/Controllers/Seo.php'
+      - 'app/Controllers/SearchAuthority.php'
+      - 'app/Controllers/CandidateServices.php'
+      - 'app/Views/pages/home.php'
+      - 'app/Views/pages/founder-profile.php'
+      - 'app/Views/pages/services/**'
+      - 'app/Views/pages/guides/**'
+      - '.github/workflows/production-search-authority-audit.yml'
+  pull_request:
+    paths:
+      - 'scripts/production_seo_audit.py'
+      - '.github/workflows/production-search-authority-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify crawler script
+        run: |
+          python3 -m py_compile scripts/production_seo_audit.py
+          python3 scripts/production_seo_audit.py --help >/dev/null
+          grep -Fq 'noindex present on public audited page' scripts/production_seo_audit.py
+          grep -Fq 'broken internal link' scripts/production_seo_audit.py
+          grep -Fq 'invalid canonical' scripts/production_seo_audit.py
+
+  audit:
+    if: github.event_name != 'pull_request'
+    needs: contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Allow production deploy to settle
+        if: github.event_name == 'push'
+        run: sleep 35
+
+      - name: Crawl live search-authority surface
+        id: crawl
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          python3 scripts/production_seo_audit.py \
+            --output-dir artifacts/production-seo-audit \
+            --max-pages 180 \
+            --max-link-checks 220 \
+            | tee artifacts-audit.log
+          status=${PIPESTATUS[0]}
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Publish audit summary
+        if: always()
+        run: |
+          if [ -f artifacts/production-seo-audit/summary.md ]; then
+            cat artifacts/production-seo-audit/summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Production audit did not produce a summary." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload production audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hirednext-production-seo-audit-${{ github.run_number }}
+          path: |
+            artifacts/production-seo-audit/report.json
+            artifacts/production-seo-audit/summary.md
+            artifacts-audit.log
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Fail on critical search-authority defects
+        if: always()
+        run: |
+          test "${{ steps.crawl.outputs.exit_code }}" = "0"
