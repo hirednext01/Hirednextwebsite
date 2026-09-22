@@ -142,7 +142,38 @@ try {
                 <?php if (session('success')): ?><div role="status" class="rounded-xl border border-green-200 bg-green-50 text-green-700 px-5 py-4 text-sm font-semibold mb-5"><?= esc(session('success')) ?></div><?php endif; ?>
                 <?php if (session('errors')): ?><div role="alert" class="rounded-xl border border-red-200 bg-red-50 text-red-700 px-5 py-4 text-sm font-semibold mb-5"><?= esc(implode(' ', session('errors'))) ?></div><?php endif; ?>
 
-                <form action="<?= base_url('jobs/' . ($job['slug'] ?? '') . '/apply') ?>" method="post" enctype="multipart/form-data" class="grid md:grid-cols-2 gap-4" aria-labelledby="apply-heading" data-agent-action="apply-to-job" data-job-slug="<?= esc($job['slug'] ?? '') ?>">
+                <section
+                    data-job-application-next-step
+                    data-job-slug="<?= esc($job['slug'] ?? '', 'attr') ?>"
+                    tabindex="-1"
+                    hidden
+                    class="rounded-2xl border border-orange-200 bg-orange-50/40 p-5 md:p-7"
+                    aria-labelledby="application-next-step-heading"
+                >
+                    <div class="text-[11px] uppercase tracking-widest font-black text-accent">Application received</div>
+                    <h2 id="application-next-step-heading" data-next-step-question class="mt-2 text-2xl md:text-3xl font-bold text-primary">Does your CV clearly show that you match this JD?</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-gray-600">Recruiters compare the evidence in your CV with the role requirements quickly. If you want a structured, role-specific view of what is clear, missing or under-evidenced, start with an assessment.</p>
+
+                    <div class="mt-6 grid gap-4 md:grid-cols-2">
+                        <div class="rounded-xl border border-orange-200 bg-white p-5">
+                            <div class="text-xs font-black uppercase tracking-widest text-accent">Step 1 · Diagnose</div>
+                            <h3 class="mt-2 text-lg font-bold text-primary">CV Assessment</h3>
+                            <p class="mt-2 text-sm leading-relaxed text-gray-600">See how clearly your submitted CV demonstrates the evidence this JD asks for, and where the gaps are.</p>
+                            <a data-assessment-link href="<?= base_url('services/cv-assessment') ?>" class="mt-4 inline-flex w-full justify-center rounded-xl bg-accent px-4 py-3 text-center text-sm font-black text-white">Check my CV against this JD — ₹992 + GST</a>
+                        </div>
+                        <div class="rounded-xl border border-gray-200 bg-white p-5">
+                            <div class="text-xs font-black uppercase tracking-widest text-primary/60">Step 2 · Rebuild if useful</div>
+                            <h3 class="mt-2 text-lg font-bold text-primary">Professional CV Rebuild</h3>
+                            <p class="mt-2 text-sm leading-relaxed text-gray-600">If the assessment shows deeper positioning, structure or evidence gaps, you can then choose a professionally rebuilt CV.</p>
+                            <a data-rebuild-link href="<?= base_url('services/professional-cv-rebuild') ?>" class="mt-4 inline-flex w-full justify-center rounded-xl border border-primary/20 px-4 py-3 text-center text-sm font-black text-primary">See the rebuild scope — ₹2,500 + GST</a>
+                        </div>
+                    </div>
+
+                    <p data-independence-note class="mt-5 text-xs leading-relaxed text-gray-500">This is an optional paid professional service. It is separate from your job application and does not affect shortlisting.</p>
+                    <a data-skip-link href="<?= base_url('jobs') ?>" class="mt-4 inline-flex text-sm font-bold text-primary hover:text-accent">No thanks — continue to all jobs →</a>
+                </section>
+
+                <form action="<?= base_url('jobs/' . ($job['slug'] ?? '') . '/apply') ?>" method="post" enctype="multipart/form-data" class="grid md:grid-cols-2 gap-4" aria-labelledby="apply-heading" data-job-application-form data-agent-action="apply-to-job" data-job-slug="<?= esc($job['slug'] ?? '') ?>">
                     <?= csrf_field() ?>
                     <input type="hidden" name="job_slug" value="<?= esc($job['slug'] ?? '') ?>" />
                     <div><label for="application-name" class="block text-sm font-bold text-primary mb-2">Full name *</label><input id="application-name" name="name" autocomplete="name" required placeholder="Full Name" class="w-full border border-gray-200 rounded-xl px-4 py-3" /></div>
@@ -200,4 +231,5 @@ function fallbackCopy(url, done) {
     document.body.removeChild(input);
 }
 </script>
+<script type="module" src="<?= base_url('theme/js/job-application-next-step.mjs') ?>"></script>
 <?= $this->endSection() ?>
