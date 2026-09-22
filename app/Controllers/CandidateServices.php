@@ -60,7 +60,7 @@ class CandidateServices extends BaseController
             'metaDescription' => 'Professional CV rebuild, CV making, CV remake and CV writing service in India for experienced professionals. ₹2,500 + GST with two CV variants and two revision rounds.',
             'metaKeywords' => 'professional CV rebuild India, CV making service India, CV remake India, CV writing service India, resume rewriting India, CV revamp India',
             'eyebrow' => 'Professional CV Rebuild · India',
-            'headline' => 'Your experience is real. Your CV should make it easier to see.',
+            'headline' => 'Professional CV writing and CV making—built from your real career evidence.',
             'intro' => 'HiredNext rebuilds the document from your actual career evidence: positioning, hierarchy, achievements, role language and recruiter readability. This is a managed rewrite, not a template download.',
             'forWhom' => [
                 'Experienced professionals whose CV reads like a list of responsibilities instead of a career story.',
