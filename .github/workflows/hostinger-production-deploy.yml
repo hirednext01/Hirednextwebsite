@@ -114,7 +114,7 @@ jobs:
           php -l app/Views/pages/guides/decision-guide.php
           php -l app/Controllers/CvAssessment.php
           php -l app/Views/pages/services/cv-assessment.php
-          php tests/cv_assessment_payment_gate_test.php
+          php tests/cv_assessment_payment_gate_test.php\n          php tests/career_services_stale_price_guard_test.php
 
       - name: Verify every paid candidate service gate
         shell: bash
