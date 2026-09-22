@@ -1,5 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
+<?php $paymentAvailable = \Config\PaymentIdentity::destination()['active']; ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
     #navbar #logoText, #navbar .nav-link, #navbar #menuBtn { color:#0c3466 !important; }
@@ -32,6 +33,7 @@
                         <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 font-semibold"><?= esc(session('error')) ?></div>
                     <?php endif; ?>
 
+                    <?php if ($paymentAvailable): ?>
                     <div class="mb-6">
                         <div class="text-[10px] uppercase tracking-[0.22em] text-accent font-black mb-2">Already paid?</div>
                         <h2 class="text-2xl font-serif font-bold text-primary mb-2">Submit your advisory request</h2>
@@ -102,6 +104,13 @@
                         <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-bold hover:opacity-90 transition">I have paid <?= esc($plan['amount_label'] ?? '') ?> — Submit for verification</button>
                         <p class="text-xs text-gray-500 text-center">Advisory payment is separate from recruitment consideration. HiredNext does not charge candidates to apply for jobs or secure placement.</p>
                     </form>
+                    <?php else: ?>
+                    <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+                        <div class="text-xs font-black uppercase tracking-[0.2em] text-accent">Secure checkout unavailable</div>
+                        <h2 class="mt-2 text-2xl font-serif font-bold text-primary">Payment submission is paused.</h2>
+                        <p class="mt-3 text-sm leading-relaxed text-gray-600">This form will reopen automatically when the verified HiredNext Recruitment business checkout is connected.</p>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

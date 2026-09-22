@@ -6,6 +6,7 @@ $showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_2500', 'bundle_3317'
 $priceLabel = $plan['price_label'] ?? ('₹' . number_format((int)($order['amount'] ?? 0)));
 $regularPriceLabel = $plan['regular_price_label'] ?? null;
 $payableLabel = $plan['payable_label'] ?? ('₹' . number_format((int)($order['amount'] ?? 0)) . ' payable');
+$paymentAvailable = \Config\PaymentIdentity::destination()['active'];
 ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
@@ -84,6 +85,7 @@ $payableLabel = $plan['payable_label'] ?? ('₹' . number_format((int)($order['a
                 <div>
                     <?php if (session('success')): ?><div class="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-800 font-semibold"><?= esc(session('success')) ?></div><?php endif; ?>
                     <?php if (session('error')): ?><div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800 font-semibold"><?= esc(session('error')) ?></div><?php endif; ?>
+                    <?php if ($paymentAvailable): ?>
                     <div class="mb-6">
                         <div class="text-[10px] uppercase tracking-[0.22em] text-accent font-black mb-2">Already paid?</div>
                         <h2 class="text-2xl font-serif font-bold text-primary mb-2">Submit the transaction reference</h2>
@@ -96,6 +98,13 @@ $payableLabel = $plan['payable_label'] ?? ('₹' . number_format((int)($order['a
                         <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-bold hover:opacity-90 transition">I have paid ₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?> — Submit for verification</button>
                         <p class="text-xs text-gray-500 text-center">This career service improves positioning or preparation; it does not guarantee reach, interviews, hiring or placement.</p>
                     </form>
+                    <?php else: ?>
+                    <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+                        <div class="text-xs font-black uppercase tracking-[0.2em] text-accent">Payment confirmation locked</div>
+                        <h2 class="mt-2 text-2xl font-serif font-bold text-primary">No transaction reference is required yet.</h2>
+                        <p class="mt-3 text-sm leading-relaxed text-gray-600">The verified HiredNext business checkout is not active, so this page will not accept a payment reference from an old QR or personal UPI route.</p>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

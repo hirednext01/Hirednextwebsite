@@ -1,5 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
+<?php $paymentAvailable = \Config\PaymentIdentity::destination()['active']; ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
     #navbar #logoText, #navbar .nav-link, #navbar #menuBtn { color:#0c3466 !important; }
@@ -45,8 +46,10 @@
 
                 <div>
                     <?= view('components/business-payment-gate', ['amountLabel' => '₹6,490', 'contactEmail' => 'partners@hirednext.info']) ?>
+                    <?php if ($paymentAvailable): ?>
                     <a href="mailto:partners@hirednext.info?subject=LinkedIn%20Leadership%20Positioning%20%7C%20Payment%20confirmation" class="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-accent px-5 py-4 font-bold text-white transition hover:opacity-90">Email payment confirmation</a>
                     <p class="mt-3 text-xs text-gray-500">Please include the transaction reference or payment screenshot so the team can verify it promptly.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
