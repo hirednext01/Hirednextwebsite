@@ -14,7 +14,7 @@ $contactEmail = trim((string)($contactEmail ?? $payment['payment_email']));
         <p class="mt-3 text-sm text-gray-700 leading-relaxed">Use only the secure HiredNext business checkout below. Before approving payment, your payment provider must show <strong><?= esc($payment['display_name']) ?></strong>. If it shows an individual or phone-linked identity, do not pay.</p>
         <a href="<?= esc($payment['url']) ?>" rel="noopener noreferrer" class="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-accent px-5 py-4 font-bold text-white transition hover:opacity-90">Continue to verified business payment →</a>
     <?php else: ?>
-        <p class="mt-3 text-sm text-gray-700 leading-relaxed">No payment destination is displayed unless it has been independently verified to resolve to <strong><?= esc($payment['display_name']) ?></strong>. HiredNext will send verified business payment details from <strong><?= esc($contactEmail) ?></strong>.</p>
+        <p class="mt-3 text-sm text-gray-700 leading-relaxed"><strong>Secure online payment is temporarily unavailable.</strong> Do not use an older QR, screenshot, Paytm URL or UPI ID. A payment button will appear here only when the destination is verified to resolve to <strong><?= esc($payment['display_name']) ?></strong>.</p>
     <?php endif; ?>
 
     <?php if ($amountLabel !== ''): ?><div class="mt-4 text-xl font-black text-primary"><?= esc($amountLabel) ?></div><?php endif; ?>

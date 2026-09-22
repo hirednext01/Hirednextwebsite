@@ -5,6 +5,7 @@ $amount = (int)($lead['amount'] ?? 1171);
 $isNewAssessment = (($lead['assessment_plan'] ?? '') === 'priority_992');
 $priceLabel = $isNewAssessment ? '₹992 + GST' : ('₹' . number_format($amount));
 $payableLabel = '₹' . number_format($amount);
+$paymentAvailable = \Config\PaymentIdentity::destination()['active'];
 ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
@@ -49,6 +50,7 @@ $payableLabel = '₹' . number_format($amount);
                 <?= view('components/business-payment-gate', ['amountLabel' => $payableLabel . ' payable', 'secondaryLabel' => $isNewAssessment ? '₹992 + GST' : '']) ?>
             </div>
 
+            <?php if ($paymentAvailable): ?>
             <form action="<?= base_url('cv-payment/verify') ?>" method="post" class="mt-8 space-y-4">
                 <?= csrf_field() ?>
                 <input type="hidden" name="lead_id" value="<?= esc($lead['id']) ?>">
@@ -58,6 +60,12 @@ $payableLabel = '₹' . number_format($amount);
                 <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-bold hover:opacity-90 transition">I have paid <?= esc($payableLabel) ?> — Submit for verification</button>
                 <p class="text-xs text-gray-500 text-center">Use this only if payment is already complete. Payment remains pending until HiredNext verifies the transaction.</p>
             </form>
+            <?php else: ?>
+            <div class="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-6 text-center">
+                <div class="text-xs font-black uppercase tracking-[0.2em] text-accent">Payment confirmation locked</div>
+                <p class="mt-3 text-sm leading-relaxed text-gray-600">No transaction reference can be submitted until the verified HiredNext business checkout is active.</p>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
