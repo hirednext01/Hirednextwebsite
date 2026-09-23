@@ -23,7 +23,7 @@ $failures = [];
 
 $scan = function (string $file) use (&$failures, $patterns): void {
     if (!is_file($file)) return;
-    if (str_contains(str_replace('\\\\', '/', $file), '/app/Views/pages/admin/')) return;
+    if (str_contains(str_replace(chr(92), '/', $file), '/app/Views/pages/admin/')) return;
     $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
     if (!in_array($ext, ['php', 'js', 'mjs', 'html'], true)) return;
     $content = file_get_contents($file);
