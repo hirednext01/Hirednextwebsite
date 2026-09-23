@@ -27,7 +27,9 @@ $failures = [];
 
 $scan = function (string $file) use (&$failures, $patterns): void {
     if (!is_file($file)) return;
-    if (str_contains(str_replace(chr(92), '/', $file), '/app/Views/pages/admin/')) return;
+    $normalized = str_replace(chr(92), '/', $file);
+    if (str_contains($normalized, '/app/Views/pages/admin/')) return;
+    if (str_ends_with($normalized, '/app/Views/pages/services/linkedin-leadership-payment.php')) return; // private noindex named-client checkout; public price remains ₹8,999 + GST
     $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
     if (!in_array($ext, ['php', 'js', 'mjs', 'html'], true)) return;
     $content = file_get_contents($file);
