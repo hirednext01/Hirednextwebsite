@@ -190,7 +190,7 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
 
         <div class="mt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 bg-white border border-gray-200 rounded-2xl p-6">
             <div><div class="text-[11px] uppercase tracking-widest font-black text-accent mb-2">Not seeing the right role?</div><h3 class="text-xl font-bold text-primary">Keep exploring HiredNext opportunities.</h3><p class="text-sm text-gray-500 mt-1">Browse all current mandates or get your CV assessed before your next application.</p></div>
-            <div class="flex flex-wrap gap-3"><a href="<?= base_url('jobs') ?>" class="px-5 py-3 rounded-xl border border-gray-200 text-primary font-bold hover:border-primary transition">All jobs</a><a href="<?= base_url('cv-assessment') ?>" class="px-5 py-3 rounded-xl bg-primary text-white font-bold hover:bg-accent transition">Assess my CV</a></div>
+            <div class="flex flex-wrap gap-3"><a href="<?= base_url('jobs') ?>" class="px-5 py-3 rounded-xl border border-gray-200 text-primary font-bold hover:border-primary transition">All jobs</a><a href="<?= base_url('services/cv-assessment') ?>" class="px-5 py-3 rounded-xl bg-primary text-white font-bold hover:bg-accent transition">Assess my CV</a></div>
         </div>
     </div>
 </section>
