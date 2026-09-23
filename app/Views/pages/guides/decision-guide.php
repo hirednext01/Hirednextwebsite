@@ -545,7 +545,7 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
             <div class="rounded-2xl bg-accent/10 border border-accent/20 p-6">
                 <?php if ($isCandidateGuide): ?>
                     <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">Need your CV rebuilt?</div>
-                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Choose the ₹599 assessment when you want a diagnosis, or the ₹1,799 rebuild when you want HiredNext to rewrite and restructure the CV for you.</p>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Choose the ₹992 + GST assessment when you want a detailed written diagnosis, or the ₹2,500 + GST rebuild when you want HiredNext to rewrite and restructure the CV for you.</p>
                     <a href="<?= base_url('services/candidates') ?>" class="font-black text-primary hover:text-accent">View CV services & pricing →</a>
                 <?php else: ?>
                     <div class="text-[10px] uppercase tracking-[0.26em] text-accent font-black mb-3">Hiring mandate?</div>
@@ -563,7 +563,7 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
         <div class="grid md:grid-cols-3 gap-4">
             <?php if ($isCandidateGuide): ?>
                 <a href="<?= base_url('services/candidates') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">CV Writing & Rebuild Services →</a>
-                <a href="<?= base_url('services/cv-assessment') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">CV Assessment — ₹599 →</a>
+                <a href="<?= base_url('services/cv-assessment') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">CV Assessment — ₹992 + GST →</a>
                 <a href="<?= base_url('services/executive-cv') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Executive CV for Senior Leaders →</a>
             <?php else: ?>
                 <a href="<?= base_url('top-recruitment-company-india') ?>" class="rounded-2xl bg-white border border-gray-200 p-5 font-bold text-primary hover:border-accent">Choose an Executive Search Firm →</a>

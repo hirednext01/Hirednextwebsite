@@ -24,6 +24,7 @@ on:
       - 'app/Controllers/SearchAuthority.php'
       - 'app/Controllers/Authority.php'
       - 'app/Views/pages/services/**'
+      - 'app/Views/pages/guides/**'
       - 'app/Views/pages/jobs.php'
       - 'tests/career_service_legacy_consolidation_test.php'
       - 'app/Views/pages/home.php'
@@ -37,6 +38,7 @@ on:
       - 'tests/cv_search_dominance_test.php'
       - 'tests/cv_resume_number_one_focus_test.php'
       - 'tests/career_services_product_engine_test.php'
+      - 'tests/career_services_stale_price_guard_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   pull_request:
@@ -55,6 +57,7 @@ on:
       - 'app/Controllers/SearchAuthority.php'
       - 'app/Controllers/Authority.php'
       - 'app/Views/pages/services/**'
+      - 'app/Views/pages/guides/**'
       - 'app/Views/pages/jobs.php'
       - 'app/Views/pages/founder-profile.php'
       - 'app/Views/layouts/main.php'
@@ -62,6 +65,7 @@ on:
       - 'tests/ai_search_authority_test.php'
       - 'tests/google_ai_commercial_intent_test.php'
       - 'tests/city_founder_authority_test.php'
+      - 'tests/career_services_stale_price_guard_test.php'
       - '.github/workflows/indexnow.yml'
       - '.github/workflows/seo-search-health.yml'
   workflow_dispatch:
@@ -97,6 +101,7 @@ jobs:
           php -l app/Views/pages/services/cv-service-product.php
           php -l app/Views/pages/services/executive-cv.php
           php -l app/Views/pages/services/_cv-service-faq.php
+          php -l app/Views/pages/guides/decision-guide.php
           php -l app/Views/pages/services/client-services.php
           php -l app/Views/pages/jobs.php
           php -l app/Views/pages/founder-profile.php
@@ -115,6 +120,7 @@ jobs:
           php tests/career_ai_search_authority_test.php
           php tests/search_entity_article_consistency_test.php
           php tests/career_service_legacy_consolidation_test.php
+          php tests/career_services_stale_price_guard_test.php
       - name: Verify candidate service regressions
         run: |
           php tests/cv_assessment_conversion_test.php
