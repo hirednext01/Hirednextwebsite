@@ -15,8 +15,12 @@ $paths = [
 $patterns = [
     '/₹\\s*599\\b/u' => 'stale ₹599 public price',
     '/₹\\s*1,?799\\b/u' => 'stale ₹1,799 public price',
+    '/₹\\s*5,?500\\b/u' => 'stale ₹5,500 public LinkedIn price',
+    '/₹\\s*5,?999\\b/u' => 'stale ₹5,999 public LinkedIn price',
     '/priority_599/' => 'legacy priority_599 exposed outside compatibility service',
     '/rebuild_1799/' => 'legacy rebuild_1799 exposed outside compatibility service',
+    '/linkedin_5500/' => 'legacy linkedin_5500 tier exposed outside compatibility service',
+    '/linkedin_5999/' => 'legacy linkedin_5999 tier exposed outside compatibility service',
 ];
 
 $failures = [];
@@ -51,4 +55,4 @@ if ($failures) {
     exit(1);
 }
 
-echo "PASS: no stale ₹599 / ₹1,799 career-service pricing is publicly exposed\n";
+echo "PASS: no retired ₹599 / ₹1,799 / ₹5,500 / ₹5,999 career-service pricing is publicly exposed\n";
