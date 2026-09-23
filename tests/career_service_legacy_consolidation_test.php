@@ -5,6 +5,8 @@ $routes = file_get_contents($root . '/app/Config/Routes.php');
 $home = file_get_contents($root . '/app/Views/pages/home.php');
 $jobs = file_get_contents($root . '/app/Views/pages/jobs.php');
 $legacyController = file_get_contents($root . '/app/Controllers/LegacyCareerRedirects.php');
+$privateCheckout = file_get_contents($root . '/app/Controllers/PrivateCheckout.php');
+$privateLinkedIn = file_get_contents($root . '/app/Views/pages/services/linkedin-leadership-payment.php');
 
 function requireCheck(bool $ok, string $label): void {
     if (!$ok) {
@@ -31,5 +33,9 @@ requireCheck(str_contains($home, "services/professional-cv-rebuild"), 'homepage 
 requireCheck(str_contains($jobs, "services/professional-cv-rebuild"), 'jobs rebuild link points to canonical service page');
 requireCheck(!str_contains($jobs, "base_url('cv-assessment')"), 'jobs contains no internal link to legacy /cv-assessment route');
 requireCheck(str_contains($jobs, "services/cv-assessment"), 'jobs assessment link points directly to canonical service page');
+requireCheck(str_contains($privateCheckout, "noindex, nofollow, noarchive"), 'named-client LinkedIn checkout is excluded from public indexing');
+requireCheck(str_contains($privateCheckout, "no-store, private"), 'named-client LinkedIn checkout is not publicly cacheable');
+requireCheck(str_contains($privateLinkedIn, 'Standard public fee'), 'private LinkedIn checkout labels the public fee separately');
+requireCheck(str_contains($privateLinkedIn, '₹8,999 + GST'), 'private LinkedIn checkout preserves ₹8,999 + GST as public LinkedIn price');
 
 echo "PASS: career service search consolidation and public pricing\n";
