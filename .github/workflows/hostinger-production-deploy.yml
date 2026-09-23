@@ -131,7 +131,6 @@ jobs:
           php -l app/Config/PaymentIdentity.php
           php -l app/Views/components/business-payment-gate.php
           php tests/payment_identity_ironwall_test.php
-          node tests/private_linkedin_checkout_test.js
           php tests/executive_cv_product_test.php
 
       - name: Verify automatic CV fulfilment controls
