@@ -5,20 +5,16 @@ on:
     paths:
       - 'app/Views/components/business-payment-gate.php'
       - 'app/Config/PaymentIdentity.php'
-      - 'app/Views/pages/services/linkedin-leadership-payment.php'
       - 'tests/payment_qr_scan_test.py'
       - 'tests/payment_identity_ironwall_test.php'
-      - 'tests/private_linkedin_checkout_test.js'
       - '.github/workflows/payment-qr-verify.yml'
   push:
     branches: [main]
     paths:
       - 'app/Views/components/business-payment-gate.php'
       - 'app/Config/PaymentIdentity.php'
-      - 'app/Views/pages/services/linkedin-leadership-payment.php'
       - 'tests/payment_qr_scan_test.py'
       - 'tests/payment_identity_ironwall_test.php'
-      - 'tests/private_linkedin_checkout_test.js'
       - '.github/workflows/payment-qr-verify.yml'
   workflow_dispatch:
 
@@ -41,7 +37,5 @@ jobs:
           sudo apt-get install -y -qq zbar-tools
       - name: Verify payment identity iron wall
         run: php tests/payment_identity_ironwall_test.php
-      - name: Verify private LinkedIn checkout uses central gate
-        run: node tests/private_linkedin_checkout_test.js
       - name: Decode and validate central business QR
         run: python3 tests/payment_qr_scan_test.py

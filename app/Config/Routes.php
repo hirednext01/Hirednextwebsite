@@ -35,9 +35,6 @@ $routes->get('cv-payment/qr', 'CvPayment::qr');
 $routes->get('cv-payment/(:num)', 'CvPayment::checkout/$1');
 $routes->post('cv-payment/verify', 'CvPayment::verify');
 
-// Private, candidate-specific professional-service checkout.
-$routes->get('pay/linkedin-leadership/(:segment)', 'PrivateCheckout::linkedinLeadership/$1');
-
 // Secure candidate checkout links created from the CV Reviews admin.
 $routes->get('cv-upgrade/(:segment)', 'CvUpgrade::checkout/$1');
 $routes->post('cv-upgrade/(:segment)', 'CvUpgrade::submit/$1');

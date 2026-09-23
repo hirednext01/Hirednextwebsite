@@ -8,7 +8,6 @@ $requiredViews = [
     'app/Views/pages/services/cv-payment.php',
     'app/Views/pages/services/cv-payment-direct.php',
     'app/Views/pages/services/cv-upgrade-payment.php',
-    'app/Views/pages/services/linkedin-leadership-payment.php',
     'app/Views/pages/advisory-payment.php',
 ];
 
