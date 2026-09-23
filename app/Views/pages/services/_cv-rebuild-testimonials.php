@@ -46,7 +46,7 @@ if ($publishedTestimonials === []) {
                             <h3 class="mt-2 text-2xl font-serif font-bold text-primary"><?= esc($testimonial['name']) ?></h3>
                             <p class="mt-2 text-sm leading-relaxed text-gray-600"><?= esc($testimonial['detail']) ?></p>
                         </div>
-                        <a href="<?= base_url('career-services/start/rebuild_1799') ?>" class="shrink-0 inline-flex justify-center rounded-full bg-primary px-5 py-3 text-sm font-black text-white hover:bg-[#204e72]">Explore CV Rebuild</a>
+                        <a href="<?= base_url('career-services/start/rebuild_2500') ?>" class="shrink-0 inline-flex justify-center rounded-full bg-primary px-5 py-3 text-sm font-black text-white hover:bg-[#204e72]">Explore CV Rebuild</a>
                     </div>
                 </article>
             <?php endforeach; ?>
