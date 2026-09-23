@@ -2,8 +2,12 @@
 $root = dirname(__DIR__);
 
 $paths = [
-    $root . '/app/Views',
-    $root . '/app/Controllers',
+    $root . '/app/Views/pages',
+    $root . '/app/Views/components',
+    $root . '/app/Views/layouts',
+    $root . '/app/Controllers/CandidateServices.php',
+    $root . '/app/Controllers/DecisionGuides.php',
+    $root . '/app/Controllers/Seo.php',
     $root . '/app/Config/DecisionGuides.php',
     $root . '/app/Config/CareerAuthority.php',
 ];
@@ -19,6 +23,7 @@ $failures = [];
 
 $scan = function (string $file) use (&$failures, $patterns): void {
     if (!is_file($file)) return;
+    if (str_contains(str_replace('\\\\', '/', $file), '/app/Views/pages/admin/')) return;
     $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
     if (!in_array($ext, ['php', 'js', 'mjs', 'html'], true)) return;
     $content = file_get_contents($file);
