@@ -57,17 +57,23 @@ class CandidateServices extends BaseController
     {
         return $this->careerProductPage('rebuild_2500', 'services/professional-cv-rebuild', [
             'title' => 'Professional CV Writing & Resume Writing Service in India | HiredNext',
-            'metaDescription' => 'Professional CV writing service India for experienced professionals: recruiter-led resume writing, CV making and evidence-based rebuilding for ₹2,500 + GST with two CV variants and two revision rounds.',
+            'metaDescription' => 'Professional CV writing and resume writing services in India for experienced professionals: recruiter-led, evidence-based rebuilding for ₹2,500 + GST with two CV variants and two revision rounds.',
             'metaKeywords' => 'CV writing service India, professional CV writing service India, resume writing service India, professional resume writing India, CV making service India, CV rebuild India, resume rewriting India, CV remake India',
             'eyebrow' => 'Professional CV & Resume Writing · India',
             'headline' => 'Professional CV writing and resume writing service in India—built from your real career evidence.',
             'intro' => 'HiredNext rebuilds the document from your actual career evidence: positioning, hierarchy, achievements, role language and recruiter readability. This is a managed rewrite by a recruitment-led team, not a template download.',
-            'quickAnswer' => 'If you are looking for a professional CV writing or resume writing service in India, the core question is not whether the document sounds polished. It is whether a hiring manager can quickly understand your level, scope, progression, evidence and relevance. HiredNext rebuilds the CV around verified career facts so the finished document is clearer, stronger and easier to evaluate.',
+            'quickAnswer' => 'If you are comparing professional CV writing services or resume writing services in India, the core question is not whether the document sounds polished. It is whether a hiring manager can quickly understand your level, scope, progression, evidence and relevance. HiredNext rebuilds the CV around verified career facts so the finished document is clearer, stronger and easier to evaluate.',
             'whyHiredNext' => [
                 'Recruitment-side perspective: the rewrite is shaped around how hiring teams scan role level, evidence, progression and fit.',
                 'Evidence constrained: achievements, metrics and titles are not invented to make the CV sound more impressive.',
                 'Managed rewrite: HiredNext does the positioning, structure and writing work rather than giving you a blank template.',
                 'Two finished CV directions plus two revision rounds for factual correction and calibrated positioning.',
+            ],
+            'process' => [
+                ['title' => 'Share the source CV and target', 'body' => 'We start from your current CV and the role direction you are pursuing so the rewrite has a real decision context.'],
+                ['title' => 'Extract missing career evidence', 'body' => 'Where scale, ownership, outcomes or chronology are unclear, HiredNext asks for the facts needed to strengthen the story rather than guessing.'],
+                ['title' => 'Rebuild positioning and content', 'body' => 'The team rewrites hierarchy, profile, achievements and role language around verified evidence and recruiter readability.'],
+                ['title' => 'Review two finished directions', 'body' => 'You receive two ATS-safe CV variants and can use the included revision rounds for factual corrections and calibrated positioning.'],
             ],
             'authorityLinks' => [
                 ['label' => 'How to choose the best CV writing service in India', 'url' => 'guides/best-cv-writing-service-india'],
@@ -91,6 +97,8 @@ class CandidateServices extends BaseController
                 ['q' => 'Is this CV making, CV writing or CV rebuilding?', 'a' => 'All three phrases can describe this service. HiredNext uses “rebuild” because the work covers positioning, content, evidence and structure—not only formatting.'],
                 ['q' => 'Do I need to buy the assessment first?', 'a' => 'No. The rebuild includes the analysis needed to write the document. Choose the Assessment + Rebuild Bundle when you also want the separate detailed written assessment before the rewrite.'],
                 ['q' => 'Does HiredNext invent achievements to strengthen the CV?', 'a' => 'No. Claims remain anchored to facts you provide. Missing metrics or context become clarification questions, not invented content.'],
+                ['q' => 'What happens after I order the professional CV writing service?', 'a' => 'HiredNext starts from your existing CV and target direction, identifies material evidence gaps, asks focused clarification questions where needed, then rebuilds the document into two ATS-safe CV variants for review.'],
+                ['q' => 'Can the resume be written for a specific target role?', 'a' => 'Yes. When you provide a clear target role or job description, the rewrite can prioritise the most relevant verified experience and role language without inventing fit that is not present.'],
             ],
         ]);
     }

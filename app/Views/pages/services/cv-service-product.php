@@ -14,6 +14,7 @@ $faq = $faq ?? [];
 $quickAnswer = $quickAnswer ?? '';
 $whyHiredNext = $whyHiredNext ?? [];
 $authorityLinks = $authorityLinks ?? [];
+$process = $process ?? [];
 $showRebuildTestimonials = $showRebuildTestimonials ?? false;
 ?>
 
@@ -79,6 +80,27 @@ $showRebuildTestimonials = $showRebuildTestimonials ?? false;
         <div class="grid gap-3">
             <?php foreach ($whyHiredNext as $item): ?>
             <div class="rounded-xl border border-white/15 bg-white/5 px-5 py-4 text-white/85"><?= esc($item) ?></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+<?php if (!empty($process)): ?>
+<section class="py-16 bg-white">
+    <div class="max-w-[1100px] mx-auto px-4 sm:px-8">
+        <div class="max-w-3xl">
+            <div class="text-accent text-xs font-black uppercase tracking-[0.2em]">How the service works</div>
+            <h2 class="mt-3 text-3xl md:text-4xl font-serif font-bold text-primary">From source CV to evidence-led rewrite.</h2>
+            <p class="mt-4 text-gray-600 leading-relaxed">The writing starts with your real career record and target direction. HiredNext uses the process below to make the evidence easier for a recruiter or hiring manager to understand without inventing achievements.</p>
+        </div>
+        <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <?php foreach ($process as $index => $step): ?>
+            <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                <div class="text-xs font-black text-accent">STEP <?= esc((string) ($index + 1)) ?></div>
+                <h3 class="mt-2 text-xl font-serif font-bold text-primary"><?= esc($step['title'] ?? '') ?></h3>
+                <p class="mt-3 text-sm leading-relaxed text-gray-600"><?= esc($step['body'] ?? '') ?></p>
+            </div>
             <?php endforeach; ?>
         </div>
     </div>
