@@ -63,6 +63,15 @@ jobs:
         run: |
           set -euo pipefail
           files=(
+            app/Controllers/CandidateServices.php
+            app/Controllers/CvServiceCheckout.php
+            app/Controllers/Seo.php
+            app/Services/Cv/LeadershipContext.php
+            app/Views/layouts/main.php
+            app/Views/pages/services/linkedin-leadership.php
+            app/Views/pages/services/cxo-global-leadership.php
+            app/Views/pages/services/cv-service-start.php
+            app/Views/pages/services/cv-upgrade-payment.php
             app/Commands/CvDoctor.php
             app/Commands/LyzrCvSetup.php
             app/Config/Routing.php
@@ -132,3 +141,4 @@ jobs:
           grep -Fq "openai_recruiter" app/Services/Cv/Provider/OpenAiProvider.php
           grep -Fq "claude_critic" app/Services/Cv/Provider/AnthropicProvider.php
           grep -Fq "gemini_rolefit" app/Services/Cv/Provider/GeminiProvider.php
+

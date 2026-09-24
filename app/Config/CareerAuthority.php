@@ -77,7 +77,7 @@ class CareerAuthority extends BaseConfig
                 ['q' => 'Should my LinkedIn and CV be identical?', 'a' => 'No. They should be factually consistent, but they serve different reading behaviours. A CV is a targeted career document; LinkedIn is a public professional narrative and discovery surface.'],
                 ['q' => 'Who may look at a senior LinkedIn profile?', 'a' => 'Depending on the context, executive-search professionals, internal talent teams, founders, business leaders, potential clients, investors, board members and industry peers may review a profile before initiating a conversation.'],
             ],
-            'primary_cta' => ['label' => 'Explore LinkedIn Leadership Positioning', 'url' => 'services/linkedin-leadership-positioning'],
+            'primary_cta' => ['label' => 'Explore Professional LinkedIn Profile Build', 'url' => 'services/linkedin-profile-build'],
             'secondary_cta' => ['label' => 'See all HiredNext career services', 'url' => 'services/candidates'],
         ],
         'executive-linkedin-profile-india' => [
@@ -136,7 +136,7 @@ class CareerAuthority extends BaseConfig
                 ['q' => 'Should board experience appear on LinkedIn?', 'a' => 'Yes when it is real, current or relevant, and the disclosure does not breach confidentiality. Clarify whether the role is statutory, advisory, committee-based or informal rather than using an ambiguous board label.'],
                 ['q' => 'Can HiredNext create achievements that sound more senior?', 'a' => 'No. Positioning should clarify verified scope and outcomes. Missing context should become an assessment question, not an invented claim.'],
             ],
-            'primary_cta' => ['label' => 'Build My LinkedIn Leadership Narrative', 'url' => 'services/linkedin-leadership-positioning'],
+            'primary_cta' => ['label' => 'Explore CXO / Global Leadership Positioning', 'url' => 'leadership-advisory/cxo-global-leadership-positioning'],
             'secondary_cta' => ['label' => 'Explore Executive CV', 'url' => 'services/executive-cv'],
         ],
         'cv-assessment-vs-cv-rebuild' => [
@@ -339,3 +339,4 @@ class CareerAuthority extends BaseConfig
         return (string)($this->pages[$slug]['path'] ?? ('guides/' . $slug));
     }
 }
+

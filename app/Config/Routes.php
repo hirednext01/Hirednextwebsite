@@ -15,6 +15,8 @@ $routes->get('services/cv-assessment', 'CandidateServices::cvAssessment');
 $routes->get('services/professional-cv-rebuild', 'CandidateServices::professionalCvRebuild');
 $routes->get('services/cv-assessment-rebuild-bundle', 'CandidateServices::cvBundle');
 $routes->get('services/linkedin-leadership-positioning', 'CandidateServices::linkedinLeadership');
+$routes->get('services/linkedin-profile-build', 'CandidateServices::linkedinProfessional');
+$routes->get('leadership-advisory/cxo-global-leadership-positioning', 'CandidateServices::cxoGlobalLeadership');
 $routes->get('services/ats-cv-optimisation', 'CandidateServices::atsCvOptimisation');
 $routes->get('services/executive-cv', 'CandidateServices::executiveCv');
 $routes->get('services/interview-coaching', 'CandidateServices::interviewCoaching');
@@ -150,3 +152,4 @@ $routes->group('api', ['namespace' => 'App\\Controllers\\Api'], function ($route
     $routes->get('cv-assessments', 'CvAssessmentsApi::index'); $routes->get('cv-assessments/(:num)', 'CvAssessmentsApi::show/$1'); $routes->get('cv-assessments/(:num)/resume', 'CvAssessmentsApi::resume/$1'); $routes->put('cv-assessments/(:num)', 'CvAssessmentsApi::update/$1');
     $routes->get('press-media', 'PressMediaApi::index'); $routes->get('press-media/(:num)', 'PressMediaApi::show/$1'); $routes->post('press-media', 'PressMediaApi::create'); $routes->put('press-media/(:num)', 'PressMediaApi::update/$1'); $routes->delete('press-media/(:num)', 'PressMediaApi::delete/$1');
 });
+

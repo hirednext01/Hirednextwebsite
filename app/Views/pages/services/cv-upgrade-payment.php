@@ -2,6 +2,7 @@
 <?= $this->section('content') ?>
 <?php
 $tier = (string)($order['tier'] ?? '');
+$isLeadership = $tier === 'leadership_17500';
 $showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_2500', 'bundle_3317', 'executive_6999'], true);
 $priceLabel = $plan['price_label'] ?? ('₹' . number_format((int)($order['amount'] ?? 0)));
 $regularPriceLabel = $plan['regular_price_label'] ?? null;
@@ -13,6 +14,7 @@ $paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config
     #navbar #logoText, #navbar .nav-link, #navbar #menuBtn { color:#0c3466 !important; }
     .sample-soft { filter: blur(.42px); user-select:none; -webkit-user-select:none; }
 </style>
+<?php if ($isLeadership): ?><div style="padding:120px 32px 24px;background:#0c2135;color:white"><p style="max-width:1180px;margin:auto;font-size:1rem;letter-spacing:.12em">HIREDNEXT / LEADERSHIP ADVISORY</p></div><?php endif; ?>
 <section class="min-h-[75vh] pt-32 pb-20 bg-gray-50">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8">
         <?php if ($showCvCreationPitch): ?>
@@ -70,7 +72,7 @@ $paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config
         <div class="bg-white rounded-[2rem] border border-gray-200 p-7 md:p-10 shadow-sm">
             <div class="grid md:grid-cols-2 gap-10 items-start">
                 <div>
-                    <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">HiredNext Career Service</div>
+                    <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3"><?= $isLeadership ? 'HiredNext Leadership Advisory' : 'HiredNext Career Service' ?></div>
                     <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-4"><?= esc($order['service_name'] ?? 'CV Service') ?></h2>
                     <p class="text-gray-600 leading-relaxed mb-6"><?= esc($plan['description'] ?? '') ?></p>
                     <div class="rounded-2xl bg-primary text-white p-6 mb-6">
@@ -111,3 +113,4 @@ $paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config
     </div>
 </section>
 <?= $this->endSection() ?>
+

@@ -41,12 +41,12 @@
 
     <article class="mt-6 rounded-[1.75rem] border border-primary/15 bg-white p-8 md:p-10 shadow-lg grid lg:grid-cols-[1.35fr_.85fr] gap-8 items-center">
         <div>
-            <div class="text-xs font-black text-accent uppercase tracking-[0.22em]">LinkedIn Leadership Positioning · campaign</div>
-            <h3 class="text-3xl md:text-4xl font-serif font-bold text-primary mt-3">Your public leadership narrative should look as senior as the work you have done.</h3>
-            <p class="text-gray-600 mt-4 leading-relaxed">Deep analytical assessment, narrative strategy, profile architecture and senior LinkedIn specialist review for experienced professionals.</p>
-            <div class="mt-4 flex flex-wrap gap-4 items-center"><span class="line-through text-gray-400 font-black">₹17,500 + GST</span><span class="text-2xl font-black text-primary">₹8,999 + GST</span></div>
+            <div class="text-xs font-black text-accent uppercase tracking-[0.22em]">Professional LinkedIn Profile Build</div>
+            <h3 class="text-3xl md:text-4xl font-serif font-bold text-primary mt-3">Make your experience easier for the right recruiters to find and understand.</h3>
+            <p class="text-gray-600 mt-4 leading-relaxed">Profile diagnostic, headline strategy, About, experience restructuring, achievement articulation and recruiter-search keywords aligned to your target role.</p>
+            <div class="mt-4 flex flex-wrap gap-4 items-center"><span class="text-2xl font-black text-primary">₹8,999 + GST</span></div>
         </div>
-        <div class="lg:text-right"><a href="<?= base_url('services/linkedin-leadership-positioning') ?>" class="inline-flex justify-center rounded-full bg-primary px-7 py-4 font-black text-white">Explore LinkedIn Positioning</a></div>
+        <div class="lg:text-right"><a href="<?= base_url('services/linkedin-profile-build') ?>" class="inline-flex justify-center rounded-full bg-primary px-7 py-4 font-black text-white">Explore LinkedIn Profile Build</a></div>
     </article>
 
     <div class="mt-12 mb-6">
@@ -74,3 +74,4 @@
 
     <p class="text-xs text-gray-500 text-center mt-6">Career services improve positioning, clarity and preparation. Reach, interviews, hiring and placement outcomes are not guaranteed.</p>
 </div>
+

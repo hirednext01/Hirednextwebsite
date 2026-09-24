@@ -69,19 +69,30 @@ class CvUpgradePlans
                 'description' => 'A rigorous, human-reviewed executive career narrative: leadership positioning, evidence and scope analysis, a professionally written executive CV, and one signature leadership case study built from verified career facts.',
             ],
             'linkedin_8999' => [
-                'name' => 'LinkedIn Leadership Positioning & Narrative Strategy',
-                'regular_base_amount' => 17500,
+                'name' => 'Professional LinkedIn Profile Build',
+                'category' => 'career-services',
                 'base_amount' => 8999,
                 'gst_rate' => 18,
                 'gst_amount' => 1619.82,
                 'payable_exact' => 10618.82,
                 'amount' => 10619,
                 'price_label' => '₹8,999 + GST',
-                'regular_price_label' => '₹17,500 + GST',
                 'payable_label' => '₹10,619 payable including GST',
-                'campaign' => true,
-                'delivery' => 'Deep assessment round + leadership narrative strategy + profile rewrite plan + specialist review',
-                'description' => 'A confidential senior-professional LinkedIn positioning engagement designed to make leadership scope, credibility, expertise and career narrative easier for the right audience to understand.',
+                'delivery' => 'Profile diagnostic, headline, About, experience, achievements, recruiter-search keywords and skills architecture',
+                'description' => 'Professional career positioning and recruiter visibility: a role-aligned LinkedIn profile built around your experience, achievements and searchability.',
+            ],
+            'leadership_17500' => [
+                'name' => 'CXO / Global Leadership Positioning',
+                'category' => 'leadership-advisory',
+                'base_amount' => 17500,
+                'gst_rate' => 18,
+                'gst_amount' => 3150.00,
+                'payable_exact' => 20650.00,
+                'amount' => 20650,
+                'price_label' => '₹17,500 + GST',
+                'payable_label' => '₹20,650 payable including GST',
+                'delivery' => 'Leadership diagnostic, career architecture, enterprise evidence mapping, mandate positioning, executive narrative and final leadership positioning review',
+                'description' => 'An executive market positioning engagement connecting commercial scale, enterprise impact and leadership evidence with target mandates, executive-search discovery and global readability.',
             ],
             'career_4500' => [
                 'name' => '1:1 Interview Coaching with Taru Shikha',
@@ -96,7 +107,7 @@ class CvUpgradePlans
 
     /**
      * Keep historic checkout links and stored order tiers resolvable while
-     * all new public journeys use the new 2026 campaign tiers.
+     * all new public journeys use the current service tiers.
      */
     public static function canonicalTier(string $tier): string
     {
@@ -124,3 +135,4 @@ class CvUpgradePlans
         return self::all()[$tier] ?? null;
     }
 }
+

@@ -43,7 +43,8 @@ foreach ([
 need(str_contains($config, 'short_answer'), 'answer-engine short answers');
 need(str_contains($config, 'HiredNext sees'), 'proprietary recruiter perspective');
 need(str_contains($config, 'Taru Shikha'), 'founder authorship');
-need(str_contains($config, 'linkedin-leadership-positioning'), 'LinkedIn service conversion link');
+need(str_contains($config, 'services/linkedin-profile-build'), 'professional LinkedIn service conversion link');
+need(str_contains($config, 'leadership-advisory/cxo-global-leadership-positioning'), 'leadership advisory conversion link');
 need(str_contains($config, 'cv-assessment-rebuild-bundle'), 'CV bundle conversion link');
 
 $controller = is_file($controllerPath) ? file_get_contents($controllerPath) : '';
@@ -59,7 +60,8 @@ need(str_contains($view, 'Reviewed by Taru Shikha'), 'visible author/reviewer id
 
 need(str_contains($seo, 'CareerAuthority'), 'sitemap/llms source career authority config');
 need(str_contains($seo, 'career-intelligence'), 'career authority exposed in discovery');
-need(str_contains($linkedin, 'career-intelligence'), 'LinkedIn service links into authority cluster');
+need(str_contains($linkedin, 'guides/linkedin-profile-optimisation-india'), 'LinkedIn service links into authority cluster');
 need(str_contains($candidates, 'career-intelligence'), 'career services hub links into authority cluster');
 
 echo "PASS: HiredNext career AI-search authority cluster contract\n";
+

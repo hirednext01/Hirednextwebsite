@@ -45,7 +45,7 @@ class CandidateServices extends BaseController
                     ['@type' => 'Offer', 'name' => 'CV Assessment', 'price' => '1171', 'priceCurrency' => 'INR', 'url' => base_url('services/cv-assessment')],
                     ['@type' => 'Offer', 'name' => 'Professional CV Rebuild', 'price' => '2950', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/rebuild_2500')],
                     ['@type' => 'Offer', 'name' => 'CV Assessment + Professional CV Rebuild Bundle', 'price' => '3915', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/bundle_3317')],
-                    ['@type' => 'Offer', 'name' => 'LinkedIn Leadership Positioning & Narrative Strategy', 'price' => '10619', 'priceCurrency' => 'INR', 'url' => base_url('services/linkedin-leadership-positioning')],
+                    ['@type' => 'Offer', 'name' => 'Professional LinkedIn Profile Build', 'price' => '10619', 'priceCurrency' => 'INR', 'url' => base_url('services/linkedin-profile-build')],
                     ['@type' => 'Offer', 'name' => 'Executive CV & Leadership Case Study', 'price' => '6999', 'priceCurrency' => 'INR', 'url' => base_url('services/executive-cv')],
                     ['@type' => 'Offer', 'name' => 'Career Consultation', 'price' => '4500', 'priceCurrency' => 'INR', 'url' => base_url('career-services/start/career_4500')],
                 ],
@@ -132,18 +132,38 @@ class CandidateServices extends BaseController
         ]);
     }
 
+    // Preserve previously shared links to the standard LinkedIn service.
     public function linkedinLeadership()
     {
-        $plan = \App\Services\Cv\CvUpgradePlans::get('linkedin_8999');
+        return redirect()->to(base_url('services/linkedin-profile-build'))->setStatusCode(301);
+    }
+
+    public function linkedinProfessional()
+    {
+        return $this->linkedinPage('linkedin_8999', 'services/linkedin-profile-build', 'pages/services/linkedin-leadership',
+            'LinkedIn Profile Writing & Optimisation India | HiredNext',
+            'Professional LinkedIn Profile Build for professionals, managers and AVPs. Career positioning, recruiter visibility and role-aligned profile optimisation. ₹8,999 + GST.',
+            ['LinkedIn profile writing', 'LinkedIn profile optimisation', 'Professional career positioning']);
+    }
+
+    public function cxoGlobalLeadership()
+    {
+        return $this->linkedinPage('leadership_17500', 'leadership-advisory/cxo-global-leadership-positioning', 'pages/services/cxo-global-leadership',
+            'Executive & CXO LinkedIn Positioning India | HiredNext',
+            'CXO / Global Leadership Positioning: enterprise evidence, career architecture and executive narrative for CEO, GCC and international mandates. ₹17,500 + GST.',
+            ['Executive market positioning', 'CXO LinkedIn profile', 'Global leadership positioning']);
+    }
+
+    private function linkedinPage(string $tier, string $path, string $template, string $title, string $description, array $serviceTypes)
+    {
+        $plan = \App\Services\Cv\CvUpgradePlans::get($tier);
         if (!$plan) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-
-        $pageUrl = base_url('services/linkedin-leadership-positioning');
-        return view('pages/services/linkedin-leadership', [
-            'title' => 'LinkedIn Leadership Positioning & Narrative Strategy | HiredNext',
-            'metaDescription' => 'Confidential LinkedIn leadership positioning for senior professionals: deep assessment, narrative strategy, profile architecture and specialist review. Campaign price ₹8,999 + GST.',
-            'metaKeywords' => 'LinkedIn profile writing India, LinkedIn leadership positioning, executive LinkedIn profile, senior leader LinkedIn strategy, LinkedIn profile optimisation India',
+        $pageUrl = base_url($path);
+        return view($template, [
+            'title' => $title,
+            'metaDescription' => $description,
             'canonical' => $pageUrl,
             'currentPage' => 'services',
             'settings' => $this->loadWebsiteSettings(),
@@ -152,7 +172,8 @@ class CandidateServices extends BaseController
                 '@context' => 'https://schema.org',
                 '@type' => 'Service',
                 'name' => $plan['name'],
-                'serviceType' => ['LinkedIn leadership positioning', 'Executive LinkedIn narrative strategy', 'LinkedIn profile optimisation'],
+                'description' => $plan['description'],
+                'serviceType' => $serviceTypes,
                 'provider' => ['@type' => 'Organization', 'name' => 'HiredNext Recruitment', 'url' => base_url()],
                 'url' => $pageUrl,
                 'areaServed' => ['@type' => 'Country', 'name' => 'India'],
@@ -160,8 +181,8 @@ class CandidateServices extends BaseController
                     '@type' => 'Offer',
                     'price' => (string) $plan['amount'],
                     'priceCurrency' => 'INR',
-                    'url' => base_url('career-services/start/linkedin_8999'),
-                    'description' => ($plan['price_label'] ?? '') . ' campaign price; regular service value ' . ($plan['regular_price_label'] ?? ''),
+                    'url' => base_url('career-services/start/' . $tier),
+                    'description' => $plan['price_label'] . '; ' . $plan['payable_label'],
                 ],
             ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ]);
@@ -318,3 +339,4 @@ class CandidateServices extends BaseController
         ]);
     }
 }
+

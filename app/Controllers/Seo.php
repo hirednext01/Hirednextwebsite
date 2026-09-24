@@ -34,7 +34,8 @@ class Seo extends BaseController
             ['loc' => base_url('services/ats-cv-optimisation'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/professional-cv-rebuild'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('services/cv-assessment-rebuild-bundle'), 'lastmod' => '2026-09-21', 'changefreq' => 'monthly', 'priority' => '0.9'],
-            ['loc' => base_url('services/linkedin-leadership-positioning'), 'lastmod' => '2026-09-21', 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['loc' => base_url('services/linkedin-profile-build'), 'lastmod' => '2026-09-24', 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['loc' => base_url('leadership-advisory/cxo-global-leadership-positioning'), 'lastmod' => '2026-09-24', 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('services/executive-cv'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('services/interview-coaching'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('guides/interview-preparation-india'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
@@ -232,7 +233,8 @@ class Seo extends BaseController
             '- [ATS CV Optimisation](' . base_url('services/ats-cv-optimisation') . '): ₹999 ATS-safe structure, role language, keyword and recruiter-scan optimisation for a fundamentally sound CV.',
             '- [Professional CV Rebuild](' . base_url('services/professional-cv-rebuild') . '): ₹2,500 + GST evidence-led CV making, rewriting and rebuilding with two finished variants and two revision rounds.',
             '- [CV Assessment + Rebuild Bundle](' . base_url('services/cv-assessment-rebuild-bundle') . '): ₹3,317.40 + GST for the detailed written assessment plus the full managed CV rebuild, priced 5% below the separate base prices.',
-            '- [LinkedIn Leadership Positioning](' . base_url('services/linkedin-leadership-positioning') . '): confidential senior-professional LinkedIn narrative strategy and profile positioning; regular value ₹17,500 + GST, campaign price ₹8,999 + GST.',
+            '- [Professional LinkedIn Profile Build](' . base_url('services/linkedin-profile-build') . '): professional career positioning, recruiter visibility and LinkedIn profile optimisation; ₹8,999 + GST.',
+            '- [CXO / Global Leadership Positioning](' . base_url('leadership-advisory/cxo-global-leadership-positioning') . '): leadership advisory for enterprise impact, commercial scale, executive-search discovery and global mandate positioning; ₹17,500 + GST. Suitability depends on responsibility, scope, stakeholders and target mandate, not years of experience alone.',
             '- [Executive CV Writing](' . base_url('services/executive-cv') . '): ₹6,999 executive CV and one leadership case study for CXO, VP, Director and senior-leadership careers.',
             '- [Interview Coaching](' . base_url('services/interview-coaching') . '): ₹4,500 private 30-minute role-specific interview preparation session with Taru Shikha.',
             '- [Interview Preparation Guide](' . base_url('guides/interview-preparation-india') . '): Evidence-led interview preparation for experienced and senior professionals; links to the live 1-to-1 consultation. The ₹999 Interview Ready pilot is not open for purchase.',
@@ -371,3 +373,4 @@ class Seo extends BaseController
             ->setBody(implode("\n", $lines) . "\n");
     }
 }
+
