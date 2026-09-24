@@ -5,6 +5,7 @@ $paths = [
     $root . '/app/Views/pages',
     $root . '/app/Views/components',
     $root . '/app/Views/layouts',
+    $root . '/public',
     $root . '/app/Controllers/CandidateServices.php',
     $root . '/app/Controllers/DecisionGuides.php',
     $root . '/app/Controllers/Seo.php',
