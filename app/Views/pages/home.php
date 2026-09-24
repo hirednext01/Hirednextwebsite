@@ -120,7 +120,7 @@
                 <article class="rounded-2xl border border-primary/15 bg-white p-7 flex flex-col">
                     <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Practise your answers</p>
                     <h3 class="text-2xl font-serif font-bold text-primary mb-2">Interview Ready</h3>
-                    <p class="text-3xl font-bold text-primary mb-4">₹999 <span class="text-sm font-normal text-gray-500">proposed price</span></p>
+                    <p class="text-sm text-gray-600 mb-4">Practice pack in preview. Register interest. No payment today.</p>
                     <p class="text-gray-600 leading-relaxed mb-4">10 practice questions for your target job, help choosing work examples, and AI feedback on 5 answers you write.</p>
                     <p class="text-xs text-gray-500 mb-6">Preview the planned pack. Register interest only; no payment today.</p>
                     <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=homepage&utm_campaign=interview_ready') ?>" class="mt-auto inline-flex justify-center rounded-xl border border-primary/25 text-primary px-5 py-3 font-bold">Explore Interview Ready</a>
