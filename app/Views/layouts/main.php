@@ -184,7 +184,7 @@
                                 <a href="<?= base_url('services/candidates') ?>" class="block rounded-xl px-5 py-3 text-sm text-primary hover:bg-gray-50">CV / Resume Services</a>
                                 <a href="<?= base_url('services/linkedin-profile-build') ?>" class="block rounded-xl px-5 py-3 text-sm text-primary hover:bg-gray-50">LinkedIn Profile Build</a>
                                 <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=navigation&utm_campaign=interview_ready') ?>" class="block rounded-xl px-5 py-4 hover:bg-gray-50 transition">
-                                    <span class="block text-sm font-extrabold text-primary">Interview Ready <span class="text-xs font-normal">· ₹999 preview</span></span>
+                                    <span class="block text-sm font-extrabold text-primary">Interview Ready <span class="text-xs font-normal">· interest only</span></span>
                                     <span class="block text-xs text-gray-500 mt-1">Practice questions and feedback on your answers</span>
                                 </a>
                                 <a href="<?= base_url('career-services/start/career_4500') ?>" class="block rounded-xl px-5 py-4 hover:bg-gray-50 transition">
@@ -229,7 +229,7 @@
                         <div class="pt-3 text-sm font-bold text-primary">Career Services</div>
                         <a href="<?= base_url('services/candidates') ?>" class="mobile-link block">CV / Resume Services</a>
                         <a href="<?= base_url('services/linkedin-profile-build') ?>" class="mobile-link block">LinkedIn Profile Build</a>
-                        <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=mobile_navigation&utm_campaign=interview_ready') ?>" class="mobile-link block font-bold">Interview Ready · ₹999 preview</a>
+                        <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=mobile_navigation&utm_campaign=interview_ready') ?>" class="mobile-link block font-bold">Interview Ready · interest only</a>
                         <a href="<?= base_url('career-services/start/career_4500') ?>" class="mobile-link block font-bold">1-to-1 consultation · ₹4,500</a>
                     </div>
                 </div>
