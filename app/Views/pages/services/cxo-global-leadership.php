@@ -67,6 +67,7 @@
 <section class="hn-position-section hn-leadership-faq">
  <div class="hn-position-wrap hn-position-measure">
   <h2>Before the conversation</h2>
+  <p><a href="<?= base_url('guides/executive-linkedin-profile-india') ?>" style="text-decoration:underline">Read our perspective on executive LinkedIn positioning →</a></p>
   <details><summary>What is executive LinkedIn positioning?</summary><p>It is the strategic interpretation of your leadership record for the executive market: mandate, scale, accountability, outcomes and the appointments that evidence can support. The LinkedIn profile becomes a readable expression of that positioning.</p></details>
   <details><summary>Can this support a move from functional head to enterprise leadership?</summary><p>Yes. We examine career adjacency, commercial ownership, cross-functional decisions and stakeholder exposure. The narrative makes transferable evidence visible and identifies gaps; it does not claim experience that has not been earned.</p></details>
   <details><summary>How do you make an Indian leadership profile readable globally?</summary><p>We explain the business model, operating scale, geography, reporting context and decisions behind local titles. Commercial figures retain their original currency and context; unfamiliar company names or market terms are explained where useful.</p></details>

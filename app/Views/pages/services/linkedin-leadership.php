@@ -52,6 +52,7 @@
 <section class="hn-position-section">
  <div class="hn-position-wrap hn-position-measure">
   <h2>Questions before you begin</h2>
+  <p><a href="<?= base_url('guides/linkedin-profile-optimisation-india') ?>" style="text-decoration:underline">Read our guide to LinkedIn profile optimisation in India →</a></p>
   <details><summary>Is this suitable for an experienced senior manager?</summary><p>Yes, when the main requirement is professional career positioning and recruiter visibility. Years of experience alone do not determine the engagement. Current responsibility and the role you are targeting matter more.</p></details>
   <details><summary>What does LinkedIn profile optimisation include?</summary><p>Profile diagnosis, headline strategy, About, experience restructuring, achievement articulation, recruiter-search keywords, role-specific positioning, searchability, skills architecture and basic profile optimisation.</p></details>
   <details><summary>Will you add achievements or metrics I cannot substantiate?</summary><p>No. We work from your career evidence and ask for missing context. You review the profile for accuracy before using the final content.</p></details>
