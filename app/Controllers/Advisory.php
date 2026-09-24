@@ -9,11 +9,17 @@ class Advisory extends BaseController
     private function advisoryPlans(): array
     {
         return [
+            'career-intelligence' => [
+                'name' => 'Executive Career Intelligence Assessment',
+                'amount' => 19999,
+                'amount_label' => '₹19,999',
+                'description' => 'A confidential, evidence-led assessment of your career history, market position, target direction, compensation alignment, visibility and next best intervention.',
+            ],
             'career-strategy' => [
                 'name' => 'Career Strategy & Market Fit',
                 'amount' => 6500,
                 'amount_label' => '₹6,500',
-                'description' => 'Researched career strategy for experienced professionals who want clarity on role fit, positioning, market fit and next-step strategy.',
+                'description' => 'A prepared 60-minute advisory session for experienced professionals who want clarity on role fit, positioning, market fit and next-step strategy.',
             ],
             'cxo-advisory' => [
                 'name' => 'CXO Strategic Advisory',
@@ -108,8 +114,8 @@ class Advisory extends BaseController
     public function index()
     {
         return view('pages/advisory', [
-            'title' => 'Career Strategy & CXO Strategic Advisory | HiredNext',
-            'metaDescription' => 'Limited researched career strategy and confidential CXO advisory appointments from HiredNext for experienced professionals and senior leaders.',
+            'title' => 'Leadership Advisory & Executive Career Positioning | HiredNext',
+            'metaDescription' => 'Evidence-led executive career intelligence, leadership positioning, one-to-one coaching and confidential CXO advisory from HiredNext.',
             'canonical' => base_url('advisory'),
             'currentPage' => 'advisory',
             'settings' => $this->loadWebsiteSettings(),
@@ -143,7 +149,12 @@ class Advisory extends BaseController
         }
 
         $plan = $plans[$planKey];
-        $fields = ['name', 'email', 'phone', 'linkedin', 'current_role', 'years_experience', 'target_roles', 'challenge', 'decision', 'payment_reference'];
+        $fields = [
+            'name', 'email', 'phone', 'linkedin', 'current_role', 'designation', 'department',
+            'years_experience', 'current_ctc', 'expected_ctc', 'current_location', 'preferred_location',
+            'notice_period', 'education', 'college', 'course_taken', 'additional_courses',
+            'target_roles', 'challenge', 'decision', 'payment_reference'
+        ];
         $lead = [];
         foreach ($fields as $field) {
             $lead[$field] = trim((string) $this->request->getPost($field));
@@ -163,6 +174,20 @@ class Advisory extends BaseController
             $requiredMissing = true;
         }
 
+        if ($planKey === 'career-intelligence') {
+            $requiredMissing = $requiredMissing
+                || $lead['designation'] === ''
+                || $lead['department'] === ''
+                || $lead['current_ctc'] === ''
+                || $lead['expected_ctc'] === ''
+                || $lead['current_location'] === ''
+                || $lead['preferred_location'] === ''
+                || $lead['notice_period'] === ''
+                || $lead['education'] === ''
+                || $lead['college'] === ''
+                || $lead['course_taken'] === '';
+        }
+
         if ($requiredMissing) {
             return redirect()->back()->withInput()->with('error', 'Please complete the required advisory details and enter a valid UPI transaction/reference number.');
         }
@@ -177,7 +202,18 @@ class Advisory extends BaseController
             . "Phone: {$lead['phone']}\n"
             . "LinkedIn: {$lead['linkedin']}\n"
             . "Current role/company: {$lead['current_role']}\n"
+            . "Designation: {$lead['designation']}\n"
+            . "Department / function: {$lead['department']}\n"
             . "Years of experience: {$lead['years_experience']}\n"
+            . "Current CTC: {$lead['current_ctc']}\n"
+            . "Expected CTC: {$lead['expected_ctc']}\n"
+            . "Current location: {$lead['current_location']}\n"
+            . "Preferred location: {$lead['preferred_location']}\n"
+            . "Notice period: {$lead['notice_period']}\n"
+            . "Education: {$lead['education']}\n"
+            . "College / university: {$lead['college']}\n"
+            . "Course taken: {$lead['course_taken']}\n"
+            . "Additional courses / certifications: {$lead['additional_courses']}\n"
             . "Target roles/industries: {$lead['target_roles']}\n\n"
             . "Challenge to solve:\n{$lead['challenge']}\n\n"
             . ($lead['decision'] !== '' ? "Decision / desired outcome:\n{$lead['decision']}\n\n" : '')
