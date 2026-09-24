@@ -106,14 +106,13 @@ class CvUpgradePlans
     }
 
     /**
-     * Keep historic checkout links and stored order tiers resolvable while
+     * Keep historic assessment checkout links resolvable while
      * all new public journeys use the current service tiers.
      */
     public static function canonicalTier(string $tier): string
     {
         return match ($tier) {
             'priority_599' => 'priority_992',
-            'rebuild_1799' => 'rebuild_2500',
             default => $tier,
         };
     }
@@ -135,4 +134,3 @@ class CvUpgradePlans
         return self::all()[$tier] ?? null;
     }
 }
-
