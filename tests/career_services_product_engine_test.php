@@ -20,13 +20,13 @@ mustContain($routes, "services/professional-cv-rebuild", 'professional CV rebuil
 mustContain($routes, "services/ats-cv-optimisation", 'ATS optimisation route');
 mustContain($routes, "services/interview-coaching", 'interview coaching route');
 mustContain($routes, "services/cv-assessment-rebuild-bundle", 'CV bundle route');
-mustContain($routes, "services/linkedin-profile-build", 'LinkedIn leadership route');
+mustContain($routes, "services/linkedin-profile-build", 'Professional LinkedIn route');
 
 mustContain($controller, "Professional CV Writing & Resume Writing Service in India", 'rebuild SEO title');
 mustContain($controller, "ATS CV Optimisation Service in India", 'ATS SEO title');
 mustContain($controller, "Interview Coaching & Interview Preparation in India", 'interview SEO title');
 mustContain($controller, "Executive CV Writing Service in India for CXO & Senior Leaders", 'executive CV title owns high-intent search');
-mustContain($controller, "Professional LinkedIn Profile Build & Narrative Strategy", 'LinkedIn leadership product');
+mustContain($controller, "Professional LinkedIn Profile Build", 'Professional LinkedIn product');
 mustContain($controller, "CV Assessment + Professional CV Rebuild Bundle", 'CV assessment + rebuild bundle');
 mustContain($controller, "'@type' => 'Service'", 'product pages must emit Service schema');
 
