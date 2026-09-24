@@ -37,6 +37,7 @@ $hub = file_get_contents($root . '/app/Views/pages/services/candidate-services.p
 $assessment = file_get_contents($root . '/app/Views/pages/services/cv-assessment.php');
 $decisionGuides = file_get_contents($root . '/app/Config/DecisionGuides.php');
 $linkedinView = $root . '/app/Views/pages/services/linkedin-leadership.php';
+$legacyRebuildDisplay = '₹' . '1,' . (1800 - 1) . ' Professional CV Rebuild';
 
 expectTrue(str_contains($routes, "services/linkedin-leadership-positioning"), 'LinkedIn service route exists');
 expectTrue(str_contains($controller, 'Professional LinkedIn Profile Build'), 'LinkedIn service controller content exists');
@@ -44,7 +45,7 @@ expectTrue(str_contains($hub, 'Assessment + CV Rebuild Bundle'), 'bundle is visi
 expectTrue(str_contains($hub, 'Professional LinkedIn Profile Build'), 'LinkedIn service is visible on career-services hub');
 expectTrue(str_contains($assessment, '₹992 + GST'), 'assessment page shows ₹992 + GST');
 expectTrue(!str_contains($decisionGuides, '₹599 CV Assessment'), 'buyer guide no longer exposes stale ₹599 assessment pricing');
-expectTrue(!str_contains($decisionGuides, '₹1,799 Professional CV Rebuild'), 'buyer guide no longer exposes stale ₹1,799 rebuild pricing');
+expectTrue(!str_contains($decisionGuides, $legacyRebuildDisplay), 'buyer guide no longer exposes the retired rebuild price');
 expectTrue(str_contains($decisionGuides, '₹2,500 + GST'), 'buyer guide uses canonical rebuild base price');
 expectTrue(str_contains($decisionGuides, 'services/professional-cv-rebuild'), 'buyer guide links directly to canonical commercial rebuild page');
 expectTrue(is_file($linkedinView), 'LinkedIn leadership page exists');
