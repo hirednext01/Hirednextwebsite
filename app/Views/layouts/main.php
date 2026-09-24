@@ -128,13 +128,18 @@
             .site-brand-divider { height: 18px; margin-left: 8px; margin-right: 8px; }
         }
     </style>
-    <?php if (!empty($settings['google_analytics'])): ?>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= esc($settings['google_analytics']) ?>"></script>
+    <?php
+    // Keep the verified GA4 property active even when the database setting is blank.
+    // The measurement ID is public by design; no credential is stored here.
+    $googleAnalyticsId = trim((string)($settings['google_analytics'] ?? '')) ?: 'G-YEW020J11S';
+    ?>
+    <?php if ($googleAnalyticsId !== ''): ?>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= esc($googleAnalyticsId) ?>"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());
-            gtag('config', '<?= esc($settings['google_analytics']) ?>');
+            gtag('config', '<?= esc($googleAnalyticsId) ?>');
         </script>
     <?php endif; ?>
 </head>
