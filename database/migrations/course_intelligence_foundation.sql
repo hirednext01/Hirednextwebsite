@@ -1,0 +1,105 @@
+-- HiredNext Career Intelligence: course partner and gap matching foundation
+CREATE TABLE IF NOT EXISTS learning_partners (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(190) NOT NULL,
+  slug VARCHAR(190) NOT NULL UNIQUE,
+  provider_type ENUM('api','feed','webhook','referral','manual') NOT NULL DEFAULT 'manual',
+  status ENUM('pending','active','paused','rejected') NOT NULL DEFAULT 'pending',
+  base_url VARCHAR(500) NULL,
+  affiliate_base_url VARCHAR(500) NULL,
+  webhook_secret VARCHAR(255) NULL,
+  api_config_json LONGTEXT NULL,
+  commercial_model ENUM('affiliate','revenue_share','referral','reseller','none') NOT NULL DEFAULT 'none',
+  commission_value DECIMAL(10,2) NULL,
+  commission_unit ENUM('percent','fixed') NULL,
+  complimentary_seat_required TINYINT(1) NOT NULL DEFAULT 1,
+  audited_at DATETIME NULL,
+  quality_status ENUM('unreviewed','approved','watch','blocked') NOT NULL DEFAULT 'unreviewed',
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS learning_courses (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  partner_id BIGINT UNSIGNED NOT NULL,
+  external_id VARCHAR(190) NULL,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) NOT NULL,
+  description TEXT NULL,
+  provider_url VARCHAR(1000) NULL,
+  affiliate_url VARCHAR(1000) NULL,
+  category VARCHAR(120) NULL,
+  industries_json LONGTEXT NULL,
+  target_roles_json LONGTEXT NULL,
+  skills_json LONGTEXT NULL,
+  prerequisites_json LONGTEXT NULL,
+  delivery_mode VARCHAR(80) NULL,
+  duration_minutes INT NULL,
+  price_inr INT NULL,
+  currency VARCHAR(8) NOT NULL DEFAULT 'INR',
+  level ENUM('foundation','intermediate','advanced','executive') NOT NULL DEFAULT 'foundation',
+  quality_score DECIMAL(5,2) NULL,
+  outcome_claims_json LONGTEXT NULL,
+  status ENUM('draft','active','paused','retired') NOT NULL DEFAULT 'draft',
+  source_updated_at DATETIME NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  UNIQUE KEY uq_partner_external (partner_id, external_id),
+  KEY idx_courses_status_category (status, category),
+  CONSTRAINT fk_learning_courses_partner FOREIGN KEY (partner_id) REFERENCES learning_partners(id)
+);
+
+CREATE TABLE IF NOT EXISTS career_gap_profiles (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  lead_id BIGINT UNSIGNED NULL,
+  candidate_email VARCHAR(190) NULL,
+  current_role VARCHAR(190) NULL,
+  current_industry VARCHAR(190) NULL,
+  current_location VARCHAR(190) NULL,
+  current_compensation_inr BIGINT NULL,
+  experience_years DECIMAL(5,2) NULL,
+  target_role VARCHAR(190) NULL,
+  target_industry VARCHAR(190) NULL,
+  target_location VARCHAR(190) NULL,
+  target_compensation_inr BIGINT NULL,
+  aspiration_text TEXT NULL,
+  parsed_profile_json LONGTEXT NULL,
+  gap_analysis_json LONGTEXT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  KEY idx_gap_lead (lead_id),
+  KEY idx_gap_target (target_industry, target_role)
+);
+
+CREATE TABLE IF NOT EXISTS course_recommendations (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  gap_profile_id BIGINT UNSIGNED NOT NULL,
+  course_id BIGINT UNSIGNED NOT NULL,
+  gap_code VARCHAR(120) NOT NULL,
+  recommendation_reason TEXT NOT NULL,
+  relevance_score DECIMAL(5,2) NOT NULL,
+  confidence_score DECIMAL(5,2) NOT NULL,
+  human_approved TINYINT(1) NOT NULL DEFAULT 0,
+  status ENUM('suggested','approved','shown','clicked','enrolled','completed','dismissed') NOT NULL DEFAULT 'suggested',
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  KEY idx_reco_gap_score (gap_profile_id, relevance_score),
+  CONSTRAINT fk_reco_gap FOREIGN KEY (gap_profile_id) REFERENCES career_gap_profiles(id),
+  CONSTRAINT fk_reco_course FOREIGN KEY (course_id) REFERENCES learning_courses(id)
+);
+
+CREATE TABLE IF NOT EXISTS learning_events (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  partner_id BIGINT UNSIGNED NOT NULL,
+  course_id BIGINT UNSIGNED NULL,
+  gap_profile_id BIGINT UNSIGNED NULL,
+  external_event_id VARCHAR(190) NULL,
+  event_type VARCHAR(120) NOT NULL,
+  payload_json LONGTEXT NULL,
+  signature_valid TINYINT(1) NOT NULL DEFAULT 0,
+  occurred_at DATETIME NULL,
+  created_at DATETIME NOT NULL,
+  UNIQUE KEY uq_partner_event (partner_id, external_event_id),
+  KEY idx_learning_event_type (event_type, created_at),
+  CONSTRAINT fk_event_partner FOREIGN KEY (partner_id) REFERENCES learning_partners(id)
+);
