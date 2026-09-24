@@ -76,6 +76,85 @@
                             <input name="current_role" required value="<?= esc(old('current_role')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Current designation and company">
                         </div>
 
+                        <?php if (($planKey ?? '') === 'career-intelligence'): ?>
+                            <div class="rounded-2xl border border-accent/20 bg-accent/5 p-5">
+                                <div class="text-[10px] uppercase tracking-[0.2em] text-accent font-black mb-3">Core market profile</div>
+                                <p class="text-sm text-gray-600 mb-4">These details allow HiredNext to assess seniority, compensation alignment, mobility and target-role fit as one connected profile.</p>
+
+                                <div class="grid sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">Designation *</label>
+                                        <input name="designation" required value="<?= esc(old('designation')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Current designation">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">Department / function *</label>
+                                        <input name="department" required value="<?= esc(old('department')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="e.g. Finance, HR, Merchandising">
+                                    </div>
+                                </div>
+
+                                <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">Current CTC *</label>
+                                        <input name="current_ctc" required value="<?= esc(old('current_ctc')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Amount or prefer not to disclose">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">Expected CTC *</label>
+                                        <input name="expected_ctc" required value="<?= esc(old('expected_ctc')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Expected compensation">
+                                    </div>
+                                </div>
+
+                                <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">Current location *</label>
+                                        <input name="current_location" required value="<?= esc(old('current_location')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="City, country">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">Preferred location *</label>
+                                        <input name="preferred_location" required value="<?= esc(old('preferred_location')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Preferred city, country or remote">
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <label class="block text-sm font-bold text-primary mb-1">Notice period / earliest joining *</label>
+                                    <input name="notice_period" required value="<?= esc(old('notice_period')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="e.g. 60 days, serving notice, available immediately">
+                                </div>
+
+                                <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">Highest education *</label>
+                                        <input name="education" required value="<?= esc(old('education')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Degree or qualification">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">College / university *</label>
+                                        <input name="college" required value="<?= esc(old('college')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Institution name">
+                                    </div>
+                                </div>
+
+                                <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">Course taken *</label>
+                                        <input name="course_taken" required value="<?= esc(old('course_taken')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Degree, diploma or professional course">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-primary mb-1">Additional courses / certifications</label>
+                                        <input name="additional_courses" value="<?= esc(old('additional_courses')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Courses, certifications or none">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <input type="hidden" name="designation" value="">
+                            <input type="hidden" name="department" value="">
+                            <input type="hidden" name="current_ctc" value="">
+                            <input type="hidden" name="expected_ctc" value="">
+                            <input type="hidden" name="current_location" value="">
+                            <input type="hidden" name="preferred_location" value="">
+                            <input type="hidden" name="notice_period" value="">
+                            <input type="hidden" name="education" value="">
+                            <input type="hidden" name="college" value="">
+                            <input type="hidden" name="course_taken" value="">
+                            <input type="hidden" name="additional_courses" value="">
+                        <?php endif; ?>
+
                         <div>
                             <label class="block text-sm font-bold text-primary mb-1">Target roles / industries *</label>
                             <textarea name="target_roles" required rows="3" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="What are you considering next?"><?= esc(old('target_roles')) ?></textarea>
