@@ -6,13 +6,14 @@ $payableLabel = $plan['payable_label'] ?? ('₹' . number_format((int)($plan['am
 $regularPriceLabel = $plan['regular_price_label'] ?? null;
 $isCoaching = $tier === 'career_4500';
 $isExecutive = $tier === 'executive_6999';
-$isLinkedIn = $tier === 'linkedin_8999';
+$isLeadership = $tier === 'leadership_17500';
+$isLinkedIn = in_array($tier, ['linkedin_8999', 'leadership_17500'], true);
 $isBundle = $tier === 'bundle_3317';
 ?>
 <section class="pt-32 pb-20 bg-gray-50 min-h-[70vh]">
   <div class="<?= $isCoaching ? 'max-w-[1280px] grid lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)] gap-8 items-start' : 'max-w-[820px]' ?> mx-auto px-4 sm:px-8">
     <div class="<?= $isCoaching ? 'order-2 lg:order-1 min-w-0' : '' ?> bg-white border border-gray-200 rounded-[2rem] p-8 md:p-12 shadow-sm">
-      <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3">HiredNext Career Services</div>
+      <div class="text-accent text-xs font-black uppercase tracking-[0.24em] mb-3"><?= $isLeadership ? 'HiredNext Leadership Advisory' : 'HiredNext Career Services' ?></div>
       <h1 class="text-3xl md:text-5xl font-serif font-bold text-primary"><?= esc($plan['name']) ?></h1>
       <div class="mt-4 flex flex-wrap items-end gap-4">
         <?php if ($regularPriceLabel): ?><div class="text-lg font-black text-gray-400 line-through"><?= esc($regularPriceLabel) ?></div><?php endif; ?>
@@ -28,10 +29,10 @@ $isBundle = $tier === 'bundle_3317';
       </div>
       <?php endif; ?>
 
-      <?php if ($isLinkedIn): ?>
+      <?php if ($isLeadership): ?>
       <div class="rounded-2xl border border-primary/10 bg-primary/5 p-5 mt-6">
         <div class="text-xs font-black uppercase tracking-[0.18em] text-accent">Confidential leadership engagement</div>
-        <p class="text-sm text-gray-700 mt-2 leading-relaxed">A standard HiredNext NDA is shared before the assessment round. Senior LinkedIn specialists work with HiredNext on the positioning, narrative strategy and profile architecture. Submitted materials are not shared externally for this engagement without your consent.</p>
+        <p class="text-sm text-gray-700 mt-2 leading-relaxed">A standard HiredNext NDA is shared before the assessment round. We examine leadership evidence, career architecture and target mandates before developing your executive narrative. Submitted materials are not shared externally for this engagement without your consent.</p>
       </div>
       <?php endif; ?>
 
@@ -59,7 +60,16 @@ $isBundle = $tier === 'bundle_3317';
         <div><label class="block text-sm font-bold text-primary mb-2">Phone</label><input required name="phone" value="<?= esc(old('phone')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3"></div>
         <div><label class="block text-sm font-bold text-primary mb-2"><?= $isLinkedIn ? 'LinkedIn URL / target positioning' : 'Target role / move' ?></label><input name="target_role" value="<?= esc(old('target_role')) ?>" placeholder="<?= $isLinkedIn ? 'Paste LinkedIn URL or describe your target positioning' : 'Optional' ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3"></div>
         <div class="md:col-span-2"><label class="block text-sm font-bold text-primary mb-2">Upload your current CV</label><input required type="file" name="resume" accept=".pdf,.doc,.docx" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white"><p class="text-xs text-gray-500 mt-2">PDF, DOC or DOCX · up to 5MB. We use it to understand your career chronology before the assessment round.</p></div>
-        <div class="md:col-span-2"><label class="block text-sm font-bold text-primary mb-2">Anything we should know?</label><textarea name="message" rows="4" class="w-full border border-gray-200 rounded-xl px-4 py-3" placeholder="<?= $isLinkedIn ? 'Optional: target audience, roles, sectors, geography, boards, clients or concerns about your current profile.' : 'Optional: interview date, target role, salary question, or specific CV concern.' ?>"><?= esc(old('message')) ?></textarea></div>
+        <?php if ($isLeadership): ?>
+        <fieldset class="md:col-span-2 grid md:grid-cols-2 gap-5 border-t border-gray-200 pt-6">
+          <legend class="text-lg font-bold text-primary">Your leadership context</legend>
+          <p class="md:col-span-2 text-sm text-gray-600">Suitability is reviewed against your responsibility and target mandate. Years of experience alone never determine the engagement.</p>
+          <?php foreach (\App\Services\Cv\LeadershipContext::FIELDS as $field => $label): ?>
+          <div><label for="<?= esc($field) ?>" class="block text-sm font-bold text-primary mb-2"><?= esc($label) ?></label><input id="<?= esc($field) ?>" name="<?= esc($field) ?>" maxlength="1000" value="<?= esc(old($field)) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3" <?= in_array($field, ['leadership_level','leadership_scope','leadership_target'], true) ? 'required' : '' ?>></div>
+          <?php endforeach; ?>
+        </fieldset>
+        <?php endif; ?>
+        <div class="md:col-span-2"><label class="block text-sm font-bold text-primary mb-2">Anything we should know?</label><textarea name="message" rows="4" class="w-full border border-gray-200 rounded-xl px-4 py-3" placeholder="<?= $isLinkedIn ? ($isLeadership ? 'Optional: mandate priorities, confidentiality boundaries or context for your leadership transition.' : 'Optional: target roles, industries, achievements or concerns about your current profile.') : 'Optional: interview date, target role, salary question, or specific CV concern.' ?>"><?= esc(old('message')) ?></textarea></div>
         <div class="md:col-span-2"><button class="w-full rounded-full bg-accent px-7 py-4 text-white font-black">Continue to secure payment →</button><p class="text-xs text-gray-500 text-center mt-4">Career services improve positioning and preparation. Reach, interviews, hiring and placement outcomes are not guaranteed.</p></div>
       </form>
     </div>
@@ -88,3 +98,4 @@ $isBundle = $tier === 'bundle_3317';
 <?php endif; ?>
 
 <?= $this->endSection() ?>
+

@@ -88,7 +88,7 @@
             display: block;
             margin-left: auto;
         }
-        @media (min-width: 1040px) {
+        @media (min-width: 1440px) {
             .site-desktop-nav {
                 display: flex;
                 flex: 1 1 auto;
@@ -104,7 +104,7 @@
                 display: none !important;
             }
         }
-        @media (min-width: 1040px) and (max-width: 1279px) {
+        @media (min-width: 1440px) and (max-width: 1535px) {
             .site-brand-primary { font-size: 28px; }
             .site-brand-secondary { font-size: 12px; letter-spacing: .13em; }
             .site-brand-divider { height: 21px; margin-left: 10px; margin-right: 10px; }
@@ -115,12 +115,12 @@
         @media (min-width: 1280px) {
             .site-brand-primary { font-size: 34px; }
             .site-brand-secondary { font-size: 15px; }
-            .site-desktop-nav { gap: 1.25rem; margin-left: 2rem; }
+            .site-desktop-nav { gap: .8rem; margin-left: 1rem; }
         }
         @media (min-width: 1536px) {
             .site-brand-primary { font-size: 36px; }
             .site-brand-secondary { font-size: 16px; }
-            .site-desktop-nav { gap: 1.65rem; margin-left: 2.5rem; }
+            .site-desktop-nav { gap: 1rem; margin-left: 1.5rem; }
         }
         @media (max-width: 560px) {
             .site-brand-primary { font-size: 25px; }
@@ -180,10 +180,9 @@
                                     <span class="block text-sm font-extrabold text-primary">For Clients</span>
                                     <span class="block text-xs text-gray-500 mt-1">Executive search, permanent hiring & RPO</span>
                                 </a>
-                                <a href="<?= base_url('services/candidates') ?>" class="block rounded-xl px-5 py-4 hover:bg-gray-50 transition">
-                                    <span class="block text-sm font-extrabold text-primary">For Candidates</span>
-                                    <span class="block text-xs text-gray-500 mt-1">CV, interview & senior career advisory</span>
-                                </a>
+                                <div class="px-5 pt-3 text-sm font-bold text-primary">Career Services</div>
+                                <a href="<?= base_url('services/candidates') ?>" class="block rounded-xl px-5 py-3 text-sm text-primary hover:bg-gray-50">CV / Resume Services</a>
+                                <a href="<?= base_url('services/linkedin-profile-build') ?>" class="block rounded-xl px-5 py-3 text-sm text-primary hover:bg-gray-50">LinkedIn Profile Build</a>
                                 <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=navigation&utm_campaign=interview_ready') ?>" class="block rounded-xl px-5 py-4 hover:bg-gray-50 transition">
                                     <span class="block text-sm font-extrabold text-primary">Interview Ready <span class="text-xs font-normal">· ₹999 preview</span></span>
                                     <span class="block text-xs text-gray-500 mt-1">Practice questions and feedback on your answers</span>
@@ -193,6 +192,13 @@
                                     <span class="block text-xs text-gray-500 mt-1">30 minutes with Taru Shikha · ₹4,500</span>
                                 </a>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="relative group py-3">
+                        <a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Leadership Advisory</a>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full w-72 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200">
+                            <a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="block bg-white rounded-xl shadow-xl p-5 text-sm font-bold text-primary">CXO / Global Leadership Positioning</a>
                         </div>
                     </div>
 
@@ -220,10 +226,16 @@
                     <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Services</div>
                     <div class="space-y-2 pl-2">
                         <a href="<?= base_url('services/clients') ?>" class="mobile-link block font-bold">For Clients</a>
-                        <a href="<?= base_url('services/candidates') ?>" class="mobile-link block font-bold">For Candidates</a>
+                        <div class="pt-3 text-sm font-bold text-primary">Career Services</div>
+                        <a href="<?= base_url('services/candidates') ?>" class="mobile-link block">CV / Resume Services</a>
+                        <a href="<?= base_url('services/linkedin-profile-build') ?>" class="mobile-link block">LinkedIn Profile Build</a>
                         <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=mobile_navigation&utm_campaign=interview_ready') ?>" class="mobile-link block font-bold">Interview Ready · ₹999 preview</a>
                         <a href="<?= base_url('career-services/start/career_4500') ?>" class="mobile-link block font-bold">1-to-1 consultation · ₹4,500</a>
                     </div>
+                </div>
+                <div class="border-b border-gray-100 pb-4">
+                    <div class="text-sm font-bold text-primary mb-3">Leadership Advisory</div>
+                    <a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="mobile-link block pl-2">CXO / Global Leadership Positioning</a>
                 </div>
                 <a href="<?= base_url('testimonials') ?>" class="mobile-link">Testimonials</a>
                 <a href="<?= base_url('press-media') ?>" class="mobile-link">Press & Media</a>
@@ -263,7 +275,9 @@
                         <li><a href="<?= base_url() ?>" class="hover:text-accent">Home</a></li>
                         <li><a href="<?= base_url('about') ?>" class="hover:text-accent">About</a></li>
                         <li><a href="<?= base_url('services/clients') ?>" class="hover:text-accent">Services for Clients</a></li>
-                        <li><a href="<?= base_url('services/candidates') ?>" class="hover:text-accent">Services for Candidates</a></li>
+                        <li><a href="<?= base_url('services/candidates') ?>" class="hover:text-accent">Career Services</a></li>
+                        <li><a href="<?= base_url('services/linkedin-profile-build') ?>" class="hover:text-accent">Professional LinkedIn Profile Build</a></li>
+                        <li><a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="hover:text-accent">Leadership Advisory</a></li>
                         <li><a href="<?= base_url('career-intelligence') ?>" class="hover:text-accent">Career Intelligence</a></li>
                         <li><a href="<?= base_url('services/cv-assessment') ?>" class="hover:text-accent">CV Assessment · ₹992 + GST</a></li>
                         <li><a href="<?= base_url('guides/interview-preparation-india') ?>" class="hover:text-accent">Interview Preparation Guide</a></li>
@@ -391,3 +405,4 @@
     </script>
 </body>
 </html>
+

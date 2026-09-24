@@ -26,9 +26,9 @@ expectTrue(isset($plans['bundle_3317']), 'assessment + rebuild bundle exists');
 expectTrue(abs((float)($plans['bundle_3317']['base_amount'] ?? 0) - 3317.40) < 0.001, 'bundle is 5% off ₹3,492');
 expectTrue(($plans['bundle_3317']['amount'] ?? null) === 3915, 'bundle rounded GST-inclusive payable is ₹3,915');
 
-expectTrue(isset($plans['linkedin_8999']), 'LinkedIn Leadership Positioning plan exists');
-expectTrue(($plans['linkedin_8999']['base_amount'] ?? null) === 8999, 'LinkedIn campaign base is ₹8,999');
-expectTrue(($plans['linkedin_8999']['regular_base_amount'] ?? null) === 17500, 'LinkedIn regular base is ₹17,500');
+expectTrue(isset($plans['linkedin_8999']), 'Professional LinkedIn Profile Build plan exists');
+expectTrue(($plans['linkedin_8999']['base_amount'] ?? null) === 8999, 'Professional LinkedIn base is ₹8,999');
+expectTrue(!isset($plans['linkedin_8999']['regular_base_amount']), 'Professional LinkedIn is a standalone price');
 expectTrue(($plans['linkedin_8999']['amount'] ?? null) === 10619, 'LinkedIn rounded GST-inclusive payable is ₹10,619');
 
 $routes = file_get_contents($root . '/app/Config/Routes.php');
@@ -39,9 +39,9 @@ $decisionGuides = file_get_contents($root . '/app/Config/DecisionGuides.php');
 $linkedinView = $root . '/app/Views/pages/services/linkedin-leadership.php';
 
 expectTrue(str_contains($routes, "services/linkedin-leadership-positioning"), 'LinkedIn service route exists');
-expectTrue(str_contains($controller, 'LinkedIn Leadership Positioning'), 'LinkedIn service controller content exists');
+expectTrue(str_contains($controller, 'Professional LinkedIn Profile Build'), 'LinkedIn service controller content exists');
 expectTrue(str_contains($hub, 'Assessment + CV Rebuild Bundle'), 'bundle is visible on career-services hub');
-expectTrue(str_contains($hub, 'LinkedIn Leadership Positioning'), 'LinkedIn service is visible on career-services hub');
+expectTrue(str_contains($hub, 'Professional LinkedIn Profile Build'), 'LinkedIn service is visible on career-services hub');
 expectTrue(str_contains($assessment, '₹992 + GST'), 'assessment page shows ₹992 + GST');
 expectTrue(!str_contains($decisionGuides, '₹599 CV Assessment'), 'buyer guide no longer exposes stale ₹599 assessment pricing');
 expectTrue(!str_contains($decisionGuides, '₹1,799 Professional CV Rebuild'), 'buyer guide no longer exposes stale ₹1,799 rebuild pricing');
@@ -50,12 +50,6 @@ expectTrue(str_contains($decisionGuides, 'services/professional-cv-rebuild'), 'b
 expectTrue(is_file($linkedinView), 'LinkedIn leadership page exists');
 
 $linkedin = is_file($linkedinView) ? file_get_contents($linkedinView) : '';
-expectTrue(str_contains($linkedin, '₹17,500 + GST'), 'LinkedIn regular price is shown');
-expectTrue(str_contains($linkedin, '₹8,999 + GST'), 'LinkedIn campaign price is shown');
-expectTrue(str_contains($linkedin, 'Senior LinkedIn specialists'), 'specialist panel is explained');
-expectTrue(str_contains($linkedin, 'NDA'), 'NDA/confidentiality is explained');
-expectTrue(str_contains($linkedin, 'Illustrative'), 'example metrics are clearly labelled illustrative');
-expectTrue(str_contains($linkedin, '50K+'), 'illustrative impressions metric is shown');
-expectTrue(str_contains($linkedin, '20K+'), 'illustrative engagement metric is shown');
+require $root . '/tests/linkedin_service_architecture_test.php';
 
-echo "PASS career services 2026 premium pricing and LinkedIn positioning\n";
+echo "PASS career services 2026 pricing and separate LinkedIn engagements\n";

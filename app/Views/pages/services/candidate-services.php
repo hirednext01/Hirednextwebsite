@@ -58,7 +58,7 @@
                 ['Professional CV Rebuild','₹2,500 + GST','services/professional-cv-rebuild','Full managed rewrite and rebuild.'],
                 ['Assessment + CV Rebuild Bundle','₹3,317.40 + GST','services/cv-assessment-rebuild-bundle','Full assessment + rebuild with a 5% saving.'],
                 ['Executive CV','₹6,999','services/executive-cv','CXO and senior-leadership positioning.'],
-                ['LinkedIn Leadership Positioning','₹8,999 + GST','services/linkedin-leadership-positioning','Executive narrative and profile positioning.'],
+                ['Professional LinkedIn Profile Build','₹8,999 + GST','services/linkedin-profile-build','Career positioning and recruiter visibility.'],
                 ['Interview Coaching','₹4,500','services/interview-coaching','Role-specific 1-to-1 preparation.'],
             ] as $service): ?>
                 <a href="<?= base_url($service[2]) ?>" class="rounded-2xl border border-gray-200 bg-white p-5 hover:border-primary hover:shadow-md transition">
@@ -80,12 +80,12 @@
 <section class="py-16 bg-primary text-white">
     <div class="max-w-[1180px] mx-auto px-4 sm:px-8 grid lg:grid-cols-[1.1fr_.9fr] gap-8 items-center">
         <div>
-            <div class="text-gold text-xs font-black uppercase tracking-[0.22em]">For senior professionals</div>
+            <div class="text-gold text-xs font-black uppercase tracking-[0.22em]">Professional LinkedIn Profile Build</div>
             <h2 class="mt-3 text-3xl md:text-5xl font-serif font-bold">Your LinkedIn profile may be read before your CV.</h2>
-            <p class="mt-4 text-white/75 leading-relaxed">Build a leadership narrative that makes your scale, credibility and direction easier for executive-search professionals, founders, boards, investors and relevant industry peers to understand.</p>
-            <div class="mt-5 flex flex-wrap items-center gap-4"><span class="line-through text-white/45 font-black">₹17,500 + GST</span><span class="text-2xl font-black text-gold">Campaign ₹8,999 + GST</span></div>
+            <p class="mt-4 text-white/75 leading-relaxed">Make your experience, achievements and target-role fit easier for recruiters to recognise. A clear headline, About section, experience structure and skills architecture support your career positioning and searchability.</p>
+            <div class="mt-5 flex flex-wrap items-center gap-4"><span class="text-2xl font-black text-gold">₹8,999 + GST</span></div>
         </div>
-        <div class="lg:text-right"><a href="<?= base_url('services/linkedin-leadership-positioning') ?>" class="inline-flex rounded-full bg-accent px-7 py-4 font-black text-white">Explore LinkedIn Leadership Positioning</a></div>
+        <div class="lg:text-right"><a href="<?= base_url('services/linkedin-profile-build') ?>" class="inline-flex rounded-full bg-accent px-7 py-4 font-black text-white">Explore Professional LinkedIn Profile Build</a></div>
     </div>
 </section>
 
@@ -165,7 +165,7 @@
 
 <section class="py-20 bg-primary text-white">
 <div class="max-w-[1180px] mx-auto px-4 sm:px-8 grid lg:grid-cols-2 gap-12 items-start">
-    <div><div class="text-gold text-xs font-black uppercase tracking-[0.24em] mb-4">For senior professionals</div><h2 class="text-3xl md:text-4xl font-serif font-bold">The CV should make the scale of your career easier to understand.</h2><p class="text-white/70 mt-5 leading-relaxed">For experienced professionals, the issue is rarely a missing buzzword alone. It is often that responsibility, scale, progression and outcomes are buried inside dense job descriptions. HiredNext restructures the document so the reader can see the career logic faster.</p></div>
+    <div><div class="text-gold text-xs font-black uppercase tracking-[0.24em] mb-4">Professional LinkedIn Profile Build</div><h2 class="text-3xl md:text-4xl font-serif font-bold">The CV should make the scale of your career easier to understand.</h2><p class="text-white/70 mt-5 leading-relaxed">For experienced professionals, the issue is rarely a missing buzzword alone. It is often that responsibility, scale, progression and outcomes are buried inside dense job descriptions. HiredNext restructures the document so the reader can see the career logic faster.</p></div>
     <div class="grid sm:grid-cols-2 gap-4 text-sm text-white/85"><?php foreach (['Role and seniority positioning','Quantified impact where evidenced','Leadership and team scale','P&L / commercial exposure where stated','Career progression and transitions','ATS-safe headings and chronology','Relevant skills and role language','Board / stakeholder evidence for executives'] as $item): ?><div class="rounded-2xl border border-white/15 bg-white/5 p-5"><?= esc($item) ?></div><?php endforeach; ?></div>
 </div>
 </section>
@@ -182,3 +182,4 @@
 </section>
 
 <?= $this->endSection() ?>
+

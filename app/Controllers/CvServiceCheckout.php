@@ -23,7 +23,7 @@ class CvServiceCheckout extends BaseController
         return view('pages/services/cv-service-start', [
             'title' => $plan['name'] . ' | HiredNext',
             'metaDescription' => $plan['description'],
-            'canonical' => base_url('services/candidates'),
+            'canonical' => base_url($canonicalTier === 'leadership_17500' ? 'leadership-advisory/cxo-global-leadership-positioning' : ($canonicalTier === 'linkedin_8999' ? 'services/linkedin-profile-build' : 'services/candidates')),
             'currentPage' => 'services',
             'settings' => $this->loadWebsiteSettings(),
             'tier' => $canonicalTier,
@@ -40,11 +40,18 @@ class CvServiceCheckout extends BaseController
         }
 
         $validation = \Config\Services::validation();
-        $validation->setRules([
+        $rules = [
             'name' => 'required|min_length[3]',
             'email' => 'required|valid_email',
             'phone' => 'required|min_length[6]',
-        ]);
+        ];
+        if ($canonicalTier === 'leadership_17500') {
+            foreach (\App\Services\Cv\LeadershipContext::FIELDS as $field => $label) {
+                $rules[$field] = in_array($field, ['leadership_level', 'leadership_scope', 'leadership_target'], true)
+                    ? 'required|max_length[1000]' : 'permit_empty|max_length[1000]';
+            }
+        }
+        $validation->setRules($rules);
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
@@ -65,6 +72,10 @@ class CvServiceCheckout extends BaseController
 
         $db = db_connect();
         $now = date('Y-m-d H:i:s');
+        $message = trim((string) $this->request->getPost('message'));
+        if ($canonicalTier === 'leadership_17500') {
+            $message = \App\Services\Cv\LeadershipContext::appendToMessage($this->request->getPost(), $message);
+        }
         $lead = [
             'name' => trim((string) $this->request->getPost('name')),
             'email' => trim((string) $this->request->getPost('email')),
@@ -72,7 +83,7 @@ class CvServiceCheckout extends BaseController
             'assessment_plan' => $canonicalTier,
             'job_slug' => null,
             'job_title' => trim((string) $this->request->getPost('target_role')) ?: null,
-            'message' => trim((string) $this->request->getPost('message')) ?: null,
+            'message' => $message ?: null,
             'resume_path' => 'writable/uploads/cv-assessments/' . $storedName,
             'amount' => (int) $plan['amount'],
             'payment_status' => 'awaiting_payment',
@@ -108,3 +119,4 @@ class CvServiceCheckout extends BaseController
         return redirect()->to('/cv-upgrade/' . $token);
     }
 }
+
