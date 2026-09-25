@@ -184,6 +184,91 @@ class Jobs extends BaseController
         ]);
     }
 
+    public function talentPool()
+    {
+        $resumeFile = $this->request->getFile('resume');
+        if (!$resumeFile || !$resumeFile->isValid()) {
+            return redirect()->to(base_url('jobs') . '#talent-pool')
+                ->withInput()
+                ->with('talentPoolError', 'Please upload your CV in PDF, DOC or DOCX format.');
+        }
+
+        $allowed = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        ];
+        if (!in_array($resumeFile->getMimeType(), $allowed, true)) {
+            return redirect()->to(base_url('jobs') . '#talent-pool')
+                ->withInput()
+                ->with('talentPoolError', 'Please upload your CV in PDF, DOC or DOCX format.');
+        }
+        if ($resumeFile->getSize() > 5 * 1024 * 1024) {
+            return redirect()->to(base_url('jobs') . '#talent-pool')
+                ->withInput()
+                ->with('talentPoolError', 'Your CV must be 5MB or less.');
+        }
+
+        $tempPath = $resumeFile->getTempName();
+        $fileHash = is_file($tempPath) ? hash_file('sha256', $tempPath) : false;
+        if (!$fileHash) {
+            return redirect()->to(base_url('jobs') . '#talent-pool')
+                ->withInput()
+                ->with('talentPoolError', 'We could not read the uploaded CV. Please try again.');
+        }
+
+        $fields = [
+            'current_company', 'current_designation', 'department', 'employment_status',
+            'total_experience', 'current_location', 'preferred_locations', 'current_ctc',
+            'expected_ctc', 'notice_period', 'qualification', 'college', 'course',
+            'additional_courses',
+        ];
+        $answers = [];
+        foreach ($fields as $field) {
+            $value = trim((string) $this->request->getPost($field));
+            if ($value !== '') $answers[$field] = $value;
+        }
+
+        $name = trim((string) $this->request->getPost('name'));
+        $email = strtolower(trim((string) $this->request->getPost('email')));
+        $phone = trim((string) $this->request->getPost('phone'));
+        $linkedin = trim((string) $this->request->getPost('linkedin'));
+        if ($linkedin !== '' && !preg_match('#^https?://#i', $linkedin)) {
+            $linkedin = 'https://' . ltrim($linkedin, '/');
+        }
+
+        $externalId = 'talent-pool-' . hash('sha256', implode('|', [$email, $phone, $fileHash]));
+
+        try {
+            (new \App\Services\RecruitOsIntakeClient())->submit(
+                $tempPath,
+                (string) $resumeFile->getClientName(),
+                (string) $resumeFile->getMimeType(),
+                [
+                    'source' => 'website_talent_pool',
+                    'source_account' => 'hirednext.net',
+                    'external_id' => $externalId,
+                    'attachment_id' => 'sha256-' . $fileHash,
+                    'candidate_name' => $name !== '' ? $name : null,
+                    'candidate_email' => $email !== '' ? $email : null,
+                    'candidate_phone' => $phone !== '' ? $phone : null,
+                    'candidate_linkedin' => $linkedin !== '' ? $linkedin : null,
+                    'candidate_answers' => $answers,
+                    'candidate_interest' => 'future_relevant_roles',
+                    'tags' => ['talent_pool', 'website', 'general_registration'],
+                ]
+            );
+        } catch (\Throwable $e) {
+            log_message('error', 'Recruit OS talent-pool intake failed on the jobs page.');
+            return redirect()->to(base_url('jobs') . '#talent-pool')
+                ->withInput()
+                ->with('talentPoolError', 'We could not save your CV right now. Please try again shortly.');
+        }
+
+        return redirect()->to(base_url('jobs') . '#talent-pool')
+            ->with('talentPoolSuccess', 'Your CV is now in the HiredNext talent pool. We can find it when a relevant mandate opens.');
+    }
+
     private function applyLocationFilter($builder, string $location): void
     {
         $key = strtolower(trim($location));
