@@ -948,6 +948,70 @@ class Home extends BaseController
             }
         }
 
+        if (in_array($slug, [
+            'liquid-cooling-thermal-systems-manager-mumbai',
+            'data-center-power-electrical-reliability-manager-hyderabad',
+            'high-speed-serdes-ucie-analog-design-engineer-bengaluru',
+            'advanced-packaging-chiplet-layout-engineer-bengaluru',
+            'enterprise-agentic-ai-architect-chennai',
+            'agentic-ai-soc-detection-response-manager-bengaluru',
+        ], true)) {
+            $nicheCommercial = [
+                'current_ctc' => ['label' => 'Current CTC', 'required' => false],
+                'expected_ctc' => ['label' => 'Expected CTC', 'required' => false],
+                'notice_period' => ['label' => 'Notice period', 'required' => true],
+                'preferred_location' => ['label' => 'Preferred work location', 'required' => true],
+            ];
+
+            if ($slug === 'liquid-cooling-thermal-systems-manager-mumbai') {
+                return $common + [
+                    'cooling_architecture' => ['label' => 'Liquid cooling or high-density cooling architectures handled', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Direct-to-chip, CDU, rear-door heat exchanger, chilled water or other'],
+                    'rack_density' => ['label' => 'Highest rack density / thermal load supported', 'required' => true],
+                    'thermal_project' => ['label' => 'One cooling design, retrofit or commissioning project you personally owned', 'required' => true, 'type' => 'textarea'],
+                ] + $nicheCommercial;
+            }
+
+            if ($slug === 'data-center-power-electrical-reliability-manager-hyderabad') {
+                return $common + [
+                    'electrical_systems' => ['label' => 'Critical electrical systems personally owned', 'required' => true, 'type' => 'textarea', 'placeholder' => 'HV/LV, transformers, switchgear, UPS, DG, protection and redundancy'],
+                    'power_scale' => ['label' => 'Largest site or electrical load supported', 'required' => true],
+                    'reliability_incident' => ['label' => 'One major electrical incident or reliability improvement you led', 'required' => true, 'type' => 'textarea'],
+                ] + $nicheCommercial;
+            }
+
+            if ($slug === 'high-speed-serdes-ucie-analog-design-engineer-bengaluru') {
+                return $common + [
+                    'interface_standards' => ['label' => 'High-speed interface standards designed', 'required' => true, 'placeholder' => 'UCIe, SerDes, PCIe, CXL, Ethernet, USB or others'],
+                    'analog_blocks' => ['label' => 'Analog / mixed-signal blocks personally designed', 'required' => true, 'type' => 'textarea', 'placeholder' => 'TX/RX, PLL, DLL, CDR, equalizer, regulators, etc.'],
+                    'silicon_tapeouts' => ['label' => 'Silicon-proven tape-outs and process nodes', 'required' => true, 'type' => 'textarea'],
+                ] + $nicheCommercial;
+            }
+
+            if ($slug === 'advanced-packaging-chiplet-layout-engineer-bengaluru') {
+                return $common + [
+                    'package_technologies' => ['label' => 'Advanced packaging technologies handled', 'required' => true, 'type' => 'textarea', 'placeholder' => '2.5D, 3D, interposer, RDL, TSV, micro-bump, chiplet or package co-design'],
+                    'layout_scope' => ['label' => 'Package-aware or custom layout scope personally owned', 'required' => true, 'type' => 'textarea'],
+                    'tapeout_example' => ['label' => 'One advanced packaging / chiplet tape-out example', 'required' => true, 'type' => 'textarea'],
+                ] + $nicheCommercial;
+            }
+
+            if ($slug === 'enterprise-agentic-ai-architect-chennai') {
+                return $common + [
+                    'production_ai_stack' => ['label' => 'Production GenAI / agentic AI stack used', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Models, orchestration, RAG, vector/data layer, gateways, observability and cloud'],
+                    'agentic_use_case' => ['label' => 'One agentic AI use case taken from PoC to production', 'required' => true, 'type' => 'textarea'],
+                    'scale_governance' => ['label' => 'Scale, security, governance and cost controls you personally designed', 'required' => true, 'type' => 'textarea'],
+                ] + $nicheCommercial;
+            }
+
+            if ($slug === 'agentic-ai-soc-detection-response-manager-bengaluru') {
+                return $common + [
+                    'security_stack' => ['label' => 'SIEM / SOAR / XDR / detection stack used', 'required' => true, 'type' => 'textarea'],
+                    'ai_soc_use_case' => ['label' => 'AI or automation use cases implemented in security operations', 'required' => true, 'type' => 'textarea'],
+                    'detection_outcome' => ['label' => 'One measurable detection or response improvement you personally drove', 'required' => true, 'type' => 'textarea'],
+                ] + $nicheCommercial;
+            }
+        }
+
         return [];
     }
 
