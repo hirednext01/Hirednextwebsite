@@ -160,6 +160,7 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
             <div>
                 <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-1">Open opportunities</div>
                 <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">Current roles</h2>
+                <p class="mt-1 text-xs text-gray-500">Applications are free. Optional paid career services do not influence shortlisting.</p>
             </div>
             <div class="text-sm text-gray-500"><?= count($jobs) ?> role<?= count($jobs) === 1 ? '' : 's' ?> shown</div>
         </div>
