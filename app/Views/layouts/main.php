@@ -281,6 +281,7 @@
                         <li><a href="<?= base_url('services/candidates') ?>" class="hover:text-accent">For Professionals</a></li>
                         <li><a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="hover:text-accent">For CXOs</a></li>
                         <li><a href="<?= base_url('jobs') ?>" class="hover:text-accent">Job Board</a></li>
+                        <li><a href="<?= base_url('career-intelligence') ?>" class="hover:text-accent">Career Intelligence</a></li>
                         <li><a href="<?= base_url('search-authority') ?>" class="hover:text-accent">Search Authority</a></li>
                         <li><a href="<?= base_url('blog') ?>" class="hover:text-accent">Insights</a></li>
                     </ul>
