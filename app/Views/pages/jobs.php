@@ -20,7 +20,7 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
             <div class="max-w-3xl">
                 <div class="text-[11px] uppercase tracking-[0.24em] text-gold font-black mb-3">HiredNext Job Board</div>
-                <h1 class="text-3xl md:text-5xl font-serif font-bold leading-tight">Specialist roles. One clear application route.</h1>
+                <h1 class="text-3xl md:text-5xl font-serif font-bold leading-tight">Find your next opportunity</h1>
                 <p class="mt-3 text-sm md:text-base text-white/70 max-w-2xl">Explore leadership, technology, manufacturing, retail, finance and specialist roles managed through HiredNext.</p>
             </div>
             <div class="flex flex-wrap gap-3">
