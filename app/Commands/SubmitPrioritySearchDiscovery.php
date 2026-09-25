@@ -30,6 +30,7 @@ class SubmitPrioritySearchDiscovery extends BaseCommand
 
         $paths = [
             '',
+            'top-recruitment-company-india',
             'services/clients',
             'services/executive-search',
             'services/cv-assessment',

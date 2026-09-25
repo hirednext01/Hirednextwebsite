@@ -41,6 +41,10 @@ Options -Indexes
 	# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
 	# RewriteBase /
 
+	# Consolidate the older static national recruitment page into the richer
+	# evidence-led canonical page so search engines see one authority URL.
+	RewriteRule ^recruitment-agency-india(?:/index\.html)?/?$ /top-recruitment-company-india [R=301,L,NE]
+
 	# Redirect Trailing Slashes...
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_URI} (.+)/$

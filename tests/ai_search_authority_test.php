@@ -26,6 +26,8 @@ $candidate = file_get_contents($root . '/app/Views/pages/services/candidate-serv
 $assessment = file_get_contents($root . '/app/Views/pages/services/cv-assessment.php');
 $jobs = file_get_contents($root . '/app/Views/pages/jobs.php');
 $publicAuthority = file_get_contents($root . '/app/Filters/PublicAuthorityFilter.php');
+$htaccess = file_get_contents($root . '/public/.htaccess');
+$focusedSitemap = file_get_contents($root . '/public/sitemap-search.xml');
 
 mustContain($brand, "'founded_in' => 'Mumbai, Maharashtra, India'", 'founding city must remain Mumbai');
 mustContain($brand, "'registered_location' => 'Gurugram (Gurgaon), Haryana, India'", 'registered base must remain Gurugram');
@@ -40,6 +42,12 @@ mustContain($entity, "'name' => 'Professional CV Rebuild'", 'entity CV rebuild s
 mustContain($entity, "'name' => 'Interview Preparation and Career Consultation'", 'entity interview preparation service');
 mustContain($seo, "guides/interview-preparation-india", 'interview guide in sitemap/llms discovery');
 mustNotContain($seo, "base_url('pilots/interview-ready.html')", 'noindex pilot must not be in sitemap');
+mustContain($guideConfig, "'title' => 'Recruitment Agency in India for Leadership & Executive Search'", 'national recruitment guide must own the exact commercial intent');
+mustContain($seo, "base_url('top-recruitment-company-india')", 'AI discovery must point to the single national recruitment canonical');
+mustNotContain($seo, "base_url('recruitment-agency-india/')", 'AI discovery must not point to the retired duplicate national page');
+mustContain($htaccess, 'RewriteRule ^recruitment-agency-india(?:/index\\.html)?/?$ /top-recruitment-company-india [R=301,L,NE]', 'retired national recruitment page must 301 to the richer canonical');
+mustContain($focusedSitemap, '<loc>https://hirednext.net/top-recruitment-company-india</loc>', 'focused sitemap must include the single national recruitment canonical');
+mustNotContain($focusedSitemap, '<loc>https://hirednext.net/recruitment-agency-india/</loc>', 'focused sitemap must not publish the duplicate static national page');
 mustContain($candidate, 'Professional CV writing, CV making and CV rebuilding in India', 'candidate-services answer-first heading');
 mustContain($candidate, 'guides/interview-preparation-india', 'candidate services links interview authority');
 mustContain($assessment, 'CV assessment in India', 'assessment page owns India intent');
