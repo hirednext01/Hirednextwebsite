@@ -88,7 +88,22 @@
             display: block;
             margin-left: auto;
         }
-        @media (min-width: 1440px) {
+        .site-mobile-menu-panel {
+            left: auto;
+            right: 0;
+            width: min(100%, 440px);
+            max-width: 440px;
+            border-bottom-left-radius: 28px;
+            border-top: 1px solid rgba(12, 52, 102, .08);
+            box-shadow: 0 24px 60px rgba(12, 52, 102, .22);
+        }
+        .site-mobile-section {
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 14px 16px;
+            background: #f8fafc;
+        }
+        @media (min-width: 1040px) {
             .site-desktop-nav {
                 display: flex;
                 flex: 1 1 auto;
@@ -171,42 +186,38 @@
 
                     <div class="relative group py-3">
                         <button type="button" class="nav-link text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">
-                            Services
+                            For Employers
                             <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
                         </button>
                         <div class="absolute left-1/2 -translate-x-1/2 top-full w-72 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200">
                             <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden p-2">
-                                <a href="<?= base_url('services/clients') ?>" class="block rounded-xl px-5 py-4 hover:bg-gray-50 transition">
-                                    <span class="block text-sm font-extrabold text-primary">For Clients</span>
-                                    <span class="block text-xs text-gray-500 mt-1">Executive search, permanent hiring & RPO</span>
-                                </a>
-                                <div class="px-5 pt-3 text-sm font-bold text-primary">Career Services</div>
-                                <a href="<?= base_url('services/candidates') ?>" class="block rounded-xl px-5 py-3 text-sm text-primary hover:bg-gray-50">CV / Resume Services</a>
-                                <a href="<?= base_url('services/linkedin-profile-build') ?>" class="block rounded-xl px-5 py-3 text-sm text-primary hover:bg-gray-50">LinkedIn Profile Build</a>
-                                <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=navigation&utm_campaign=interview_ready') ?>" class="block rounded-xl px-5 py-4 hover:bg-gray-50 transition">
-                                    <span class="block text-sm font-extrabold text-primary">Interview Ready <span class="text-xs font-normal">· interest only</span></span>
-                                    <span class="block text-xs text-gray-500 mt-1">Practice questions and feedback on your answers</span>
-                                </a>
-                                <a href="<?= base_url('career-services/start/career_4500') ?>" class="block rounded-xl px-5 py-4 hover:bg-gray-50 transition">
-                                    <span class="block text-sm font-extrabold text-primary">1-to-1 consultation</span>
-                                    <span class="block text-xs text-gray-500 mt-1">30 minutes with Taru Shikha · ₹4,500</span>
-                                </a>
+                                <a href="<?= base_url('services/executive-search') ?>" class="block rounded-xl px-5 py-3 hover:bg-gray-50 transition"><span class="block text-sm font-extrabold text-primary">Executive Search</span></a>
+                                <a href="<?= base_url('mandate-stories') ?>" class="block rounded-xl px-5 py-3 hover:bg-gray-50 transition"><span class="block text-sm font-extrabold text-primary">Confidential Search</span></a>
+                                <a href="<?= base_url('services/permanent-hiring') ?>" class="block rounded-xl px-5 py-3 hover:bg-gray-50 transition"><span class="block text-sm font-extrabold text-primary">Permanent Hiring</span></a>
+                                <a href="<?= base_url('services/rpo') ?>" class="block rounded-xl px-5 py-3 hover:bg-gray-50 transition"><span class="block text-sm font-extrabold text-primary">RPO</span></a>
+                                <a href="<?= base_url('hiring-discussion') ?>" class="block rounded-xl px-5 py-3 hover:bg-gray-50 transition"><span class="block text-sm font-extrabold text-primary">Contract to Hire</span></a>
                             </div>
                         </div>
                     </div>
-
                     <div class="relative group py-3">
-                        <a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Leadership Advisory</a>
-                        <div class="absolute left-1/2 -translate-x-1/2 top-full w-72 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200">
-                            <a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="block bg-white rounded-xl shadow-xl p-5 text-sm font-bold text-primary">CXO / Global Leadership Positioning</a>
-                        </div>
+                        <button type="button" class="nav-link text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">For Professionals <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></button>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full w-72 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200"><div class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-2">
+                            <a href="<?= base_url('jobs') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Job Board</a>
+                            <a href="<?= base_url('jobs#talent-pool') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Add My Profile</a>
+                            <a href="<?= base_url('services/candidates') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Career Services</a>
+                            <a href="<?= base_url('services/linkedin-profile-build') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">LinkedIn Profile Build</a>
+                        </div></div>
                     </div>
-
-                    <a href="<?= base_url('testimonials') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Testimonials</a>
-                    <a href="<?= base_url('press-media') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Press & Media</a>
-                    <a href="<?= base_url('blog') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Blog</a>
-                    <a href="<?= base_url('jobs') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Jobs</a>
-                    <a href="<?= base_url('speak-to-hirednext') ?>" class="site-nav-cta ml-1 bg-accent text-gray-900 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Speak to HiredNext</a>
+                    <div class="relative group py-3">
+                        <button type="button" class="nav-link text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">For CXOs <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></button>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full w-72 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200"><div class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-2">
+                            <a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Private Leadership Positioning</a>
+                            <a href="<?= base_url('services/executive-cv') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Executive CV and Case Study</a>
+                            <a href="<?= base_url('services/linkedin-leadership-positioning') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Executive LinkedIn Positioning</a>
+                        </div></div>
+                    </div>
+                    <a href="<?= base_url('blog') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Insights</a>
+                    <a href="<?= base_url('hiring-discussion') ?>" class="site-nav-cta ml-1 bg-accent text-white px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap hover:bg-opacity-90 transition-all shadow-lg hover:shadow-accent/30">Discuss a Mandate</a>
                 </div>
 
                 <div class="site-mobile-toggle">
@@ -218,30 +229,22 @@
             </div>
         </div>
 
-        <div id="mobileMenu" class="site-mobile-menu hidden bg-white shadow-xl absolute top-full left-0 w-full p-6 animate-in slide-in-from-top duration-300 max-h-[calc(100vh-80px)] overflow-y-auto">
-            <div class="flex flex-col space-y-4">
-                <a href="<?= base_url() ?>" class="mobile-link">Home</a>
-                <a href="<?= base_url('about') ?>" class="mobile-link">About</a>
-                <div class="border-y border-gray-100 py-4">
-                    <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Services</div>
+        <div id="mobileMenu" class="site-mobile-menu site-mobile-menu-panel hidden bg-white absolute top-full p-5 animate-in slide-in-from-top duration-300 max-h-[calc(100vh-76px)] overflow-y-auto">
+            <div class="flex flex-col space-y-3">
+                <div class="grid grid-cols-2 gap-2"><a href="<?= base_url() ?>" class="mobile-link rounded-xl border border-gray-200 px-4 py-3 font-bold">Home</a><a href="<?= base_url('about') ?>" class="mobile-link rounded-xl border border-gray-200 px-4 py-3 font-bold">About</a></div>
+                <div class="site-mobile-section">
+                    <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-3">For Employers</div>
                     <div class="space-y-2 pl-2">
-                        <a href="<?= base_url('services/clients') ?>" class="mobile-link block font-bold">For Clients</a>
-                        <div class="pt-3 text-sm font-bold text-primary">Career Services</div>
-                        <a href="<?= base_url('services/candidates') ?>" class="mobile-link block">CV / Resume Services</a>
-                        <a href="<?= base_url('services/linkedin-profile-build') ?>" class="mobile-link block">LinkedIn Profile Build</a>
-                        <a href="<?= base_url('pilots/interview-ready.html?utm_source=website&utm_medium=mobile_navigation&utm_campaign=interview_ready') ?>" class="mobile-link block font-bold">Interview Ready · interest only</a>
-                        <a href="<?= base_url('career-services/start/career_4500') ?>" class="mobile-link block font-bold">1-to-1 consultation · ₹4,500</a>
+                        <a href="<?= base_url('services/executive-search') ?>" class="mobile-link block font-bold">Executive Search</a>
+                        <a href="<?= base_url('mandate-stories') ?>" class="mobile-link block font-bold">Confidential Search</a>
+                        <a href="<?= base_url('services/permanent-hiring') ?>" class="mobile-link block font-bold">Permanent Hiring</a>
+                        <a href="<?= base_url('services/rpo') ?>" class="mobile-link block font-bold">RPO</a>
                     </div>
                 </div>
-                <div class="border-b border-gray-100 pb-4">
-                    <div class="text-sm font-bold text-primary mb-3">Leadership Advisory</div>
-                    <a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="mobile-link block pl-2">CXO / Global Leadership Positioning</a>
-                </div>
-                <a href="<?= base_url('testimonials') ?>" class="mobile-link">Testimonials</a>
-                <a href="<?= base_url('press-media') ?>" class="mobile-link">Press & Media</a>
-                <a href="<?= base_url('blog') ?>" class="mobile-link">Blog</a>
-                <a href="<?= base_url('jobs') ?>" class="mobile-link">Jobs</a>
-                <a href="<?= base_url('speak-to-hirednext') ?>" class="bg-accent text-gray-900 px-6 py-3 rounded-xl text-center font-bold">Speak to HiredNext</a>
+                <div class="site-mobile-section"><div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">For Professionals</div><div class="space-y-2 pl-2"><a href="<?= base_url('jobs') ?>" class="mobile-link block font-bold">Job Board</a><a href="<?= base_url('jobs#talent-pool') ?>" class="mobile-link block font-bold">Add My Profile</a><a href="<?= base_url('services/candidates') ?>" class="mobile-link block font-bold">Career Services</a><a href="<?= base_url('services/linkedin-profile-build') ?>" class="mobile-link block font-bold">LinkedIn Profile Build</a></div></div>
+                <div class="site-mobile-section"><div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">For CXOs</div><div class="space-y-2 pl-2"><a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="mobile-link block font-bold">Private Leadership Positioning</a><a href="<?= base_url('services/executive-cv') ?>" class="mobile-link block font-bold">Executive CV and Case Study</a><a href="<?= base_url('services/linkedin-leadership-positioning') ?>" class="mobile-link block font-bold">Executive LinkedIn Positioning</a></div></div>
+                <a href="<?= base_url('blog') ?>" class="mobile-link rounded-xl border border-gray-200 px-4 py-3 font-bold">Insights</a>
+                <a href="<?= base_url('hiring-discussion') ?>" class="bg-accent text-white px-6 py-3 rounded-xl text-center font-bold">Discuss a Hiring Mandate</a>
             </div>
         </div>
     </nav>
@@ -267,23 +270,19 @@
                             <span class="text-2xl font-bold"><?= esc($siteName) ?></span>
                         <?php endif; ?>
                     </h3>
-                    <p class="text-white/70 leading-relaxed"><?= esc($settings['site_tagline'] ?? 'A global talent advisory and recruitment firm delivering high-impact leadership solutions across sectors.') ?></p>
+                    <p class="text-white/70 leading-relaxed">An executive recruitment and talent advisory firm supporting critical hiring across India.</p>
                 </div>
                 <div>
-                    <h4 class="font-bold mb-5 uppercase tracking-widest text-sm">Company</h4>
+                    <h4 class="font-bold mb-5 uppercase tracking-widest text-sm">Explore</h4>
                     <ul class="space-y-3 text-sm text-white/70">
                         <li><a href="<?= base_url() ?>" class="hover:text-accent">Home</a></li>
                         <li><a href="<?= base_url('about') ?>" class="hover:text-accent">About</a></li>
-                        <li><a href="<?= base_url('services/clients') ?>" class="hover:text-accent">Services for Clients</a></li>
-                        <li><a href="<?= base_url('services/candidates') ?>" class="hover:text-accent">Career Services</a></li>
-                        <li><a href="<?= base_url('services/linkedin-profile-build') ?>" class="hover:text-accent">Professional LinkedIn Profile Build</a></li>
-                        <li><a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="hover:text-accent">Leadership Advisory</a></li>
-                        <li><a href="<?= base_url('career-intelligence') ?>" class="hover:text-accent">Career Intelligence</a></li>
-                        <li><a href="<?= base_url('services/cv-assessment') ?>" class="hover:text-accent">CV Assessment · ₹992 + GST</a></li>
-                        <li><a href="<?= base_url('guides/interview-preparation-india') ?>" class="hover:text-accent">Interview Preparation Guide</a></li>
-                        <li><a href="<?= base_url('career-services/start/career_4500') ?>" class="hover:text-accent">1-to-1 consultation · ₹4,500</a></li>
-                        <li><a href="<?= base_url('blog') ?>" class="hover:text-accent">Insights & Blog</a></li>
-                        <li><a href="<?= base_url('jobs') ?>" class="hover:text-accent">Jobs</a></li>
+                        <li><a href="<?= base_url('services/clients') ?>" class="hover:text-accent">For Employers</a></li>
+                        <li><a href="<?= base_url('services/candidates') ?>" class="hover:text-accent">For Professionals</a></li>
+                        <li><a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="hover:text-accent">For CXOs</a></li>
+                        <li><a href="<?= base_url('jobs') ?>" class="hover:text-accent">Job Board</a></li>
+                        <li><a href="<?= base_url('search-authority') ?>" class="hover:text-accent">Search Authority</a></li>
+                        <li><a href="<?= base_url('blog') ?>" class="hover:text-accent">Insights</a></li>
                     </ul>
                 </div>
                 <div>
@@ -299,8 +298,8 @@
                 </div>
                 <div>
                     <h4 class="font-bold mb-5 uppercase tracking-widest text-sm">Let’s Talk</h4>
-                    <p class="text-white/70 mb-4">Have a hiring mandate or need strategic guidance? Start with the appropriate HiredNext route.</p>
-                    <a href="<?= base_url('speak-to-hirednext') ?>" class="inline-block bg-accent text-gray-900 px-6 py-3 rounded-xl font-bold">Speak to HiredNext</a>
+                    <p class="text-white/70 mb-4">Have a leadership, permanent, RPO or specialist hiring requirement?</p>
+                    <a href="<?= base_url('hiring-discussion') ?>" class="inline-block bg-accent text-white px-6 py-3 rounded-xl font-bold">Discuss a Hiring Mandate</a>
                     <a href="<?= base_url('contact') ?>" class="block mt-4 text-sm text-white/80 hover:text-white">Contact Us</a>
                 </div>
             </div>
@@ -405,4 +404,3 @@
     </script>
 </body>
 </html>
-

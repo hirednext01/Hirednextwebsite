@@ -60,7 +60,9 @@ class Seo extends BaseController
             ['loc' => base_url('regions/recruitment-agency-pune'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
 
             ['loc' => base_url('hiring-intelligence'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('search-authority'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('mandate-stories'), 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('pilots/interview-ready.html'), 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['loc' => base_url('insights'), 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => base_url('about'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['loc' => base_url('about/taru-shikha'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],

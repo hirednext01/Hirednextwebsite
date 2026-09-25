@@ -23,14 +23,13 @@ foreach ([$home, $jobs] as $surface) {
     requireCheck(!str_contains($surface, '₹599'), 'old ₹599 public price removed');
     requireCheck(!str_contains($surface, '₹1,799'), 'old ₹1,799 public price removed');
     requireCheck(!str_contains($surface, 'rebuild_1799'), 'legacy rebuild tier removed from public links');
-    requireCheck(str_contains($surface, '₹992 + GST'), 'assessment public price updated');
-    requireCheck(str_contains($surface, '₹2,500 + GST'), 'rebuild public price updated');
 }
 
-requireCheck(str_contains($home, "services/professional-cv-rebuild"), 'homepage rebuild link points to canonical service page');
-requireCheck(str_contains($jobs, "services/professional-cv-rebuild"), 'jobs rebuild link points to canonical service page');
 requireCheck(!str_contains($jobs, "base_url('cv-assessment')"), 'jobs contains no internal link to legacy /cv-assessment route');
-requireCheck(str_contains($jobs, "services/cv-assessment"), 'jobs assessment link points directly to canonical service page');
 requireCheck(!str_contains($routes, "pay/linkedin-leadership"), 'retired named-client LinkedIn checkout route removed');
+requireCheck(!str_contains($home, 'Get My CV Assessed'), 'employer homepage does not sell candidate products');
+requireCheck(!str_contains($home, 'Get My CV Rebuilt'), 'employer homepage does not sell candidate products');
+requireCheck(!str_contains($jobs, 'Assess my CV'), 'job board keeps application as its primary action');
+requireCheck(!str_contains($jobs, 'Get my CV rebuilt'), 'job board keeps application as its primary action');
 
 echo "PASS: career service search consolidation and public pricing\n";

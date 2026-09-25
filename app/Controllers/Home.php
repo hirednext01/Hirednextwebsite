@@ -9,48 +9,9 @@ class Home extends BaseController
     public function index()
     {
         $settings = $this->loadWebsiteSettings();
-        $jobModel = new \App\Models\JobModel();
         $brandFacts = config('BrandFacts');
         $brand = $brandFacts->facts ?? [];
         $schemaIdentity = $brandFacts->organizationSchemaIdentity();
-
-        $faq = [
-            [
-                'q' => 'Do you provide IT recruitment services in India?',
-                'a' => 'Yes. We support IT recruitment in India for mid-senior and leadership roles across product, engineering, data, security, and platform functions.',
-            ],
-            [
-                'q' => 'Do you offer executive search for BFSI roles?',
-                'a' => 'Yes. We run confidential executive searches for BFSI leadership roles across banking, NBFC, fintech, and insurance mandates.',
-            ],
-            [
-                'q' => 'How do you find senior retail leaders?',
-                'a' => 'We use competitor mapping, performance-based shortlisting, and structured interviews to identify leaders with proven P&L and omnichannel execution.',
-            ],
-            [
-                'q' => 'Do you recruit for textile, apparel, garment and fashion businesses?',
-                'a' => 'Yes. HiredNext recruits leadership and specialist talent for export houses, buying houses, textile and apparel manufacturers, fashion retailers and lifestyle brands across India and selected cross-border mandates.',
-            ],
-            [
-                'q' => 'What engineering leadership roles do you specialize in?',
-                'a' => 'We specialize in leadership roles across engineering, projects, quality, maintenance, operations, plant leadership, and supply chain.',
-            ],
-        ];
-
-        $faqJsonLd = [
-            '@context' => 'https://schema.org',
-            '@type' => 'FAQPage',
-            'mainEntity' => array_map(function ($item) {
-                return [
-                    '@type' => 'Question',
-                    'name' => $item['q'],
-                    'acceptedAnswer' => [
-                        '@type' => 'Answer',
-                        'text' => $item['a'],
-                    ],
-                ];
-            }, $faq),
-        ];
 
         $jsonLd = [
             '@context' => 'https://schema.org',
@@ -104,8 +65,7 @@ class Home extends BaseController
                     'publisher' => [
                         '@id' => 'https://hirednext.net/#organization'
                     ]
-                ],
-                $faqJsonLd
+                ]
             ]
         ];
         $data = [
@@ -114,10 +74,6 @@ class Home extends BaseController
             'canonical' => base_url('/'),
             'currentPage' => 'home',
             'settings' => $settings,
-            'testimonials' => $this->loadActiveReviews(),
-            'jobs' => $jobModel->getOpenJobs(),
-            'press_media_items' => $this->loadActivePressMedia(),
-            'faq' => $faq,
             'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
         ];
 
