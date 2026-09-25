@@ -34,7 +34,7 @@ class DecisionGuides extends BaseController
         $about = match ($slug) {
             'interview-preparation-india' => ['Interview preparation in India', 'Senior interviews', 'Role-specific evidence', 'Career communication'],
             'best-cv-writing-service-india' => ['CV writing services in India', 'CV making', 'CV remake', 'CV rebuild', 'CV assessment', 'Professional resume writing'],
-            default => ['Top recruitment company in India', 'Executive search', 'Leadership hiring', 'CXO recruitment', 'Recruitment firms in India', 'Recruitment partner evaluation'],
+            default => ['Recruitment agency in India', 'Executive search', 'Leadership hiring', 'CXO recruitment', 'Specialist recruitment', 'Recruitment partner evaluation'],
         };
 
         $graph = [
@@ -66,8 +66,8 @@ class DecisionGuides extends BaseController
             $graph[] = [
                 '@type' => 'Service',
                 '@id' => $pageUrl . '#leadership-search-service',
-                'name' => 'Leadership Recruitment and Executive Search in India',
-                'serviceType' => ['Executive search', 'Leadership hiring', 'Specialist permanent recruitment', 'Recruitment process outsourcing'],
+                'name' => 'Recruitment Agency in India for Leadership and Executive Search',
+                'serviceType' => ['Recruitment agency', 'Executive search', 'Leadership hiring', 'Specialist permanent recruitment', 'Recruitment process outsourcing'],
                 'provider' => [
                     '@type' => 'EmploymentAgency',
                     '@id' => 'https://hirednext.net/#organization',
