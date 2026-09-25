@@ -35,6 +35,12 @@ const checks = new Map([
   ['job board does not expose expression-of-interest language', !jobs.toLowerCase().includes('expression of interest') && !jobModel.toLowerCase().includes('expression of interest')],
   ['job board does not expose future-mandate language', !jobs.toLowerCase().includes('upcoming mandate') && !jobModel.toLowerCase().includes('upcoming mandate')],
   ['job card primary action is Apply for this role', jobs.includes('Apply for this role')],
+  ['job search appears before talent-pool registration', jobs.indexOf('id="job-results"') < jobs.indexOf('<?= $talentPoolMarkup ?>')],
+  ['job board has one talent-pool invitation', (jobs.match(/id="talent-pool"/g) || []).length === 1 && (jobs.match(/Add my CV/gi) || []).length <= 1],
+  ['job board hero does not delay roles with profile CTAs', !jobs.slice(0, jobs.indexOf('id="job-results"')).includes('href="#talent-pool"')],
+  ['homepage restores the established photographic hero', home.includes('hero-home') && home.includes('hero-panel')],
+  ['homepage hero remains employer-only', !home.slice(0, home.indexOf('</section>')).includes('CV support') && !home.slice(0, home.indexOf('</section>')).includes('Career Services')],
+  ['desktop navigation uses a shared aligned row', layout.includes('.site-desktop-nav .nav-link') && layout.includes('align-items: center')],
   ['search authority page exists', fs.existsSync(path.join(root, 'app/Views/pages/search-authority.php'))],
   ['search authority hub is discoverable in sitemap', seo.includes("base_url('search-authority')")],
 ]);

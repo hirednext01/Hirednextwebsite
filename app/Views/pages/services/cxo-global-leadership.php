@@ -13,7 +13,7 @@
   </div>
  </div>
 </section>
-<section class="hn-position-section">
+<section class="hn-position-section hn-leadership-supporting" aria-label="Executive market context">
  <div class="hn-position-wrap hn-position-split">
   <div><p class="hn-position-kicker">The executive market</p><h2>A title introduces you.<br>Your evidence establishes your relevance.</h2></div>
   <div><p>A CEO, investor or global search partner may encounter your LinkedIn profile without knowing your employer, the complexity of your market or the scale behind your title. Your public narrative needs to make that context understandable.</p><p>We examine what you were accountable for, what changed under your leadership and which future mandates that evidence can credibly support. The result is executive market positioning built around commercial scale, career architecture and leadership evidence.</p></div>
@@ -25,18 +25,16 @@
   <h2>From career history<br>to a coherent leadership proposition.</h2>
   <div class="hn-leadership-work">
    <?php foreach ([
-    ['01', 'Diagnose the leadership mandate', 'Leadership diagnostic & career architecture', 'Examine progression, organisational level, decision rights, team complexity and stakeholder expectations. Identify the through-line in your career and the leadership problems you are equipped to solve.'],
-    ['02', 'Establish the enterprise evidence', 'Commercial scale & attributable impact', 'Map P&L, revenue, margin, cost and transformation evidence where relevant. Separate enterprise results from your personal contribution, and connect scale, constraints, decisions and outcomes.'],
-    ['03', 'Map the next appointment', 'Target mandates & career adjacency', 'Assess how your experience translates to adjacent roles, sectors and geographies. For a functional-to-enterprise leadership transition, distinguish transferable evidence from gaps that still need to be addressed.'],
-    ['04', 'Build the executive narrative', 'Global readability & executive-search discovery', 'Develop your headline, executive narrative, experience architecture and leadership keyword architecture around the mandates you want to be known for. Translate local titles, business scale and market context for international readers.'],
-    ['05', 'Review through the decision-maker’s lens', 'Board / CEO / investor relevance', 'Review the positioning through a search-firm lens: level, mandate fit, credibility, differentiation and defensible evidence. Complete a final leadership positioning review with you before the profile is finalised.'],
+    ['01', 'Diagnose the leadership mandate', 'Career architecture and target appointment', 'Clarify progression, decision rights, enterprise scope and the leadership problems you are equipped to solve.'],
+    ['02', 'Establish the enterprise evidence', 'Commercial scale and attributable impact', 'Map defensible P&L, growth, cost, transformation and stakeholder evidence without manufacturing claims.'],
+    ['03', 'Build the executive narrative', 'Search, board and investor readability', 'Create a coherent LinkedIn narrative around target mandates, global context and decision-maker relevance.'],
    ] as $item): ?>
    <article><span class="hn-leadership-number"><?= esc($item[0]) ?></span><div><h3><?= esc($item[1]) ?></h3><p class="hn-leadership-subtitle"><?= esc($item[2]) ?></p></div><p><?= esc($item[3]) ?></p></article>
    <?php endforeach; ?>
   </div>
  </div>
 </section>
-<section class="hn-position-section">
+<section class="hn-position-section hn-leadership-supporting">
  <div class="hn-position-wrap hn-position-split">
   <div><p class="hn-position-kicker">Who this engagement serves</p><h2>Leadership defined<br>by responsibility.</h2><p>For functional heads, VPs, Business Heads, Presidents, Country Heads, CXOs, large P&L owners and senior transformation leaders whose next move requires enterprise context.</p></div>
   <div class="hn-position-steps">
@@ -46,7 +44,7 @@
   </div>
  </div>
 </section>
-<section class="hn-position-section hn-position-tint" id="suitability">
+<section class="hn-position-section hn-position-tint hn-leadership-supporting" id="suitability">
  <div class="hn-position-wrap">
   <p class="hn-position-kicker">Engagement suitability</p><h2>Your mandate determines the depth of work.</h2>
   <p class="hn-position-measure">We consider eight dimensions. Years of experience provide context; they never decide the service on their own.</p>
@@ -64,7 +62,7 @@
   <div><p>A clearly articulated leadership proposition, an enterprise evidence map, target-mandate and adjacency analysis, and a LinkedIn profile narrative structured around your commercial contribution and future direction.</p><p>The final review checks coherence across the headline, About, experience and leadership keywords, with particular attention to board, CEO, investor and international readability.</p><p class="hn-position-small">We clarify the scope you actually owned. We do not manufacture achievements, elevate titles or imply board experience you do not have. Sensitive commercial information is discussed before any public wording is agreed.</p></div>
  </div>
 </section>
-<section class="hn-position-section hn-leadership-faq">
+<section class="hn-position-section hn-leadership-faq hn-leadership-supporting">
  <div class="hn-position-wrap hn-position-measure">
   <h2>Before the conversation</h2>
   <p><a href="<?= base_url('guides/executive-linkedin-profile-india') ?>" style="text-decoration:underline">Read our perspective on executive LinkedIn positioning →</a></p>
@@ -78,7 +76,7 @@
 <section class="hn-position-section hn-leadership-close">
  <div class="hn-position-wrap hn-position-split">
   <div><p class="hn-position-kicker">A considered next step</p><h2>Bring the leadership record.<br>Define what comes next.</h2><p>Share your current role, scale of responsibility and target mandate. These inputs frame the diagnostic and the depth of the positioning work.</p></div>
-  <div><p class="hn-leadership-service">CXO / Global Leadership Positioning</p><div class="hn-position-fee"><?= esc($plan['price_label']) ?></div><p class="hn-position-small"><?= esc($plan['payable_label']) ?></p><a class="hn-position-button" href="<?= base_url('career-services/start/leadership_17500') ?>">Begin my leadership engagement →</a></div>
+  <div><p class="hn-leadership-service">CXO / Global Leadership Positioning</p><div class="hn-position-fee"><?= esc($plan['price_label']) ?></div><p class="hn-position-small"><?= esc($plan['payable_label']) ?></p><p class="hn-position-small">Positioning is private and may be completed under NDA. Introductions, executive-search representation and appointment outcomes are separate from this engagement.</p><a class="hn-position-button" href="<?= base_url('career-services/start/leadership_17500') ?>">Begin my leadership engagement →</a></div>
  </div>
 </section>
 <div class="hn-position-wrap"><p class="hn-position-crosslink">For professional and managerial profiles, see our <a href="<?= base_url('services/linkedin-profile-build') ?>">Professional LinkedIn Profile Build</a>.</p></div>
