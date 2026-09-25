@@ -8,6 +8,7 @@ $faq = $guide['faq'] ?? [];
 $relatedLinks = $guide['related_links'] ?? [];
 $heroProof = $guide['hero_proof'] ?? [];
 $proofStack = $guide['proof_stack'] ?? [];
+$candidateEvidence = $guide['candidate_evidence'] ?? [];
 $serviceOutcomes = $guide['service_outcomes'] ?? [];
 $industryFocus = $guide['industry_focus'] ?? [];
 $roleFamilies = $guide['role_families'] ?? [];
@@ -70,6 +71,23 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
             <?php endif; ?>
 
             <p class="text-lg text-gray-600 leading-relaxed mb-12"><?= esc($guide['intro'] ?? '') ?></p>
+
+            <?php if ($isCandidateGuide && !empty($candidateEvidence)): ?>
+                <section class="mb-14" id="experienced-professional-fit">
+                    <div class="text-[10px] uppercase tracking-[0.28em] text-accent font-black mb-3">For experienced professionals</div>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary mb-3">What a serious CV writing service should prove</h2>
+                    <p class="text-gray-600 leading-relaxed mb-7 max-w-3xl">For mid-career, senior and leadership profiles, the useful question is not who uses the biggest “best” claim. It is whether the service can interpret career evidence, surface achievement and scale, preserve credibility and align the CV with the role being targeted.</p>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <?php foreach ($candidateEvidence as $item): ?>
+                            <a href="<?= base_url(ltrim((string)($item['url'] ?? ''), '/')) ?>" class="group rounded-2xl border border-gray-200 bg-white p-6 hover:border-accent hover:shadow-lg transition">
+                                <h3 class="text-xl font-serif font-bold text-primary mb-3"><?= esc($item['title'] ?? '') ?></h3>
+                                <p class="text-sm text-gray-600 leading-relaxed"><?= esc($item['text'] ?? '') ?></p>
+                                <span class="inline-flex mt-4 text-sm font-black text-primary group-hover:text-accent">Inspect the evidence →</span>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </section>
+            <?php endif; ?>
 
             <?php if (!empty($proofStack)): ?>
                 <section class="mb-14" id="proof">
@@ -408,7 +426,8 @@ $externalProof = $reputationProofConfig ? array_slice($reputationProofConfig->it
                 <p class="text-white/75 leading-relaxed mb-7"><?= esc($guide['where_hirednext_fits'] ?? '') ?></p>
                 <?php if ($isCandidateGuide): ?>
                     <div class="flex flex-wrap gap-3">
-                        <a href="<?= base_url('services/candidates') ?>" class="inline-flex px-5 py-3 rounded-xl bg-white text-primary font-black text-sm">Explore HiredNext CV services</a>
+                        <a href="<?= base_url('services/professional-cv-rebuild') ?>" class="inline-flex px-5 py-3 rounded-xl bg-white text-primary font-black text-sm">Professional CV writing & rebuild</a>
+                        <a href="<?= base_url('services/linkedin-profile-build') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">LinkedIn profile writing</a>
                         <a href="<?= base_url('services/cv-assessment') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">Start with CV assessment</a>
                         <a href="<?= base_url('testimonials') ?>" class="inline-flex px-5 py-3 rounded-xl border border-white/20 text-white font-black text-sm">See recommendations</a>
                     </div>
