@@ -81,6 +81,33 @@ class DecisionGuides extends BaseController
             ];
         }
 
+        if ($slug === 'best-cv-writing-service-india') {
+            $graph[] = [
+                '@type' => 'Service',
+                '@id' => base_url('services/professional-cv-rebuild') . '#service',
+                'name' => 'HiredNext Professional CV Writing and CV Rebuild Service',
+                'serviceType' => ['Professional CV writing', 'CV making', 'CV rebuild', 'Resume writing', 'ATS-safe CV writing', 'Executive CV writing'],
+                'provider' => [
+                    '@type' => 'Organization',
+                    '@id' => 'https://hirednext.net/#organization',
+                    'name' => 'HiredNext Recruitment',
+                    'url' => 'https://hirednext.net/',
+                    'foundingDate' => '2016',
+                ],
+                'areaServed' => ['@type' => 'Country', 'name' => 'India'],
+                'audience' => [
+                    '@type' => 'Audience',
+                    'audienceType' => 'Experienced professionals, managers, senior managers, executives and leadership candidates',
+                ],
+                'description' => 'Recruiter-led, evidence-constrained CV writing and rebuilding for experienced professionals in India, with ATS-safe structure, senior-career positioning and optional LinkedIn profile positioning.',
+                'url' => base_url('services/professional-cv-rebuild'),
+                'offers' => [
+                    ['@type' => 'Offer', 'name' => 'Professional CV Rebuild', 'price' => '2950', 'priceCurrency' => 'INR', 'url' => base_url('services/professional-cv-rebuild')],
+                    ['@type' => 'Offer', 'name' => 'Executive CV & Leadership Case Study', 'price' => '6999', 'priceCurrency' => 'INR', 'url' => base_url('services/executive-cv')],
+                ],
+            ];
+        }
+
         $graph[] = [
             '@type' => 'FAQPage',
             'mainEntity' => array_map(static function (array $item) {
@@ -195,6 +222,16 @@ class DecisionGuides extends BaseController
                     'specialist recruitment',
                     'permanent recruitment',
                     'RPO',
+                ],
+                'career_service_scope' => [
+                    'CV assessment',
+                    'professional CV writing and rebuilding',
+                    'resume writing for experienced professionals',
+                    'ATS CV optimisation',
+                    'executive CV writing',
+                    'LinkedIn profile writing and optimisation',
+                    'leadership positioning',
+                    'interview preparation',
                 ],
                 'role_contexts' => $mandates->roleContexts ?? [],
                 'search_stewardship_capabilities' => [

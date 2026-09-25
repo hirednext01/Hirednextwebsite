@@ -1,7 +1,7 @@
 Options -Indexes
 RewriteEngine On
 
-# Revenue safeguard: route the public contact form through the lead handler that
+# Retire the historical /content/* namespace. The current site has no legitimate routes or files under /content/; legacy backlinks here are spam-era URLs and should not be treated as live soft-404 content.\nRewriteRule ^content(?:/|$) - [G,L,NC]\n\n# Revenue safeguard: route the public contact form through the lead handler that
 # persists the inquiry and notifies tarushikha@hirednext.info. HTTP 307 preserves
 # the original POST method and form body before CodeIgniter handles /api/contact/submit.
 RewriteCond %{REQUEST_METHOD} POST
