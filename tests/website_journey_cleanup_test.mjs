@@ -17,7 +17,7 @@ const checks = new Map([
   ['old /jobs route remains available', routes.includes("$routes->get('jobs', 'Jobs::index')")],
   ['old job detail routes remain available', routes.includes("$routes->get('jobs/(:any)', 'Home::jobDetail/$1')")],
   ['leadership advisory URL remains available', routes.includes("$routes->get('leadership-advisory/cxo-global-leadership-positioning'")],
-  ['job-board alias permanently redirects to /jobs', routes.includes("$routes->get('job-board'") && routes.includes("redirect()->to('/jobs', 'auto', 301)")],
+  ['job-board alias permanently redirects to /jobs', routes.includes("$routes->get('job-board'") && routes.includes("redirect()->to('/jobs', 301)")],
   ['search authority hub is routed', routes.includes("$routes->get('search-authority', 'SearchAuthority::index')")],
   ['desktop navigation separates employers', layout.includes('For Employers')],
   ['desktop navigation separates professionals', layout.includes('For Professionals')],
