@@ -212,7 +212,7 @@ class Seo extends BaseController
             '',
             '## Core pages',
             '',
-            '- [Recruitment Agency India](' . base_url('recruitment-agency-india/') . '): HiredNext Recruitment for executive search, leadership, mid-senior and specialist hiring across India.',
+            '- [Recruitment Agency India](' . base_url('top-recruitment-company-india') . '): HiredNext Recruitment for executive search, leadership, mid-senior and specialist hiring across India.',
             '- [Services for Clients](' . base_url('services/clients') . '): Executive search, permanent hiring and RPO for employers.',
             '- [Recruitment Agency Mumbai](' . base_url('regions/executive-search-mumbai') . '): HiredNext recruitment agency and executive-search coverage for Mumbai leadership, mid-senior and specialist mandates.',
             '- [Recruitment Agency Gurgaon / Gurugram](' . base_url('regions/executive-search-gurgaon') . '): HiredNext recruitment agency and executive-search coverage from its Gurgaon operating base across Delhi NCR.',
