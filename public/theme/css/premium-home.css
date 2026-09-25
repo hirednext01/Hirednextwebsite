@@ -1,0 +1,114 @@
+/* The approved homepage composition. Existing brand assets and routes are reused. */
+.hn-premium-home, .hn-home-footer { --hn-navy: #0c3466; --hn-orange: #ff4e16; --hn-gold: #d4af37; }
+.hn-premium-home { color: var(--hn-navy); }
+.hn-home-container { width: min(100%, 1440px); margin-inline: auto; padding-inline: clamp(24px, 4.5vw, 64px); }
+.hn-premium-home .hn-home-hero {
+    position: relative; display: flex; align-items: center; min-height: 670px;
+    padding-block: 145px 62px; overflow: hidden; color: #fff;
+    background-color: var(--hn-navy);
+    background-image: linear-gradient(90deg, rgba(12,52,102,.98), rgba(12,52,102,.84) 38%, rgba(12,52,102,.34) 76%, rgba(12,52,102,.2)), url('../assets/home.jpeg');
+    background-size: cover; background-position: center, center 45%;
+}
+.hn-premium-home .hero-overlay { background: radial-gradient(ellipse at 98% 10%, rgba(255,244,219,.13), transparent 55%); }
+.hn-premium-home .hero-sheen {
+    background-image: linear-gradient(135deg, transparent 14%, rgba(255,255,255,.045) 14%, rgba(255,255,255,.045) 27%, transparent 27%), linear-gradient(35deg, transparent 28%, rgba(3,23,51,.13) 28%, rgba(3,23,51,.13) 44%, transparent 44%), repeating-linear-gradient(125deg, transparent 0 130px, rgba(255,255,255,.045) 131px, transparent 132px 265px);
+    mix-blend-mode: normal;
+    -webkit-mask-image: linear-gradient(90deg, #000, #000 35%, transparent 82%);
+    mask-image: linear-gradient(90deg, #000, #000 35%, transparent 82%);
+}
+.hn-premium-home .hero-noise {
+    background-image: radial-gradient(circle, rgba(255,255,255,.36) .5px, transparent .85px), radial-gradient(circle, rgba(0,0,0,.26) .5px, transparent .85px);
+    background-size: 3px 3px, 4px 4px; background-position: 0 0, 1px 2px; opacity: .17;
+}
+.hn-home-hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(300px, .9fr); align-items: center; gap: clamp(32px, 4vw, 62px); }
+.hn-home-eyebrow { display: flex; align-items: center; gap: 18px; margin: 0 0 23px; font-size: 10px; font-weight: 700; line-height: 1.6; letter-spacing: .23em; text-transform: uppercase; }
+.hn-home-intro > .hn-home-eyebrow::before, .hn-home-services > .hn-home-container > .hn-home-eyebrow::before { content: ''; flex: 0 0 32px; height: 1px; background: var(--hn-gold); }
+.hn-premium-home h1, .hn-premium-home h2, .hn-premium-home h3 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
+.hn-premium-home h1 { max-width: 770px; margin: 0; font-size: clamp(45px, 4.5vw, 65px); line-height: 1.08; letter-spacing: -.025em; text-wrap: balance; }
+.hn-home-summary { max-width: 585px; margin-top: 22px; color: rgba(255,255,255,.88); font-size: clamp(16px, 1.35vw, 19px); line-height: 1.65; }
+.hn-home-primary { display: inline-flex; align-items: center; justify-content: center; gap: 22px; margin-top: 28px; padding: 16px 23px; border-radius: 7px; background: var(--hn-orange); color: #102b4b; font-size: 14px; font-weight: 800; line-height: 1.4; transition: background .18s ease, box-shadow .18s ease; }
+.hn-home-primary:hover { background: #ff6735; box-shadow: 0 7px 24px rgba(0,0,0,.16); }
+.hn-home-principle { display: flex; align-items: center; gap: 18px; margin-top: 36px; color: rgba(255,255,255,.85); font-size: 10px; line-height: 1.7; letter-spacing: .16em; }
+.hn-home-principle::before { content: ''; width: 32px; height: 1px; background: var(--hn-gold); flex: 0 0 32px; }
+.hn-premium-home .hn-home-approach { padding: 30px 28px 13px; border: 1px solid rgba(255,255,255,.34); border-top: 2px solid var(--hn-gold); border-radius: 12px; background: linear-gradient(135deg, rgba(12,52,102,.92), rgba(9,33,61,.81)); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 20px 48px rgba(2,18,39,.17); }
+.hn-home-approach .hn-home-eyebrow { margin-bottom: 17px; color: #f0ce77; font-size: 10px; }
+.hn-home-approach h2 { max-width: 320px; margin: 0 0 20px; font-size: clamp(29px, 2.55vw, 38px); line-height: 1.12; letter-spacing: -.012em; }
+.hn-home-approach ol { list-style: none; padding: 0; margin: 0; }
+.hn-home-approach li { display: flex; align-items: center; gap: 15px; min-height: 69px; border-top: 1px solid rgba(255,255,255,.17); padding-block: 13px; font-size: 13px; line-height: 1.5; }
+.hn-home-step { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 32px; height: 32px; border: 1px solid rgba(240,206,119,.6); border-radius: 50%; font-size: 10px; letter-spacing: .08em; color: #f0ce77; }
+.hn-home-services { padding-block: 37px 29px; background: #fff; }
+.hn-home-services .hn-home-eyebrow { margin-bottom: 13px; color: #344b6c; }
+.hn-home-services h2 { margin: 0; font-size: clamp(29px, 2.75vw, 39px); line-height: 1.18; letter-spacing: -.025em; }
+.hn-home-mobile-break { display: none; }
+.hn-home-service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 31px; }
+.hn-home-service { display: grid; grid-template-columns: 31px minmax(0, 1fr); gap: 16px; padding-inline: 24px; border-left: 1px solid #dde3ea; }
+.hn-home-service:first-child { border-left: 0; padding-left: 0; }
+.hn-home-service:last-child { padding-right: 0; }
+.hn-home-service-icon { width: 31px; height: 31px; color: #ba7a0e; }
+.hn-home-service h3 { margin: 0; font-size: clamp(19px, 1.65vw, 23px); line-height: 1.2; }
+.hn-home-service p { margin-top: 13px; color: #526070; font-size: 13px; line-height: 1.7; }
+.hn-home-service a { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 800; line-height: 1.5; }
+.hn-home-service a:hover, .hn-home-search-note a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.hn-home-search-note { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 29px; padding-top: 20px; border-top: 1px solid #e4e8ed; font-size: 12px; line-height: 1.7; }
+.hn-home-search-note p { margin: 0; color: #526070; }
+.hn-home-search-note a { font-weight: 800; flex-shrink: 0; }
+.hn-home-footer { background: var(--hn-navy); color: #fff; padding-block: 29px 20px; }
+.hn-home-footer-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.hn-home-footer .site-brand-primary { font-size: 24px; }
+.hn-home-footer .site-brand-secondary { font-size: 10px; }
+.hn-home-footer .site-brand-divider { height: 19px; margin-inline: 9px; }
+.hn-home-footer nav { display: flex; flex-wrap: wrap; gap: 13px 25px; font-size: 12px; }
+.hn-home-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.hn-home-firm-details { margin-top: 24px; font-size: 11px; color: rgba(255,255,255,.8); }
+.hn-home-firm-details summary { cursor: pointer; width: fit-content; padding-block: 5px; }
+.hn-home-firm-details p { max-width: 850px; margin-block: 12px; line-height: 1.8; }
+.hn-home-sector-links { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 20px; }
+.hn-home-legal { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,.16); font-size: 10px; line-height: 1.8; color: rgba(255,255,255,.72); }
+.hn-home-legal p { margin: 0; }
+.hn-premium-home a:focus-visible, .hn-home-footer a:focus-visible, .hn-home-footer summary:focus-visible { outline: 3px solid var(--hn-gold); outline-offset: 5px; }
+@media (max-width: 1100px) {
+    .hn-home-hero-grid { grid-template-columns: minmax(0, 1.25fr) minmax(285px, .85fr); gap: 30px; }
+    .hn-premium-home h1 { font-size: 49px; }
+    .hn-premium-home .hn-home-approach { padding-inline: 22px; }
+    .hn-home-service { padding-inline: 17px; gap: 12px; }
+}
+@media (max-width: 800px) {
+    .hn-premium-home .hn-home-hero { min-height: 0; padding-block: 130px 36px; background-position: center, 60% center; }
+    .hn-home-hero-grid { grid-template-columns: 1fr; gap: 27px; }
+    .hn-premium-home h1 { max-width: 660px; font-size: clamp(39px, 6.5vw, 55px); }
+    .hn-home-summary { max-width: 540px; }
+    .hn-home-principle { margin-top: 25px; }
+    .hn-premium-home .hn-home-approach { padding: 20px 22px; }
+    .hn-home-approach .hn-home-eyebrow { margin-bottom: 10px; }
+    .hn-home-approach h2 { max-width: none; font-size: 28px; margin-bottom: 17px; }
+    .hn-home-approach ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+    .hn-home-approach li { gap: 9px; min-height: 0; padding: 12px 0 0; font-size: 11px; }
+    .hn-home-step { flex-basis: 25px; height: 25px; font-size: 8px; }
+    .hn-home-service-grid { grid-template-columns: 1fr; margin-top: 23px; }
+    .hn-home-service, .hn-home-service:first-child, .hn-home-service:last-child { padding: 19px 0; border-left: 0; border-bottom: 1px solid #e4e8ed; gap: 17px; }
+    .hn-home-service:first-child { padding-top: 0; }
+    .hn-home-service:last-child { border-bottom: 0; padding-bottom: 0; }
+    .hn-home-service h3 { font-size: 22px; }
+    .hn-home-service p { margin-top: 8px; font-size: 14px; }
+    .hn-home-search-note { display: block; margin-top: 23px; }
+    .hn-home-search-note a { display: inline-block; margin-top: 8px; }
+    .hn-home-footer-top { align-items: flex-start; flex-direction: column; gap: 22px; }
+}
+@media (max-width: 480px) {
+    .hn-premium-home .hn-home-hero { padding-top: 115px; background-image: linear-gradient(90deg, rgba(12,52,102,.96), rgba(12,52,102,.78)), url('../assets/home.jpeg'); }
+    .hn-home-eyebrow { font-size: 9px; letter-spacing: .17em; gap: 12px; }
+    .hn-home-intro > .hn-home-eyebrow::before { flex-basis: 21px; }
+    .hn-premium-home h1 { font-size: clamp(36px, 10.1vw, 47px); }
+    .hn-home-summary { margin-top: 18px; font-size: 15px; line-height: 1.65; }
+    .hn-home-primary { margin-top: 23px; padding: 15px 19px; font-size: 13px; }
+    .hn-home-principle { font-size: 9px; letter-spacing: .1em; gap: 12px; }
+    .hn-home-principle::before { flex-basis: 21px; }
+    .hn-premium-home .hn-home-approach { padding: 18px 20px 8px; }
+    .hn-home-approach h2 { font-size: 26px; }
+    .hn-home-approach ol { display: block; }
+    .hn-home-approach li { gap: 13px; padding-block: 12px; font-size: 12px; }
+    .hn-home-services { padding-block: 30px; }
+    .hn-home-services h2 { font-size: 29px; }
+    .hn-home-mobile-break { display: initial; }
+    .hn-home-footer nav { gap: 12px 20px; }
+}

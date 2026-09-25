@@ -112,7 +112,7 @@
             padding: 14px 16px;
             background: #f8fafc;
         }
-        @media (min-width: 1040px) {
+        @media (min-width: 1200px) {
             .site-desktop-nav {
                 display: flex;
                 flex: 1 1 auto;
@@ -128,14 +128,6 @@
                 display: none !important;
             }
         }
-        @media (min-width: 1440px) and (max-width: 1535px) {
-            .site-brand-primary { font-size: 28px; }
-            .site-brand-secondary { font-size: 12px; letter-spacing: .13em; }
-            .site-brand-divider { height: 21px; margin-left: 10px; margin-right: 10px; }
-            .site-desktop-nav { gap: .75rem; margin-left: 1.15rem; }
-            .site-desktop-nav .nav-link { font-size: 12.5px; }
-            .site-nav-cta { font-size: 12.5px; padding-left: 1rem !important; padding-right: 1rem !important; }
-        }
         @media (min-width: 1280px) {
             .site-brand-primary { font-size: 34px; }
             .site-brand-secondary { font-size: 15px; }
@@ -146,12 +138,21 @@
             .site-brand-secondary { font-size: 16px; }
             .site-desktop-nav { gap: 1rem; margin-left: 1.5rem; }
         }
+        @media (min-width: 1200px) and (max-width: 1439px) {
+            .site-brand-primary { font-size: 30px; }
+            .site-brand-secondary { font-size: 12px; letter-spacing: .13em; }
+            .site-brand-divider { height: 21px; margin-inline: 10px; }
+            .site-desktop-nav { gap: .75rem; margin-left: 1.15rem; }
+            .site-desktop-nav .nav-link { font-size: 12px; }
+            .site-nav-cta { font-size: 12px; padding-inline: 1rem !important; }
+        }
         @media (max-width: 560px) {
             .site-brand-primary { font-size: 25px; }
             .site-brand-secondary { font-size: 10px; letter-spacing: .11em; }
             .site-brand-divider { height: 18px; margin-left: 8px; margin-right: 8px; }
         }
     </style>
+    <?= $this->renderSection('pageStyles') ?>
     <?php
     // Keep the verified GA4 property active even when the database setting is blank.
     // The measurement ID is public by design; no credential is stored here.
@@ -193,7 +194,7 @@
                     <a href="<?= base_url() ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Home</a>
                     <a href="<?= base_url('about') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">About</a>
 
-                    <div class="relative group py-3">
+                    <div class="relative group">
                         <button type="button" class="nav-link text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">
                             For Employers
                             <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
@@ -208,7 +209,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="relative group py-3">
+                    <div class="relative group">
                         <button type="button" class="nav-link text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">For Professionals <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></button>
                         <div class="absolute left-1/2 -translate-x-1/2 top-full w-72 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200"><div class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-2">
                             <a href="<?= base_url('jobs') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Job Board</a>
@@ -217,7 +218,7 @@
                             <a href="<?= base_url('services/linkedin-profile-build') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">LinkedIn Profile Build</a>
                         </div></div>
                     </div>
-                    <div class="relative group py-3">
+                    <div class="relative group">
                         <button type="button" class="nav-link text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">For CXOs <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></button>
                         <div class="absolute left-1/2 -translate-x-1/2 top-full w-72 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200"><div class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-2">
                             <a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Private Leadership Positioning</a>
@@ -265,6 +266,10 @@
 
     <main id="main-content"><?= $this->renderSection('content') ?></main>
 
+    <?php $pageFooter = $this->renderSection('pageFooter'); ?>
+    <?php if ($pageFooter !== ''): ?>
+        <?= $pageFooter ?>
+    <?php else: ?>
     <footer class="py-20 bg-primary text-white relative overflow-hidden">
         <div class="absolute top-0 left-0 w-80 h-80 bg-accent opacity-10 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 right-0 w-96 h-96 bg-gold opacity-10 rounded-full blur-3xl"></div>
@@ -346,6 +351,7 @@
             </div>
         </div>
     </footer>
+    <?php endif; ?>
 
     <script>
         const navbar = document.getElementById('navbar');
