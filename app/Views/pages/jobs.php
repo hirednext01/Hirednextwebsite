@@ -23,7 +23,10 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
                 <h1 class="text-3xl md:text-5xl font-serif font-bold leading-tight">Find your next opportunity</h1>
                 <p class="mt-3 text-sm md:text-base text-white/70 max-w-2xl">Search current employer mandates across leadership, technology, manufacturing, retail, finance and specialist functions. Active shortlists can move quickly, so apply with a CV that presents your fit clearly.</p>
             </div>
-            <a href="#job-results" class="inline-flex items-center justify-center rounded-xl bg-white text-primary px-5 py-3 text-sm font-bold hover:bg-gold transition">Browse open roles ↓</a>
+            <div class="flex flex-wrap gap-3">
+                <a href="#talent-pool" class="inline-flex items-center justify-center rounded-xl bg-accent text-white px-5 py-3 text-sm font-black hover:bg-white hover:text-primary transition">Add my CV</a>
+                <a href="#job-results" class="inline-flex items-center justify-center rounded-xl bg-white text-primary px-5 py-3 text-sm font-bold hover:bg-gold transition">Browse open roles ↓</a>
+            </div>
         </div>
     </div>
 </section>
