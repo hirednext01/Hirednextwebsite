@@ -25,7 +25,7 @@ $require(str_contains($landing, 'no public walk-in office'), 'landing page must 
 $require(str_contains($landing, 'GST registration'), 'landing page must state GST registration location');
 $require(str_contains($landing, 'Gurugram (Gurgaon), Haryana, India'), 'landing page must normalize Gurugram/Gurgaon, Haryana');
 $require(str_contains($landing, 'application/ld+json'), 'landing page must include JSON-LD');
-$require(str_contains($sitemap, 'https://hirednext.net/recruitment-agency-india/'), 'search sitemap must include recruitment landing page');
+$require(str_contains($sitemap, 'https://hirednext.net/top-recruitment-company-india'), 'search sitemap must include recruitment landing page');
 
 // Historical founding location and current operating/registration location are distinct facts.
 $require(str_contains($brand, "'founded_in' => 'Mumbai, Maharashtra, India'"), 'brand facts must preserve verified Mumbai founding location');
@@ -53,8 +53,10 @@ $require(str_contains($contact, 'no public walk-in office'), 'contact page must 
 $require(str_contains($searchAuthority, 'Founded in Mumbai in 2016'), 'Mumbai authority page must preserve founding history');
 $require(str_contains($searchAuthority, 'now operates from Gurgaon'), 'Mumbai authority page must distinguish current operating base');
 
-$require(str_contains($indexNow, 'https://hirednext.net/recruitment-agency-india/'), 'IndexNow must submit the recruitment landing page');
+$require(str_contains($indexNow, 'https://hirednext.net/top-recruitment-company-india'), 'IndexNow must submit the recruitment landing page');
 $require(str_contains($indexNow, 'https://hirednext.net/contact'), 'IndexNow must submit the corrected contact page');
+$require(!str_contains($indexNow, 'https://hirednext.net/recruitment-agency-india/'), 'IndexNow must not submit the retired duplicate national page');
+$require(str_contains($priorityDiscovery, "'top-recruitment-company-india'"), 'CLI priority discovery must submit the national recruitment canonical');
 
 $careerServicePaths = [
     'services/cv-assessment',
