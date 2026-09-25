@@ -15,6 +15,8 @@ $faq = file_get_contents($root . '/app/Views/pages/services/_cv-service-faq.php'
 $guides = file_get_contents($root . '/app/Config/DecisionGuides.php');
 $guideController = file_get_contents($root . '/app/Controllers/DecisionGuides.php');
 $seo = file_get_contents($root . '/app/Controllers/Seo.php');
+$rootHtaccess = file_get_contents($root . '/.htaccess');
+$publicHtaccess = file_get_contents($root . '/public/.htaccess');
 
 mustContain($controller, 'CV Writing, CV Making, CV Rebuild & Assessment Services in India', 'candidate services title must own CV making/writing intent');
 mustContain($controller, "'CV making'", 'service schema must expose CV making synonym');
@@ -38,5 +40,7 @@ mustContain($guideView, 'What a serious CV writing service should prove', 'candi
 mustContain($guideView, 'Professional CV writing & rebuild', 'candidate guide needs direct CV rebuild CTA');
 mustContain($guideView, 'LinkedIn profile writing', 'candidate guide needs direct LinkedIn CTA');
 mustContain($seo, 'Candidate CV service comparison guide', 'llms discovery must label CV guide correctly');
+mustContain($rootHtaccess, 'RewriteRule ^content(?:/|$) - [G,L,NC]', 'root rewrite must retire spam-era /content URLs with 410');
+mustContain($publicHtaccess, 'RewriteRule ^content(?:/|$) - [G,L,NC]', 'public rewrite must retire spam-era /content URLs with 410');
 
 echo "PASS CV search dominance contract\n";
