@@ -23,7 +23,10 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
                 <h1 class="text-3xl md:text-5xl font-serif font-bold leading-tight">Find your next opportunity</h1>
                 <p class="mt-3 text-sm md:text-base text-white/70 max-w-2xl">Search current employer mandates across leadership, technology, manufacturing, retail, finance and specialist functions. Active shortlists can move quickly, so apply with a CV that presents your fit clearly.</p>
             </div>
-            <a href="#job-results" class="inline-flex items-center justify-center rounded-xl bg-white text-primary px-5 py-3 text-sm font-bold hover:bg-gold transition">Browse open roles ↓</a>
+            <div class="flex flex-wrap gap-3">
+                <a href="#talent-pool" class="inline-flex items-center justify-center rounded-xl bg-accent text-white px-5 py-3 text-sm font-black hover:bg-white hover:text-primary transition">Add my CV</a>
+                <a href="#job-results" class="inline-flex items-center justify-center rounded-xl bg-white text-primary px-5 py-3 text-sm font-bold hover:bg-gold transition">Browse open roles ↓</a>
+            </div>
         </div>
     </div>
 </section>
@@ -42,6 +45,76 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
                 <a href="<?= base_url('services/clients') ?>" class="inline-flex rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white">Hiring? Give us a mandate</a>
             </div>
         </div>
+    </div>
+</section>
+
+<section id="talent-pool" class="bg-white border-b border-gray-100 scroll-mt-24">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-6">
+        <details class="group rounded-2xl border border-primary/15 bg-[#f8f5ef] overflow-hidden" <?= session()->getFlashdata('talentPoolError') || old('name') || old('email') ? 'open' : '' ?>>
+            <summary class="cursor-pointer list-none flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 md:p-6">
+                <div>
+                    <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-1">Not seeing the right role?</div>
+                    <h2 class="text-xl md:text-2xl font-serif font-bold text-primary">Sign me up for relevant HiredNext roles</h2>
+                    <p class="text-sm text-gray-600 mt-1">Upload your CV once. We will keep it searchable in our talent pool for future mandates that match your background.</p>
+                </div>
+                <span class="shrink-0 inline-flex items-center justify-center rounded-xl bg-primary text-white px-5 py-3 text-sm font-black group-open:bg-accent">Add my CV +</span>
+            </summary>
+            <div class="border-t border-primary/10 bg-white p-5 md:p-7">
+                <?php if ($message = session()->getFlashdata('talentPoolSuccess')): ?>
+                    <div class="mb-5 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-800"><?= esc($message) ?></div>
+                <?php endif; ?>
+                <?php if ($message = session()->getFlashdata('talentPoolError')): ?>
+                    <div class="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800"><?= esc($message) ?></div>
+                <?php endif; ?>
+                <form method="post" action="<?= base_url('jobs/talent-pool') ?>" enctype="multipart/form-data" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <?= csrf_field() ?>
+                    <?php
+                    $poolFields = [
+                        ['name','Full name','text','Your name'],
+                        ['email','Email','email','name@email.com'],
+                        ['phone','Phone','text','Mobile number'],
+                        ['current_designation','Current designation','text','e.g. Merchandising Manager'],
+                        ['department','Department / function','text','e.g. Merchandising, Finance, Quality'],
+                        ['current_company','Current company','text','Company name'],
+                        ['total_experience','Total experience','text','e.g. 12 years'],
+                        ['current_location','Current location','text','City'],
+                        ['preferred_locations','Preferred locations','text','Cities / remote preference'],
+                        ['current_ctc','Current CTC','text','Optional'],
+                        ['expected_ctc','Expected CTC','text','Optional'],
+                        ['notice_period','Notice period','text','Immediate / 30 days etc.'],
+                        ['qualification','Highest qualification','text','Degree / diploma'],
+                        ['college','College / institute','text','Institution'],
+                        ['course','Course / specialisation','text','Course'],
+                        ['additional_courses','Additional courses / certifications','text','Optional'],
+                        ['linkedin','LinkedIn profile','url','https://linkedin.com/in/...'],
+                    ];
+                    foreach ($poolFields as [$field,$label,$type,$placeholder]): ?>
+                        <label class="block">
+                            <span class="block text-[11px] font-black uppercase tracking-widest text-gray-500 mb-2"><?= esc($label) ?></span>
+                            <input name="<?= esc($field) ?>" type="<?= esc($type) ?>" value="<?= esc(old($field) ?? '') ?>" placeholder="<?= esc($placeholder) ?>" class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary">
+                        </label>
+                    <?php endforeach; ?>
+                    <label class="block">
+                        <span class="block text-[11px] font-black uppercase tracking-widest text-gray-500 mb-2">Career status</span>
+                        <select name="employment_status" class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary">
+                            <option value="">Select if relevant</option>
+                            <option value="working" <?= old('employment_status') === 'working' ? 'selected' : '' ?>>Currently working</option>
+                            <option value="between_roles" <?= old('employment_status') === 'between_roles' ? 'selected' : '' ?>>Between roles</option>
+                            <option value="fresher" <?= old('employment_status') === 'fresher' ? 'selected' : '' ?>>Fresher</option>
+                        </select>
+                    </label>
+                    <label class="block sm:col-span-2 lg:col-span-3">
+                        <span class="block text-[11px] font-black uppercase tracking-widest text-gray-500 mb-2">Upload CV <span class="text-accent">*</span></span>
+                        <input name="resume" type="file" accept=".pdf,.doc,.docx" required class="w-full rounded-xl border border-dashed border-primary/25 bg-gray-50 px-4 py-3 text-sm">
+                        <span class="block mt-1 text-xs text-gray-400">PDF, DOC or DOCX up to 5MB. All profile fields above are optional.</span>
+                    </label>
+                    <div class="sm:col-span-2 lg:col-span-1 flex items-end">
+                        <button type="submit" class="w-full rounded-xl bg-accent px-5 py-3.5 font-black text-white hover:bg-primary transition">Add me to the talent pool</button>
+                    </div>
+                    <p class="sm:col-span-2 lg:col-span-4 text-xs text-gray-500">This is free candidate registration for future recruitment mandates. It is separate from HiredNext's paid CV assessment, CV rebuilding and LinkedIn profile services.</p>
+                </form>
+            </div>
+        </details>
     </div>
 </section>
 
@@ -189,8 +262,8 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
         </section>
 
         <div class="mt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 bg-white border border-gray-200 rounded-2xl p-6">
-            <div><div class="text-[11px] uppercase tracking-widest font-black text-accent mb-2">Not seeing the right role?</div><h3 class="text-xl font-bold text-primary">Keep exploring HiredNext opportunities.</h3><p class="text-sm text-gray-500 mt-1">Browse all current mandates or get your CV assessed before your next application.</p></div>
-            <div class="flex flex-wrap gap-3"><a href="<?= base_url('jobs') ?>" class="px-5 py-3 rounded-xl border border-gray-200 text-primary font-bold hover:border-primary transition">All jobs</a><a href="<?= base_url('services/cv-assessment') ?>" class="px-5 py-3 rounded-xl bg-primary text-white font-bold hover:bg-accent transition">Assess my CV</a></div>
+            <div><div class="text-[11px] uppercase tracking-widest font-black text-accent mb-2">Not seeing the right role?</div><h3 class="text-xl font-bold text-primary">Put your CV in the HiredNext talent pool.</h3><p class="text-sm text-gray-500 mt-1">We can find your profile when a relevant mandate opens. Registration is free.</p></div>
+            <div class="flex flex-wrap gap-3"><a href="#talent-pool" class="px-5 py-3 rounded-xl bg-primary text-white font-bold hover:bg-accent transition">Sign me up</a><a href="<?= base_url('services/candidates') ?>" class="px-5 py-3 rounded-xl border border-gray-200 text-primary font-bold hover:border-primary transition">CV & LinkedIn services</a></div>
         </div>
     </div>
 </section>
