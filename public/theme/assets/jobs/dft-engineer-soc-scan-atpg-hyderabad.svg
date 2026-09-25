@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
+<rect width="1200" height="1500" fill="#ffffff"/>
+<rect x="0" y="0" width="1200" height="34" fill="#0b2748"/>
+<rect x="0" y="34" width="1200" height="10" fill="#f47b20"/>
+<text x="82" y="150" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="700" fill="#0b2748">Hired<tspan fill="#f47b20">Next</tspan></text>
+<text x="84" y="195" font-family="Arial,Helvetica,sans-serif" font-size="26" letter-spacing="8" fill="#0b2748">RECRUITMENT</text>
+<text x="84" y="315" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" letter-spacing="7" fill="#0b2748">EXPRESSION OF INTEREST</text>
+<rect x="84" y="348" width="220" height="8" rx="4" fill="#f47b20"/>
+<text x="82" y="505" font-family="Arial,Helvetica,sans-serif" font-size="74" font-weight="800" fill="#0b2748">DFT ENGINEER</text>
+<text x="82" y="595" font-family="Arial,Helvetica,sans-serif" font-size="70" font-weight="800" fill="#f47b20">SoC / SCAN / ATPG</text>
+<rect x="82" y="675" width="1036" height="150" rx="26" fill="#f6f8fb" stroke="#dde5ef" stroke-width="3"/>
+<text x="122" y="735" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#718096">LOCATION</text>
+<text x="122" y="790" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="700" fill="#0b2748">Hyderabad</text>
+<text x="500" y="735" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#718096">SECTOR</text>
+<text x="500" y="790" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="700" fill="#0b2748">SEMICONDUCTOR</text>
+<text x="840" y="735" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" fill="#718096">EXPERIENCE</text>
+<text x="840" y="790" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="700" fill="#0b2748">6–10 YEARS</text>
+<rect x="82" y="900" width="1036" height="300" rx="30" fill="#0b2748"/>
+<text x="122" y="975" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" letter-spacing="4" fill="#f7b267">UPCOMING MANDATES</text>
+<text x="122" y="1045" font-family="Arial,Helvetica,sans-serif" font-size="39" font-weight="700" fill="#ffffff">Register your profile for relevant</text>
+<text x="122" y="1100" font-family="Arial,Helvetica,sans-serif" font-size="39" font-weight="700" fill="#ffffff">sector mandates as they open.</text>
+<text x="122" y="1170" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#dbe5f0">No fee to register or apply for HiredNext recruitment mandates.</text>
+<rect x="82" y="1270" width="1036" height="120" rx="24" fill="#f47b20"/>
+<text x="122" y="1345" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="700" fill="#ffffff">jobs@hirednext.info</text>
+<text x="765" y="1345" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" fill="#ffffff">HIREDNEXT.NET/JOBS</text>
+</svg>
