@@ -65,6 +65,7 @@ class EntityAuthority extends BaseController
                     'ATS CV Optimisation',
                     'Professional CV Writing and Rebuild',
                     'Assessment + CV Rebuild Bundle',
+                    'LinkedIn Leadership Positioning',
                     'Professional LinkedIn Profile Writing and Optimisation',
                     'Career Intelligence',
                     'Executive CV Writing',
