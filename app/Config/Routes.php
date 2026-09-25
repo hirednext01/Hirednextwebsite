@@ -118,7 +118,7 @@ $routes->get('contact', 'Home::contact');
 $routes->get('jobs', 'Jobs::index');
 $routes->post('jobs/talent-pool', 'Jobs::talentPool');
 $routes->get('job-board', static function () {
-    return redirect()->to('/jobs', 'auto', 301);
+    return redirect()->to('/jobs', 301);
 });
 $routes->get('candidate-resume', 'Home::candidateResume');
 $routes->get('jobs/(:any)', 'Home::jobDetail/$1');
