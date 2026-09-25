@@ -30,7 +30,10 @@ class PublicAuthorityFilter implements FilterInterface
         $path = trim($request->getUri()->getPath(), '/');
         if ($path === '') {
             $body = $this->normaliseHomepageClaims($body);
-            $body = $this->injectHomepageBuyerQuestions($body);
+        } elseif ($path === 'search-authority') {
+            // Detailed research belongs in the knowledge centre, keeping the
+            // employer homepage focused on the mandate and hiring models.
+            $body = $this->injectBuyerQuestions($body);
         } elseif ($path === 'industry/retail-executive-search') {
             $body = $this->injectRetailAuthority($body);
         }
@@ -149,7 +152,7 @@ HTML;
         return str_replace(array_keys($replacements), array_values($replacements), $body);
     }
 
-    private function injectHomepageBuyerQuestions(string $body): string
+    private function injectBuyerQuestions(string $body): string
     {
         if (strpos($body, 'data-hirednext-buyer-questions') !== false) {
             return $body;

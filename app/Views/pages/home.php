@@ -78,6 +78,7 @@
             <nav aria-label="Footer">
                 <a href="<?= base_url('about') ?>">About the firm</a>
                 <a href="<?= base_url('mandate-stories') ?>">Mandate stories</a>
+                <a href="<?= base_url('search-authority') ?>">Hiring guides</a>
                 <a href="<?= base_url('jobs') ?>">Job Board</a>
                 <a href="<?= base_url('contact') ?>">Contact</a>
             </nav>
@@ -93,7 +94,6 @@
                     ['industry/global-capability-centres-hiring-india', 'Global Capability Centres'],
                     ['industry/semiconductor-recruitment-india', 'Semiconductors'],
                     ['industry/manufacturing-recruitment-india', 'Manufacturing'],
-                    ['search-authority', 'Search authority'],
                 ] as [$path, $label]): ?>
                     <a href="<?= base_url($path) ?>"><?= esc($label) ?></a>
                 <?php endforeach; ?>
