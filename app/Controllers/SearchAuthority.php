@@ -119,6 +119,51 @@ class SearchAuthority extends BaseController
         ],
     ];
 
+    public function index()
+    {
+        $page = [
+            'eyebrow' => 'HiredNext Knowledge Centre',
+            'title' => 'Recruitment search authority, organised in one place',
+            'meta' => 'Explore HiredNext recruitment expertise by hiring model, industry and location, with structured answers for search engines, AI assistants and employer research.',
+            'city' => 'India',
+            'intro' => 'This knowledge centre brings together the detailed sector, location and decision content that supports SEO, answer engine optimisation and generative engine discovery without crowding the employer homepage.',
+            'roles' => [
+                'Executive and confidential search',
+                'Permanent and specialist recruitment',
+                'Recruitment process outsourcing',
+                'GCC and capability centre hiring',
+                'Technology and semiconductor search',
+                'Manufacturing, apparel and retail hiring',
+            ],
+            'questions' => [
+                ['q' => 'What does HiredNext do?', 'a' => 'HiredNext is an executive recruitment and talent advisory firm supporting employers with executive search, confidential search, permanent hiring, RPO and selected contract hiring requirements.'],
+                ['q' => 'Which markets does HiredNext cover?', 'a' => 'HiredNext serves employers across India with sector-led coverage in apparel, retail, manufacturing, engineering, technology, GCCs, semiconductors, BFSI and other specialist functions.'],
+                ['q' => 'How can employers evaluate HiredNext?', 'a' => 'Employers can review HiredNext mandate stories, search methodology, industry pages, city coverage, external media and verified testimonials before opening a hiring discussion.'],
+            ],
+        ];
+
+        $pageUrl = base_url('search-authority');
+        $jsonLd = [
+            '@context' => 'https://schema.org',
+            '@type' => 'CollectionPage',
+            '@id' => $pageUrl . '#page',
+            'url' => $pageUrl,
+            'name' => $page['title'],
+            'description' => $page['meta'],
+            'about' => ['@id' => 'https://hirednext.net/#organization'],
+        ];
+
+        return view('pages/search-authority', [
+            'title' => 'Recruitment Search Authority | HiredNext',
+            'metaDescription' => $page['meta'],
+            'canonical' => $pageUrl,
+            'currentPage' => 'insights',
+            'settings' => $this->loadWebsiteSettings(),
+            'page' => $page,
+            'jsonLd' => json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+        ]);
+    }
+
     public function show(string $slug)
     {
         if (!isset($this->pages[$slug])) {

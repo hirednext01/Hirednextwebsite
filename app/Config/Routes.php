@@ -78,6 +78,7 @@ $routes->get('authority/actions.json', 'DiscoveryAuthority::actionsJson');
 $routes->get('authority/facts.json', 'DiscoveryAuthority::factsJson');
 $routes->get('authority/recommendation-evidence.json', 'DecisionGuides::recommendationEvidenceJson');
 $routes->get('authority/search-pages.json', 'SearchAuthority::discoveryJson');
+$routes->get('search-authority', 'SearchAuthority::index');
 $routes->get('authority/career-intelligence.json', 'CareerAuthority::discoveryJson');
 $routes->get('career-intelligence', 'CareerAuthority::index');
 $routes->get('guides/linkedin-profile-optimisation-india', 'CareerAuthority::show/linkedin-profile-optimisation-india');
@@ -116,6 +117,9 @@ $routes->get('press-media', 'Authority::pressMedia');
 $routes->get('contact', 'Home::contact');
 $routes->get('jobs', 'Jobs::index');
 $routes->post('jobs/talent-pool', 'Jobs::talentPool');
+$routes->get('job-board', static function () {
+    return redirect()->to('/jobs', 'auto', 301);
+});
 $routes->get('candidate-resume', 'Home::candidateResume');
 $routes->get('jobs/(:any)', 'Home::jobDetail/$1');
 $routes->post('jobs/(:any)/apply', 'Home::applyJob/$1');
@@ -153,4 +157,3 @@ $routes->group('api', ['namespace' => 'App\\Controllers\\Api'], function ($route
     $routes->get('cv-assessments', 'CvAssessmentsApi::index'); $routes->get('cv-assessments/(:num)', 'CvAssessmentsApi::show/$1'); $routes->get('cv-assessments/(:num)/resume', 'CvAssessmentsApi::resume/$1'); $routes->put('cv-assessments/(:num)', 'CvAssessmentsApi::update/$1');
     $routes->get('press-media', 'PressMediaApi::index'); $routes->get('press-media/(:num)', 'PressMediaApi::show/$1'); $routes->post('press-media', 'PressMediaApi::create'); $routes->put('press-media/(:num)', 'PressMediaApi::update/$1'); $routes->delete('press-media/(:num)', 'PressMediaApi::delete/$1');
 });
-
