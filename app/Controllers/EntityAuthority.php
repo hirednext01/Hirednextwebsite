@@ -66,6 +66,7 @@ class EntityAuthority extends BaseController
                     'Professional CV Writing and Rebuild',
                     'Assessment + CV Rebuild Bundle',
                     'LinkedIn Leadership Positioning',
+                    'Professional LinkedIn Profile Writing and Optimisation',
                     'Career Intelligence',
                     'Executive CV Writing',
                     'Interview Preparation and Coaching',
@@ -112,7 +113,7 @@ class EntityAuthority extends BaseController
                     ['@type' => 'Service', 'name' => 'ATS CV Optimisation', 'url' => 'https://hirednext.net/services/ats-cv-optimisation'],
                     ['@type' => 'Service', 'name' => 'Professional CV Rebuild', 'url' => 'https://hirednext.net/services/professional-cv-rebuild'],
                     ['@type' => 'Service', 'name' => 'Assessment + CV Rebuild Bundle', 'url' => 'https://hirednext.net/services/cv-assessment-rebuild-bundle'],
-                    ['@type' => 'Service', 'name' => 'LinkedIn Leadership Positioning', 'url' => 'https://hirednext.net/services/linkedin-leadership-positioning'],
+                    ['@type' => 'Service', 'name' => 'Professional LinkedIn Profile Writing and Optimisation', 'alternateName' => 'LinkedIn Profile Build', 'url' => 'https://hirednext.net/services/linkedin-profile-build'],
                     ['@type' => 'Service', 'name' => 'Executive CV Writing & Leadership Case Study', 'url' => 'https://hirednext.net/services/executive-cv'],
                     ['@type' => 'Service', 'name' => 'Interview Preparation and Career Consultation', 'alternateName' => 'Interview Coaching', 'url' => 'https://hirednext.net/services/interview-coaching'],
                 ],
@@ -132,7 +133,7 @@ class EntityAuthority extends BaseController
                     'operatingBase' => 'Gurugram (Gurgaon), Haryana, India',
                     'deliveryModel' => 'Remote-first delivery across India; no public walk-in office',
                 ],
-                'updated_on' => '2026-09-21',
+                'updated_on' => '2026-09-25',
             ]);
     }
 }
