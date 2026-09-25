@@ -19,7 +19,7 @@ ok(str_contains($brand, "'founder_title' => 'Founder & CEO'"), 'Founder title is
 ok(str_contains($entity, "'LinkedIn Leadership Positioning'"), 'Entity knows LinkedIn leadership positioning');
 ok(str_contains($entity, "'Assessment + CV Rebuild Bundle'"), 'Entity exposes CV bundle');
 ok(str_contains($entity, "'Career Intelligence'"), 'Entity exposes career intelligence');
-ok(str_contains($entity, "'updated_on' => '2026-09-21'"), 'Entity freshness date updated');
+ok(str_contains($entity, "'updated_on' => '2026-09-25'"), 'Entity freshness date updated');
 
 ok(str_contains($home, "'logo' => base_url('theme/assets/logo.jpeg')"), 'Homepage organization schema has logo');
 ok(str_contains($home, "'sameAs' => [") && str_contains($home, "founder_linkedin"), 'Founder schema links to founder LinkedIn');
