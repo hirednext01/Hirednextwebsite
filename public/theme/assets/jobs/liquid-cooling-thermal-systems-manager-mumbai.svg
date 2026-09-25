@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
+<rect width="1200" height="1500" fill="#ffffff"/>
+<rect width="1200" height="28" fill="#0b2748"/>
+<rect y="28" width="1200" height="8" fill="#f47b20"/>
+<text x="78" y="145" font-family="Arial,Helvetica,sans-serif" font-size="70" font-weight="700" fill="#0b2748">Hired<tspan fill="#f47b20">Next</tspan></text>
+<text x="80" y="188" font-family="Arial,Helvetica,sans-serif" font-size="25" letter-spacing="8" fill="#0b2748">RECRUITMENT</text>
+<text x="82" y="315" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="700" letter-spacing="6" fill="#0b2748">EXPRESSION OF INTEREST</text>
+<rect x="82" y="344" width="210" height="7" rx="4" fill="#f47b20"/>
+<text x="80" y="500" font-family="Arial,Helvetica,sans-serif" font-size="68" font-weight="800" fill="#0b2748">LIQUID COOLING &amp;</text>
+<text x="80" y="588" font-family="Arial,Helvetica,sans-serif" font-size="64" font-weight="800" fill="#f47b20">THERMAL SYSTEMS MANAGER</text>
+<rect x="80" y="670" width="1040" height="158" rx="28" fill="#f6f8fb" stroke="#dbe3ed" stroke-width="3"/>
+<text x="120" y="728" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#748094">LOCATION</text>
+<text x="120" y="785" font-family="Arial,Helvetica,sans-serif" font-size="37" font-weight="700" fill="#0b2748">Mumbai / Navi Mumbai</text>
+<text x="510" y="728" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#748094">SECTOR</text>
+<text x="510" y="785" font-family="Arial,Helvetica,sans-serif" font-size="37" font-weight="700" fill="#0b2748">DATA CENTER</text>
+<text x="830" y="728" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#748094">EXPERIENCE</text>
+<text x="830" y="785" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" fill="#0b2748">8–12 YEARS</text>
+<rect x="80" y="900" width="1040" height="300" rx="30" fill="#0b2748"/>
+<text x="120" y="976" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" letter-spacing="4" fill="#f7b267">BUILDING A NICHE TALENT POOL</text>
+<text x="120" y="1050" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="700" fill="#ffffff">Register before the mandate arrives.</text>
+<text x="120" y="1110" font-family="Arial,Helvetica,sans-serif" font-size="31" fill="#dbe5f0">We are mapping specialist talent for upcoming</text>
+<text x="120" y="1155" font-family="Arial,Helvetica,sans-serif" font-size="31" fill="#dbe5f0">client searches across India's growth sectors.</text>
+<rect x="80" y="1270" width="1040" height="120" rx="24" fill="#f47b20"/>
+<text x="120" y="1345" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="700" fill="#ffffff">jobs@hirednext.info</text>
+<text x="765" y="1345" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" fill="#ffffff">HIREDNEXT.NET/JOBS</text>
+</svg>
