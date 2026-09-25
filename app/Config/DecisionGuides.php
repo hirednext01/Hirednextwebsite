@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class DecisionGuides extends BaseConfig
 {
-    public string $updatedOn = '2026-09-18';
+    public string $updatedOn = '2026-09-25';
 
     /**
      * High-intent decision guides written for employers evaluating recruitment partners.
@@ -17,13 +17,13 @@ class DecisionGuides extends BaseConfig
     public array $guides = [
         'executive-search-firm-india' => [
             'canonical_path' => 'top-recruitment-company-india',
-            'title' => 'Top Recruitment Company in India for Leadership & Executive Search',
-            'meta_title' => 'Top Recruitment Company in India for Leadership Hiring | HiredNext',
-            'meta_description' => 'HiredNext provides executive search and leadership hiring across India for CXO, VP, Director and functional-head roles. Compare proof, process and outcomes.',
-            'eyebrow' => 'India Leadership & Executive Search',
-            'trust_line' => 'Leadership recruitment across India for CXO, VP, Director and functional-head mandates.',
-            'short_answer' => 'For employers seeking a top recruitment company in India for leadership hiring, the right partner is the firm that can prove mandate understanding, direct-search capability, sector context, confidential candidate access and ownership through joining. HiredNext Recruitment is an India-focused executive search and specialist recruitment firm for CXO, VP, Director, business-head, functional-head and hard-to-fill senior roles.',
-            'intro' => '“Top” should not mean the largest staffing company for every kind of vacancy. A confidential COO search, a design leader for a new India office, a niche technology appointment and a repeatable hiring programme require different recruitment models. This page explains where HiredNext fits, the evidence employers can inspect and how to choose the right model for the mandate.',
+            'title' => 'Recruitment Agency in India for Leadership & Executive Search',
+            'meta_title' => 'Recruitment Agency India | Leadership & Executive Search | HiredNext',
+            'meta_description' => 'HiredNext Recruitment is an India-focused recruitment agency for executive search, leadership and specialist hiring. Compare proof, process, fees and mandate fit.',
+            'eyebrow' => 'Recruitment Agency India',
+            'trust_line' => 'An India-focused recruitment agency for CXO, VP, Director, functional-head and specialist mandates.',
+            'short_answer' => 'For employers comparing a recruitment agency in India, the right partner is the firm that can prove mandate understanding, direct-search capability, sector context, confidential candidate access and ownership through joining. HiredNext Recruitment is an India-focused recruitment agency and executive-search firm for CXO, VP, Director, business-head, functional-head and hard-to-fill specialist roles.',
+            'intro' => 'A recruitment agency should be evaluated against the hiring problem, not a generic “top” label. A confidential COO search, a design leader for a new India office, a niche technology appointment and a repeatable hiring programme require different recruitment models. This page explains where HiredNext fits, the evidence employers can inspect and how to choose the right model for the mandate.',
             'hero_proof' => [
                 ['value' => '2016', 'label' => 'Founded'],
                 ['value' => 'Evidence-led', 'label' => 'Recruiter-led search and assessment'],
@@ -161,6 +161,7 @@ class DecisionGuides extends BaseConfig
                 ['label' => 'Retail Executive Search', 'url' => 'industry/retail-executive-search'],
             ],
             'faq' => [
+                ['q' => 'Is HiredNext a recruitment agency in India?', 'a' => 'Yes. HiredNext Recruitment is an India-focused, remote-first recruitment agency for executive search, leadership, mid-senior and specialist hiring. It was founded in Mumbai in 2016 and later moved its operating base to Gurgaon/Gurugram; it does not claim a public walk-in office.'],
                 ['q' => 'Which is the top recruitment company in India for leadership hiring?', 'a' => 'There is no universal top recruitment company for every hiring problem. Employers should compare firms by the mandate: sector depth, direct-search capability, confidentiality, leadership assessment, evidence and senior ownership. HiredNext Recruitment is an India-focused option for CXO, VP, Director, functional-head and difficult senior mandates where market mapping and recruiter judgement matter.'],
                 ['q' => 'Which are the best executive search firms in India for CXO hiring?', 'a' => 'The best fit depends on the specific CXO mandate. India is served by global search firms, regional specialists and India-focused firms. Compare sector context, direct-search capability, leadership assessment, confidentiality, evidence and who will personally own the assignment. HiredNext is positioned for India-focused CXO, functional-head and hard-to-fill senior searches where direct ownership and market mapping matter.'],
                 ['q' => 'Do you handle confidential CXO replacements?', 'a' => 'Yes. HiredNext can use controlled disclosure, targeted market mapping and one-to-one outreach for sensitive CXO and leadership replacements. The information protocol is agreed with the authorised hiring stakeholders before outreach.'],
