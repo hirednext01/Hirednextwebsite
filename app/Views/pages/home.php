@@ -1,20 +1,21 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 
-<section class="relative overflow-hidden bg-primary pb-24 pt-36 text-white">
-    <div class="absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-accent/15 blur-[120px]"></div>
-    <div class="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-8 lg:px-12">
-        <div class="max-w-4xl">
+<section class="hero-home relative flex min-h-[680px] items-center overflow-hidden pb-16 pt-28 text-white">
+    <div class="hero-overlay"></div><div class="hero-sheen"></div><div class="hero-noise"></div>
+    <div class="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12">
+        <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+        <div>
             <div class="mb-5 text-xs font-black uppercase tracking-[0.3em] text-gold">Executive recruitment and talent advisory</div>
-            <h1 class="font-serif text-4xl font-bold leading-tight md:text-6xl lg:text-7xl">Leadership and specialist hiring built around the mandate.</h1>
+            <h1 class="font-serif text-4xl font-bold leading-tight md:text-6xl lg:text-7xl">Leadership Hiring for Critical Roles</h1>
             <p class="mt-7 max-w-3xl text-lg leading-relaxed text-white/75 md:text-xl">HiredNext helps companies appoint CXOs, functional leaders and hard to find specialists through confidential search, permanent hiring, RPO and contract hiring support.</p>
-            <a href="<?= base_url('hiring-discussion') ?>" class="mt-9 inline-flex rounded-full bg-accent px-8 py-4 text-base font-black text-white shadow-xl transition hover:bg-orange-600">Discuss a Hiring Mandate</a>
+            <a href="<?= base_url('hiring-discussion') ?>" class="mt-9 inline-flex rounded-2xl bg-accent px-9 py-4 text-base font-black text-white shadow-xl transition hover:bg-orange-600">Discuss a Hiring Mandate</a>
+            <div class="mt-12 flex flex-wrap gap-6 text-xs uppercase tracking-[0.22em] text-white/65"><span>2016 founded</span><span>India wide</span><span>Leadership focus</span><span>Evidence led</span></div>
         </div>
-        <div class="mt-14 grid max-w-4xl grid-cols-2 gap-4 md:grid-cols-4">
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><div class="text-2xl font-black text-gold">2016</div><div class="mt-1 text-sm text-white/65">Founded</div></div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><div class="text-2xl font-black text-gold">India</div><div class="mt-1 text-sm text-white/65">Search coverage</div></div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><div class="text-2xl font-black text-gold">Senior</div><div class="mt-1 text-sm text-white/65">Mandate focus</div></div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><div class="text-2xl font-black text-gold">Evidence</div><div class="mt-1 text-sm text-white/65">Assessment standard</div></div>
+        <div class="hidden lg:block">
+            <div class="hero-panel rounded-[2.5rem] border border-white/10 p-10 shadow-2xl"><div class="mb-10 flex justify-between text-xs uppercase tracking-[0.3em] text-white/60"><span>Talent Intelligence</span><span class="text-accent">Search</span></div><div class="text-4xl font-bold">Evidence led</div><p class="mt-4 text-lg text-white/70">Recruiter led market mapping, assessment and search governance.</p><div class="mt-8 grid grid-cols-2 gap-6"><div><div class="text-xs uppercase tracking-widest text-white/60">Search</div><div class="mt-2 text-2xl font-bold">Mandate led</div></div><div><div class="text-xs uppercase tracking-widest text-white/60">Coverage</div><div class="mt-2 text-2xl font-bold">India wide</div></div></div></div>
+            <div class="hero-card mt-8 rounded-[2rem] border border-white/80 bg-white p-8 text-primary"><div class="text-xs uppercase tracking-[0.3em] text-gray-500">Confidential by design</div><div class="mt-3 text-3xl font-bold">Selected Search Evidence</div></div>
+        </div>
         </div>
     </div>
 </section>

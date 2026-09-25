@@ -17,36 +17,17 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
 
 <section class="bg-primary text-white pt-24 pb-8 md:pt-28 md:pb-10 border-b border-white/10">
     <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12">
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
+        <div>
             <div class="max-w-3xl">
                 <div class="text-[11px] uppercase tracking-[0.24em] text-gold font-black mb-3">HiredNext Job Board</div>
                 <h1 class="text-3xl md:text-5xl font-serif font-bold leading-tight">Find your next opportunity</h1>
                 <p class="mt-3 text-sm md:text-base text-white/70 max-w-2xl">Explore leadership, technology, manufacturing, retail, finance and specialist roles managed through HiredNext.</p>
             </div>
-            <div class="flex flex-wrap gap-3">
-                <a href="#talent-pool" class="inline-flex items-center justify-center rounded-xl bg-accent text-white px-5 py-3 text-sm font-black hover:bg-white hover:text-primary transition">Add my CV</a>
-                <a href="#job-results" class="inline-flex items-center justify-center rounded-xl bg-white text-primary px-5 py-3 text-sm font-bold hover:bg-gold transition">Browse open roles ↓</a>
-            </div>
         </div>
     </div>
 </section>
 
-<section class="bg-white border-b border-gray-100">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-8">
-        <div class="grid lg:grid-cols-12 gap-6 items-start">
-            <div class="lg:col-span-8">
-                <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-2">Senior and specialist jobs in India</div>
-                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">Roles managed by HiredNext Recruitment</h2>
-                <p class="mt-3 text-gray-600 leading-relaxed">HiredNext is an executive recruitment and talent advisory firm, not a mass job board. Apply only where your experience matches the role requirements. If the right role is not listed, add your profile once so the team can find it when matching requirements arise.</p>
-                <p class="mt-3 text-gray-600 leading-relaxed"><strong class="text-primary">Applications are free.</strong> Paid CV assessment, CV rebuild or interview support is optional and does not influence recruitment shortlisting, referral or placement.</p>
-            </div>
-            <div class="lg:col-span-4 flex lg:justify-end gap-3 flex-wrap">
-                <a href="#talent-pool" class="inline-flex rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white">Add My Profile</a>
-            </div>
-        </div>
-    </div>
-</section>
-
+<?php ob_start(); ?>
 <section id="talent-pool" class="bg-white border-b border-gray-100 scroll-mt-24">
     <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-6">
         <details class="group rounded-2xl border border-primary/15 bg-[#f8f5ef] overflow-hidden" <?= session()->getFlashdata('talentPoolError') || old('name') || old('email') ? 'open' : '' ?>>
@@ -116,8 +97,9 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
         </details>
     </div>
 </section>
+<?php $talentPoolMarkup = ob_get_clean(); ?>
 
-<section class="bg-gray-50 py-8 md:py-10 min-h-screen">
+<section class="bg-gray-50 py-8 md:py-10">
     <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12">
         <div class="bg-white border border-gray-200 rounded-2xl p-4 md:p-5 shadow-sm mb-6">
             <form method="get" action="<?= base_url('jobs') ?>" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-3 items-end">
@@ -218,6 +200,8 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
 
         <?php if (!empty($pager)): ?><div class="mt-10"><?= $pager->links('default', 'pager_jobs') ?></div><?php endif; ?>
 
+        <?= $talentPoolMarkup ?>
+
         <section class="mt-10 bg-white border border-gray-200 rounded-2xl p-6 md:p-8" aria-labelledby="jobs-faq-title">
             <div class="max-w-4xl">
                 <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-2">Senior job search in India</div>
@@ -243,10 +227,6 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
             </div>
         </section>
 
-        <div class="mt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 bg-white border border-gray-200 rounded-2xl p-6">
-            <div><div class="text-[11px] uppercase tracking-widest font-black text-accent mb-2">Not seeing the right role?</div><h3 class="text-xl font-bold text-primary">Add your profile to the HiredNext talent pool.</h3><p class="text-sm text-gray-500 mt-1">Upload your CV once so the team can find you against relevant role requirements. Registration is free.</p></div>
-            <div><a href="#talent-pool" class="inline-flex px-5 py-3 rounded-xl bg-primary text-white font-bold hover:bg-accent transition">Add My Profile</a></div>
-        </div>
     </div>
 </section>
 <?= $this->endSection() ?>

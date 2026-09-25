@@ -84,6 +84,15 @@
         .site-desktop-nav {
             display: none;
         }
+        .site-desktop-nav .nav-link,
+        .site-desktop-nav button,
+        .site-nav-cta {
+            display: inline-flex;
+            min-height: 44px;
+            align-items: center;
+            line-height: 1;
+        }
+        .site-desktop-nav button > svg { flex: 0 0 auto; }
         .site-mobile-toggle {
             display: block;
             margin-left: auto;
