@@ -105,6 +105,7 @@ jobs:
           php -l app/Views/pages/services/client-services.php
           php -l app/Views/pages/jobs.php
           php -l app/Views/pages/home.php
+          php -l app/Filters/PublicAuthorityFilter.php
           php -l app/Views/pages/founder-profile.php
           php -l app/Views/layouts/main.php
           node tests/website_journey_cleanup_test.mjs
