@@ -1,106 +1,108 @@
 <?= $this->extend('layouts/main') ?>
+<?= $this->section('pageStyles') ?>
+<link rel="stylesheet" href="<?= base_url('theme/css/premium-home.css?v=20260925') ?>">
+<?= $this->endSection() ?>
 <?= $this->section('content') ?>
-
-<section class="hero-home relative flex min-h-[680px] items-center overflow-hidden pb-16 pt-28 text-white">
-    <div class="hero-overlay"></div><div class="hero-sheen"></div><div class="hero-noise"></div>
-    <div class="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12">
-        <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-        <div>
-            <div class="mb-5 text-xs font-black uppercase tracking-[0.3em] text-gold">Executive recruitment and talent advisory</div>
-            <h1 class="font-serif text-4xl font-bold leading-tight md:text-6xl lg:text-7xl">Leadership Hiring for Critical Roles</h1>
-            <p class="mt-7 max-w-3xl text-lg leading-relaxed text-white/75 md:text-xl">HiredNext helps companies appoint CXOs, functional leaders and hard to find specialists through confidential search, permanent hiring, RPO and contract hiring support.</p>
-            <a href="<?= base_url('hiring-discussion') ?>" class="mt-9 inline-flex rounded-2xl bg-accent px-9 py-4 text-base font-black text-white shadow-xl transition hover:bg-orange-600">Discuss a Hiring Mandate</a>
-            <div class="mt-12 flex flex-wrap gap-6 text-xs uppercase tracking-[0.22em] text-white/65"><span>2016 founded</span><span>India wide</span><span>Leadership focus</span><span>Evidence led</span></div>
-        </div>
-        <div class="hidden lg:block">
-            <div class="hero-panel rounded-[2.5rem] border border-white/10 p-10 shadow-2xl"><div class="mb-10 flex justify-between text-xs uppercase tracking-[0.3em] text-white/60"><span>Talent Intelligence</span><span class="text-accent">Search</span></div><div class="text-4xl font-bold">Evidence led</div><p class="mt-4 text-lg text-white/70">Recruiter led market mapping, assessment and search governance.</p><div class="mt-8 grid grid-cols-2 gap-6"><div><div class="text-xs uppercase tracking-widest text-white/60">Search</div><div class="mt-2 text-2xl font-bold">Mandate led</div></div><div><div class="text-xs uppercase tracking-widest text-white/60">Coverage</div><div class="mt-2 text-2xl font-bold">India wide</div></div></div></div>
-            <div class="hero-card mt-8 rounded-[2rem] border border-white/80 bg-white p-8 text-primary"><div class="text-xs uppercase tracking-[0.3em] text-gray-500">Confidential by design</div><div class="mt-3 text-3xl font-bold">Selected Search Evidence</div></div>
-        </div>
-        </div>
-    </div>
-</section>
-
-<section class="bg-white py-20">
-    <div class="mx-auto max-w-[1280px] px-4 sm:px-8 lg:px-12">
-        <div class="max-w-3xl">
-            <div class="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">What employers appoint us to do</div>
-            <h2 class="font-serif text-3xl font-bold text-primary md:text-5xl">One firm across critical search, permanent hiring and scalable recruitment delivery.</h2>
-        </div>
-        <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            <?php $employerServices = [
-                ['01', 'Executive Search', 'Direct search for CXO, business and functional leadership appointments where context, discretion and judgment matter.', 'services/executive-search', 'Understand the search approach'],
-                ['02', 'Confidential Search', 'Controlled market mapping and discreet outreach for sensitive replacements, succession decisions and unannounced capability builds.', 'mandate-stories', 'See anonymised mandate evidence'],
-                ['03', 'Permanent Hiring', 'Industry aligned recruitment for mid senior and specialist roles, with structured screening and recruiter ownership through joining.', 'services/permanent-hiring', 'Explore permanent hiring'],
-                ['04', 'RPO', 'Dedicated sourcing, screening and hiring coordination for organisations that need consistent recruitment capacity and governance.', 'services/rpo', 'Explore RPO'],
-                ['05', 'Contract to Hire', 'A structured route for selected workforce requirements where capability must be assessed in role before a long term appointment.', 'hiring-discussion', 'Discuss workforce requirements'],
-            ]; ?>
-            <?php foreach ($employerServices as [$number, $title, $copy, $path, $label]): ?>
-                <article class="rounded-3xl border border-gray-200 p-7">
-                    <div class="mb-3 text-xs font-black uppercase tracking-widest text-accent"><?= esc($number) ?></div>
-                    <h3 class="text-2xl font-bold text-primary"><?= esc($title) ?></h3>
-                    <p class="mt-4 leading-relaxed text-gray-600"><?= esc($copy) ?></p>
-                    <a href="<?= base_url($path) ?>" class="mt-6 inline-flex font-bold text-primary"><?= esc($label) ?> →</a>
-                </article>
-            <?php endforeach; ?>
-            <article class="rounded-3xl bg-primary p-7 text-white">
-                <div class="mb-3 text-xs font-black uppercase tracking-widest text-gold">Start here</div>
-                <h3 class="text-2xl font-bold">A mandate deserves a clear search decision.</h3>
-                <p class="mt-4 leading-relaxed text-white/70">Share the role, business context and hiring constraint. HiredNext will recommend the appropriate search model.</p>
-                <a href="<?= base_url('hiring-discussion') ?>" class="mt-6 inline-flex rounded-full bg-accent px-6 py-3 font-black text-white">Discuss a Hiring Mandate</a>
-            </article>
-        </div>
-    </div>
-</section>
-
-<section class="border-y border-gray-100 bg-gray-50 py-20">
-    <div class="mx-auto max-w-[1280px] px-4 sm:px-8 lg:px-12">
-        <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-            <div>
-                <div class="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">Where HiredNext works</div>
-                <h2 class="font-serif text-3xl font-bold text-primary md:text-5xl">Sector context before candidate volume.</h2>
-                <p class="mt-5 leading-relaxed text-gray-600">Search decisions improve when the recruiter understands the operating environment behind the title. HiredNext combines sector research with evidence led candidate assessment.</p>
+<div class="hn-premium-home">
+    <section class="hero-home hn-home-hero" aria-labelledby="home-title">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-sheen" aria-hidden="true"></div>
+        <div class="hero-noise" aria-hidden="true"></div>
+        <div class="hn-home-container hn-home-hero-grid">
+            <div class="hn-home-intro">
+                <p class="hn-home-eyebrow">Executive recruitment and talent advisory</p>
+                <h1 id="home-title">Leadership hiring.<br>Built around your mandate.</h1>
+                <p class="hn-home-summary">Confidential search, permanent hiring, RPO and contract to hire for critical business roles.</p>
+                <a class="hn-home-primary" href="<?= base_url('hiring-discussion') ?>">Discuss a Hiring Mandate <span aria-hidden="true">→</span></a>
+                <p class="hn-home-principle">Confidential search. Evidence led decisions.</p>
             </div>
-            <div class="grid gap-4 sm:grid-cols-2">
-                <?php foreach ([
-                    ['industry/garment-textile-recruitment-india', 'Textile, apparel and fashion'],
-                    ['industry/it-recruitment-services-india', 'Technology and digital'],
-                    ['industry/bfsi-leadership-hiring', 'BFSI and financial services'],
-                    ['industry/global-capability-centres-hiring-india', 'Global Capability Centres'],
-                    ['industry/semiconductor-recruitment-india', 'Semiconductors and deep tech'],
-                    ['industry/manufacturing-recruitment-india', 'Manufacturing and engineering'],
-                ] as [$path, $label]): ?>
-                    <a href="<?= base_url($path) ?>" class="rounded-2xl border border-gray-200 bg-white px-5 py-4 font-bold text-primary transition hover:border-accent"><?= esc($label) ?> →</a>
+            <aside class="hero-panel hn-home-approach" aria-labelledby="approach-title">
+                <p class="hn-home-eyebrow">Our approach</p>
+                <h2 id="approach-title">Evidence before introductions.</h2>
+                <ol>
+                    <li><span class="hn-home-step" aria-hidden="true">01</span><span>Understand the mandate</span></li>
+                    <li><span class="hn-home-step" aria-hidden="true">02</span><span>Map the right talent</span></li>
+                    <li><span class="hn-home-step" aria-hidden="true">03</span><span>Assess with discretion</span></li>
+                </ol>
+            </aside>
+        </div>
+    </section>
+
+    <section class="hn-home-services" aria-labelledby="services-title">
+        <div class="hn-home-container">
+            <p class="hn-home-eyebrow">Our services</p>
+            <h2 id="services-title">The right hiring model.<br class="hn-home-mobile-break"> One accountable partner.</h2>
+            <div class="hn-home-service-grid">
+                <?php $employerServices = [
+                    ['Permanent hiring', 'Leadership, mid senior and specialist appointments built around the business need.', 'services/permanent-hiring', 'Explore permanent hiring', 'people'],
+                    ['Recruitment process outsourcing', 'Dedicated recruitment capacity, with clear ownership from sourcing through joining.', 'services/rpo', 'Explore RPO', 'process'],
+                    ['Contract to hire', 'A considered route to assess capability in role before a long term appointment.', 'hiring-discussion', 'Discuss contract to hire', 'document'],
+                ]; ?>
+                <?php foreach ($employerServices as [$title, $copy, $path, $label, $icon]): ?>
+                    <article class="hn-home-service">
+                        <svg class="hn-home-service-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <?php if ($icon === 'people'): ?>
+                                <circle cx="13" cy="9" r="5"/><path d="M3 28v-3a10 10 0 0 1 20 0v3H3ZM22 5a5 5 0 0 1 0 9M25 18a9 9 0 0 1 4 7v3"/>
+                            <?php elseif ($icon === 'process'): ?>
+                                <rect x="11" y="2" width="10" height="8" rx="1"/><rect x="2" y="22" width="10" height="8" rx="1"/><rect x="20" y="22" width="10" height="8" rx="1"/><path d="M16 10v6M7 22v-6h18v6"/>
+                            <?php else: ?>
+                                <path d="M7 2h12l6 6v22H7V2ZM19 2v7h6M12 15h8M12 20h8M12 25h5"/>
+                            <?php endif; ?>
+                        </svg>
+                        <div>
+                            <h3><?= esc($title) ?></h3>
+                            <p><?= esc($copy) ?></p>
+                            <a href="<?= base_url($path) ?>"><?= esc($label) ?> <span aria-hidden="true">→</span></a>
+                        </div>
+                    </article>
                 <?php endforeach; ?>
             </div>
-        </div>
-    </div>
-</section>
-
-<section class="bg-white py-20">
-    <div class="mx-auto max-w-[1280px] px-4 sm:px-8 lg:px-12">
-        <div class="grid gap-6 lg:grid-cols-3">
-            <div class="rounded-3xl border border-gray-200 p-7 lg:col-span-2">
-                <div class="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">Search evidence</div>
-                <h2 class="font-serif text-3xl font-bold text-primary">Confidentiality does not require vague claims.</h2>
-                <p class="mt-4 max-w-3xl leading-relaxed text-gray-600">HiredNext publishes anonymised mandate stories that show the role context, recruitment judgment and verified outcome without exposing confidential client or candidate identities.</p>
-                <a href="<?= base_url('mandate-stories') ?>" class="mt-6 inline-flex font-black text-primary">Review Mandate Stories →</a>
-            </div>
-            <div class="rounded-3xl border border-gray-200 p-7">
-                <div class="mb-3 text-xs font-black uppercase tracking-[0.24em] text-accent">About HiredNext</div>
-                <p class="leading-relaxed text-gray-600">Founded in Mumbai in 2016, HiredNext later moved its operating base to Gurugram (Gurgaon), Haryana. It is a remote first, India focused executive recruitment and talent advisory firm with no public walk-in office.</p>
-                <a href="<?= base_url('about') ?>" class="mt-6 inline-flex font-black text-primary">About the firm →</a>
+            <div class="hn-home-search-note">
+                <p>For sensitive leadership appointments, discretion shapes every stage of the search.</p>
+                <a href="<?= base_url('services/executive-search') ?>">Our executive search approach <span aria-hidden="true">→</span></a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
+<?= $this->endSection() ?>
 
-<section class="bg-primary py-20 text-white">
-    <div class="mx-auto max-w-[980px] px-4 text-center sm:px-8">
-        <div class="mb-3 text-xs font-black uppercase tracking-[0.24em] text-gold">A considered first conversation</div>
-        <h2 class="font-serif text-3xl font-bold md:text-5xl">What does the business need this appointment to change?</h2>
-        <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/70">Share the mandate, reporting context, location and the outcome expected from the hire.</p>
-        <a href="<?= base_url('hiring-discussion') ?>" class="mt-8 inline-flex rounded-full bg-accent px-8 py-4 font-black text-white">Discuss a Hiring Mandate</a>
+<?= $this->section('pageFooter') ?>
+<footer class="hn-home-footer">
+    <div class="hn-home-container">
+        <div class="hn-home-footer-top">
+            <a href="<?= base_url() ?>" class="site-brand-lockup" aria-label="HiredNext Recruitment home">
+                <span class="site-brand-primary">HIRED<span class="text-accent">NEXT</span></span>
+                <span class="site-brand-divider" aria-hidden="true"></span>
+                <span class="site-brand-secondary">RECRUITMENT</span>
+            </a>
+            <nav aria-label="Footer">
+                <a href="<?= base_url('about') ?>">About the firm</a>
+                <a href="<?= base_url('mandate-stories') ?>">Mandate stories</a>
+                <a href="<?= base_url('jobs') ?>">Job Board</a>
+                <a href="<?= base_url('contact') ?>">Contact</a>
+            </nav>
+        </div>
+        <details class="hn-home-firm-details">
+            <summary>About HiredNext and sector expertise</summary>
+            <p>Founded in Mumbai in 2016, HiredNext later moved its operating base to Gurugram (Gurgaon), Haryana. We are an India focused executive recruitment and talent advisory firm with no public walk-in office.</p>
+            <div class="hn-home-sector-links">
+                <?php foreach ([
+                    ['industry/garment-textile-recruitment-india', 'Textile, apparel and fashion'],
+                    ['industry/it-recruitment-services-india', 'Technology'],
+                    ['industry/bfsi-leadership-hiring', 'BFSI'],
+                    ['industry/global-capability-centres-hiring-india', 'Global Capability Centres'],
+                    ['industry/semiconductor-recruitment-india', 'Semiconductors'],
+                    ['industry/manufacturing-recruitment-india', 'Manufacturing'],
+                    ['search-authority', 'Search authority'],
+                ] as [$path, $label]): ?>
+                    <a href="<?= base_url($path) ?>"><?= esc($label) ?></a>
+                <?php endforeach; ?>
+            </div>
+        </details>
+        <div class="hn-home-legal">
+            <p>&copy; <?= esc(date('Y')) ?> HiredNext Recruitment.</p>
+            <p><?= esc(config('BrandFacts')->legalDisclosure()) ?></p>
+        </div>
     </div>
-</section>
-
+</footer>
 <?= $this->endSection() ?>
