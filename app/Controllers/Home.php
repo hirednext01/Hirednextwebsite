@@ -824,6 +824,12 @@ class Home extends BaseController
                     'candidate_linkedin' => $linkedin,
                     'candidate_message' => $message !== '' ? $message : null,
                     'candidate_answers' => $screeningAnswers,
+                    'candidate_interest' => (string) ($job['title'] ?? $job['slug']),
+                    'tags' => array_values(array_filter([
+                        'website_job_interest',
+                        (string) ($job['slug'] ?? ''),
+                        trim((string) ($job['department'] ?? '')),
+                    ])),
                     'identity_verified' => true,
                 ]
             );
@@ -876,6 +882,70 @@ class Home extends BaseController
                 'end_to_end_range_example' => ['label' => 'One range or style taken from concept through production', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Your actions, tech-pack/sample ownership and commercial or production outcome'],
                 'cross_functional_example' => ['label' => 'Merchandising, sourcing and factory collaboration', 'required' => true, 'type' => 'textarea', 'placeholder' => 'One cost, quality or feasibility problem you helped resolve'],
             ] + $commercial;
+        }
+
+        if (in_array($slug, [
+            'critical-facilities-manager-data-center-noida',
+            'data-center-design-commissioning-manager-chennai',
+            'physical-design-engineer-advanced-nodes-bengaluru',
+            'dft-engineer-soc-scan-atpg-hyderabad',
+            'transition-manager-gcc-setup-hyderabad',
+            'workforce-planning-talent-intelligence-manager-bengaluru',
+        ], true)) {
+            $interestCommercial = [
+                'current_ctc' => ['label' => 'Current CTC', 'required' => false],
+                'expected_ctc' => ['label' => 'Expected CTC', 'required' => false],
+                'notice_period' => ['label' => 'Notice period', 'required' => true],
+                'preferred_location' => ['label' => 'Preferred work location', 'required' => true],
+            ];
+
+            if ($slug === 'critical-facilities-manager-data-center-noida') {
+                return $common + [
+                    'facility_environment' => ['label' => 'Data center environment handled', 'required' => true, 'placeholder' => 'Hyperscale, colocation, enterprise or other mission critical site'],
+                    'critical_systems' => ['label' => 'Critical systems personally owned', 'required' => true, 'type' => 'textarea', 'placeholder' => 'UPS, DG, HVAC, BMS, cooling, life safety and related systems'],
+                    'uptime_incident_example' => ['label' => 'One major uptime or incident response example', 'required' => true, 'type' => 'textarea'],
+                ] + $interestCommercial;
+            }
+
+            if ($slug === 'data-center-design-commissioning-manager-chennai') {
+                return $common + [
+                    'commissioning_scope' => ['label' => 'Commissioning scope personally handled', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Electrical, mechanical, cooling, life safety and integrated testing'],
+                    'fat_sat_ist' => ['label' => 'FAT, SAT and integrated systems testing experience', 'required' => true, 'type' => 'textarea'],
+                    'largest_project' => ['label' => 'Largest mission critical project delivered', 'required' => true, 'type' => 'textarea', 'placeholder' => 'State scale, your role and handover responsibility'],
+                ] + $interestCommercial;
+            }
+
+            if ($slug === 'physical-design-engineer-advanced-nodes-bengaluru') {
+                return $common + [
+                    'technology_nodes' => ['label' => 'Technology nodes worked on', 'required' => true, 'placeholder' => 'For example: 5nm, 7nm, 12nm'],
+                    'physical_design_flow' => ['label' => 'Physical design stages personally owned', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Floorplan, PnR, CTS, STA, timing closure, ECO, signoff'],
+                    'soc_complexity' => ['label' => 'Most complex SoC or block handled', 'required' => true, 'type' => 'textarea'],
+                ] + $interestCommercial;
+            }
+
+            if ($slug === 'dft-engineer-soc-scan-atpg-hyderabad') {
+                return $common + [
+                    'dft_flows' => ['label' => 'DFT flows personally owned', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Scan insertion, ATPG, MBIST, diagnosis, coverage closure'],
+                    'dft_tools' => ['label' => 'DFT tools used', 'required' => true, 'placeholder' => 'Tessent, Synopsys, Cadence or others'],
+                    'silicon_bringup' => ['label' => 'Silicon bring up or production test exposure', 'required' => true, 'type' => 'textarea'],
+                ] + $interestCommercial;
+            }
+
+            if ($slug === 'transition-manager-gcc-setup-hyderabad') {
+                return $common + [
+                    'transition_scope' => ['label' => 'Largest transition or GCC setup personally led', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Functions, countries, headcount or process scope'],
+                    'migration_governance' => ['label' => 'Migration and governance ownership', 'required' => true, 'type' => 'textarea', 'placeholder' => 'SOP, SLA, risk, stakeholder governance and stabilisation'],
+                    'cross_border_exposure' => ['label' => 'Cross border stakeholder regions handled', 'required' => true],
+                ] + $interestCommercial;
+            }
+
+            if ($slug === 'workforce-planning-talent-intelligence-manager-bengaluru') {
+                return $common + [
+                    'workforce_planning_scope' => ['label' => 'Workforce planning scope handled', 'required' => true, 'type' => 'textarea', 'placeholder' => 'Functions, geographies, headcount or capability areas'],
+                    'talent_intelligence_methods' => ['label' => 'Talent intelligence and market analysis methods used', 'required' => true, 'type' => 'textarea'],
+                    'decision_example' => ['label' => 'One business decision influenced by your workforce or talent intelligence', 'required' => true, 'type' => 'textarea'],
+                ] + $interestCommercial;
+            }
         }
 
         return [];
