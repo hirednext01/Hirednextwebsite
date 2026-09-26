@@ -22,7 +22,7 @@ mustContain($routes, "services/interview-coaching", 'interview coaching route');
 mustContain($routes, "services/cv-assessment-rebuild-bundle", 'CV bundle route');
 mustContain($routes, "services/linkedin-profile-build", 'Professional LinkedIn route');
 
-mustContain($controller, "Professional CV Writing & Resume Writing Service in India", 'rebuild SEO title');
+mustContain($controller, "Professional CV Writing, CV Making & Resume Writing Service in India", 'rebuild SEO title');
 mustContain($controller, "ATS CV Optimisation Service in India", 'ATS SEO title');
 mustContain($controller, "Interview Coaching & Interview Preparation in India", 'interview SEO title');
 mustContain($controller, "Executive CV Writing Service in India for CXO & Senior Leaders", 'executive CV title owns high-intent search');
