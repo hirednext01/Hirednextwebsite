@@ -40,11 +40,11 @@ class Home extends BaseController
                         '@type' => 'Place',
                         'name' => 'Gurugram (Gurgaon), Haryana, India',
                     ],
-                    'description' => 'HiredNext is a talent advisory and recruitment firm specializing in executive search, leadership hiring and specialist recruitment across India.',
-                    'areaServed' => [
-                        '@type' => 'Country',
-                        'name' => 'India',
-                    ],
+                    'description' => 'HiredNext is an India-based talent advisory and recruitment firm supporting executive search, leadership hiring and specialist recruitment across India and selected international markets.',
+                    'areaServed' => array_map(
+                        static fn (string $country): array => ['@type' => 'Country', 'name' => $country],
+                        ['India', 'Indonesia', 'China', 'United Arab Emirates', 'Jordan', 'Bangladesh']
+                    ),
                     'founder' => [
                         '@type' => 'Person',
                         '@id' => base_url('about/taru-shikha') . '#person',
@@ -69,8 +69,8 @@ class Home extends BaseController
             ]
         ];
         $data = [
-            'title' => 'Executive Search & Leadership Recruitment India | HiredNext',
-            'metaDescription' => 'HiredNext helps companies hire CXOs, functional heads and hard-to-find senior talent through confidential executive search, market mapping and structured assessment across India.',
+            'title' => 'Executive Search in India & International Markets | HiredNext',
+            'metaDescription' => 'India-based executive search and specialist recruitment across India and cross-border markets including Indonesia, China, the UAE, Jordan and Bangladesh.',
             'canonical' => base_url('/'),
             'currentPage' => 'home',
             'settings' => $settings,
