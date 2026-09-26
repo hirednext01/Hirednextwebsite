@@ -26,11 +26,23 @@ if (is_file($configPath)) {
         && str_contains($config, "\$approvedHash !== ''");
     $checks['raw UPI/VPA destinations are rejected'] = str_contains($config, "!str_contains(\$url, '@')")
         && str_contains($config, "stripos(\$url, 'upi:') === false");
+    $checks['owner supplied bank transfer details match screenshot'] = str_contains($config, "'beneficiary' => 'HIREDNEXT'")
+        && str_contains($config, "'account_number' => '917020008798870'")
+        && str_contains($config, "'ifsc' => 'UTIB0000131'")
+        && str_contains($config, "'bank' => 'Axis Bank'");
 }
+
+$gate = file_get_contents($gatePath);
+$checks['bank option uses central gate'] = str_contains($gate, 'data-hn-bank-transfer')
+    && str_contains($gate, "\$payment['bank_transfer']")
+    && str_contains($gate, 'A reference is not a payment confirmation');
 
 foreach ($requiredViews as $relative) {
     $full = $root . '/' . $relative;
     $content = is_file($full) ? file_get_contents($full) : '';
+    $checks[$relative . ' lets customer identify transfer method'] = str_contains($content, 'name="payment_method"')
+        && str_contains($content, 'value="bank_transfer"')
+        && str_contains($content, 'payment_reference');
     $checks[$relative . ' uses central gate'] = $content !== ''
         && str_contains($content, "components/business-payment-gate");
     $checks[$relative . ' contains no embedded QR'] = $content !== ''
