@@ -139,7 +139,7 @@ $showRebuildTestimonials = $showRebuildTestimonials ?? false;
                 ['Professional CV Rebuild','₹2,500 + GST','services/professional-cv-rebuild'],
                 ['Assessment + Rebuild','₹3,317.40 + GST','services/cv-assessment-rebuild-bundle'],
                 ['Executive CV','₹6,999','services/executive-cv'],
-                ['LinkedIn Leadership','₹8,999 + GST','services/linkedin-leadership-positioning'],
+                ['LinkedIn Profile Build','₹8,999 + GST','services/linkedin-profile-build'],
                 ['Interview Coaching','₹4,500','services/interview-coaching'],
             ] as $service): ?>
                 <a href="<?= base_url($service[2]) ?>" class="rounded-2xl border border-gray-200 bg-white p-5 hover:border-primary hover:shadow-md transition">
