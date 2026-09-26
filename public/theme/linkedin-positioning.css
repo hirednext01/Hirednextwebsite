@@ -143,3 +143,11 @@
 .hn-profile-close{background:#f5f2ec;border:1px solid #d4c2a2}
 @media(max-width:900px){.hn-profile-hero-grid{grid-template-columns:1fr;gap:32px}.hn-profile-outcome-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hn-profile-editorial-sample{grid-template-columns:1fr}.hn-profile-metrics{border-left:0;border-top:1px solid #d9dfe3}.hn-profile-offer .hn-position-hero{padding:105px 0 60px}}
 @media(max-width:600px){.hn-profile-offer .hn-position-hero h1{font-size:clamp(2.8rem,10vw,3.5rem)}.hn-profile-hero-grid{gap:28px}.hn-profile-hero-card{padding:25px}.hn-profile-outcome-grid,.hn-profile-before-after{grid-template-columns:1fr;gap:14px}.hn-profile-outcome-grid{margin:24px 0}.hn-profile-before-after article{padding:22px}.hn-profile-mock{margin:12px}.hn-profile-mock-toolbar{padding:10px;gap:8px}.hn-profile-search{min-width:90px}.hn-profile-mock-nav{display:none}.hn-profile-mock-banner{height:127px;padding:15px}.hn-profile-mock-body{padding:0 18px 18px}.hn-profile-mock-avatar{width:82px;height:82px;margin-top:-39px}.hn-profile-mock h3{font-size:1.08rem}.hn-profile-mock-featured>span{flex-basis:57px;height:57px}.hn-profile-metrics{padding:23px}.hn-profile-metrics dl{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.hn-profile-metrics dt{font-size:2.35rem}.hn-profile-metrics dd{font-size:.76rem}.hn-profile-sample-action{display:block}.hn-profile-sample-action .hn-position-button{margin-top:16px}}
+
+/* LinkedIn campaign price treatment: documented regular price + current campaign price. */
+.hn-profile-campaign-label{display:block;margin:0 0 5px;font-size:.72rem;line-height:1.4;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#a37a34}
+.hn-profile-regular-price{display:block;margin:0 0 2px!important;font-size:.96rem!important;line-height:1.35!important;color:#7c8792!important;text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:#9ca5ad}
+.hn-profile-card-price .hn-profile-campaign-label{margin-bottom:6px}
+.hn-profile-card-price .hn-profile-regular-price{margin-bottom:2px!important}
+.hn-profile-close .hn-profile-campaign-label{margin:7px 0 3px}
+.hn-profile-close .hn-profile-regular-price{margin:0!important}

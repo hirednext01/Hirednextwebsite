@@ -28,7 +28,8 @@ expectTrue(($plans['bundle_3317']['amount'] ?? null) === 3915, 'bundle rounded G
 
 expectTrue(isset($plans['linkedin_8999']), 'Professional LinkedIn Profile Build plan exists');
 expectTrue(($plans['linkedin_8999']['base_amount'] ?? null) === 8999, 'Professional LinkedIn base is ₹8,999');
-expectTrue(!isset($plans['linkedin_8999']['regular_base_amount']), 'Professional LinkedIn is a standalone price');
+expectTrue(($plans['linkedin_8999']['regular_base_amount'] ?? null) === 17500, 'Professional LinkedIn documented regular base is ₹17,500');
+expectTrue(($plans['linkedin_8999']['regular_price_label'] ?? null) === '₹17,500 + GST', 'Professional LinkedIn regular price label is available for campaign display');
 expectTrue(($plans['linkedin_8999']['amount'] ?? null) === 10619, 'LinkedIn rounded GST-inclusive payable is ₹10,619');
 
 $routes = file_get_contents($root . '/app/Config/Routes.php');
@@ -51,6 +52,9 @@ expectTrue(str_contains($decisionGuides, 'services/professional-cv-rebuild'), 'b
 expectTrue(is_file($linkedinView), 'LinkedIn leadership page exists');
 
 $linkedin = is_file($linkedinView) ? file_get_contents($linkedinView) : '';
+expectTrue(str_contains($linkedin, 'Campaign price · limited profile slots'), 'LinkedIn page shows campaign scarcity message');
+expectTrue(str_contains($linkedin, "regular_price_label"), 'LinkedIn page renders documented regular price');
+expectTrue(str_contains($linkedin, "campaign_saving_label"), 'LinkedIn page renders documented campaign saving');
 require $root . '/tests/linkedin_service_architecture_test.php';
 
 echo "PASS career services 2026 pricing and separate LinkedIn engagements\n";

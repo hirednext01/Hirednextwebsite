@@ -71,6 +71,9 @@ class CvUpgradePlans
             'linkedin_8999' => [
                 'name' => 'Professional LinkedIn Profile Build',
                 'category' => 'career-services',
+                'regular_base_amount' => 17500,
+                'regular_price_label' => '₹17,500 + GST',
+                'campaign_saving_label' => 'Save ₹8,501 before GST',
                 'base_amount' => 8999,
                 'gst_rate' => 18,
                 'gst_amount' => 1619.82,
