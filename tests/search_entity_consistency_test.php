@@ -12,6 +12,12 @@ $sitemap = @file_get_contents($root . '/public/sitemap-search.xml') ?: '';
 $brand = @file_get_contents($root . '/app/Config/BrandFacts.php') ?: '';
 $entity = @file_get_contents($root . '/app/Controllers/EntityAuthority.php') ?: '';
 $home = @file_get_contents($root . '/app/Controllers/Home.php') ?: '';
+$candidateServices = @file_get_contents($root . '/app/Controllers/CandidateServices.php') ?: '';
+$authority = @file_get_contents($root . '/app/Controllers/Authority.php') ?: '';
+$reputationAuthority = @file_get_contents($root . '/app/Controllers/ReputationAuthority.php') ?: '';
+$jobsController = @file_get_contents($root . '/app/Controllers/Jobs.php') ?: '';
+$cvPayment = @file_get_contents($root . '/app/Controllers/CvPayment.php') ?: '';
+$routes = @file_get_contents($root . '/app/Config/Routes.php') ?: '';
 $layout = @file_get_contents($root . '/app/Views/layouts/main.php') ?: '';
 $contact = @file_get_contents($root . '/app/Views/pages/contact.php') ?: '';
 $searchAuthority = @file_get_contents($root . '/app/Controllers/SearchAuthority.php') ?: '';
@@ -46,23 +52,43 @@ $require(str_contains($home, "'name' => 'Mumbai'"), 'homepage schema must preser
 $require(str_contains($home, "'name' => 'Gurugram (Gurgaon), Haryana, India'"), 'homepage schema must expose Gurugram/Haryana current base');
 
 
-// Page metadata must be route-specific instead of inheriting one database fallback.
+// Page metadata must be route-specific instead of inheriting one shared fallback.
 $methodSource = static function (string $source, string $method): string {
     $start = strpos($source, 'public function ' . $method . '(');
     if ($start === false) return '';
     $next = strpos($source, "\n    public function ", $start + 1);
     return $next === false ? substr($source, $start) : substr($source, $start, $next - $start);
 };
-$metadataRoutes = ['about', 'services', 'industry', 'region', 'contact', 'pressMedia', 'testimonials', 'jobs', 'jobDetail'];
-foreach ($metadataRoutes as $method) {
-    $block = $methodSource($home, $method);
-    $require(str_contains($block, "'metaDescription'"), $method . ' must set a route-specific meta description');
-    $require(str_contains($block, "'canonical'"), $method . ' must set an explicit canonical URL');
+$liveMetadataHandlers = [
+    [$home, 'about', '/about'],
+    [$home, 'industry', '/industry/:slug'],
+    [$home, 'region', '/regions/:slug'],
+    [$home, 'contact', '/contact'],
+    [$home, 'jobDetail', '/jobs/:slug'],
+    [$candidateServices, 'clientServices', '/services/clients'],
+    [$authority, 'pressMedia', '/press-media'],
+    [$reputationAuthority, 'testimonials', '/testimonials'],
+    [$jobsController, 'index', '/jobs'],
+];
+foreach ($liveMetadataHandlers as [$source, $method, $route]) {
+    $handler = $methodSource($source, $method);
+    $require(str_contains($handler, "'metaDescription'"), $route . ' live handler must set a route-specific meta description');
+    $require(str_contains($handler, "'canonical'"), $route . ' live handler must set an explicit canonical URL');
 }
-$require(!str_contains($layout, "\$settings['meta_description']"), 'layout must not reuse one database meta description across unrelated routes');
-$require(str_contains($methodSource($home, 'industry'), "\$industry['intro']"), 'industry metadata must use the industry-specific introduction');
-$require(str_contains($methodSource($home, 'region'), "\$region['intro']"), 'region metadata must use the region-specific introduction');
-$require(str_contains($methodSource($home, 'jobDetail'), "\$jobMetaDescription"), 'job detail metadata must be derived from the specific role');
+$require(str_contains($routes, '$routes->get(\'services\', \'CandidateServices::services\')'), '/services route contract must remain explicit');
+$require(str_contains($routes, '$routes->get(\'press-media\', \'Authority::pressMedia\')'), '/press-media route contract must remain explicit');
+$require(str_contains($routes, '$routes->get(\'testimonials\', \'ReputationAuthority::testimonials\')'), '/testimonials route contract must remain explicit');
+$require(str_contains($routes, '$routes->get(\'jobs\', \'Jobs::index\')'), '/jobs route contract must remain explicit');
+$require(str_contains($layout, '$metaDescription = trim((string)($metaDescription ?? \'\'));'), 'layout must derive meta description only from the route-provided value');
+$require(!str_contains($layout, '$settings[\'meta_description\']'), 'layout must never use the site-wide settings description as a route fallback');
+$require(substr_count($layout, '$metaDescription =') === 1, 'layout must assign meta description only from route input');
+$require(!str_contains($layout, 'if ($metaDescription === \'\')'), 'layout must not synthesize a shared meta description when route metadata is missing');
+$require(str_contains($layout, 'if ($metaDescription !== \'\')'), 'layout must emit description tags only when a route supplies a description');
+$require(str_contains($layout, '$robotsContent'), 'layout must allow route-specific robots directives');
+$require(str_contains($methodSource($home, 'industry'), '$industry[\'intro\']'), 'industry metadata must use the industry-specific introduction');
+$require(str_contains($methodSource($home, 'region'), '$region[\'intro\']'), 'region metadata must use the region-specific introduction');
+$require(str_contains($methodSource($home, 'jobDetail'), '$jobMetaDescription'), 'job detail metadata must be derived from the specific role');
+$require(str_contains($methodSource($cvPayment, 'checkout'), "'robots' => 'noindex,follow'"), 'transactional CV checkout must be noindex without changing payment data');
 
 // The public contact page must not publish stale city lists as office addresses.
 $require(str_contains($contact, '$addresses = [];'), 'contact page must suppress legacy office-address settings');

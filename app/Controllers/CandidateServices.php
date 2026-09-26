@@ -18,6 +18,7 @@ class CandidateServices extends BaseController
         return view('pages/services/client-services', [
             'title' => 'Recruitment Services for Employers | HiredNext India',
             'metaDescription' => 'Executive search, permanent hiring, RPO and sector-led recruitment services for employers hiring across India and international markets.',
+            'canonical' => base_url('services/clients'),
             'currentPage' => 'services',
             'settings' => $settings,
         ]);

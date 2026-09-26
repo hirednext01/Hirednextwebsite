@@ -29,6 +29,8 @@ class CvPayment extends BaseController
         }
         return view('pages/services/cv-payment-direct', [
             'title' => 'Complete Payment | HiredNext',
+            'canonical' => base_url('services/cv-assessment'),
+            'robots' => 'noindex,follow',
             'currentPage' => 'services',
             'lead' => $lead,
         ]);
