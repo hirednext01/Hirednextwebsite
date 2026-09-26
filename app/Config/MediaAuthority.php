@@ -12,6 +12,16 @@ class MediaAuthority extends BaseConfig
 
     public array $coverage = [
         [
+            'outlet' => 'The People Management',
+            'headline' => 'Why Senior Hiring Fails Before the Interview Begins',
+            'url' => 'https://thepeoplemanagement.com/why-senior-hiring-fails-before-the-interview-begins-taru-shikha-founder-ceo-hirednext-recruitment/',
+            'published_at' => '2026-09-24',
+            'coverage_type' => 'Authored article',
+            'topic' => 'Taru Shikha on clear hiring briefs, leadership evidence and human judgement in senior search.',
+            'media_type' => 'article',
+            'thumbnail_url' => 'https://thepeoplemanagement.com/wp-content/uploads/2026/09/TaruShikha.jpg',
+        ],
+        [
             'outlet' => 'India Today',
             'headline' => 'India is not promising jobs under new labour codes. It is promising re-skilling',
             'url' => 'https://www.indiatoday.in/education-today/jobs-and-careers/story/indias-new-worker-re-skilling-fund-changes-what-job-loss-really-means-2836254-2025-12-15',

@@ -7,6 +7,7 @@ on:
       - 'public/sitemap-search.xml'
       - 'public/recruitment-agency-india/**'
       - 'app/Config/BrandFacts.php'
+      - 'app/Config/MediaAuthority.php'
       - 'app/Config/Routes.php'
       - 'app/Config/DecisionGuides.php'
       - 'tests/career_ai_search_authority_test.php'
@@ -47,6 +48,7 @@ on:
       - 'public/sitemap-search.xml'
       - 'public/recruitment-agency-india/**'
       - 'app/Config/BrandFacts.php'
+      - 'app/Config/MediaAuthority.php'
       - 'app/Config/Routes.php'
       - 'app/Config/DecisionGuides.php'
       - 'app/Controllers/DecisionGuides.php'
@@ -82,6 +84,7 @@ jobs:
       - name: Verify PHP syntax
         run: |
           php -l app/Config/BrandFacts.php
+          php -l app/Config/MediaAuthority.php
           php -l app/Config/Routes.php
           php -l app/Config/DecisionGuides.php
           if [ -f app/Config/CareerAuthority.php ]; then php -l app/Config/CareerAuthority.php; fi
