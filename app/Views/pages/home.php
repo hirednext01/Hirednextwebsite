@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('pageStyles') ?>
-<link rel="stylesheet" href="<?= base_url('theme/css/premium-home.css?v=20260925') ?>">
+<link rel="stylesheet" href="<?= base_url('theme/css/premium-home.css?v=20260926') ?>">
 <?= $this->endSection() ?>
 <?= $this->section('content') ?>
 <div class="hn-premium-home">
@@ -63,6 +63,25 @@
             </div>
         </div>
     </section>
+
+    <section class="hn-home-credibility" aria-label="Testimonials and media coverage">
+        <div class="hn-home-container hn-home-credibility-grid">
+            <a class="hn-home-proof-link" href="<?= base_url('testimonials') ?>">
+                <div>
+                    <h2>Testimonials</h2>
+                    <p>Hear from hiring leaders and professionals placed through HiredNext.</p>
+                </div>
+                <span class="hn-home-proof-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="hn-home-proof-link" href="<?= base_url('press-media') ?>">
+                <div>
+                    <h2>Press &amp; Media</h2>
+                    <p>Interviews and commentary on recruitment and the changing world of work.</p>
+                </div>
+                <span class="hn-home-proof-arrow" aria-hidden="true">→</span>
+            </a>
+        </div>
+    </section>
 </div>
 <?= $this->endSection() ?>
 
@@ -77,6 +96,8 @@
             </a>
             <nav aria-label="Footer">
                 <a href="<?= base_url('about') ?>">About the firm</a>
+                <a href="<?= base_url('testimonials') ?>">Testimonials</a>
+                <a href="<?= base_url('press-media') ?>">Press &amp; Media</a>
                 <a href="<?= base_url('mandate-stories') ?>">Mandate stories</a>
                 <a href="<?= base_url('search-authority') ?>">Hiring guides</a>
                 <a href="<?= base_url('jobs') ?>">Job Board</a>
