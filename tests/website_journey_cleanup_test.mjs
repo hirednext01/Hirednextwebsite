@@ -35,7 +35,7 @@ const checks = new Map([
   ['job board does not expose expression-of-interest language', !jobs.toLowerCase().includes('expression of interest') && !jobModel.toLowerCase().includes('expression of interest')],
   ['job board does not expose future-mandate language', !jobs.toLowerCase().includes('upcoming mandate') && !jobModel.toLowerCase().includes('upcoming mandate')],
   ['job card primary action is Apply for this role', jobs.includes('Apply for this role')],
-  ['job search appears before talent-pool registration', jobs.indexOf('id="job-results"') < jobs.indexOf('<?= $talentPoolMarkup ?>')],
+  ['compact talent-pool signup appears above the job search', jobs.indexOf('id="talent-pool"') < jobs.indexOf('id="job-q"') && jobs.includes('Free registration. Submit your CV once.')],
   ['job board has one talent-pool invitation', (jobs.match(/id="talent-pool"/g) || []).length === 1 && (jobs.match(/Add my CV/gi) || []).length <= 1],
   ['job board hero does not delay roles with profile CTAs', !jobs.slice(0, jobs.indexOf('id="job-results"')).includes('href="#talent-pool"')],
   ['homepage restores the established photographic hero', home.includes('hero-home') && home.includes('hero-panel')],

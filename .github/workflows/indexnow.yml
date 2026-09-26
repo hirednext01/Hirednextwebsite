@@ -17,6 +17,10 @@ jobs:
           KEY_LOCATION="https://hirednext.net/${KEY}.txt"
           URLS=(
             "https://hirednext.net/"
+            "https://hirednext.net/jobs"
+            "https://hirednext.net/reports/"
+            "https://hirednext.net/reports/india-gcc-hiring-investment-2026.html"
+            "https://hirednext.net/reports/hr-tech-recruitment-diligence-india-2026.html"
             "https://hirednext.net/contact"
             "https://hirednext.net/top-recruitment-company-india"
             "https://hirednext.net/services/executive-search"

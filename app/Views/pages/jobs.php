@@ -27,15 +27,13 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
     </div>
 </section>
 
-<?php ob_start(); ?>
 <section id="talent-pool" class="bg-white border-b border-gray-100 scroll-mt-24">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-6">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-3">
         <details class="group rounded-2xl border border-primary/15 bg-[#f8f5ef] overflow-hidden" <?= session()->getFlashdata('talentPoolError') || old('name') || old('email') ? 'open' : '' ?>>
-            <summary class="cursor-pointer list-none flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-5 md:p-6">
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-3 px-4 py-3 md:px-5">
                 <div>
-                    <div class="text-[11px] uppercase tracking-[0.22em] font-black text-accent mb-1">Not seeing the right role?</div>
-                    <h2 class="text-xl md:text-2xl font-serif font-bold text-primary">Sign me up for relevant HiredNext roles</h2>
-                    <p class="text-sm text-gray-600 mt-1">Upload your CV once. We will keep it searchable in our talent pool so we can match it against relevant role requirements.</p>
+                    <h2 class="text-sm md:text-base font-bold text-primary">Add your CV. We will contact you when the right role matches your profile.</h2>
+                    <p class="text-xs text-gray-600 mt-1">Free registration. Submit your CV once.</p>
                 </div>
                 <span class="shrink-0 inline-flex items-center justify-center rounded-xl bg-primary text-white px-5 py-3 text-sm font-black group-open:bg-accent">Add my CV +</span>
             </summary>
@@ -97,7 +95,6 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
         </details>
     </div>
 </section>
-<?php $talentPoolMarkup = ob_get_clean(); ?>
 
 <section class="bg-gray-50 py-8 md:py-10">
     <div class="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12">
@@ -200,8 +197,6 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
         </div>
 
         <?php if (!empty($pager)): ?><div class="mt-10"><?= $pager->links('default', 'pager_jobs') ?></div><?php endif; ?>
-
-        <?= $talentPoolMarkup ?>
 
         <section class="mt-10 bg-white border border-gray-200 rounded-2xl p-6 md:p-8" aria-labelledby="jobs-faq-title">
             <div class="max-w-4xl">
