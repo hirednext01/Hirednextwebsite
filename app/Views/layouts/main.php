@@ -5,9 +5,7 @@
     $settings = $settings ?? [];
     $pageTitle = $title ?? 'HiredNext | Executive Search & Leadership Recruitment Firm in India';
     $metaDescription = trim((string)($metaDescription ?? ''));
-    if ($metaDescription === '') {
-        $metaDescription = 'HiredNext Recruitment provides executive search, leadership hiring and specialist recruitment support across India.';
-    }
+    $robotsContent = trim((string)($robots ?? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'));
     $canonicalUrl = $canonical ?? current_url();
     $socialImage = $ogImage ?? base_url('theme/assets/home.jpeg');
     $socialType = $ogType ?? 'website';
@@ -17,15 +15,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="6JT4B14DLEhwjms08H8WbwW8PQ2HqzOE2IdLW9FtJRM" />
     <title><?= esc($pageTitle) ?></title>
-    <meta name="description" content="<?= esc($metaDescription) ?>" />
+    <?php if ($metaDescription !== ''): ?><meta name="description" content="<?= esc($metaDescription) ?>" /><?php endif; ?>
     <meta name="keywords" content="<?= esc($keywordContent) ?>" />
     <?php if (!empty($articleAuthor)): ?><meta name="author" content="<?= esc($articleAuthor) ?>" /><?php endif; ?>
-    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="robots" content="<?= esc($robotsContent) ?>" />
     <link rel="canonical" href="<?= esc($canonicalUrl) ?>" />
     <meta property="og:type" content="<?= esc($socialType) ?>" />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content="<?= esc($pageTitle) ?>" />
-    <meta property="og:description" content="<?= esc($metaDescription) ?>" />
+    <?php if ($metaDescription !== ''): ?><meta property="og:description" content="<?= esc($metaDescription) ?>" /><?php endif; ?>
     <meta property="og:url" content="<?= esc($canonicalUrl) ?>" />
     <meta property="og:site_name" content="HiredNext Recruitment" />
     <meta property="og:image" content="<?= esc($socialImage) ?>" />
@@ -37,7 +35,7 @@
     <?php foreach (($articleTags ?? []) as $articleTag): ?><meta property="article:tag" content="<?= esc($articleTag) ?>" /><?php endforeach; ?>
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="<?= esc($pageTitle) ?>" />
-    <meta name="twitter:description" content="<?= esc($metaDescription) ?>" />
+    <?php if ($metaDescription !== ''): ?><meta name="twitter:description" content="<?= esc($metaDescription) ?>" /><?php endif; ?>
     <meta name="twitter:image" content="<?= esc($socialImage) ?>" />
     <link rel="alternate" type="application/rss+xml" title="HiredNext Recruitment Insights" href="<?= base_url('blog/feed.xml') ?>" />
     <?php if (!empty($jsonLd) && is_string($jsonLd)): ?>
