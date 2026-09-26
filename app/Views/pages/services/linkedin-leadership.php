@@ -44,7 +44,7 @@
       <div class="hn-profile-comparison-row"><span class="hn-profile-state">Before · headline</span><p>Experienced operations professional seeking new opportunities.</p></div>
       <div class="hn-profile-comparison-row hn-profile-comparison-after"><span class="hn-profile-state">After · headline</span><p>Operations Manager | Multi-site delivery, team leadership &amp; process improvement | Manufacturing</p></div>
       <div class="hn-profile-comparison-row"><span class="hn-profile-state">Before · About</span><p>Results-oriented team player with excellent communication skills.</p></div>
-      <div class="hn-profile-comparison-row hn-profile-comparison-after"><span class="hn-profile-state">After · About</span><p>I lead operations across multiple sites, bringing together frontline teams, planning and process improvement. My profile explains the scope I own, the improvements I can substantiate and the next operational challenge I am equipped to take on.</p></div>
+      <div class="hn-profile-comparison-row hn-profile-comparison-after"><span class="hn-profile-state">After · About</span><p>Across manufacturing operations, I have coordinated multiple sites, led frontline teams and improved the handoffs between planning and delivery. I focus on reliable execution, people leadership and process changes that reduce friction for customers and teams.</p></div>
      </div>
     </div>
     <div class="hn-profile-example-foot">For your profile, we ask for the actual scale and outcomes before writing a specific claim.</div>
