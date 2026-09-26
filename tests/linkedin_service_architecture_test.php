@@ -15,8 +15,10 @@ $check($leadership['name'] === 'CXO / Global Leadership Positioning', 'Leadershi
 foreach ([[$professional, 8999, 10619], [$leadership, 17500, 20650]] as [$plan, $base, $total]) {
     $check($plan['base_amount'] === $base && $plan['amount'] === $total, 'Incorrect base or payable price');
     $check(abs($plan['payable_exact'] - ($plan['base_amount'] + $plan['gst_amount'])) < 0.001, 'Tax breakdown must reconcile');
-    $check(!isset($plan['campaign']) && !isset($plan['regular_price_label']), 'Neither service is a campaign discount');
 }
+$check(($professional['regular_base_amount'] ?? null) === 17500, 'Professional LinkedIn campaign must retain documented regular reference price');
+$check(($professional['regular_price_label'] ?? null) === '₹17,500 + GST', 'Professional LinkedIn regular campaign label must be explicit');
+$check(!isset($leadership['regular_price_label']), 'Leadership service remains a standalone price');
 $check(CvUpgradePlans::get('leadership_unknown') === null, 'Unknown tier must not acquire a price');
 $input = array_combine(array_keys(LeadershipContext::FIELDS), ['Business Head', '₹1,500 Cr', 'Full P&L', '600 people', 'India / APAC', 'Board and CEO', 'CEO', 'Enterprise leadership']);
 $message = LeadershipContext::appendToMessage($input, '17 years of experience; please keep client names private.');
@@ -40,11 +42,11 @@ $renderer = new class {
 $viewRoot = dirname(__DIR__) . '/app/Views/pages/services/';
 $standardHtml = $renderer->render($viewRoot . 'linkedin-leadership.php', $professional, 'linkedin_8999');
 $leadershipHtml = $renderer->render($viewRoot . 'cxo-global-leadership.php', $leadership, 'leadership_17500');
-$check(str_contains($standardHtml, '₹8,999 + GST') && !str_contains($standardHtml, '₹17,500'), 'Standard page must show only its price');
+$check(str_contains($standardHtml, '₹8,999 + GST') && str_contains($standardHtml, '₹17,500 + GST'), 'Standard page must show documented regular and campaign prices');
 $check(str_contains($leadershipHtml, '₹17,500 + GST') && !str_contains($leadershipHtml, '₹8,999'), 'Leadership page must show only its price');
 $check(str_contains($standardHtml, '/career-services/start/linkedin_8999'), 'Standard CTA must retain its checkout');
 $check(str_contains($leadershipHtml, '/career-services/start/leadership_17500'), 'Leadership CTA must use its checkout');
-$check(!str_contains($standardHtml . $leadershipHtml, 'line-through'), 'No price comparison or discount framing');
+$check(str_contains($standardHtml, 'Campaign price · limited profile slots'), 'Professional LinkedIn page must explain campaign access');
 foreach ([['linkedin_8999', $professional], ['leadership_17500', $leadership]] as [$tier, $plan]) {
     $html = $renderer->render($viewRoot . 'cv-service-start.php', $plan, $tier);
     $check(str_contains($html, esc($plan['name'])) && str_contains($html, $plan['payable_label']), 'Checkout name and price must match');
