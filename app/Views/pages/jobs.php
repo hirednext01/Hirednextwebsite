@@ -33,7 +33,7 @@ if (!empty($filters['type'])) $activeLabels['type'] = ucwords(str_replace('-', '
             <summary class="cursor-pointer list-none flex items-center justify-between gap-3 px-4 py-3 md:px-5">
                 <div>
                     <h2 class="text-sm md:text-base font-bold text-primary">Add your CV. We will contact you when the right role matches your profile.</h2>
-                    <p class="text-xs text-gray-600 mt-1">Free registration. Your original CV stays attached and its text and details can be found by recruiters when a role fits.</p>
+                    <p class="text-xs text-gray-600 mt-1">Free registration. Submit your CV once. Your original CV stays attached and its text and details can be found by recruiters when a role fits.</p>
                 </div>
                 <span class="shrink-0 inline-flex items-center justify-center rounded-xl bg-primary text-white px-5 py-3 text-sm font-black group-open:bg-accent">Add my CV +</span>
             </summary>
