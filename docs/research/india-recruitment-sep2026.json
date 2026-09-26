@@ -216,5 +216,67 @@
       ],
       "related": "india-gcc-hiring-investment-2026"
     }
-  ]
+  ],
+  "release_receipts": {
+    "verified_at_utc": "2026-09-26T02:52:00Z",
+    "website": {
+      "pull_request": "https://github.com/hirednext01/Hirednextwebsite/pull/87",
+      "deployed_source_sha": "3b6ebc99827375ab0c9a4376a6d96088fb85351a",
+      "hostinger_run_id": 36212838265,
+      "job_board": "https://hirednext.net/jobs#talent-pool",
+      "research_index": "https://hirednext.net/reports/",
+      "html_http_status": 200,
+      "pdf_http_status": 200,
+      "pdfs_match_repository_bytes": true,
+      "sitemap_and_llms_links_verified": true
+    },
+    "linkedin": {
+      "status": "scheduled",
+      "network": "urn:li:organization:72410542",
+      "publication_ist": "2026-09-30T17:00:00+05:30",
+      "uuid": "7580677519673148053",
+      "id": 382337755,
+      "planner_url": "https://app.metricool.com/planner/calendar?blogId=6959887&openWithPostUuid=7580677519673148053",
+      "media_url": "https://static.metricool.com/planner/202609/6959887-file-7563774396091791800.pdf",
+      "draft": false,
+      "auto_publish": true,
+      "provider_status": "PENDING",
+      "live_url": null,
+      "caption": "A GCC investment case needs a talent case.\n\nBefore a hiring target becomes an operating plan, four questions deserve clear answers:\n\n• Who will own the decisions in India?\n• Which capabilities are genuinely reachable?\n• Which leaders and specialists must join first?\n• What evidence will show that hiring is working?\n\nFor PE operating partners, fund managers and HR-tech investors, a large candidate database or a polished AI demo answers very little on its own. The useful evidence connects an employer mandate to assessment, joining, delivery costs and received revenue.\n\nHiredNext has published two concise papers:\n\n1. India’s GCC Expansion: The Hiring Decisions Behind the Investment.\n2. HR Tech Investment: A Recruitment Diligence Checklist.\n\nBoth include clickable sources and practical questions for a confidential employer or investment discussion. Public market data is distinguished from HiredNext’s proposed frameworks; these are desk-research papers, not a primary survey.\n\nRead and download both:\nhttps://hirednext.net/reports/?utm_source=linkedin&utm_medium=organic&utm_campaign=india_recruitment_research_sep2026&utm_content=gcc_investor_brief\n\n#HiredNextRecruitment #GCC #ExecutiveSearch #HRTech"
+    },
+    "collision_resolution": {
+      "uuid": "267586930639849586",
+      "previous_ist": "2026-09-26T17:00:00+05:30",
+      "new_ist": "2026-09-29T17:00:00+05:30",
+      "caption_preserved": true,
+      "other_posts_preserved": true,
+      "native_linkedin_scheduled_posts": 0
+    },
+    "search_baseline": {
+      "as_of": "2026-09-25",
+      "provider": "Ubersuggest",
+      "country": "India",
+      "device": "desktop",
+      "tracked_keywords": 25,
+      "verified_top3_positions": 0,
+      "verified_top10_positions": 0,
+      "outside_top100_status_ok": 20,
+      "unstable_keywords": 5,
+      "ai_visibility_brand_configured": false,
+      "note": "Tracked keywords are a limited search baseline, not an independent ranking of recruitment companies. No top-three agency claim is established."
+    },
+    "production_audit": {
+      "pages": 8,
+      "internal_links": 12,
+      "critical_issues": 0,
+      "warnings": 0,
+      "scope": "Focused sample, not a full-site audit"
+    },
+    "commercial_outcomes": {
+      "qualified_enquiries": null,
+      "paid_orders": null,
+      "revenue": null,
+      "note": "No new commercial result established by this release."
+    }
+  }
 }
