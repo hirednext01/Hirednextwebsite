@@ -221,12 +221,13 @@ class Jobs extends BaseController
             'current_company', 'current_designation', 'department', 'employment_status',
             'total_experience', 'current_location', 'preferred_locations', 'current_ctc',
             'expected_ctc', 'notice_period', 'qualification', 'college', 'course',
-            'additional_courses',
+            'additional_courses', 'skills', 'industry', 'preferred_roles',
+            'previous_companies', 'profile_headline', 'product_categories', 'languages',
         ];
         $answers = [];
         foreach ($fields as $field) {
             $value = trim((string) $this->request->getPost($field));
-            if ($value !== '') $answers[$field] = $value;
+            if ($value !== '') $answers[$field] = mb_substr($value, 0, 2000);
         }
 
         $name = trim((string) $this->request->getPost('name'));
@@ -237,7 +238,24 @@ class Jobs extends BaseController
             $linkedin = 'https://' . ltrim($linkedin, '/');
         }
 
-        $externalId = 'talent-pool-' . hash('sha256', implode('|', [$email, $phone, $fileHash]));
+        if (mb_strlen($name) < 2 || mb_strlen($name) > 255 || !filter_var($email, FILTER_VALIDATE_EMAIL)
+            || !preg_match('/^\\+?[0-9][0-9 ()-]{7,19}$/', $phone)
+            || $this->request->getPost('consent_storage') !== '1') {
+            return redirect()->to(base_url('jobs') . '#talent-pool')
+                ->withInput()
+                ->with('talentPoolError', 'Please provide your name, valid email and mobile number, and agree to CV storage for relevant opportunities.');
+        }
+        if ($linkedin !== '' && !preg_match('#^https://(?:[a-z0-9-]+\\.)?linkedin\\.com/in/[^\\s?#]+/?$#i', $linkedin)) {
+            return redirect()->to(base_url('jobs') . '#talent-pool')
+                ->withInput()
+                ->with('talentPoolError', 'Please enter a valid LinkedIn profile URL or leave it blank.');
+        }
+
+        // A changed profile with the same CV gets a new receipt; identical retries dedupe.
+        $externalId = 'talent-pool-' . hash('sha256', json_encode(
+            [$email, $phone, $fileHash, $name, $linkedin, $answers],
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        ));
 
         try {
             (new \App\Services\RecruitOsIntakeClient())->submit(
@@ -255,6 +273,8 @@ class Jobs extends BaseController
                     'candidate_linkedin' => $linkedin !== '' ? $linkedin : null,
                     'candidate_answers' => $answers,
                     'candidate_interest' => 'future_relevant_roles',
+                    'identity_verified' => true,
+                    'consent_storage' => true,
                     'tags' => ['talent_pool', 'website', 'general_registration'],
                 ]
             );
