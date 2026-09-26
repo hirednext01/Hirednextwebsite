@@ -106,7 +106,7 @@
         </div>
         <details class="hn-home-firm-details">
             <summary>About HiredNext and sector expertise</summary>
-            <p>Founded in Mumbai in 2016, HiredNext later moved its operating base to Gurugram (Gurgaon), Haryana. We are an India-based executive recruitment and talent advisory firm supporting work across India and cross-border markets including Indonesia, China, the UAE (Dubai), Jordan and Bangladesh. Our operating base is in Gurugram; we do not claim local offices in these markets or offer a public walk-in office.</p>
+            <p>Founded in Mumbai in 2016, HiredNext later moved its operating base to Gurugram (Gurgaon), Haryana. We are an India-based executive recruitment and talent advisory firm supporting work across India and cross-border markets including Indonesia, China, the UAE (Dubai), Jordan and Bangladesh. Our operating base is in Gurugram; we do not claim local offices in these markets, and there is no public walk-in office.</p>
             <div class="hn-home-sector-links">
                 <?php foreach ([
                     ['industry/garment-textile-recruitment-india', 'Textile, apparel and fashion'],
