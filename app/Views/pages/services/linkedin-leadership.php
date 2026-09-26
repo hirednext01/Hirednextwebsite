@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<link rel="stylesheet" href="<?= base_url('theme/linkedin-positioning.css') ?>?v=20260926-gold">
+<link rel="stylesheet" href="<?= base_url('theme/linkedin-positioning.css') ?>?v=20260926-campaign">
 <div class="hn-position hn-professional hn-profile-offer">
 <section class="hn-position-hero">
  <div class="hn-position-wrap hn-profile-hero-grid">
@@ -24,7 +24,12 @@
     <li>Role aligned search language and skills</li>
     <li>Review for accuracy and coherence</li>
    </ul>
-   <div class="hn-profile-card-price"><strong><?= esc($plan['price_label']) ?></strong><span><?= esc($plan['payable_label']) ?>, rounded to the nearest rupee</span></div>
+   <div class="hn-profile-card-price">
+    <span class="hn-profile-campaign-label">Campaign price · limited profile slots</span>
+    <span class="hn-profile-regular-price"><?= esc($plan['regular_price_label'] ?? '') ?></span>
+    <strong><?= esc($plan['price_label']) ?></strong>
+    <span><?= esc($plan['campaign_saving_label'] ?? '') ?> · <?= esc($plan['payable_label']) ?>, rounded to the nearest rupee</span>
+   </div>
    <p class="hn-profile-card-scope">For professionals, managers, senior managers and AVPs.</p>
   </aside>
  </div>
@@ -110,7 +115,13 @@
   <details><summary>How is this different from CXO positioning?</summary><p>This service is for professional and managerial job market positioning. Business Heads, CXOs and enterprise leaders with complex commercial mandates may need the separate leadership engagement.</p></details>
   <p class="hn-profile-guide"><a href="<?= base_url('guides/linkedin-profile-optimisation-india') ?>">Read our recruiter led guide to LinkedIn profile optimisation →</a></p>
   <div class="hn-profile-close">
-   <div><span class="hn-profile-card-tag">Professional LinkedIn Profile Build</span><p class="hn-position-fee"><?= esc($plan['price_label']) ?></p><p><?= esc($plan['payable_label']) ?>, rounded to the nearest rupee.</p></div>
+   <div>
+    <span class="hn-profile-card-tag">Professional LinkedIn Profile Build</span>
+    <p class="hn-profile-campaign-label">Campaign price · limited profile slots</p>
+    <p class="hn-profile-regular-price"><?= esc($plan['regular_price_label'] ?? '') ?></p>
+    <p class="hn-position-fee"><?= esc($plan['price_label']) ?></p>
+    <p><?= esc($plan['campaign_saving_label'] ?? '') ?> · <?= esc($plan['payable_label']) ?>, rounded to the nearest rupee.</p>
+   </div>
    <a class="hn-position-button" href="<?= base_url('career-services/start/linkedin_8999') ?>">Build my LinkedIn profile →</a>
   </div>
   <p class="hn-position-crosslink">Operating at Business Head or CXO level? <a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>">Explore CXO / Global Leadership Positioning →</a></p>
