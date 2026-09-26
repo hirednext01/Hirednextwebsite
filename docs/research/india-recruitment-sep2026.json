@@ -1,0 +1,220 @@
+{
+  "date": "2026-09-26",
+  "publisher": "HiredNext Recruitment",
+  "methodology": "Prepared with AI-assisted desk research and HiredNext's editorial hiring perspective. Public market evidence and proposed operating frameworks are labelled separately. This is not a primary survey, a company valuation or a claim about HiredNext's placement results.",
+  "reports": [
+    {
+      "slug": "india-gcc-hiring-investment-2026",
+      "title": "India's GCC Expansion: The Hiring Decisions Behind the Investment",
+      "short_title": "India's GCC expansion",
+      "subtitle": "A recruitment briefing for PE operating partners, fund managers and India capability leaders",
+      "description": "A source-linked India GCC hiring brief for investors: leadership sequencing, talent evidence, confidential search and a practical first 90 days.",
+      "thesis": "A GCC business case becomes executable only when someone owns the capability, the decisions and the hiring sequence. Headcount is an input. Operating capability is the outcome.",
+      "pages": [
+        {
+          "title": "The investment case needs a talent case",
+          "intro": "India's GCC expansion creates an important recruitment opportunity. The useful question for an investor is which hiring decisions protect the business plan, and how those decisions will be evidenced.",
+          "sections": [
+            {
+              "title": "What the public evidence says",
+              "paragraphs": [
+                "Nasscom and Zinnov's FY2026 report records 2,117 GCCs, a workforce of 2.36 million and market revenue of US$98.4 billion. These are ecosystem figures as of March 2026, not HiredNext's business or a count of vacancies. The report also identifies 504 PE-backed GCCs. [1]",
+                "Bain and IVCA's 2026 India Private Equity Report describes more selective investing and identifies AI infrastructure and portfolio value creation as important themes. It does not forecast recruitment-agency revenues or endorse any search firm. [2]",
+                "McKinsey's June 2025 discussion describes GCCs evolving into enterprise innovation and leadership locations. Its implication for this briefing is that the authority attached to a role deserves as much attention as its location. [3]"
+              ]
+            },
+            {
+              "title": "HiredNext's interpretation",
+              "paragraphs": [
+                "Talent availability should be tested before the operating plan is treated as certain. An attractive location, a familiar title and a large applicant pool do not establish that the required capability is reachable.",
+                "Separate three needs: leaders who can build the operation, scarce specialists who make it work, and repeatable hiring that can scale through a defined recruitment process. Each needs different evidence and search ownership."
+              ]
+            },
+            {
+              "title": "Four decisions to settle before search",
+              "table": {
+                "headers": [
+                  "Decision",
+                  "Evidence to request"
+                ],
+                "rows": [
+                  [
+                    "Mandate and authority",
+                    "First-year outcomes, budget ownership, reporting lines and decisions the India leader can make."
+                  ],
+                  [
+                    "Capability and geography",
+                    "A role-specific talent map, adjacent industries, location constraints and validated compensation assumptions."
+                  ],
+                  [
+                    "Hiring sequence",
+                    "The first accountable leaders and specialists, dependencies between roles, and what can wait."
+                  ],
+                  [
+                    "Confidentiality",
+                    "Who may know the mandate, what can be disclosed at each stage and who may access candidate records."
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "title": "A proposed first 90 days",
+          "intro": "The sequence below is a planning framework, not a promised hiring timeline. Notice periods, scarcity and stakeholder decisions can change delivery dates.",
+          "sections": [
+            {
+              "title": "Days 1 to 15: turn strategy into a hiring brief",
+              "paragraphs": [
+                "Agree the business outcomes, decision rights and non-negotiable evidence for each critical role. Give one sponsor authority to resolve disagreements before interviews begin. Define how sensitive replacement searches will be handled."
+              ]
+            },
+            {
+              "title": "Days 16 to 30: test the market",
+              "paragraphs": [
+                "Map credible talent and candidate objections. Separate unavailable skills from an uncompetitive location, reporting line or package. Escalate repeated contradictions in the brief instead of concealing them beneath a longer shortlist."
+              ]
+            },
+            {
+              "title": "Days 31 to 60: assess contribution",
+              "paragraphs": [
+                "Use a consistent role scorecard. Examine what each person inherited, personally decided and changed. Record evidence and unresolved questions. Keep interview decisions traceable and references permission-based."
+              ]
+            },
+            {
+              "title": "Days 61 to 90: manage joining and accountability",
+              "paragraphs": [
+                "Track offer decisions, notice periods and joining risks separately. Confirm who owns onboarding and the first operating milestones. Review why candidates declined and whether the role design needs to change."
+              ]
+            },
+            {
+              "title": "What PE and fund managers should ask for",
+              "bullets": [
+                "A talent-risk register tied to the operating plan, with named owners and next decisions.",
+                "Comparable evidence for every shortlisted candidate, including gaps and reasons for recommendation.",
+                "Funnel definitions that distinguish a CV, an assessed candidate, an accepted offer and a verified joining.",
+                "A clear escalation route when the market contradicts the investment case."
+              ]
+            },
+            {
+              "title": "HiredNext's role",
+              "paragraphs": [
+                "HiredNext supports executive search and specialist recruitment in India. For GCC and portfolio-company discussions, the starting point is a confidential mandate conversation and an agreed scope. Client identities, replacement searches and leadership profiles are not used as public promotional material."
+              ]
+            }
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "id": 1,
+          "title": "Nasscom and Zinnov, The GCC Value Orbit: India GCC Landscape, FY2026",
+          "url": "https://zinnov.com/centers-of-excellence/zinnov-nasscom-india-gcc-landscape-2026-report/"
+        },
+        {
+          "id": 2,
+          "title": "Bain & Company and IVCA, India Private Equity Report 2026, pp. 43 to 50",
+          "url": "https://www.bain.com/globalassets/noindex/2026/bain_report_india_private_equity_report_2026.pdf"
+        },
+        {
+          "id": 3,
+          "title": "McKinsey, Beyond cost savings: The global footprint of innovation hubs, 3 June 2025",
+          "url": "https://www.mckinsey.com/capabilities/operations/our-insights/beyond-cost-savings-the-global-footprint-of-innovation-hubs"
+        }
+      ],
+      "related": "hr-tech-recruitment-diligence-india-2026"
+    },
+    {
+      "slug": "hr-tech-recruitment-diligence-india-2026",
+      "title": "HR Tech Investment: A Recruitment Diligence Checklist",
+      "short_title": "HR tech investment diligence",
+      "subtitle": "Eight questions for investors evaluating recruitment platforms and technology-enabled hiring firms in India",
+      "description": "An investor checklist for Indian HR tech and recruitment businesses covering real demand, candidate data, selection quality, delivery and cash economics.",
+      "thesis": "The quality of a recruitment business becomes visible between the demo and the joining receipt. Investors should test what the system proves, who does the work and which economics survive delivery.",
+      "pages": [
+        {
+          "title": "Four checks before believing the funnel",
+          "intro": "This is HiredNext's proposed operating checklist. It is designed to help a diligence conversation, not to score or recommend a particular investment.",
+          "sections": [
+            {
+              "title": "1. Is demand real?",
+              "paragraphs": [
+                "Request evidence of an approved employer mandate, the hiring owner, an agreed role brief and current status. Separate active vacancies from talent pools, speculative demand and expired assignments. A profile registration is not an employer order."
+              ]
+            },
+            {
+              "title": "2. Does the candidate data support the claim?",
+              "paragraphs": [
+                "Sample actual records. Trace the original CV or supplied information, source, application date, permission, updates and duplicates. Distinguish searchable records from readable resumes and genuinely reachable candidates. Do not treat a large database count as verified supply."
+              ]
+            },
+            {
+              "title": "3. Does screening improve the hiring decision?",
+              "paragraphs": [
+                "Use employer-agreed criteria and compare the tool with an appropriate baseline on the same roles. Examine both unsuitable recommendations and suitable people missed. Aggregate accuracy can hide failures in scarce roles, career breaks or unfamiliar career paths."
+              ]
+            },
+            {
+              "title": "4. Where does human judgement enter?",
+              "paragraphs": [
+                "Ask who calibrates the role, checks inferred facts, challenges weak recommendations and decides an exception. Observe a real workflow with permission. A human approval button alone does not establish a meaningful review."
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Four checks before believing the economics",
+          "intro": "Bain and IVCA's 2026 report discusses AI as a tool for portfolio value creation and stresses ownership and outcome tracking. Applying that lens to recruitment requires evidence beyond processing speed. [1]",
+          "sections": [
+            {
+              "title": "5. What does automation actually cost?",
+              "paragraphs": [
+                "Separate software revenue, recruitment fees and pass-through costs. Include sourcing, recruiter review, implementation, model usage, support, replacement work and collection effort. Inspect realised margin after delivery, not only a presentation of theoretical automation savings."
+              ]
+            },
+            {
+              "title": "6. Do outcomes have consistent denominators?",
+              "paragraphs": [
+                "Reconcile applications, unique candidates, assessed shortlists, interviews, offers, accepted offers, joinings and retained hires. State the cohort and observation window. An accepted offer is not a joining, and a joining does not prove later performance."
+              ]
+            },
+            {
+              "title": "7. Does reported revenue turn into cash?",
+              "paragraphs": [
+                "Follow a sample from agreed fee terms to delivery evidence, invoice, replacement or refund exposure, and bank receipt. Ask whether customer concentration or long collection cycles are hidden by headline bookings. Synthetic tests and typed payment references are not received revenue."
+              ]
+            },
+            {
+              "title": "8. Can the operating model be trusted?",
+              "paragraphs": [
+                "Inspect access controls, audit trails, deletion and correction processes, incident ownership and model-change checks. NIST's voluntary AI Risk Management Framework highlights reliability, transparency, privacy and management of harmful bias. It is a risk lens, not a certification of a recruitment product. [2]"
+              ]
+            },
+            {
+              "title": "The evidence pack to request",
+              "bullets": [
+                "A permissioned sample linking the mandate, candidate evidence, assessment and hiring outcome.",
+                "Customer cohorts showing repeat business, delivery effort, replacement exposure and cash collection.",
+                "Documented failure cases and the changes made after them.",
+                "A demonstration using permitted data, with accountable people present."
+              ]
+            }
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "id": 1,
+          "title": "Bain & Company and IVCA, India Private Equity Report 2026, pp. 48 to 50",
+          "url": "https://www.bain.com/globalassets/noindex/2026/bain_report_india_private_equity_report_2026.pdf"
+        },
+        {
+          "id": 2,
+          "title": "NIST, Artificial Intelligence Risk Management Framework 1.0, 2023",
+          "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10"
+        }
+      ],
+      "related": "india-gcc-hiring-investment-2026"
+    }
+  ]
+}

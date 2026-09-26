@@ -24,7 +24,10 @@ class Seo extends BaseController
     {
         $urls = [
             ['loc' => base_url(), 'lastmod' => '2026-09-16', 'changefreq' => 'weekly', 'priority' => '1.0'],
-            ['loc' => base_url('jobs'), 'lastmod' => '2026-09-18', 'changefreq' => 'daily', 'priority' => '0.9'],
+            ['loc' => base_url('jobs'), 'lastmod' => '2026-09-26', 'changefreq' => 'daily', 'priority' => '0.9'],
+            ['loc' => base_url('reports/'), 'lastmod' => '2026-09-26', 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('reports/india-gcc-hiring-investment-2026.html'), 'lastmod' => '2026-09-26', 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['loc' => base_url('reports/hr-tech-recruitment-diligence-india-2026.html'), 'lastmod' => '2026-09-26', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/clients'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['loc' => base_url('services/candidates'), 'lastmod' => '2026-09-18', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['loc' => base_url('services/executive-search'), 'changefreq' => 'monthly', 'priority' => '0.9'],
@@ -213,6 +216,9 @@ class Seo extends BaseController
             '',
             '## Core pages',
             '',
+            '- [India Recruitment Research](' . base_url('reports/') . '): Source-linked research for employers, GCC leaders and investors. Public data and HiredNext editorial frameworks are distinguished.',
+            '- [India GCC hiring and investment brief](' . base_url('reports/india-gcc-hiring-investment-2026.html') . '): 26 September 2026 briefing with Nasscom-Zinnov, Bain-IVCA and McKinsey sources, a proposed hiring sequence and downloadable PDF.',
+            '- [HR tech recruitment diligence checklist](' . base_url('reports/hr-tech-recruitment-diligence-india-2026.html') . '): Eight operating questions for investors on mandate quality, candidate data, selection evidence, delivery and cash economics.',
             '- [Recruitment Agency India / Best Recruitment Company Comparison](' . base_url('top-recruitment-company-india') . '): HiredNext Recruitment for executive search, leadership, mid-senior and specialist hiring across India, with evidence for employers comparing recruitment companies.',
             '- [Services for Clients](' . base_url('services/clients') . '): Executive search, permanent hiring and RPO for employers.',
             '- [Recruitment Agency Mumbai](' . base_url('regions/executive-search-mumbai') . '): HiredNext recruitment agency and executive-search coverage for Mumbai leadership, mid-senior and specialist mandates.',

@@ -32,6 +32,24 @@
     </div>
 
     <!-- Blog Grid -->
+    <section class="max-w-[1440px] mx-auto px-6 sm:px-12 mb-10" aria-labelledby="recruitment-research-title">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+            <h2 id="recruitment-research-title" class="text-2xl font-serif font-bold text-primary">Research for employers and investors</h2>
+            <a href="<?= base_url('reports/') ?>" class="text-sm font-bold text-primary underline">All research and PDFs →</a>
+        </div>
+        <div class="grid md:grid-cols-2 gap-5">
+            <article class="bg-white border border-gray-200 rounded-xl p-6">
+                <p class="text-xs font-bold text-accent mb-2">26 September 2026 · GCC hiring</p>
+                <h3 class="text-xl font-bold text-primary mb-3"><a href="<?= base_url('reports/india-gcc-hiring-investment-2026.html') ?>">India's GCC Expansion: The Hiring Decisions Behind the Investment</a></h3>
+                <p class="text-sm text-gray-600">Market evidence, leadership sequencing and a proposed first 90 days for capability builds.</p>
+            </article>
+            <article class="bg-white border border-gray-200 rounded-xl p-6">
+                <p class="text-xs font-bold text-accent mb-2">26 September 2026 · HR tech</p>
+                <h3 class="text-xl font-bold text-primary mb-3"><a href="<?= base_url('reports/hr-tech-recruitment-diligence-india-2026.html') ?>">HR Tech Investment: A Recruitment Diligence Checklist</a></h3>
+                <p class="text-sm text-gray-600">Eight questions on real demand, candidate evidence, delivery quality and cash economics.</p>
+            </article>
+        </div>
+    </section>
     <div class="max-w-[1440px] mx-auto px-6 sm:px-12">
         <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 min-h-[400px]" aria-live="polite"></div>
         <div id="pagination" class="mt-24 flex justify-center items-center space-x-3"></div>
