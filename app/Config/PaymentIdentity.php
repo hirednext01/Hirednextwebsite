@@ -54,6 +54,20 @@ final class PaymentIdentity
             'payment_email' => self::PAYMENT_EMAIL,
             'confirmation_email' => self::CONFIRMATION_EMAIL,
             'temporary_qr_active' => true,
+            'bank_transfer' => self::bankTransfer(),
+        ];
+    }
+
+    /** Exact account details supplied by the HiredNext owner for INR transfers. */
+    public static function bankTransfer(): array
+    {
+        return [
+            'active' => true,
+            'beneficiary' => 'HIREDNEXT',
+            'bank' => 'Axis Bank',
+            'account_type' => 'Current Account',
+            'account_number' => '917020008798870',
+            'ifsc' => 'UTIB0000131',
         ];
     }
 }
