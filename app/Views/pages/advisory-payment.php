@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<?php $paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config\PaymentIdentity::destination()['temporary_qr_active']); ?>
+<?php $paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config\PaymentIdentity::destination()['temporary_qr_active'] || \Config\PaymentIdentity::bankTransfer()['active']); ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
     #navbar #logoText, #navbar .nav-link, #navbar #menuBtn { color:#0c3466 !important; }
@@ -37,7 +37,7 @@
                     <div class="mb-6">
                         <div class="text-[10px] uppercase tracking-[0.22em] text-accent font-black mb-2">Already paid?</div>
                         <h2 class="text-2xl font-serif font-bold text-primary mb-2">Submit your advisory request</h2>
-                        <p class="text-sm text-gray-600 leading-relaxed">Enter the UPI reference and the information needed to prepare the session. Payment remains pending until HiredNext verifies the transaction.</p>
+                        <p class="text-sm text-gray-600 leading-relaxed">Enter the UPI reference or bank UTR and the information needed to prepare the session. Payment remains pending until HiredNext verifies the transaction.</p>
                     </div>
 
                     <form action="<?= base_url('advisory/payment/submit') ?>" method="post" class="space-y-4">
@@ -175,8 +175,9 @@
                         <?php endif; ?>
 
                         <div class="rounded-xl bg-gray-50 border border-gray-200 p-4">
-                            <label class="block text-sm font-bold text-primary mb-1">UPI transaction/reference number *</label>
-                            <input name="payment_reference" required minlength="6" value="<?= esc(old('payment_reference')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Enter the reference shown by your payment app">
+                            <label class="block text-sm font-bold text-primary mb-1">Payment method</label><select name="payment_method" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white"><option value="upi">Paytm / UPI</option><option value="bank_transfer">Bank transfer (NEFT / IMPS)</option></select>
+                            <label class="block text-sm font-bold text-primary mb-1 mt-4">UPI reference or bank UTR *</label>
+                            <input name="payment_reference" required minlength="6" value="<?= esc(old('payment_reference')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Enter the reference shown by your payment or bank app">
                             <p class="mt-2 text-xs text-gray-500">We use this reference only to match and verify the payment.</p>
                         </div>
 
