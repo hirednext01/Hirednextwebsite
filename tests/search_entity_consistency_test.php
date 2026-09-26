@@ -79,7 +79,8 @@ $require(str_contains($routes, '$routes->get(\'services\', \'CandidateServices::
 $require(str_contains($routes, '$routes->get(\'press-media\', \'Authority::pressMedia\')'), '/press-media route contract must remain explicit');
 $require(str_contains($routes, '$routes->get(\'testimonials\', \'ReputationAuthority::testimonials\')'), '/testimonials route contract must remain explicit');
 $require(str_contains($routes, '$routes->get(\'jobs\', \'Jobs::index\')'), '/jobs route contract must remain explicit');
-$require(!str_contains($layout, 'HiredNext Recruitment provides executive search, leadership hiring and specialist recruitment support across India.'), 'layout must not replace one shared metadata fallback with another');
+$require(substr_count($layout, '$metaDescription =') === 1, 'layout must assign meta description only from route input');
+$require(!str_contains($layout, 'if ($metaDescription === \'\')'), 'layout must not synthesize a shared meta description when route metadata is missing');
 $require(str_contains($layout, 'if ($metaDescription !== \'\')'), 'layout must emit description tags only when a route supplies a description');
 $require(str_contains($layout, '$robotsContent'), 'layout must allow route-specific robots directives');
 $require(str_contains($methodSource($home, 'industry'), '$industry[\'intro\']'), 'industry metadata must use the industry-specific introduction');
