@@ -19,6 +19,9 @@ on:
       - 'app/Views/pages/founder-profile.php'
       - 'app/Views/pages/services/**'
       - 'app/Views/pages/guides/**'
+      - 'app/Views/pages/jobs.php'
+      - 'app/Views/pages/job-detail.php'
+      - 'app/Models/JobModel.php'
       - '.github/workflows/production-search-authority-audit.yml'
   pull_request:
     paths:

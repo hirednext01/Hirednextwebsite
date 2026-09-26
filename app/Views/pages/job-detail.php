@@ -9,6 +9,11 @@ $linkedinUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlen
 $applicationCount = isset($applicationCount) && is_int($applicationCount) ? $applicationCount : null;
 $screeningProfile = (string)($job['slug'] ?? '');
 $screeningQuestions = is_array($screeningQuestions ?? null) ? $screeningQuestions : [];
+$jobDescription = (string)($job['description'] ?? '');
+// Stored job copy can contain legacy H1 markup. Preserve the content but demote
+// description-level H1s so every public job page has one semantic page H1: the role title.
+$jobDescription = preg_replace('/<\\s*h1\\b/i', '<h2', $jobDescription) ?? $jobDescription;
+$jobDescription = preg_replace('/<\\s*\\/h1\\s*>/i', '</h2>', $jobDescription) ?? $jobDescription;
 
 // Presentation-only related roles: read open jobs, never mutate job/application data.
 $similarJobs = [];
@@ -78,7 +83,7 @@ try {
                             <button type="button" onclick="copyJobLink(this)" class="px-3 py-2 rounded-lg border border-gray-200 text-xs font-bold text-gray-700 hover:border-primary hover:text-primary transition">Copy link</button>
                         </div>
                     </div>
-                    <div class="prose prose-lg max-w-none text-gray-700 job-richtext"><?= $job['description'] ?? '' ?></div>
+                    <div class="prose prose-lg max-w-none text-gray-700 job-richtext"><?= $jobDescription ?></div>
                 </div>
 
                 <?php if (!empty($similarJobs)): ?>
