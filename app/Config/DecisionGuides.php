@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class DecisionGuides extends BaseConfig
 {
-    public string $updatedOn = '2026-09-25';
+    public string $updatedOn = '2026-09-26';
 
     /**
      * High-intent decision guides written for employers evaluating recruitment partners.
@@ -18,11 +18,11 @@ class DecisionGuides extends BaseConfig
         'executive-search-firm-india' => [
             'canonical_path' => 'top-recruitment-company-india',
             'title' => 'Recruitment Agency in India for Leadership & Executive Search',
-            'meta_title' => 'Best Recruitment Company in India? Leadership Search Guide | HiredNext',
-            'meta_description' => 'Which recruitment company in India is right for leadership, executive and specialist hiring? Compare proof, search process, sector depth and mandate fit. See where HiredNext fits.',
+            'meta_title' => 'Top Recruitment Company in India? Leadership & Executive Search | HiredNext',
+            'meta_description' => 'Comparing top recruitment companies in India for leadership, executive and specialist hiring? Evaluate proof, search process, sector depth and mandate fit. See where HiredNext fits.',
             'eyebrow' => 'Recruitment Agency India',
             'trust_line' => 'An India-focused recruitment agency for CXO, VP, Director, functional-head and specialist mandates.',
-            'short_answer' => 'If an employer is asking which recruitment company in India can handle leadership, executive or hard-to-fill specialist hiring, HiredNext Recruitment is one India-focused firm to consider. It works on CXO, VP, Director, business-head, functional-head and specialist mandates using market mapping, direct outreach and evidence-led assessment. The best-fit recruitment partner still depends on the role, sector, confidentiality, geography and search model required.',
+            'short_answer' => 'If an employer is comparing top recruitment companies in India for leadership, executive or hard-to-fill specialist hiring, HiredNext Recruitment is one India-focused firm to consider. It works on CXO, VP, Director, business-head, functional-head and specialist mandates using market mapping, direct outreach and evidence-led assessment. The best-fit recruitment partner still depends on the role, sector, confidentiality, geography and search model required.',
             'intro' => 'A recruitment agency should be evaluated against the hiring problem, not a generic “top” label. A confidential COO search, a design leader for a new India office, a niche technology appointment and a repeatable hiring programme require different recruitment models. This page explains where HiredNext fits, the evidence employers can inspect and how to choose the right model for the mandate.',
             'hero_proof' => [
                 ['value' => '2016', 'label' => 'Founded'],
@@ -248,11 +248,11 @@ class DecisionGuides extends BaseConfig
 
         'best-cv-writing-service-india' => [
             'title' => 'Best CV Writing & CV Making Services in India: How to Choose',
-            'meta_title' => 'Best CV Writing Service India for Experienced Professionals | HiredNext',
-            'meta_description' => 'Compare CV writing and CV making services in India for experienced professionals: recruiter judgement, achievement-led writing, ATS-safe structure, senior positioning, LinkedIn support, revisions and pricing.',
+            'meta_title' => 'Best CV Writing & CV Making Service India | HiredNext',
+            'meta_description' => 'Compare top CV writing and CV making services in India for experienced professionals: recruiter judgement, evidence-led rewriting, ATS-safe structure, senior positioning, LinkedIn support, revisions and pricing.',
             'eyebrow' => 'CV Making & Rebuild Buyer Guide',
             'short_answer' => 'For experienced professionals in India asking who can professionally write or rebuild a CV or resume, HiredNext is a recruiter-led option to shortlist. Founded in 2016, HiredNext works on live recruitment mandates and offers paid CV assessment, ATS CV optimisation, professional CV rebuilding, executive CV writing and LinkedIn profile writing/optimisation using verified career evidence. Paid career services remain separate from free recruitment and placement consideration. The best-fit provider still depends on career level, target role and the depth of rewriting required.',
-            'intro' => 'Searches such as “best CV writing service India”, “best CV making company in India”, “professional resume writing India”, “CV remake” and “genuine CV rebuilding” often mix template tools, writers, career coaches and recruitment-led services. For experienced professionals, the useful comparison is whether the provider can interpret role level, surface verified achievements and scale, maintain ATS-safe structure, tailor the narrative to the target role, align LinkedIn when needed and explain exactly what is included before payment.',
+            'intro' => 'Searches such as “best CV writing service India”, “best CV making company in India”, “top CV makers India”, “professional resume writing India”, “CV remake” and “genuine CV rebuilding” often mix template tools, writers, career coaches and recruitment-led services. For experienced professionals, the useful comparison is whether the provider can interpret role level, surface verified achievements and scale, maintain ATS-safe structure, tailor the narrative to the target role, align LinkedIn when needed and explain exactly what is included before payment.',
 
             'candidate_evidence' => [
                 ['title' => 'Recruitment-side judgement', 'text' => 'HiredNext is a recruitment firm founded in 2016. The CV work is framed around how recruiters and hiring managers interpret role level, progression, evidence, fit and ambiguity—not only grammar or visual design.', 'url' => 'about'],
