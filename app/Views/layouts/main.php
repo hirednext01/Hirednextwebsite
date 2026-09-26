@@ -192,7 +192,14 @@
 
                 <div class="site-desktop-nav">
                     <a href="<?= base_url() ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">Home</a>
-                    <a href="<?= base_url('about') ?>" class="nav-link text-sm font-semibold text-white whitespace-nowrap">About</a>
+                    <div class="relative group">
+                        <button type="button" class="nav-link text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">About <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg></button>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full w-64 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200"><div class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-2">
+                            <a href="<?= base_url('about') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">About the firm</a>
+                            <a href="<?= base_url('testimonials') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Testimonials</a>
+                            <a href="<?= base_url('press-media') ?>" class="block rounded-xl px-5 py-3 text-sm font-extrabold text-primary hover:bg-gray-50">Press &amp; Media</a>
+                        </div></div>
+                    </div>
 
                     <div class="relative group">
                         <button type="button" class="nav-link text-sm font-semibold text-white inline-flex items-center gap-1.5 whitespace-nowrap" aria-haspopup="true">
@@ -241,7 +248,12 @@
 
         <div id="mobileMenu" class="site-mobile-menu site-mobile-menu-panel hidden bg-white absolute top-full p-5 animate-in slide-in-from-top duration-300 max-h-[calc(100vh-76px)] overflow-y-auto">
             <div class="flex flex-col space-y-3">
-                <div class="grid grid-cols-2 gap-2"><a href="<?= base_url() ?>" class="mobile-link rounded-xl border border-gray-200 px-4 py-3 font-bold">Home</a><a href="<?= base_url('about') ?>" class="mobile-link rounded-xl border border-gray-200 px-4 py-3 font-bold">About</a></div>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="<?= base_url() ?>" class="mobile-link rounded-xl border border-gray-200 px-4 py-3 font-bold">Home</a>
+                    <a href="<?= base_url('about') ?>" class="mobile-link rounded-xl border border-gray-200 px-4 py-3 font-bold">About</a>
+                    <a href="<?= base_url('testimonials') ?>" class="mobile-link rounded-xl border border-gray-200 px-4 py-3 font-bold">Testimonials</a>
+                    <a href="<?= base_url('press-media') ?>" class="mobile-link rounded-xl border border-gray-200 px-4 py-3 font-bold">Press &amp; Media</a>
+                </div>
                 <div class="site-mobile-section">
                     <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-3">For Employers</div>
                     <div class="space-y-2 pl-2">
@@ -291,6 +303,8 @@
                     <ul class="space-y-3 text-sm text-white/70">
                         <li><a href="<?= base_url() ?>" class="hover:text-accent">Home</a></li>
                         <li><a href="<?= base_url('about') ?>" class="hover:text-accent">About</a></li>
+                        <li><a href="<?= base_url('testimonials') ?>" class="hover:text-accent">Testimonials</a></li>
+                        <li><a href="<?= base_url('press-media') ?>" class="hover:text-accent">Press &amp; Media</a></li>
                         <li><a href="<?= base_url('services/clients') ?>" class="hover:text-accent">For Employers</a></li>
                         <li><a href="<?= base_url('services/candidates') ?>" class="hover:text-accent">For Professionals</a></li>
                         <li><a href="<?= base_url('leadership-advisory/cxo-global-leadership-positioning') ?>" class="hover:text-accent">For CXOs</a></li>
