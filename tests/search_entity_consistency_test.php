@@ -75,15 +75,15 @@ foreach ($liveMetadataHandlers as [$source, $method, $route]) {
     $require(str_contains($handler, "'metaDescription'"), $route . ' live handler must set a route-specific meta description');
     $require(str_contains($handler, "'canonical'"), $route . ' live handler must set an explicit canonical URL');
 }
-$require(str_contains($routes, "$routes->get('services', 'CandidateServices::services')"), '/services route contract must remain explicit');
-$require(str_contains($routes, "$routes->get('press-media', 'Authority::pressMedia')"), '/press-media route contract must remain explicit');
-$require(str_contains($routes, "$routes->get('testimonials', 'ReputationAuthority::testimonials')"), '/testimonials route contract must remain explicit');
-$require(str_contains($routes, "$routes->get('jobs', 'Jobs::index')"), '/jobs route contract must remain explicit');
+$require(str_contains($routes, '$routes->get(\'services\', \'CandidateServices::services\')'), '/services route contract must remain explicit');
+$require(str_contains($routes, '$routes->get(\'press-media\', \'Authority::pressMedia\')'), '/press-media route contract must remain explicit');
+$require(str_contains($routes, '$routes->get(\'testimonials\', \'ReputationAuthority::testimonials\')'), '/testimonials route contract must remain explicit');
+$require(str_contains($routes, '$routes->get(\'jobs\', \'Jobs::index\')'), '/jobs route contract must remain explicit');
 $require(!str_contains($layout, 'HiredNext Recruitment provides executive search, leadership hiring and specialist recruitment support across India.'), 'layout must not replace one shared metadata fallback with another');
 $require(str_contains($layout, 'if ($metaDescription !== \'\')'), 'layout must emit description tags only when a route supplies a description');
 $require(str_contains($layout, '$robotsContent'), 'layout must allow route-specific robots directives');
-$require(str_contains($methodSource($home, 'industry'), "$industry['intro']"), 'industry metadata must use the industry-specific introduction');
-$require(str_contains($methodSource($home, 'region'), "$region['intro']"), 'region metadata must use the region-specific introduction');
+$require(str_contains($methodSource($home, 'industry'), '$industry[\'intro\']'), 'industry metadata must use the industry-specific introduction');
+$require(str_contains($methodSource($home, 'region'), '$region[\'intro\']'), 'region metadata must use the region-specific introduction');
 $require(str_contains($methodSource($home, 'jobDetail'), '$jobMetaDescription'), 'job detail metadata must be derived from the specific role');
 $require(str_contains($methodSource($cvPayment, 'checkout'), "'robots' => 'noindex,follow'"), 'transactional CV checkout must be noindex without changing payment data');
 
