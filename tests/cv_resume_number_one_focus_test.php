@@ -14,7 +14,7 @@ function must(bool $ok, string $label): void {
 }
 
 must(str_contains($legacy, "services/professional-cv-rebuild"), 'legacy Avron CV authority redirects to canonical professional CV page');
-must(str_contains($controller, 'Professional CV Writing & Resume Writing Service in India'), 'canonical page owns exact CV/resume writing commercial intent');
+must(str_contains($controller, 'Professional CV Writing, CV Making & Resume Writing Service in India'), 'canonical page owns exact CV/resume writing commercial intent');
 must(str_contains($controller, 'CV writing service India'), 'canonical page metadata includes exact target phrase');
 must(str_contains($controller, 'resume writing service India'), 'canonical page metadata includes resume synonym');
 must(str_contains($controller, "'quickAnswer'"), 'professional page has answer-first commercial summary');
