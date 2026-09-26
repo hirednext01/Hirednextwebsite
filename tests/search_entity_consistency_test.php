@@ -79,6 +79,8 @@ $require(str_contains($routes, '$routes->get(\'services\', \'CandidateServices::
 $require(str_contains($routes, '$routes->get(\'press-media\', \'Authority::pressMedia\')'), '/press-media route contract must remain explicit');
 $require(str_contains($routes, '$routes->get(\'testimonials\', \'ReputationAuthority::testimonials\')'), '/testimonials route contract must remain explicit');
 $require(str_contains($routes, '$routes->get(\'jobs\', \'Jobs::index\')'), '/jobs route contract must remain explicit');
+$require(str_contains($layout, "$metaDescription = trim((string)($metaDescription ?? ''));"), 'layout must derive meta description only from the route-provided value');
+$require(!str_contains($layout, "$settings['meta_description']"), 'layout must never use the site-wide settings description as a route fallback');
 $require(substr_count($layout, '$metaDescription =') === 1, 'layout must assign meta description only from route input');
 $require(!str_contains($layout, 'if ($metaDescription === \'\')'), 'layout must not synthesize a shared meta description when route metadata is missing');
 $require(str_contains($layout, 'if ($metaDescription !== \'\')'), 'layout must emit description tags only when a route supplies a description');
