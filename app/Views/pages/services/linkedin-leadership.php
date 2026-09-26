@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<link rel="stylesheet" href="<?= base_url('theme/linkedin-positioning.css') ?>">
+<link rel="stylesheet" href="<?= base_url('theme/linkedin-positioning.css') ?>?v=20260926-profile">
 <div class="hn-position hn-professional hn-profile-offer">
 <section class="hn-position-hero">
  <div class="hn-position-wrap hn-profile-hero-grid">
