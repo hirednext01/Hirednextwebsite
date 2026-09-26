@@ -7,7 +7,7 @@ $showCvCreationPitch = in_array($tier, ['ats_999', 'rebuild_2500', 'bundle_3317'
 $priceLabel = $plan['price_label'] ?? ('₹' . number_format((int)($order['amount'] ?? 0)));
 $regularPriceLabel = $plan['regular_price_label'] ?? null;
 $payableLabel = $plan['payable_label'] ?? ('₹' . number_format((int)($order['amount'] ?? 0)) . ' payable');
-$paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config\PaymentIdentity::destination()['temporary_qr_active']);
+$paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config\PaymentIdentity::destination()['temporary_qr_active'] || \Config\PaymentIdentity::bankTransfer()['active']);
 ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
@@ -96,7 +96,8 @@ $paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config
                     <form action="<?= base_url('cv-upgrade/' . esc($order['token'])) ?>" method="post" class="space-y-4">
                         <?= csrf_field() ?>
                         <div><label class="block text-sm font-bold text-primary mb-1">Email used with HiredNext *</label><input type="email" name="email" required value="<?= esc(old('email')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="you@example.com"></div>
-                        <div><label class="block text-sm font-bold text-primary mb-1">UPI transaction/reference number *</label><input name="payment_reference" required minlength="6" value="<?= esc(old('payment_reference')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Reference shown by your payment app"></div>
+                        <div><label class="block text-sm font-bold text-primary mb-1">Payment method</label><select name="payment_method" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white"><option value="upi">Paytm / UPI</option><option value="bank_transfer">Bank transfer (NEFT / IMPS)</option></select></div>
+                         <div><label class="block text-sm font-bold text-primary mb-1">UPI reference or bank UTR *</label><input name="payment_reference" required minlength="6" value="<?= esc(old('payment_reference')) ?>" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white" placeholder="Reference shown by your payment or bank app"></div>
                         <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-bold hover:opacity-90 transition">I have paid ₹<?= esc(number_format((int)($order['amount'] ?? 0))) ?> — Submit for verification</button>
                         <p class="text-xs text-gray-500 text-center">This career service improves positioning or preparation; it does not guarantee reach, interviews, hiring or placement.</p>
                     </form>

@@ -2,6 +2,7 @@
 use Config\PaymentIdentity;
 
 $payment = PaymentIdentity::destination();
+$bank = $payment['bank_transfer'];
 $amountLabel = trim((string)($amountLabel ?? ''));
 $secondaryLabel = trim((string)($secondaryLabel ?? ''));
 $contactEmail = trim((string)($contactEmail ?? $payment['payment_email']));
@@ -21,6 +22,21 @@ $contactEmail = trim((string)($contactEmail ?? $payment['payment_email']));
         <p class="mt-4 text-xs text-gray-500">After payment, submit the transaction reference below so the HiredNext team can verify it.</p>
     <?php else: ?>
         <p class="mt-3 text-sm text-gray-700 leading-relaxed"><strong>Secure online payment is temporarily unavailable.</strong></p>
+    <?php endif; ?>
+
+    <?php if (!empty($bank['active'])): ?>
+        <div class="mt-6 rounded-2xl border border-blue-200 bg-white p-5 text-left" data-hn-bank-transfer>
+            <div class="text-sm font-black text-primary">Or pay by bank transfer (INR)</div>
+            <p class="mt-2 text-xs text-gray-600">Add this beneficiary in your bank app for NEFT or IMPS. Check the beneficiary name before transferring.</p>
+            <dl class="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+                <dt class="text-gray-500">Beneficiary</dt><dd class="font-bold text-primary"><?= esc($bank['beneficiary']) ?></dd>
+                <dt class="text-gray-500">Bank</dt><dd class="font-semibold text-primary"><?= esc($bank['bank']) ?></dd>
+                <dt class="text-gray-500">Account</dt><dd class="font-semibold text-primary select-all break-all"><?= esc($bank['account_number']) ?></dd>
+                <dt class="text-gray-500">IFSC</dt><dd class="font-semibold text-primary select-all"><?= esc($bank['ifsc']) ?></dd>
+                <dt class="text-gray-500">Type</dt><dd class="text-gray-700"><?= esc($bank['account_type']) ?></dd>
+            </dl>
+            <p class="mt-4 text-xs text-gray-600">After transferring, submit your bank UTR below. A reference is not a payment confirmation; HiredNext verifies the exact receipt before delivery.</p>
+        </div>
     <?php endif; ?>
 
     <?php if ($amountLabel !== ''): ?><div class="mt-4 text-xl font-black text-primary"><?= esc($amountLabel) ?></div><?php endif; ?>

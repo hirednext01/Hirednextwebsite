@@ -30,12 +30,16 @@ class CvUpgrade extends BaseController
         [$order, $lead] = $this->loadOrder($token);
         $email = trim((string) $this->request->getPost('email'));
         $reference = trim((string) $this->request->getPost('payment_reference'));
+        $paymentMethod = trim((string) $this->request->getPost('payment_method')) ?: 'upi';
+        if (!in_array($paymentMethod, ['upi', 'bank_transfer'], true)) {
+            return redirect()->back()->withInput()->with('error', 'Please select a valid payment method.');
+        }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strcasecmp($email, (string) $lead['email']) !== 0) {
             return redirect()->back()->withInput()->with('error', 'Please enter the same email address used for your HiredNext CV request.');
         }
         if (strlen($reference) < 6) {
-            return redirect()->back()->withInput()->with('error', 'Please enter the UPI transaction/reference number shown by your payment app.');
+            return redirect()->back()->withInput()->with('error', 'Please enter the UPI reference or bank UTR shown by your payment app.');
         }
 
         if (in_array((string)($order['status'] ?? ''), ['verified', 'paid', 'captured', 'owner_confirmed', 'in_fulfilment', 'completed'], true)) {
@@ -58,6 +62,7 @@ class CvUpgrade extends BaseController
             'service_name' => $order['service_name'],
             'amount' => $order['amount'],
             'payment_reference' => $reference,
+            'payment_method' => $paymentMethod,
         ], null, 'web', 'pending_verification');
 
         $mailer = new CvCandidateMailer();

@@ -5,6 +5,13 @@ on:
     paths:
       - 'app/Views/components/business-payment-gate.php'
       - 'app/Config/PaymentIdentity.php'
+      - 'app/Controllers/CvPayment.php'
+      - 'app/Controllers/CvUpgrade.php'
+      - 'app/Controllers/Advisory.php'
+      - 'app/Views/pages/services/cv-payment.php'
+      - 'app/Views/pages/services/cv-payment-direct.php'
+      - 'app/Views/pages/services/cv-upgrade-payment.php'
+      - 'app/Views/pages/advisory-payment.php'
       - 'tests/payment_qr_scan_test.py'
       - 'tests/payment_identity_ironwall_test.php'
       - '.github/workflows/payment-qr-verify.yml'
@@ -13,6 +20,13 @@ on:
     paths:
       - 'app/Views/components/business-payment-gate.php'
       - 'app/Config/PaymentIdentity.php'
+      - 'app/Controllers/CvPayment.php'
+      - 'app/Controllers/CvUpgrade.php'
+      - 'app/Controllers/Advisory.php'
+      - 'app/Views/pages/services/cv-payment.php'
+      - 'app/Views/pages/services/cv-payment-direct.php'
+      - 'app/Views/pages/services/cv-upgrade-payment.php'
+      - 'app/Views/pages/advisory-payment.php'
       - 'tests/payment_qr_scan_test.py'
       - 'tests/payment_identity_ironwall_test.php'
       - '.github/workflows/payment-qr-verify.yml'
@@ -31,6 +45,9 @@ jobs:
         with:
           php-version: '8.2'
           coverage: none
+      - name: Verify payment PHP syntax
+        run: |
+          for file in app/Config/PaymentIdentity.php app/Views/components/business-payment-gate.php app/Controllers/CvPayment.php app/Controllers/CvUpgrade.php app/Controllers/Advisory.php app/Views/pages/services/cv-payment.php app/Views/pages/services/cv-payment-direct.php app/Views/pages/services/cv-upgrade-payment.php app/Views/pages/advisory-payment.php; do php -l "$file"; done
       - name: Install QR decoder
         run: |
           sudo apt-get update -qq

@@ -40,8 +40,12 @@ class CvPayment extends BaseController
     {
         $leadId = (int)$this->request->getPost('lead_id');
         $paymentReference = trim((string)$this->request->getPost('payment_reference'));
+        $paymentMethod = trim((string)$this->request->getPost('payment_method')) ?: 'upi';
+        if (!in_array($paymentMethod, ['upi', 'bank_transfer'], true)) {
+            return redirect()->back()->withInput()->with('errors', ['payment' => 'Please select a valid payment method.']);
+        }
         if (!$leadId || $paymentReference === '' || strlen($paymentReference) < 6) {
-            return redirect()->back()->withInput()->with('errors', ['payment' => 'Please enter the UPI transaction/reference number shown by your payment app.']);
+            return redirect()->back()->withInput()->with('errors', ['payment' => 'Please enter the UPI reference or bank UTR shown by your payment app.']);
         }
 
         $db = \Config\Database::connect();
@@ -72,6 +76,7 @@ class CvPayment extends BaseController
             'service' => 'Priority CV Assessment',
             'amount' => $amount,
             'payment_reference' => $paymentReference,
+            'payment_method' => $paymentMethod,
         ], null, 'web', 'pending_verification');
 
         $resumePath = ROOTPATH . ltrim((string)($lead['resume_path'] ?? ''), '/');
@@ -87,7 +92,7 @@ class CvPayment extends BaseController
         $email->setMessage(
             "HIREDNEXT CV REVIEW — PAYMENT REFERENCE SUBMITTED\n\n" .
             "Lead ID: {$leadId}\nName: " . ($lead['name'] ?? '') . "\nEmail: " . ($lead['email'] ?? '') . "\nPhone: " . ($lead['phone'] ?? '') . "\n" .
-            "Service: Priority CV Assessment / 12 hours\nAmount: {$priceDescription}\nUPI reference: {$paymentReference}\nPayment status: pending verification\n" .
+            "Service: Priority CV Assessment / 12 hours\nAmount: {$priceDescription}\nPayment method: {$paymentMethod}\nReference: {$paymentReference}\nPayment status: pending verification\n" .
             "Submitted: " . ($lead['created_at'] ?? '') . "\n\nMessage:\n" . (($lead['message'] ?? '') ?: '—') . "\n" .
             \App\Services\Cv\Automation\CvFulfilmentAccess::noticeForKey('assessment:' . $leadId)
         );
@@ -113,7 +118,7 @@ class CvPayment extends BaseController
         $email->setReplyTo('jobs@hirednext.info', 'HiredNext Jobs');
         $email->setSubject($ackSubject);
         \App\Services\HiredNextEmail::applyText($email, 'Payment reference received',
-            "Dear " . ($lead['name'] ?? 'Candidate') . ",\n\nThank you for asking HiredNext to review your CV. We have received your {$priceDescription} Priority CV Assessment request and UPI transaction reference.\n\n" .
+            "Dear " . ($lead['name'] ?? 'Candidate') . ",\n\nThank you for asking HiredNext to review your CV. We have received your {$priceDescription} Priority CV Assessment request and transaction reference.\n\n" .
             "Your payment is now pending verification. Once verified, the priority review will be taken up for the 12-hour review window.\n\nReference: {$paymentReference}\nRequest ID: {$leadId}\n\n" .
             "Please note: this is a paid professional CV-review service. HiredNext never charges candidates to apply for jobs or secure placement.\n\nRegards,\nHiredNext Jobs Team\njobs@hirednext.info\nhttps://hirednext.net\n"
         );
