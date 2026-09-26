@@ -372,7 +372,7 @@ class JobModel extends Model
 
     private static function publishedJobs(): array
     {
-        $jobs = self::PUBLISHED_JOBS;
+        $jobs = self::PUBLISHED_JOBS + \App\Libraries\BuyingHouseDesignJobs::publishedJobs();
 
         foreach (self::HUBLI_WOVEN_JOBS as $slug => $role) {
             $jobs[$slug] = [

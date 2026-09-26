@@ -673,6 +673,7 @@ class Home extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
 
+        $jobSchema = \App\Libraries\BuyingHouseDesignJobs::schemaFor($job, base_url('jobs/' . $job['slug']));
         $jobTitle = trim((string)($job['title'] ?? 'Job opportunity'));
         $jobLocation = trim((string)($job['location'] ?? 'India'));
         $jobSummary = $this->normaliseText($job['description'] ?? '');
@@ -686,6 +687,7 @@ class Home extends BaseController
             'title' => $jobTitle . ($jobLocation !== '' ? ' – ' . $jobLocation : '') . ' | HiredNext',
             'metaDescription' => $jobMetaDescription,
             'canonical' => base_url('jobs/' . $job['slug']),
+            'jsonLd' => $jobSchema ? json_encode($jobSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) : null,
             'currentPage' => 'jobs',
             'settings' => $settings,
             'job' => $job,
