@@ -131,7 +131,7 @@ class Advisory extends BaseController
 
         return view('pages/advisory-payment', [
             'title' => 'Complete Advisory Payment | HiredNext',
-            'metaDescription' => 'Secure HiredNext UPI payment and advisory request submission.',
+            'metaDescription' => 'HiredNext UPI or bank transfer payment reference and advisory request submission.',
             'canonical' => base_url('advisory'),
             'currentPage' => 'advisory',
             'settings' => $this->loadWebsiteSettings(),
@@ -153,14 +153,16 @@ class Advisory extends BaseController
             'name', 'email', 'phone', 'linkedin', 'current_role', 'designation', 'department',
             'years_experience', 'current_ctc', 'expected_ctc', 'current_location', 'preferred_location',
             'notice_period', 'education', 'college', 'course_taken', 'additional_courses',
-            'target_roles', 'challenge', 'decision', 'payment_reference'
+            'target_roles', 'challenge', 'decision', 'payment_reference', 'payment_method'
         ];
         $lead = [];
         foreach ($fields as $field) {
             $lead[$field] = trim((string) $this->request->getPost($field));
         }
 
-        $requiredMissing = $lead['name'] === ''
+        $lead['payment_method'] = $lead['payment_method'] ?: 'upi';
+        $requiredMissing = !in_array($lead['payment_method'], ['upi', 'bank_transfer'], true)
+            || $lead['name'] === ''
             || !filter_var($lead['email'], FILTER_VALIDATE_EMAIL)
             || $lead['phone'] === ''
             || $lead['linkedin'] === ''
@@ -189,14 +191,14 @@ class Advisory extends BaseController
         }
 
         if ($requiredMissing) {
-            return redirect()->back()->withInput()->with('error', 'Please complete the required advisory details and enter a valid UPI transaction/reference number.');
+            return redirect()->back()->withInput()->with('error', 'Please complete the required advisory details and enter a valid UPI reference or bank UTR.');
         }
 
         $subject = 'ACTION: ' . $plan['amount_label'] . ' advisory payment submitted — ' . $plan['name'] . ' — ' . $lead['name'];
         $message = "NEW HIREDNEXT ADVISORY PAYMENT SUBMISSION\n\n"
             . "Service: {$plan['name']}\n"
             . "Amount: {$plan['amount_label']}\n"
-            . "UPI reference: {$lead['payment_reference']}\n\n"
+            . "Payment method: {$lead['payment_method']}\nReference: {$lead['payment_reference']}\n\n"
             . "Name: {$lead['name']}\n"
             . "Email: {$lead['email']}\n"
             . "Phone: {$lead['phone']}\n"
@@ -257,7 +259,7 @@ class Advisory extends BaseController
         $email->setSubject('We have received your ' . $plan['name'] . ' request | HiredNext');
         $email->setMessage(
             "Dear {$lead['name']},\n\n" .
-            "Thank you for choosing HiredNext for {$plan['name']}. We have received your advisory request and UPI payment reference.\n\n" .
+            "Thank you for choosing HiredNext for {$plan['name']}. We have received your advisory request and payment reference.\n\n" .
             "Service: {$plan['name']}\n" .
             "Amount: {$plan['amount_label']}\n" .
             "Payment reference: {$lead['payment_reference']}\n" .
@@ -271,6 +273,6 @@ class Advisory extends BaseController
         }
 
         return redirect()->to('/advisory?payment=submitted&plan=' . rawurlencode($planKey))
-            ->with('success', 'Your payment reference and advisory request have been received. HiredNext will verify the UPI payment before confirming the appointment.');
+            ->with('success', 'Your payment reference and advisory request have been received. HiredNext will verify the payment before confirming the appointment.');
     }
 }
