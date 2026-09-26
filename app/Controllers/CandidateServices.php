@@ -57,11 +57,11 @@ class CandidateServices extends BaseController
     public function professionalCvRebuild()
     {
         return $this->careerProductPage('rebuild_2500', 'services/professional-cv-rebuild', [
-            'title' => 'Professional CV Writing & Resume Writing Service in India | HiredNext',
-            'metaDescription' => 'Professional CV writing and resume writing services in India for experienced professionals: recruiter-led, evidence-based rebuilding for ₹2,500 + GST with two CV variants and two revision rounds.',
+            'title' => 'Professional CV Writing, CV Making & Resume Writing Service in India | HiredNext',
+            'metaDescription' => 'Professional CV writing, CV making and resume writing service in India for experienced professionals: recruiter-led, evidence-based rebuilding for ₹2,500 + GST with two CV variants and two revision rounds.',
             'metaKeywords' => 'CV writing service India, professional CV writing service India, resume writing service India, professional resume writing India, CV making service India, CV rebuild India, resume rewriting India, CV remake India',
             'eyebrow' => 'Professional CV & Resume Writing · India',
-            'headline' => 'Professional CV writing and resume writing service in India—built from your real career evidence.',
+            'headline' => 'Professional CV writing, CV making and resume rebuilding in India—built from your real career evidence.',
             'intro' => 'HiredNext rebuilds the document from your actual career evidence: positioning, hierarchy, achievements, role language and recruiter readability. This is a managed rewrite by a recruitment-led team, not a template download.',
             'quickAnswer' => 'If you are comparing professional CV writing services or resume writing services in India, the core question is not whether the document sounds polished. It is whether a hiring manager can quickly understand your level, scope, progression, evidence and relevance. HiredNext rebuilds the CV around verified career facts so the finished document is clearer, stronger and easier to evaluate.',
             'whyHiredNext' => [
