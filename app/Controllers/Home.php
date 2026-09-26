@@ -85,7 +85,9 @@ class Home extends BaseController
         $settings = $this->loadWebsiteSettings();
 
         $data = [
-            'title' => 'About Us | HiredNext - Shaping Careers, Powering Organizations',
+            'title' => 'About HiredNext Recruitment | Founder, History & Approach',
+            'metaDescription' => 'Learn about HiredNext Recruitment, founded in Mumbai in 2016 and now operating from Gurugram as a remote, service-area talent advisory and executive search firm.',
+            'canonical' => base_url('about'),
             'currentPage' => 'about',
             'settings' => $settings,
         ];
@@ -98,7 +100,9 @@ class Home extends BaseController
         $settings = $this->loadWebsiteSettings();
 
         $data = [
-            'title' => 'Services | HiredNext - Shaping Careers, Powering Organizations',
+            'title' => 'Recruitment & Career Services in India | HiredNext',
+            'metaDescription' => 'Explore HiredNext executive search, permanent recruitment and RPO services for employers, plus clearly separated paid career services for professionals across India.',
+            'canonical' => base_url('services'),
             'currentPage' => 'services',
             'settings' => $settings,
         ];
@@ -228,6 +232,8 @@ class Home extends BaseController
 
         $data = [
             'title' => $industry['meta_title'] . ' | ' . ($settings['site_name'] ?? 'HiredNext'),
+            'metaDescription' => $this->truncateText($this->normaliseText($industry['intro'] ?? ''), 165),
+            'canonical' => base_url('industry/' . $industry['slug']),
             'currentPage' => 'industry',
             'settings' => $settings,
             'industry' => $industry,
@@ -249,6 +255,8 @@ class Home extends BaseController
 
         $data = [
             'title' => $region['meta_title'] . ' | ' . ($settings['site_name'] ?? 'HiredNext'),
+            'metaDescription' => $this->truncateText($this->normaliseText($region['intro'] ?? ''), 165),
+            'canonical' => base_url('regions/' . $region['slug']),
             'currentPage' => 'region',
             'settings' => $settings,
             'region' => $region,
@@ -267,7 +275,9 @@ class Home extends BaseController
         $settings = $this->loadWebsiteSettings();
 
         $data = [
-            'title' => 'Contact | HiredNext - Shaping Careers, Powering Organizations',
+            'title' => 'Contact HiredNext Recruitment | Employers & Professionals',
+            'metaDescription' => 'Contact HiredNext for executive search, leadership hiring, recruitment mandates or career-service support. Remote service-area business based in Gurugram.',
+            'canonical' => base_url('contact'),
             'currentPage' => 'contact',
             'settings' => $settings,
         ];
@@ -410,7 +420,9 @@ class Home extends BaseController
         $settings = $this->loadWebsiteSettings();
 
         $data = [
-            'title' => 'Press & Media | HiredNext - Shaping Careers, Powering Organizations',
+            'title' => 'Press & Media | HiredNext Recruitment',
+            'metaDescription' => 'Press and media information for HiredNext Recruitment, including company announcements and verified commentary on recruitment, leadership hiring and career services.',
+            'canonical' => base_url('press-media'),
             'currentPage' => 'press-media',
             'settings' => $settings,
             'press_media_items' => $this->loadActivePressMedia(),
@@ -569,7 +581,9 @@ class Home extends BaseController
         $settings = $this->loadWebsiteSettings();
 
         $data = [
-            'title' => 'Testimonials | HiredNext - Shaping Careers, Powering Organizations',
+            'title' => 'Client & Candidate Testimonials | HiredNext Recruitment',
+            'metaDescription' => 'Read published HiredNext client and candidate feedback about recruitment support and paid career services. Individual experiences and outcomes vary.',
+            'canonical' => base_url('testimonials'),
             'currentPage' => 'testimonials',
             'settings' => $settings,
             'testimonials' => $this->loadActiveReviews(),
@@ -620,7 +634,9 @@ class Home extends BaseController
         }
 
         $data = [
-            'title' => 'Jobs | HiredNext - Shaping Careers, Powering Organizations',
+            'title' => 'Current Jobs in India | Apply Free | HiredNext Recruitment',
+            'metaDescription' => 'Explore current roles shared by HiredNext Recruitment across India. Job applications are free; paid CV and interview services are separate and never required.',
+            'canonical' => base_url('jobs'),
             'currentPage' => 'jobs',
             'settings' => $settings,
             'jobs' => $builder->orderBy('created_at', 'DESC')->paginate($perPage),
@@ -657,8 +673,19 @@ class Home extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
 
+        $jobTitle = trim((string)($job['title'] ?? 'Job opportunity'));
+        $jobLocation = trim((string)($job['location'] ?? 'India'));
+        $jobSummary = $this->normaliseText($job['description'] ?? '');
+        $jobMetaDescription = $this->truncateText(
+            'Apply for ' . $jobTitle . ($jobLocation !== '' ? ' in ' . $jobLocation : '') . '. '
+            . ($jobSummary !== '' ? $jobSummary : 'Review the role requirements and apply free through HiredNext Recruitment.'),
+            165
+        );
+
         $data = [
-            'title' => ($job['title'] ?? 'Job') . ' | HiredNext',
+            'title' => $jobTitle . ($jobLocation !== '' ? ' – ' . $jobLocation : '') . ' | HiredNext',
+            'metaDescription' => $jobMetaDescription,
+            'canonical' => base_url('jobs/' . $job['slug']),
             'currentPage' => 'jobs',
             'settings' => $settings,
             'job' => $job,

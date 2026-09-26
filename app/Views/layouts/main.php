@@ -4,7 +4,10 @@
     <?php
     $settings = $settings ?? [];
     $pageTitle = $title ?? 'HiredNext | Executive Search & Leadership Recruitment Firm in India';
-    $metaDescription = $metaDescription ?? ($settings['meta_description'] ?? 'HiredNext is an executive search and recruitment firm in India specialising in leadership hiring, permanent recruitment and RPO solutions.');
+    $metaDescription = trim((string)($metaDescription ?? ''));
+    if ($metaDescription === '') {
+        $metaDescription = 'HiredNext Recruitment provides executive search, leadership hiring and specialist recruitment support across India.';
+    }
     $canonicalUrl = $canonical ?? current_url();
     $socialImage = $ogImage ?? base_url('theme/assets/home.jpeg');
     $socialType = $ogType ?? 'website';

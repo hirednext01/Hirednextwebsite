@@ -12,6 +12,7 @@ $sitemap = @file_get_contents($root . '/public/sitemap-search.xml') ?: '';
 $brand = @file_get_contents($root . '/app/Config/BrandFacts.php') ?: '';
 $entity = @file_get_contents($root . '/app/Controllers/EntityAuthority.php') ?: '';
 $home = @file_get_contents($root . '/app/Controllers/Home.php') ?: '';
+$layout = @file_get_contents($root . '/app/Views/layouts/main.php') ?: '';
 $contact = @file_get_contents($root . '/app/Views/pages/contact.php') ?: '';
 $searchAuthority = @file_get_contents($root . '/app/Controllers/SearchAuthority.php') ?: '';
 $indexNow = @file_get_contents($root . '/.github/workflows/indexnow.yml') ?: '';
@@ -43,6 +44,25 @@ $require(str_contains($home, "'foundingLocation'"), 'homepage schema must distin
 $require(str_contains($home, "'location'"), 'homepage schema must expose current operating location');
 $require(str_contains($home, "'name' => 'Mumbai'"), 'homepage schema must preserve Mumbai founding city');
 $require(str_contains($home, "'name' => 'Gurugram (Gurgaon), Haryana, India'"), 'homepage schema must expose Gurugram/Haryana current base');
+
+
+// Page metadata must be route-specific instead of inheriting one database fallback.
+$methodSource = static function (string $source, string $method): string {
+    $start = strpos($source, 'public function ' . $method . '(');
+    if ($start === false) return '';
+    $next = strpos($source, "\n    public function ", $start + 1);
+    return $next === false ? substr($source, $start) : substr($source, $start, $next - $start);
+};
+$metadataRoutes = ['about', 'services', 'industry', 'region', 'contact', 'pressMedia', 'testimonials', 'jobs', 'jobDetail'];
+foreach ($metadataRoutes as $method) {
+    $block = $methodSource($home, $method);
+    $require(str_contains($block, "'metaDescription'"), $method . ' must set a route-specific meta description');
+    $require(str_contains($block, "'canonical'"), $method . ' must set an explicit canonical URL');
+}
+$require(!str_contains($layout, "\$settings['meta_description']"), 'layout must not reuse one database meta description across unrelated routes');
+$require(str_contains($methodSource($home, 'industry'), "\$industry['intro']"), 'industry metadata must use the industry-specific introduction');
+$require(str_contains($methodSource($home, 'region'), "\$region['intro']"), 'region metadata must use the region-specific introduction');
+$require(str_contains($methodSource($home, 'jobDetail'), "\$jobMetaDescription"), 'job detail metadata must be derived from the specific role');
 
 // The public contact page must not publish stale city lists as office addresses.
 $require(str_contains($contact, '$addresses = [];'), 'contact page must suppress legacy office-address settings');
