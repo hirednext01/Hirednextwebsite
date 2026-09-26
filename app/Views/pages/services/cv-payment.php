@@ -5,7 +5,7 @@ $amount = (int)($lead['amount'] ?? 1171);
 $isNewAssessment = (($lead['assessment_plan'] ?? '') === 'priority_992');
 $priceLabel = $isNewAssessment ? '₹992 + GST' : ('₹' . number_format($amount));
 $payableLabel = '₹' . number_format($amount);
-$paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config\PaymentIdentity::destination()['temporary_qr_active']);
+$paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config\PaymentIdentity::destination()['temporary_qr_active'] || \Config\PaymentIdentity::bankTransfer()['active']);
 ?>
 <style>
     #navbar { background:#fff !important; box-shadow:0 8px 30px rgba(12,52,102,.08); padding-top:1rem !important; padding-bottom:1rem !important; }
@@ -55,7 +55,8 @@ $paymentAvailable = (\Config\PaymentIdentity::destination()['active'] || \Config
                 <?= csrf_field() ?>
                 <input type="hidden" name="lead_id" value="<?= esc($lead['id']) ?>">
                 <div class="text-[10px] uppercase tracking-[0.2em] text-accent font-black">Already paid?</div>
-                <label class="block text-sm font-bold text-primary">Submit the transaction/reference number</label>
+                <label class="block text-sm font-bold text-primary">Submit the UPI reference or bank UTR</label>
+                <label class="block text-sm font-bold text-primary mb-1">Payment method</label><select name="payment_method" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white"><option value="upi">Paytm / UPI</option><option value="bank_transfer">Bank transfer (NEFT / IMPS)</option></select>
                 <input name="payment_reference" required minlength="6" value="<?= esc(old('payment_reference')) ?>" placeholder="Enter the transaction/reference ID shown after payment" class="w-full border border-gray-200 rounded-xl px-4 py-3 bg-white">
                 <button type="submit" class="w-full bg-accent text-white py-4 rounded-xl font-bold hover:opacity-90 transition">I have paid <?= esc($payableLabel) ?> — Submit for verification</button>
                 <p class="text-xs text-gray-500 text-center">Use this only if payment is already complete. Payment remains pending until HiredNext verifies the transaction.</p>
